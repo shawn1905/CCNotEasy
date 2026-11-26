@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ArchivePanel } from './components/ArchivePanel'
 import { Bubble } from './components/Bubble'
 import { ChoiceBar } from './components/ChoiceBar'
 import { DesktopShell } from './components/DesktopShell'
 import { GlossModal } from './components/GlossModal'
-import { ReferencePanel } from './components/ReferencePanel'
 import {
   advanceAfterChoice,
   advanceLineOrNode,
@@ -24,7 +24,8 @@ const chapter = redCliffsEve
 export default function App() {
   const [state, setState] = useState<SaveState>(() => loadSave() ?? createInitialState())
   const [gloss, setGloss] = useState<GlossEntry | null>(null)
-  const [refsOpen, setRefsOpen] = useState(false)
+  const [archiveOpen, setArchiveOpen] = useState(false)
+  const [archiveModeHint, setArchiveModeHint] = useState<'本议' | '全库'>('本议')
   /** 刷新始终先回 boot；有存档用「继续」进入 */
   const [started, setStarted] = useState(false)
   const hasSave = Boolean(loadSave())
@@ -36,9 +37,11 @@ export default function App() {
   const revealed = lines.slice(0, state.lineIndex + 1)
   const showChoices = canShowChoices(chapter, state)
   const showTapHint = !showChoices && !state.ended && revealed.length > 0
-  const refCards: ReferenceCard[] = (node.refs ?? [])
-    .map((id) => chapter.refs[id])
-    .filter(Boolean)
+  const focusIds = node.refs ?? []
+  const allCards: ReferenceCard[] = useMemo(
+    () => Object.values(chapter.refs),
+    [],
+  )
 
   useEffect(() => {
     if (!started) return
@@ -46,7 +49,7 @@ export default function App() {
   }, [state, started])
 
   useEffect(() => {
-    setRefsOpen(false)
+    setArchiveOpen(false)
   }, [state.nodeId])
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function App() {
     const entry = chapter.gloss[id] ?? {
       id,
       title: id,
-      body: '词条尚未收录。请用抉择栏「本议史料」查看本段相关原文。',
+      body: '词条尚未收录。请打开「史料库」查看本段相关原文。',
     }
     setGloss(entry)
     setState((s) => ({
@@ -80,7 +83,7 @@ export default function App() {
   }
 
   function goBoot() {
-    setRefsOpen(false)
+    setArchiveOpen(false)
     setFreshIndex(null)
     setStarted(false)
   }
@@ -95,6 +98,11 @@ export default function App() {
   function continueGame() {
     setState(loadSave() ?? createInitialState())
     setStarted(true)
+  }
+
+  function openArchive(mode: '本议' | '全库') {
+    setArchiveModeHint(mode)
+    setArchiveOpen(true)
   }
 
   if (!started) {
@@ -114,7 +122,7 @@ export default function App() {
             曹操不容易
           </h1>
           <p className="max-w-sm text-[0.95rem] leading-relaxed mb-8" style={{ color: 'var(--fg)' }}>
-            {chapter.title} · 史料加强版。点蓝词看词条；抉择时打开「本议史料」。
+            {chapter.title} · 史料库加厚版。点蓝词看词条；随时翻「史料库」；抉择时看「本议」。
           </p>
           {hasSave ? (
             <>
@@ -160,9 +168,18 @@ export default function App() {
       title="ccnoteasy://dialogue"
       subtitle={node.title ?? chapter.title}
       trailing={
-        <button type="button" className="console-btn" onClick={goBoot}>
-          boot
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="console-btn"
+            onClick={() => openArchive('全库')}
+          >
+            史料库
+          </button>
+          <button type="button" className="console-btn" onClick={goBoot}>
+            boot
+          </button>
+        </div>
       }
     >
       <div
@@ -197,6 +214,16 @@ export default function App() {
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
+                openArchive('全库')
+              }}
+              className="console-btn"
+            >
+              ./archive
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
                 newGame()
               }}
               className="px-4 py-2 text-sm font-mono-ui choice-card"
@@ -212,17 +239,19 @@ export default function App() {
         <ChoiceBar
           choices={node.choices}
           onPick={onPick}
-          hasRefs={refCards.length > 0}
-          onOpenRefs={() => setRefsOpen(true)}
+          hasRefs={focusIds.length > 0}
+          onOpenRefs={() => openArchive('本议')}
         />
       ) : null}
 
       <GlossModal entry={gloss} onClose={() => setGloss(null)} />
-      <ReferencePanel
-        open={refsOpen}
-        title={node.title ?? chapter.title}
-        cards={refCards}
-        onClose={() => setRefsOpen(false)}
+      <ArchivePanel
+        open={archiveOpen}
+        onClose={() => setArchiveOpen(false)}
+        allCards={allCards}
+        focusIds={focusIds}
+        sceneTitle={node.title ?? chapter.title}
+        initialMode={archiveModeHint}
       />
     </DesktopShell>
   )

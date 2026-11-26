@@ -9,7 +9,7 @@ import type {
   SceneNode,
 } from './types'
 
-const STORAGE_KEY = 'ccne-red-cliffs-eve-v4'
+const STORAGE_KEY = 'ccne-red-cliffs-eve-v5'
 
 export const DEFAULT_FLAGS: Flags = {
   haste: false,
@@ -101,53 +101,115 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
       speaker: 'system',
       text: '【战报】建安十三年 · 赤壁—乌林对峙段（据抉择拼装，非单一史文照抄）',
     },
+    {
+      speaker: 'system',
+      text: '读法：先日历，次名册，次泊距，次观降。短利与利息分行；风只接最后一截。',
+    },
   ]
 
   if (flags.haste) {
     lines.push({
       speaker: 'cheng',
-      text: '日历：你抢了窗口。旗先动，更始与舰籍后置——势在，缝不在。',
+      text: '一、日历：你抢了窗口。旗先动，更始与舰籍后置——势在，缝不在。会猎时效被你买下；政治债与未验舰籍随舷。',
+    })
+    lines.push({
+      speaker: 'jia',
+      text: '（callback）江陵那夜的欢呼，利息从咳与观降来收。四患不是咒，是你签过的认领书。',
     })
   } else {
     lines.push({
       speaker: 'cheng',
-      text: '日历：你买了缝。编制稍实，会猎的势淡了一截；敌方多出的准备，也记在你账上。',
+      text: '一、日历：你买了缝。编制稍实，会猎的势淡了一截；敌方多出的准备，也记在你账上。',
+    })
+    lines.push({
+      speaker: 'jia',
+      text: '（callback）帐外「怯」字没有消失，它变成了编制里多出来的几天同鼓点——贵，且可能仍不够。',
     })
   }
 
   if (flags.plague_honesty) {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：你让名册说实话。可战者变少，调度却不再拿假人数去撞。',
+      text: '二、疾疫：你让名册说实话。可战者变少，调度却不再拿假人数去撞。示弱的笑会进江东营；活人留在你这边。',
+    })
+    lines.push({
+      speaker: 'xun',
+      text: '史句对照：已有疾病 / 大疫还军 / 烧船自退。你选了前半句进名册，而不是只留给事后书。',
     })
   } else {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：你让名册说谎。好看的编制上了江——咳也上了江。',
+      text: '二、疾疫：你让名册说谎。好看的编制上了江——咳也上了江。传染链与假满员同船。',
+    })
+    lines.push({
+      speaker: 'xun',
+      text: '史句对照：以疲病之卒，御狐疑之众。上半句你正在供货；下半句在降附里另计。',
     })
   }
 
   if (flags.loose_ships) {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：疏泊、砍缆、防火道。火难一网；指挥变难看，夜已经在收利息。',
+      text: '三、船阵：疏泊、砍缆、防火道。火难一网；指挥变难看，夜损与骂名已记账。',
+    })
+    lines.push({
+      speaker: 'jia',
+      text: '「难与持久」的双刃：你防火，也可能把战争拖进敌方更怕、更擅长熬的节奏。旁支从难看开始。',
     })
   } else {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：密泊相接，号令如营。别人眼里那句「可烧而走」，被你亲手摆好。',
+      text: '三、船阵：密泊相接，号令如营。别人眼里那句「可烧而走」，被你亲手摆好。省力是真的；靶标也是真的。',
+    })
+    lines.push({
+      speaker: 'jia',
+      text: '初战不利之后，整齐更像安慰，也更像柴堆。体验政治绑架过决策——战报照记。',
     })
   }
 
   if (flags.suspect_defection) {
     lines.push({
       speaker: 'jia',
-      text: '来降：你把「恐诈」写成条令。火船难近；持久的牙开始咬人。',
+      text: '四、来降：你把「恐诈」写成条令——射程外停泊、禁出营。火船难近；持久的牙与骂名同时咬。',
+    })
+    lines.push({
+      speaker: 'cheng',
+      text: '怕变成了距。密问只是心情；条令才是防。你付了扫兴的政治成本。',
     })
   } else {
     lines.push({
       speaker: 'jia',
-      text: '来降：你把短利写成观降。伸脖子的距离，就是火进来的距离。',
+      text: '四、来降：你把短利写成观降。许赏→期待→观验→失距。伸脖子的距离，就是火进来的距离。',
+    })
+    lines.push({
+      speaker: 'cheng',
+      text: '指言盖降。集体认知一旦形成，火与欢呼同向。史路很干净——干净往往致命。',
+    })
+  }
+
+  // cross terms
+  if (!flags.loose_ships && !flags.suspect_defection) {
+    lines.push({
+      speaker: 'system',
+      text: '【交叉】密泊 × 观降：失距烧的是整泊区。这是史实灰最常见的组合。',
+    })
+  }
+  if (flags.loose_ships && flags.suspect_defection) {
+    lines.push({
+      speaker: 'system',
+      text: '【交叉】疏泊 × 禁观：火攻期望下降，相持与骂名上升。苦持组合。',
+    })
+  }
+  if (flags.plague_honesty && !flags.haste) {
+    lines.push({
+      speaker: 'system',
+      text: '【交叉】实报 × 留抚：势最弱，数最真。摊牌余生的土壤。',
+    })
+  }
+  if (!flags.plague_honesty && flags.haste) {
+    lines.push({
+      speaker: 'system',
+      text: '【交叉】压报 × 赶日历：势最强，缝最薄。短利叠短利，利息叠利息。',
     })
   }
 
@@ -159,8 +221,13 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
   }
 
   lines.push({
+    speaker: 'soldier',
+    text: '风盛。烟不是炊烟。后文见结局卷。',
+  })
+
+  lines.push({
     speaker: 'system',
-    text: '结算：疾疫在前，泊距与观降决定火是否一次烧穿。风只负责最后一截——前面四笔是你签的。',
+    text: '结算：疾疫在前，泊距与观降决定火是否一次烧穿。风只负责最后一截——前面四笔是你签的。母题：绝对优势为什么会失效？',
   })
 
   return lines

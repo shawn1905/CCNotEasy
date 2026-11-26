@@ -26,3 +26,14 @@
 ## 引擎
 
 `src/game/content/redCliffsEve.ts`
+
+
+---
+
+## v5 加厚 · 对话 + 史料库
+
+- 对话：每难加长庭议、回执、过场（含名册之后 / 降书之后）；战报按 flag 交叉拼装
+- gloss：独立 `src/game/content/gloss.ts`（词条加厚）
+- dossiers：`src/game/content/dossiers/all.ts` 分题全档（江陵日历 / 疾疫名册 / 船阵 / 来降 / 总览）
+- UI：标题栏「史料库」全档翻阅 + 本议筛选 / 分题 / 搜索；抉择栏「本议史料」直达本段
+- 存档键 bump → `ccne-red-cliffs-eve-v5`

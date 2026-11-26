@@ -41,6 +41,8 @@ export type ReferenceCard = {
   leans: 'A' | 'B' | 'both'
   /** 一层标签：史载 / 注 / 推演边界 */
   layer: 'A' | 'B' | 'C'
+  /** 史料库分题 */
+  topic?: string
 }
 
 export type SceneNode = {
