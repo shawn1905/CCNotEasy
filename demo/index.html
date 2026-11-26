@@ -4748,14 +4748,18 @@ window.CC_STORY = {
   let sfxGain = null;
   let noiseBuffer = null;
 
-  // HTML5 Audio element for the chapter BGM loop
+  // BGM state: Primary = Web Audio AudioBufferSourceNode (true gapless infinite loop on mobile)
+  // Fallback = plain HTML5 <audio> (for file:// where fetch is blocked) -> Warm synth pad
   let bgmSrc = "./bgm-red-cliffs.mp3";
   let bgmMoodRates = { calm: 1.0, tense: 0.94, fire: 0.88 };
+  let bgmBuffer = null;
+  let bgmBufferSrcUrl = null;
+  let bgmBufferLoading = false;
+  let bgmBufferNode = null;
   let bgmAudioEl = null;
-  let bgmMediaSource = null;
   let bgmFallbackNodes = null;
-  let bgmUsingFallback = false;
-  let bgmLoadAttempted = false;
+  let bgmUsingElFallback = false;
+  let bgmUsingSynthFallback = false;
 
   let enabled = false;      // Master audio state (starts off until user gesture / toggle)
   let bgmEnabled = true;    // Ambient BGM flag when master is enabled
@@ -4881,13 +4885,14 @@ window.CC_STORY = {
     if (!cfg || typeof cfg !== "object") return;
     if (cfg.src && cfg.src !== bgmSrc) {
       bgmSrc = cfg.src;
-      if (bgmAudioEl) {
-        const wasPlaying = !bgmAudioEl.paused;
-        bgmAudioEl.src = bgmSrc;
-        bgmUsingFallback = false;
-        if (wasPlaying && enabled && bgmEnabled) {
-          bgmAudioEl.play().catch(function () {});
-        }
+      bgmBuffer = null;
+      bgmBufferSrcUrl = null;
+      bgmBufferLoading = false;
+      bgmUsingElFallback = false;
+      bgmUsingSynthFallback = false;
+      if (bgmBufferNode || bgmAudioEl) {
+        stopBgmLoop();
+        if (enabled && bgmEnabled) startBgmLoop();
       }
     }
     if (cfg.moodRates && typeof cfg.moodRates === "object") {
@@ -4896,62 +4901,132 @@ window.CC_STORY = {
     }
   }
 
-  function initBgmElement() {
-    if (bgmAudioEl) return;
-    bgmLoadAttempted = true;
+  function startBufferNode() {
+    if (!ctx || !bgmGain || !bgmBuffer || !enabled || !bgmEnabled) return;
+    stopBufferNode();
     try {
+      const node = ctx.createBufferSource();
+      node.buffer = bgmBuffer;
+      node.loop = true;
+      node.loopStart = 0;
+      node.loopEnd = bgmBuffer.duration;
+      const rate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
+      node.playbackRate.setValueAtTime(rate, ctx.currentTime);
+      node.connect(bgmGain);
+      node.start(0);
+      bgmBufferNode = node;
+      updateBgmMoodGain();
+    } catch (e) {
+      startElFallback();
+    }
+  }
+
+  function stopBufferNode() {
+    if (bgmBufferNode) {
+      try {
+        bgmBufferNode.stop();
+        bgmBufferNode.disconnect();
+      } catch (e) {}
+      bgmBufferNode = null;
+    }
+  }
+
+  function startElFallback() {
+    bgmUsingElFallback = true;
+    if (!bgmAudioEl || bgmAudioEl._srcUrl !== bgmSrc) {
       const el = new Audio(bgmSrc);
+      el._srcUrl = bgmSrc;
       el.loop = true;
       el.preload = "auto";
-      el.volume = 0.42;
-      el.addEventListener("error", function () {
-        bgmUsingFallback = true;
-        if (enabled && bgmEnabled && ensureContext()) {
-          startFallbackPad();
+      el.volume = 0.44;
+      // Explicit ended handler as belt-and-suspenders for mobile browsers
+      el.addEventListener("ended", function () {
+        if (enabled && bgmEnabled && !document.hidden) {
+          el.currentTime = 0;
+          el.play().catch(function () {});
         }
       });
+      el.addEventListener("error", function () {
+        bgmUsingSynthFallback = true;
+        if (enabled && bgmEnabled && ensureContext()) startFallbackPad();
+      });
       bgmAudioEl = el;
-
-      // Route through Web Audio if same-origin allows it; otherwise play directly via <audio>
-      if (ctx && !bgmMediaSource && global.location && global.location.protocol !== "file:") {
-        try {
-          bgmMediaSource = ctx.createMediaElementSource(el);
-          bgmMediaSource.connect(bgmGain);
-          el.volume = 1.0;
-        } catch (e) {
-          bgmMediaSource = null;
-        }
-      }
-    } catch (e) {
-      bgmUsingFallback = true;
     }
+    updateBgmMoodGain();
+    const p = bgmAudioEl.play();
+    if (p && typeof p.catch === "function") {
+      p.catch(function () {
+        if (bgmAudioEl && bgmAudioEl.error) {
+          bgmUsingSynthFallback = true;
+          if (ensureContext()) startFallbackPad();
+        }
+      });
+    }
+  }
+
+  function loadAndPlayBgmBuffer() {
+    if (!ensureContext()) return;
+    if (bgmBuffer && bgmBufferSrcUrl === bgmSrc) {
+      startBufferNode();
+      return;
+    }
+    if (bgmBufferLoading) return;
+
+    // On file:// protocol, fetch() is blocked by CORS — go straight to plain <audio>
+    if (global.location && global.location.protocol === "file:") {
+      startElFallback();
+      return;
+    }
+
+    if (typeof global.fetch !== "function") {
+      startElFallback();
+      return;
+    }
+
+    bgmBufferLoading = true;
+    const targetUrl = bgmSrc;
+    global.fetch(targetUrl)
+      .then(function (resp) {
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return resp.arrayBuffer();
+      })
+      .then(function (arrBuf) {
+        return new Promise(function (resolve, reject) {
+          const p = ctx.decodeAudioData(arrBuf, resolve, reject);
+          if (p && typeof p.then === "function") p.then(resolve, reject);
+        });
+      })
+      .then(function (decoded) {
+        bgmBufferLoading = false;
+        bgmBuffer = decoded;
+        bgmBufferSrcUrl = targetUrl;
+        if (enabled && bgmEnabled && !document.hidden) {
+          startBufferNode();
+        }
+      })
+      .catch(function () {
+        bgmBufferLoading = false;
+        if (enabled && bgmEnabled && !document.hidden) {
+          startElFallback();
+        }
+      });
   }
 
   function startBgmLoop() {
     if (!enabled || !bgmEnabled) return;
-    if (!bgmLoadAttempted) initBgmElement();
-
-    if (bgmUsingFallback) {
+    if (bgmUsingSynthFallback) {
       if (ensureContext()) startFallbackPad();
       return;
     }
-
-    if (bgmAudioEl) {
-      updateBgmMoodGain();
-      const p = bgmAudioEl.play();
-      if (p && typeof p.catch === "function") {
-        p.catch(function () {
-          // If blocked or missing, fall back smoothly
-          if (bgmAudioEl.error) {
-            bgmUsingFallback = true;
-            if (ensureContext()) startFallbackPad();
-          }
-        });
-      }
+    if (bgmUsingElFallback) {
+      startElFallback();
+      return;
     }
+    loadAndPlayBgmBuffer();
   }
 
   function stopBgmLoop() {
+    stopBufferNode();
     if (bgmAudioEl) {
       try { bgmAudioEl.pause(); } catch (e) {}
     }
@@ -4960,11 +5035,15 @@ window.CC_STORY = {
 
   function updateBgmMoodGain() {
     const targetRate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
-    const targetVol = currentMood === "fire" ? 0.36 : 0.44;
+    const targetVol = currentMood === "fire" ? 0.38 : 0.46;
+    if (ctx && bgmBufferNode && bgmBufferNode.playbackRate) {
+      try {
+        bgmBufferNode.playbackRate.setTargetAtTime(targetRate, ctx.currentTime, 0.35);
+      } catch (e) {}
+    }
     if (bgmAudioEl) {
       try {
-        bgmAudioEl.playbackRate = targetRate;
-        if (!bgmMediaSource) bgmAudioEl.volume = targetVol;
+        bgmAudioEl.volume = targetVol;
       } catch (e) {}
     }
     if (ctx && bgmGain) {
