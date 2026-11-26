@@ -20,6 +20,10 @@
   --special: #ad8ee6;
   --earth: #75493d;
   --radius: 2px;
+  --glass: rgba(26, 27, 38, 0.58);
+  --glass-strong: rgba(19, 20, 28, 0.72);
+  --glass-border: rgba(122, 162, 247, 0.35);
+  --glass-highlight: rgba(192, 202, 245, 0.12);
   color-scheme: dark;
 }
 
@@ -35,7 +39,7 @@ body,
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg-darker);
   color: var(--fg);
   font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,6 +47,239 @@ body {
 
 .font-mono-ui {
   font-family: "JetBrains Mono", "Sarasa Mono SC", "Noto Sans Mono CJK SC", ui-monospace, monospace;
+}
+
+/* —— Omarchy desktop shell —— */
+
+.desktop-root {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.desktop-wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Liftoff / dusk atmosphere: cold cyber base + fire-cloud horizon */
+.desktop-wallpaper__dusk {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 78% 12%, rgba(255, 158, 100, 0.55) 0%, transparent 58%),
+    radial-gradient(ellipse 55% 40% at 12% 22%, rgba(247, 118, 142, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 45% at 35% 35%, rgba(173, 142, 230, 0.32) 0%, transparent 55%),
+    radial-gradient(ellipse 110% 55% at 50% 92%, rgba(122, 162, 247, 0.35) 0%, transparent 50%),
+    linear-gradient(
+      160deg,
+      #07080f 0%,
+      #10121c 22%,
+      #1a1424 42%,
+      #3a1f28 58%,
+      #6b3a22 72%,
+      #c45a2a 86%,
+      #1a1b26 100%
+    );
+}
+
+.desktop-wallpaper__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(rgba(122, 162, 247, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 162, 247, 0.18) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 95%);
+}
+
+.desktop-wallpaper__scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.35) 3px
+  );
+}
+
+.desktop-wallpaper__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 75% 70% at 50% 42%, transparent 40%, rgba(8, 8, 14, 0.55) 100%);
+}
+
+.desktop-stage {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+}
+
+.desktop-stage--compact {
+  align-items: center;
+}
+
+.console-window {
+  width: min(28rem, 100%);
+  height: min(100%, 52rem);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 0 40px rgba(122, 162, 247, 0.12),
+    0 22px 56px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  overflow: hidden;
+}
+
+.desktop-stage--compact .console-window {
+  height: auto;
+  max-height: min(88vh, 40rem);
+}
+
+.console-titlebar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--glass-strong);
+  border-bottom: 1px solid rgba(65, 72, 104, 0.65);
+  flex-shrink: 0;
+}
+
+.console-traffic {
+  display: flex;
+  gap: 6px;
+}
+
+.console-traffic span {
+  width: 9px;
+  height: 9px;
+  border-radius: 1px;
+  display: block;
+  opacity: 0.85;
+}
+
+.console-traffic span:nth-child(1) {
+  background: var(--danger);
+}
+.console-traffic span:nth-child(2) {
+  background: var(--warn);
+}
+.console-traffic span:nth-child(3) {
+  background: var(--ok);
+}
+
+.console-title {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.console-title > span:first-child {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--fg-bright);
+}
+
+.console-title__sub {
+  font-size: 0.65rem;
+  color: var(--fg-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.console-trailing {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.console-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg,
+    rgba(36, 40, 59, 0.35) 0%,
+    rgba(26, 27, 38, 0.25) 100%
+  );
+}
+
+.console-btn {
+  font-family: inherit;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  color: var(--fg-dim);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.console-btn:hover {
+  color: var(--fg-bright);
+  border-color: var(--muted);
+  background: rgba(41, 46, 66, 0.6);
+}
+
+.bubble-panel {
+  background: rgba(36, 40, 59, 0.62);
+  border: 1px solid rgba(122, 162, 247, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.choice-dock {
+  background: rgba(19, 20, 28, 0.62);
+  border-top: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.choice-card {
+  background: rgba(36, 40, 59, 0.55);
+  border: 1px solid rgba(65, 72, 104, 0.75);
+  border-radius: var(--radius);
+  transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.choice-card:hover,
+.choice-card:focus-visible {
+  border-color: var(--accent);
+  background: rgba(41, 46, 66, 0.9);
+  box-shadow: 0 0 0 1px rgba(122, 162, 247, 0.25);
+  outline: none;
+}
+
+.glass-modal {
+  background: rgba(36, 40, 59, 0.88);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 @keyframes bubble-in {
@@ -75,9 +312,23 @@ body {
   animation: choices-up 150ms ease-out both;
 }
 
+@keyframes dusk-drift {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+.desktop-wallpaper__dusk {
+  animation: dusk-drift 28s ease-in-out alternate infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bubble-enter,
-  .choices-enter {
+  .choices-enter,
+  .desktop-wallpaper__dusk {
     animation: none;
   }
 }

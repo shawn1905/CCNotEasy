@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Bubble } from './components/Bubble'
 import { ChoiceBar } from './components/ChoiceBar'
+import { DesktopShell } from './components/DesktopShell'
 import { GlossModal } from './components/GlossModal'
 import {
   advanceAfterChoice,
@@ -30,8 +31,7 @@ export default function App() {
   const lines = currentLines(chapter, state)
   const revealed = lines.slice(0, state.lineIndex + 1)
   const showChoices = canShowChoices(chapter, state)
-  const showTapHint =
-    !showChoices && !state.ended && revealed.length > 0
+  const showTapHint = !showChoices && !state.ended && revealed.length > 0
 
   useEffect(() => {
     persistSave(state)
@@ -73,93 +73,56 @@ export default function App() {
 
   if (!started) {
     return (
-      <div
-        className="min-h-full flex flex-col items-center justify-center px-6"
-        data-theme="tokyo-night"
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% -10%, #24283b 0%, transparent 55%),
-            linear-gradient(180deg, var(--bg-darker) 0%, var(--bg) 40%, #1f2335 100%)
-          `,
-        }}
-      >
-        <p
-          className="font-mono-ui text-[0.7rem] tracking-[0.25em] uppercase mb-4"
-          style={{ color: 'var(--fg-dim)' }}
-        >
-          CCNotEasy
-        </p>
-        <h1
-          className="text-4xl sm:text-5xl font-semibold tracking-tight text-center mb-3"
-          style={{ color: 'var(--fg-bright)' }}
-        >
-          曹操不容易
-        </h1>
-        <p
-          className="text-center max-w-sm text-[0.95rem] leading-relaxed mb-8"
-          style={{ color: 'var(--fg)' }}
-        >
-          {chapter.title} · 史料锚定的双害抉择。点气泡推进，点蓝词看出处。
-        </p>
-        <button
-          type="button"
-          onClick={() => setStarted(true)}
-          className="px-6 py-3 text-[0.95rem] font-medium"
-          style={{
-            background: 'var(--accent)',
-            color: 'var(--bg-darker)',
-            borderRadius: 'var(--radius)',
-          }}
-        >
-          进入今夜
-        </button>
-        {loadSave() ? (
-          <button
-            type="button"
-            onClick={restart}
-            className="mt-3 text-sm"
+      <DesktopShell title="ccnoteasy://boot" subtitle="omarchy · tokyo-night" compact>
+        <div className="flex flex-col items-center px-6 py-10 text-center">
+          <p
+            className="font-mono-ui text-[0.65rem] tracking-[0.28em] uppercase mb-5"
             style={{ color: 'var(--fg-dim)' }}
           >
-            清除存档重开
+            SESSION · RED-CLIFFS-EVE
+          </p>
+          <h1
+            className="text-4xl sm:text-[2.75rem] font-semibold tracking-tight mb-3"
+            style={{ color: 'var(--fg-bright)' }}
+          >
+            曹操不容易
+          </h1>
+          <p className="max-w-sm text-[0.95rem] leading-relaxed mb-8" style={{ color: 'var(--fg)' }}>
+            {chapter.title} · 史料锚定的双害抉择。点气泡推进，点蓝词看出处。
+          </p>
+          <button
+            type="button"
+            onClick={() => setStarted(true)}
+            className="px-6 py-3 text-[0.95rem] font-medium font-mono-ui"
+            style={{
+              background: 'var(--accent)',
+              color: 'var(--bg-darker)',
+              borderRadius: 'var(--radius)',
+              boxShadow: '0 0 24px rgba(122, 162, 247, 0.25)',
+            }}
+          >
+            ./enter_tonight
           </button>
-        ) : null}
-      </div>
+          {loadSave() ? (
+            <button type="button" onClick={restart} className="console-btn mt-4">
+              clear_save && reboot
+            </button>
+          ) : null}
+        </div>
+      </DesktopShell>
     )
   }
 
   return (
-    <div
-      className="h-full flex flex-col max-w-lg mx-auto"
-      data-theme="tokyo-night"
-      style={{
-        background: `
-          radial-gradient(ellipse 120% 40% at 50% 0%, #1f2335 0%, transparent 50%),
-          var(--bg)
-        `,
-      }}
-    >
-      <header
-        className="flex items-center justify-between px-4 py-3 shrink-0"
-        style={{ borderBottom: '1px solid var(--muted)' }}
-      >
-        <div>
-          <div className="font-mono-ui text-[0.65rem] tracking-wider" style={{ color: 'var(--fg-dim)' }}>
-            曹操不容易
-          </div>
-          <div className="text-sm" style={{ color: 'var(--fg-bright)' }}>
-            {node.title ?? chapter.title}
-          </div>
-        </div>
-        <button
-          type="button"
-          onClick={restart}
-          className="text-[0.75rem] px-2 py-1"
-          style={{ color: 'var(--fg-dim)' }}
-        >
-          重开
+    <DesktopShell
+      title="ccnoteasy://dialogue"
+      subtitle={node.title ?? chapter.title}
+      trailing={
+        <button type="button" className="console-btn" onClick={restart}>
+          reboot
         </button>
-      </header>
-
+      }
+    >
       <div
         ref={scroller}
         className="flex-1 overflow-y-auto py-4 flex flex-col gap-3 cursor-pointer"
@@ -180,13 +143,13 @@ export default function App() {
             className="text-center text-[0.7rem] font-mono-ui pt-2 pb-4"
             style={{ color: 'var(--fg-dim)' }}
           >
-            轻触继续
+            tap to continue _
           </p>
         ) : null}
         {state.ended ? (
-          <div className="px-4 pt-2 pb-6 flex flex-col gap-2">
-            <p className="text-center text-sm" style={{ color: 'var(--fire)' }}>
-              本章结束 · Demo
+          <div className="px-4 pt-2 pb-6 flex flex-col gap-2 items-center">
+            <p className="text-center text-sm font-mono-ui" style={{ color: 'var(--fire)' }}>
+              EOF · chapter demo
             </p>
             <button
               type="button"
@@ -194,15 +157,10 @@ export default function App() {
                 e.stopPropagation()
                 restart()
               }}
-              className="mx-auto px-4 py-2 text-sm"
-              style={{
-                background: 'var(--bg-light)',
-                border: '1px solid var(--muted)',
-                borderRadius: 'var(--radius)',
-                color: 'var(--fg-bright)',
-              }}
+              className="px-4 py-2 text-sm font-mono-ui choice-card"
+              style={{ color: 'var(--fg-bright)' }}
             >
-              再玩一局
+              ./replay
             </button>
           </div>
         ) : null}
@@ -213,6 +171,6 @@ export default function App() {
       ) : null}
 
       <GlossModal entry={gloss} onClose={() => setGloss(null)} />
-    </div>
+    </DesktopShell>
   )
 }

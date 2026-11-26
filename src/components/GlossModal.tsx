@@ -10,17 +10,13 @@ export function GlossModal({ entry, onClose }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
-      style={{ background: 'rgba(14, 14, 20, 0.72)' }}
+      style={{ background: 'rgba(8, 8, 14, 0.55)' }}
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="w-full max-w-md px-4 py-4 choices-enter"
-        style={{
-          background: 'var(--bg-light)',
-          borderRadius: 'var(--radius)',
-          border: '1px solid var(--muted)',
-        }}
+        className="glass-modal w-full max-w-md px-4 py-4 choices-enter"
+        style={{ borderRadius: '4px' }}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -29,18 +25,13 @@ export function GlossModal({ entry, onClose }: Props) {
         <div className="flex items-baseline justify-between gap-3 mb-2">
           <h2
             id="gloss-title"
-            className="text-lg font-semibold"
+            className="text-lg font-semibold font-mono-ui"
             style={{ color: 'var(--accent)' }}
           >
             {entry.title}
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-sm px-2 py-1"
-            style={{ color: 'var(--fg-dim)' }}
-          >
-            关闭
+          <button type="button" onClick={onClose} className="console-btn">
+            esc
           </button>
         </div>
         <p className="text-[0.95rem] leading-relaxed" style={{ color: 'var(--fg-bright)' }}>
@@ -48,7 +39,7 @@ export function GlossModal({ entry, onClose }: Props) {
         </p>
         {entry.source ? (
           <p className="mt-3 text-[0.75rem] font-mono-ui" style={{ color: 'var(--fg-dim)' }}>
-            {entry.source}
+            src · {entry.source}
           </p>
         ) : null}
       </div>

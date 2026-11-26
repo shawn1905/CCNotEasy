@@ -5,7 +5,7 @@ const SPEAKER_META: Record<
   Speaker,
   { name: string; side: 'left' | 'right' | 'center'; color: string }
 > = {
-  system: { name: '系统', side: 'center', color: 'var(--fg-dim)' },
+  system: { name: 'sys', side: 'center', color: 'var(--fg-dim)' },
   cao: { name: '曹操', side: 'right', color: 'var(--accent)' },
   cheng: { name: '程昱', side: 'left', color: 'var(--ok)' },
   jia: { name: '贾诩', side: 'left', color: 'var(--special)' },
@@ -24,11 +24,9 @@ export function Bubble({ speaker, text, onGloss, fresh }: Props) {
   const meta = SPEAKER_META[speaker]
   if (meta.side === 'center') {
     return (
-      <div
-        className={`flex justify-center px-3 ${fresh ? 'bubble-enter' : ''}`}
-      >
+      <div className={`flex justify-center px-3 ${fresh ? 'bubble-enter' : ''}`}>
         <p
-          className="max-w-[22rem] text-center text-[0.8rem] leading-relaxed font-mono-ui"
+          className="max-w-[22rem] text-center text-[0.78rem] leading-relaxed font-mono-ui px-2"
           style={{ color: meta.color }}
         >
           <GlossText text={text} onGloss={onGloss} />
@@ -42,17 +40,18 @@ export function Bubble({ speaker, text, onGloss, fresh }: Props) {
     <div
       className={`flex px-3 ${isRight ? 'justify-end' : 'justify-start'} ${fresh ? 'bubble-enter' : ''}`}
     >
-      <div className={`max-w-[85%] ${isRight ? 'items-end' : 'items-start'} flex flex-col gap-1`}>
+      <div
+        className={`max-w-[85%] ${isRight ? 'items-end' : 'items-start'} flex flex-col gap-1`}
+      >
         <span
-          className="text-[0.65rem] font-mono-ui tracking-wide uppercase"
+          className="text-[0.65rem] font-mono-ui tracking-wide"
           style={{ color: meta.color }}
         >
           {meta.name}
         </span>
         <div
-          className="px-3 py-2 text-[0.95rem] leading-relaxed"
+          className="bubble-panel px-3 py-2 text-[0.95rem] leading-relaxed"
           style={{
-            background: 'var(--bg-light)',
             borderRadius: 'var(--radius)',
             borderLeft: isRight ? undefined : `2px solid ${meta.color}`,
             borderRight: isRight ? `2px solid ${meta.color}` : undefined,
