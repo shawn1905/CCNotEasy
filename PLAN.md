@@ -118,8 +118,9 @@
    Vite + TS + React + Tailwind；自研 JSON 事件机；`localStorage`；LLM 后置可降级。  
    详见 [`docs/design/architecture.md`](./docs/design/architecture.md)。  
    **不上** Ink / Twine / Monogatari / Rust（第一版）。
-4. **美术规范（Art Bible）初稿** → **下一步**  
-   Omarchy / Tokyo Night；方正控件；Lifeline 气泡；手机优先（无立绘大地图）。
+4. **美术规范（Art Bible）初稿** → **已出，待你拍板 3 问**  
+   默认 Omarchy Tokyo Night 原色；章节可换肤（同变量契约）。  
+   详见 [`docs/design/visual-bible.md`](./docs/design/visual-bible.md)。
 5. **可玩原型 / Vertical Slice**  
    赤壁前夜一节；验收见 GDD 大纲。
 
@@ -153,7 +154,7 @@
 
 **下一步：**
 
-1. **视觉规范初稿**（配色、字体、气泡/选项、顶栏资源条）— 出方案给你过目。  
+1. 你过目 [`docs/design/visual-bible.md`](./docs/design/visual-bible.md)，回 3 个小问题（章内是否换肤 / 字体 / 备几个主题）。  
 2. 你签 [`docs/GDD-outline.md`](./docs/GDD-outline.md)。  
 3. 脚手架 + 「赤壁前夜」第一条可玩对话链。
 
@@ -169,6 +170,7 @@
 | [`docs/research/lexicon/`](./docs/research/lexicon/) | 中国风用语 / 禁用词 |
 | [`docs/research/user-drops/`](./docs/research/user-drops/) | 投递材料；含朋友「易品三国」解构（权重第 2） |
 | [`docs/design/architecture.md`](./docs/design/architecture.md) | **技术架构（已确认）** |
+| [`docs/design/visual-bible.md`](./docs/design/visual-bible.md) | **视觉规范初稿**（Tokyo Night + 章换肤） |
 | [`docs/design/interaction-lifeline.md`](./docs/design/interaction-lifeline.md) | Lifeline 交互对照 |
 | [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲（待签字） |
 
@@ -186,3 +188,4 @@
 | 2026-11-26 | 落入竞品参考笔记；增加资料库工具选型待确认 |
 | 2026-11-26 | 入库朋友「易品三国」解构；确认权重：公开史料 > 朋友看法/调性 |
 | 2026-11-26 | 确认技术架构：Vite+TS+React+自研 JSON 事件机（现代/丝滑/轻量） |
+| 2026-11-26 | 视觉规范初稿：Omarchy Tokyo Night 原色；章节换肤契约 |
