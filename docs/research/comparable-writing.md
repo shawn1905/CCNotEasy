@@ -11,3 +11,5 @@
 | 朋友易品解构（调性第 2） | 题面/调性 | `docs/research/user-drops/易品三国_解构/` |
 
 原则：**抄结构与检查表，不抄别人剧情正文。**
+
+文风：马伯庸式幽默在本项目配额 ≤ 1/10；主菜是史料时间线与逻辑推演（见 `red-cliffs/timeline-sourced.md`、`design/script-method.md`）。
