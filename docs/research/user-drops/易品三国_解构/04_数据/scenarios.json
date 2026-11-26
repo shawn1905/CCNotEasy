@@ -1,0 +1,3869 @@
+[
+  {
+    "id": "y184",
+    "year": "184",
+    "title": "黄巾起义",
+    "sub": "苍天已死，黄天当立",
+    "intro": "光和七年，太平道张角以符水聚众三十六万，头裹黄巾，八州并起。汉室倾颓，皇甫嵩、卢植奉命讨贼；凉州董卓、益州刘焉、江东孙氏亦各拥兵自守。五十城烽烟并举，乱世自此开端。",
+    "hanSeat": "洛阳",
+    "hanLord": "刘宏",
+    "factions": [
+      {
+        "key": "han",
+        "name": "汉室",
+        "lord": "皇甫嵩",
+        "motto": "扫清妖氛，匡扶汉室",
+        "diff": "★★☆ 兵精粮足",
+        "capital": "洛阳"
+      },
+      {
+        "key": "jiao",
+        "name": "黄巾",
+        "lord": "张角",
+        "motto": "苍天已死，黄天当立",
+        "diff": "★★☆ 众而未精",
+        "capital": "邺"
+      },
+      {
+        "key": "dong",
+        "name": "西凉",
+        "lord": "董卓",
+        "motto": "铁骑十万，坐观成败",
+        "diff": "★★☆ 兵悍地偏",
+        "capital": "长安"
+      },
+      {
+        "key": "yi",
+        "name": "益州",
+        "lord": "刘焉",
+        "motto": "闭关自守，保境安民",
+        "diff": "★☆☆ 偏安一隅",
+        "capital": "成都"
+      },
+      {
+        "key": "sun",
+        "name": "江东",
+        "lord": "孙坚",
+        "motto": "江东子弟，何惧于天下",
+        "diff": "★★☆ 猛虎初起",
+        "capital": "建业"
+      },
+      {
+        "key": "you",
+        "name": "幽州",
+        "lord": "公孙瓒",
+        "motto": "白马义从，威震塞外",
+        "diff": "★★★ 孤悬北鄙",
+        "capital": "北平"
+      },
+      {
+        "key": "xu",
+        "name": "徐州",
+        "lord": "陶谦",
+        "motto": "保境安民，不预中原",
+        "diff": "★★☆ 四战之地",
+        "capital": "下邳"
+      },
+      {
+        "key": "biao",
+        "name": "荆州",
+        "lord": "刘表",
+        "motto": "坐保江汉，观时而动",
+        "diff": "★☆☆ 地广兵足",
+        "capital": "襄阳"
+      },
+      {
+        "key": "shi",
+        "name": "交州",
+        "lord": "士燮",
+        "motto": "偏处南陲，不通中原",
+        "diff": "★★★ 僻远孤弱",
+        "capital": "南海"
+      }
+    ],
+    "cities": [
+      {
+        "name": "襄平",
+        "owner": "you",
+        "garrison": 5
+      },
+      {
+        "name": "北平",
+        "owner": "you",
+        "garrison": 5
+      },
+      {
+        "name": "蓟",
+        "owner": "you",
+        "garrison": 6
+      },
+      {
+        "name": "南皮",
+        "owner": "jiao",
+        "garrison": 7
+      },
+      {
+        "name": "平原",
+        "owner": "jiao",
+        "garrison": 7
+      },
+      {
+        "name": "邺",
+        "owner": "jiao",
+        "garrison": 8
+      },
+      {
+        "name": "晋阳",
+        "owner": "han",
+        "garrison": 6
+      },
+      {
+        "name": "上党",
+        "owner": "han",
+        "garrison": 5
+      },
+      {
+        "name": "临淄",
+        "owner": "xu",
+        "garrison": 6
+      },
+      {
+        "name": "北海",
+        "owner": "xu",
+        "garrison": 6
+      },
+      {
+        "name": "武威",
+        "owner": "dong",
+        "garrison": 5
+      },
+      {
+        "name": "天水",
+        "owner": "dong",
+        "garrison": 5
+      },
+      {
+        "name": "长安",
+        "owner": "dong",
+        "garrison": 8
+      },
+      {
+        "name": "弘农",
+        "owner": "han",
+        "garrison": 5
+      },
+      {
+        "name": "洛阳",
+        "owner": "han",
+        "garrison": 8
+      },
+      {
+        "name": "濮阳",
+        "owner": "jiao",
+        "garrison": 7
+      },
+      {
+        "name": "陈留",
+        "owner": "han",
+        "garrison": 6
+      },
+      {
+        "name": "小沛",
+        "owner": "jiao",
+        "garrison": 6
+      },
+      {
+        "name": "下邳",
+        "owner": "xu",
+        "garrison": 6
+      },
+      {
+        "name": "许昌",
+        "owner": null,
+        "garrison": 5
+      },
+      {
+        "name": "汝南",
+        "owner": null,
+        "garrison": 7
+      },
+      {
+        "name": "宛",
+        "owner": "han",
+        "garrison": 6
+      },
+      {
+        "name": "新野",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "襄阳",
+        "owner": "biao",
+        "garrison": 7
+      },
+      {
+        "name": "江陵",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "江夏",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "长沙",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "武陵",
+        "owner": null,
+        "garrison": 3
+      },
+      {
+        "name": "零陵",
+        "owner": null,
+        "garrison": 3
+      },
+      {
+        "name": "桂阳",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "寿春",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "庐江",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "柴桑",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "建业",
+        "owner": "sun",
+        "garrison": 8
+      },
+      {
+        "name": "吴",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "会稽",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "汉中",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "梓潼",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "成都",
+        "owner": "yi",
+        "garrison": 8
+      },
+      {
+        "name": "江州",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "永安",
+        "owner": "yi",
+        "garrison": 5
+      },
+      {
+        "name": "建宁",
+        "owner": null,
+        "garrison": 3
+      },
+      {
+        "name": "云南",
+        "owner": null,
+        "garrison": 3
+      },
+      {
+        "name": "南海",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "合肥",
+        "owner": "han",
+        "garrison": 5
+      },
+      {
+        "name": "谯",
+        "owner": "han",
+        "garrison": 4
+      },
+      {
+        "name": "彭城",
+        "owner": "xu",
+        "garrison": 5
+      },
+      {
+        "name": "上庸",
+        "owner": "han",
+        "garrison": 2
+      },
+      {
+        "name": "阆中",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "雒城",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "交趾",
+        "owner": "shi",
+        "garrison": 5
+      }
+    ],
+    "generals": [
+      {
+        "faction": "han",
+        "name": "皇甫嵩",
+        "city": "洛阳",
+        "type": "hero",
+        "title": "平乱名将"
+      },
+      {
+        "faction": "han",
+        "name": "朱儁",
+        "city": "洛阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "han",
+        "name": "卢植",
+        "city": "洛阳",
+        "type": "wis",
+        "title": "儒将"
+      },
+      {
+        "faction": "han",
+        "name": "傅燮",
+        "city": "弘农",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "han",
+        "name": "秦颉",
+        "city": "宛",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "han",
+        "name": "张温",
+        "city": "宛",
+        "type": "atk",
+        "title": "车骑将军"
+      },
+      {
+        "faction": "han",
+        "name": "曹操",
+        "city": "陈留",
+        "type": "atk",
+        "title": "骑都尉"
+      },
+      {
+        "faction": "han",
+        "name": "鲍信",
+        "city": "陈留",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "han",
+        "name": "丁原",
+        "city": "晋阳",
+        "type": "def",
+        "title": "并州刺史"
+      },
+      {
+        "faction": "han",
+        "name": "吕布",
+        "city": "晋阳",
+        "type": "hero",
+        "title": "飞将"
+      },
+      {
+        "faction": "han",
+        "name": "张杨",
+        "city": "上党",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "jiao",
+        "name": "张角",
+        "city": "邺",
+        "type": "wis",
+        "title": "天公将军"
+      },
+      {
+        "faction": "jiao",
+        "name": "张宝",
+        "city": "邺",
+        "type": "hero",
+        "title": "地公将军"
+      },
+      {
+        "faction": "jiao",
+        "name": "张梁",
+        "city": "邺",
+        "type": "atk",
+        "title": "人公将军"
+      },
+      {
+        "faction": "jiao",
+        "name": "张牛角",
+        "city": "南皮",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "jiao",
+        "name": "波才",
+        "city": "濮阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "jiao",
+        "name": "彭脱",
+        "city": "濮阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "jiao",
+        "name": "管亥",
+        "city": "小沛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "jiao",
+        "name": "卜己",
+        "city": "小沛",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "董卓",
+        "city": "长安",
+        "type": "def",
+        "title": "太师"
+      },
+      {
+        "faction": "dong",
+        "name": "李儒",
+        "city": "长安",
+        "type": "wis",
+        "title": "毒士"
+      },
+      {
+        "faction": "dong",
+        "name": "华雄",
+        "city": "天水",
+        "type": "atk",
+        "title": "都督"
+      },
+      {
+        "faction": "dong",
+        "name": "牛辅",
+        "city": "天水",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "李傕",
+        "city": "武威",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "郭汜",
+        "city": "武威",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "张济",
+        "city": "武威",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张鲁",
+        "city": "汉中",
+        "type": "def",
+        "title": "师君"
+      },
+      {
+        "faction": "yi",
+        "name": "阎圃",
+        "city": "汉中",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张任",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "吴懿",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "刘焉",
+        "city": "成都",
+        "type": "def",
+        "title": "益州牧"
+      },
+      {
+        "faction": "yi",
+        "name": "张松",
+        "city": "成都",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "严颜",
+        "city": "江州",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "贾龙",
+        "city": "江州",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "赵韪",
+        "city": "永安",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙坚",
+        "city": "建业",
+        "type": "hero",
+        "title": "江东猛虎"
+      },
+      {
+        "faction": "sun",
+        "name": "程普",
+        "city": "建业",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙静",
+        "city": "吴",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "朱治",
+        "city": "吴",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "周昕",
+        "city": "会稽",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "许贡",
+        "city": "会稽",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙策",
+        "city": "柴桑",
+        "type": "atk",
+        "title": "小霸王"
+      },
+      {
+        "faction": "sun",
+        "name": "黄盖",
+        "city": "柴桑",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "韩当",
+        "city": "庐江",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "祖茂",
+        "city": "庐江",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "you",
+        "name": "公孙瓒",
+        "city": "北平",
+        "type": "hero",
+        "title": "白马将军"
+      },
+      {
+        "faction": "you",
+        "name": "严纲",
+        "city": "北平",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "you",
+        "name": "公孙度",
+        "city": "襄平",
+        "type": "def",
+        "title": "辽东太守"
+      },
+      {
+        "faction": "you",
+        "name": "公孙康",
+        "city": "襄平",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "you",
+        "name": "刘虞",
+        "city": "蓟",
+        "type": "def",
+        "title": "汉室宗亲"
+      },
+      {
+        "faction": "xu",
+        "name": "陶谦",
+        "city": "下邳",
+        "type": "def",
+        "title": "徐州牧"
+      },
+      {
+        "faction": "xu",
+        "name": "曹豹",
+        "city": "下邳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "xu",
+        "name": "田楷",
+        "city": "临淄",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "xu",
+        "name": "孔融",
+        "city": "北海",
+        "type": "wis",
+        "title": "北海相"
+      },
+      {
+        "faction": "xu",
+        "name": "王修",
+        "city": "北海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "刘表",
+        "city": "襄阳",
+        "type": "def",
+        "title": "荆州牧"
+      },
+      {
+        "faction": "biao",
+        "name": "蒯良",
+        "city": "襄阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "文聘",
+        "city": "新野",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "蔡瑁",
+        "city": "江陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "黄祖",
+        "city": "江陵",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "王威",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士燮",
+        "city": "南海",
+        "type": "def",
+        "title": "交州牧"
+      },
+      {
+        "faction": "shi",
+        "name": "士壹",
+        "city": "南海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士武",
+        "city": "桂阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "荀彧",
+        "city": "许昌",
+        "type": "wis",
+        "title": "王佐"
+      },
+      {
+        "faction": "ye",
+        "name": "钟繇",
+        "city": "许昌",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "韩忠",
+        "city": "汝南",
+        "type": "atk",
+        "title": "黄巾渠帅"
+      },
+      {
+        "faction": "ye",
+        "name": "赵弘",
+        "city": "汝南",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "袁术",
+        "city": "寿春",
+        "type": "def",
+        "title": "后将军"
+      },
+      {
+        "faction": "ye",
+        "name": "纪灵",
+        "city": "寿春",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "区星",
+        "city": "长沙",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "苏代",
+        "city": "长沙",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "金旋",
+        "city": "武陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "刘度",
+        "city": "零陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "孟获",
+        "city": "建宁",
+        "type": "hero",
+        "title": "南蛮王"
+      },
+      {
+        "faction": "ye",
+        "name": "高定",
+        "city": "云南",
+        "type": "def",
+        "title": ""
+      }
+    ]
+  },
+  {
+    "id": "y190",
+    "year": "190",
+    "title": "讨董联盟",
+    "sub": "关东有义士，兴兵讨群凶",
+    "intro": "董卓废少帝、迁都长安，焚洛阳宫室。关东诸侯推袁绍为盟主，起兵讨董。然联军各怀异心，踌躇不进；长沙孙坚孤军奋战，曹操亦别树一帜。五十城名为讨贼，实则各谋其地。",
+    "hanSeat": "洛阳",
+    "hanLord": "刘协",
+    "factions": [
+      {
+        "key": "dong",
+        "name": "董卓",
+        "lord": "董卓",
+        "motto": "挟天子以令天下",
+        "diff": "★★☆ 兵强马壮",
+        "capital": "洛阳"
+      },
+      {
+        "key": "lian",
+        "name": "联军",
+        "lord": "袁绍",
+        "motto": "兴复汉室，还于旧都",
+        "diff": "★★☆ 众心不齐",
+        "capital": "邺"
+      },
+      {
+        "key": "cao",
+        "name": "曹操",
+        "lord": "曹操",
+        "motto": "举义兵以诛暴乱",
+        "diff": "★★★ 兵微将寡",
+        "capital": "陈留"
+      },
+      {
+        "key": "shu",
+        "name": "袁术",
+        "lord": "袁术",
+        "motto": "四世三公，天命在我",
+        "diff": "★★☆ 粮足兵骄",
+        "capital": "汝南"
+      },
+      {
+        "key": "xu",
+        "name": "徐州",
+        "lord": "陶谦",
+        "motto": "保境安民，不预中原",
+        "diff": "★★☆ 四战之地",
+        "capital": "下邳"
+      },
+      {
+        "key": "biao",
+        "name": "荆州",
+        "lord": "刘表",
+        "motto": "坐保江汉，观时而动",
+        "diff": "★☆☆ 地广兵足",
+        "capital": "襄阳"
+      },
+      {
+        "key": "sun",
+        "name": "孙坚",
+        "lord": "孙坚",
+        "motto": "江东猛虎，先入洛阳",
+        "diff": "★★☆ 孤军深入",
+        "capital": "建业"
+      },
+      {
+        "key": "yi",
+        "name": "益州",
+        "lord": "刘焉",
+        "motto": "闭关自守，不问中原",
+        "diff": "★☆☆ 偏安一隅",
+        "capital": "成都"
+      },
+      {
+        "key": "shi",
+        "name": "交州",
+        "lord": "士燮",
+        "motto": "偏处南陲，不通中原",
+        "diff": "★★★ 僻远孤弱",
+        "capital": "南海"
+      }
+    ],
+    "cities": [
+      {
+        "name": "襄平",
+        "owner": "lian",
+        "garrison": 5
+      },
+      {
+        "name": "北平",
+        "owner": "lian",
+        "garrison": 5
+      },
+      {
+        "name": "蓟",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "南皮",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "平原",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "邺",
+        "owner": "lian",
+        "garrison": 9
+      },
+      {
+        "name": "晋阳",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "上党",
+        "owner": "lian",
+        "garrison": 5
+      },
+      {
+        "name": "临淄",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "北海",
+        "owner": "lian",
+        "garrison": 6
+      },
+      {
+        "name": "武威",
+        "owner": "dong",
+        "garrison": 5
+      },
+      {
+        "name": "天水",
+        "owner": "dong",
+        "garrison": 5
+      },
+      {
+        "name": "长安",
+        "owner": "dong",
+        "garrison": 7
+      },
+      {
+        "name": "弘农",
+        "owner": "dong",
+        "garrison": 5
+      },
+      {
+        "name": "洛阳",
+        "owner": "dong",
+        "garrison": 9
+      },
+      {
+        "name": "濮阳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "陈留",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "小沛",
+        "owner": "xu",
+        "garrison": 5
+      },
+      {
+        "name": "下邳",
+        "owner": "xu",
+        "garrison": 6
+      },
+      {
+        "name": "许昌",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "汝南",
+        "owner": "shu",
+        "garrison": 6
+      },
+      {
+        "name": "宛",
+        "owner": "shu",
+        "garrison": 6
+      },
+      {
+        "name": "新野",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "襄阳",
+        "owner": "biao",
+        "garrison": 8
+      },
+      {
+        "name": "江陵",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "江夏",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "长沙",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "武陵",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "零陵",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "桂阳",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "寿春",
+        "owner": null,
+        "garrison": 6
+      },
+      {
+        "name": "庐江",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "柴桑",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "建业",
+        "owner": "sun",
+        "garrison": 8
+      },
+      {
+        "name": "吴",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "会稽",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "汉中",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "梓潼",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "成都",
+        "owner": "yi",
+        "garrison": 8
+      },
+      {
+        "name": "江州",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "永安",
+        "owner": "yi",
+        "garrison": 5
+      },
+      {
+        "name": "建宁",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "云南",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "南海",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "合肥",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "谯",
+        "owner": "cao",
+        "garrison": 4
+      },
+      {
+        "name": "彭城",
+        "owner": "xu",
+        "garrison": 5
+      },
+      {
+        "name": "上庸",
+        "owner": null,
+        "garrison": 3
+      },
+      {
+        "name": "阆中",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "雒城",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "交趾",
+        "owner": "shi",
+        "garrison": 5
+      }
+    ],
+    "generals": [
+      {
+        "faction": "dong",
+        "name": "董卓",
+        "city": "洛阳",
+        "type": "hero",
+        "title": "太师"
+      },
+      {
+        "faction": "dong",
+        "name": "吕布",
+        "city": "洛阳",
+        "type": "hero",
+        "title": "飞将"
+      },
+      {
+        "faction": "dong",
+        "name": "李儒",
+        "city": "洛阳",
+        "type": "wis",
+        "title": "毒士"
+      },
+      {
+        "faction": "dong",
+        "name": "徐荣",
+        "city": "弘农",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "李傕",
+        "city": "长安",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "郭汜",
+        "city": "长安",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "华雄",
+        "city": "天水",
+        "type": "atk",
+        "title": "都督"
+      },
+      {
+        "faction": "dong",
+        "name": "牛辅",
+        "city": "天水",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "dong",
+        "name": "张济",
+        "city": "武威",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "袁绍",
+        "city": "邺",
+        "type": "hero",
+        "title": "盟主"
+      },
+      {
+        "faction": "lian",
+        "name": "颜良",
+        "city": "邺",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "文丑",
+        "city": "邺",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "审配",
+        "city": "南皮",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "沮授",
+        "city": "平原",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "张郃",
+        "city": "晋阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "高览",
+        "city": "上党",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "公孙瓒",
+        "city": "蓟",
+        "type": "atk",
+        "title": "白马将军"
+      },
+      {
+        "faction": "lian",
+        "name": "刘备",
+        "city": "蓟",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "严纲",
+        "city": "北平",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "公孙度",
+        "city": "襄平",
+        "type": "def",
+        "title": "辽东太守"
+      },
+      {
+        "faction": "lian",
+        "name": "田丰",
+        "city": "临淄",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "lian",
+        "name": "孔融",
+        "city": "北海",
+        "type": "wis",
+        "title": "北海相"
+      },
+      {
+        "faction": "lian",
+        "name": "王修",
+        "city": "北海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹操",
+        "city": "陈留",
+        "type": "hero",
+        "title": "奋武将军"
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯惇",
+        "city": "陈留",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹仁",
+        "city": "许昌",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "乐进",
+        "city": "许昌",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯渊",
+        "city": "濮阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "李典",
+        "city": "濮阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "袁术",
+        "city": "汝南",
+        "type": "def",
+        "title": "后将军"
+      },
+      {
+        "faction": "shu",
+        "name": "纪灵",
+        "city": "宛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "xu",
+        "name": "陶谦",
+        "city": "下邳",
+        "type": "def",
+        "title": "徐州牧"
+      },
+      {
+        "faction": "xu",
+        "name": "曹豹",
+        "city": "下邳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "xu",
+        "name": "陈登",
+        "city": "小沛",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "xu",
+        "name": "臧霸",
+        "city": "小沛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "刘表",
+        "city": "襄阳",
+        "type": "def",
+        "title": "荆州牧"
+      },
+      {
+        "faction": "biao",
+        "name": "蒯良",
+        "city": "襄阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "蒯越",
+        "city": "襄阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "文聘",
+        "city": "新野",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "蔡瑁",
+        "city": "新野",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "黄祖",
+        "city": "江陵",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "王威",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "韩玄",
+        "city": "长沙",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "金旋",
+        "city": "武陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "刘度",
+        "city": "零陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "赵范",
+        "city": "桂阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙坚",
+        "city": "建业",
+        "type": "hero",
+        "title": "江东猛虎"
+      },
+      {
+        "faction": "sun",
+        "name": "程普",
+        "city": "建业",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙静",
+        "city": "吴",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "朱治",
+        "city": "吴",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "周昕",
+        "city": "会稽",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "许贡",
+        "city": "会稽",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙策",
+        "city": "柴桑",
+        "type": "atk",
+        "title": "小霸王"
+      },
+      {
+        "faction": "sun",
+        "name": "黄盖",
+        "city": "柴桑",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "韩当",
+        "city": "庐江",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "祖茂",
+        "city": "庐江",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "刘焉",
+        "city": "成都",
+        "type": "def",
+        "title": "益州牧"
+      },
+      {
+        "faction": "yi",
+        "name": "张松",
+        "city": "成都",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张鲁",
+        "city": "汉中",
+        "type": "def",
+        "title": "师君"
+      },
+      {
+        "faction": "yi",
+        "name": "阎圃",
+        "city": "汉中",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张任",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "严颜",
+        "city": "江州",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "赵韪",
+        "city": "永安",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士燮",
+        "city": "南海",
+        "type": "def",
+        "title": "交州牧"
+      },
+      {
+        "faction": "shi",
+        "name": "士壹",
+        "city": "南海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "孟获",
+        "city": "建宁",
+        "type": "hero",
+        "title": "南蛮王"
+      },
+      {
+        "faction": "ye",
+        "name": "高定",
+        "city": "云南",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "ye",
+        "name": "张勋",
+        "city": "寿春",
+        "type": "atk",
+        "title": "后将军旧部"
+      }
+    ]
+  },
+  {
+    "id": "y200",
+    "year": "200",
+    "title": "官渡之战",
+    "sub": "挟天子以令诸侯",
+    "intro": "曹操迎天子都许，屯田积谷，据中原四州。袁绍并河北四州，带甲十万，南下攻许。江东孙权继业，荆州刘表、益州刘璋、汉中张鲁、西凉马腾皆拥兵观望。五十城对峙于官渡一线，胜负决于粮道与盟友。",
+    "hanSeat": "许昌",
+    "hanLord": "刘协",
+    "factions": [
+      {
+        "key": "cao",
+        "name": "曹操",
+        "lord": "曹操",
+        "motto": "挟天子以令诸侯",
+        "diff": "★★☆ 四战之地",
+        "capital": "许昌"
+      },
+      {
+        "key": "yuan",
+        "name": "袁绍",
+        "lord": "袁绍",
+        "motto": "四世三公，带甲十万",
+        "diff": "★☆☆ 兵多将广",
+        "capital": "邺"
+      },
+      {
+        "key": "sun",
+        "name": "孙权",
+        "lord": "孙权",
+        "motto": "据江东，观天下之变",
+        "diff": "★★☆ 偏安待时",
+        "capital": "建业"
+      },
+      {
+        "key": "biao",
+        "name": "荆州",
+        "lord": "刘表",
+        "motto": "自守之贼，无四方之志",
+        "diff": "★☆☆ 带甲十万",
+        "capital": "襄阳"
+      },
+      {
+        "key": "yi",
+        "name": "益州",
+        "lord": "刘璋",
+        "motto": "蜀道之难，难于上青天",
+        "diff": "★☆☆ 闭关自守",
+        "capital": "成都"
+      },
+      {
+        "key": "zhang",
+        "name": "汉中",
+        "lord": "张鲁",
+        "motto": "五斗米道，政教合一",
+        "diff": "★★★ 据险自守",
+        "capital": "汉中"
+      },
+      {
+        "key": "ma",
+        "name": "西凉",
+        "lord": "马腾",
+        "motto": "西凉铁骑，来去如风",
+        "diff": "★★☆ 兵精而寡",
+        "capital": "武威"
+      },
+      {
+        "key": "shi",
+        "name": "交州",
+        "lord": "士燮",
+        "motto": "偏处南陲，不通中原",
+        "diff": "★★★ 僻远孤弱",
+        "capital": "南海"
+      }
+    ],
+    "cities": [
+      {
+        "name": "襄平",
+        "owner": "yuan",
+        "garrison": 5
+      },
+      {
+        "name": "北平",
+        "owner": "yuan",
+        "garrison": 5
+      },
+      {
+        "name": "蓟",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "南皮",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "平原",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "邺",
+        "owner": "yuan",
+        "garrison": 9
+      },
+      {
+        "name": "晋阳",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "上党",
+        "owner": "yuan",
+        "garrison": 5
+      },
+      {
+        "name": "临淄",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "北海",
+        "owner": "yuan",
+        "garrison": 6
+      },
+      {
+        "name": "武威",
+        "owner": "ma",
+        "garrison": 6
+      },
+      {
+        "name": "天水",
+        "owner": "ma",
+        "garrison": 5
+      },
+      {
+        "name": "长安",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "弘农",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "洛阳",
+        "owner": "cao",
+        "garrison": 8
+      },
+      {
+        "name": "濮阳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "陈留",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "小沛",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "下邳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "许昌",
+        "owner": "cao",
+        "garrison": 9
+      },
+      {
+        "name": "汝南",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "宛",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "新野",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "襄阳",
+        "owner": "biao",
+        "garrison": 8
+      },
+      {
+        "name": "江陵",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "江夏",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "长沙",
+        "owner": "biao",
+        "garrison": 6
+      },
+      {
+        "name": "武陵",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "零陵",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "桂阳",
+        "owner": "biao",
+        "garrison": 5
+      },
+      {
+        "name": "寿春",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "庐江",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "柴桑",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "建业",
+        "owner": "sun",
+        "garrison": 8
+      },
+      {
+        "name": "吴",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "会稽",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "汉中",
+        "owner": "zhang",
+        "garrison": 7
+      },
+      {
+        "name": "梓潼",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "成都",
+        "owner": "yi",
+        "garrison": 8
+      },
+      {
+        "name": "江州",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "永安",
+        "owner": "yi",
+        "garrison": 5
+      },
+      {
+        "name": "建宁",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "云南",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "南海",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "合肥",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "谯",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "彭城",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "上庸",
+        "owner": "zhang",
+        "garrison": 3
+      },
+      {
+        "name": "阆中",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "雒城",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "交趾",
+        "owner": "shi",
+        "garrison": 5
+      }
+    ],
+    "generals": [
+      {
+        "faction": "cao",
+        "name": "曹操",
+        "city": "许昌",
+        "type": "hero",
+        "title": "魏武"
+      },
+      {
+        "faction": "cao",
+        "name": "荀彧",
+        "city": "许昌",
+        "type": "wis",
+        "title": "王佐"
+      },
+      {
+        "faction": "cao",
+        "name": "许褚",
+        "city": "许昌",
+        "type": "atk",
+        "title": "虎痴"
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯惇",
+        "city": "洛阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "荀攸",
+        "city": "洛阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹洪",
+        "city": "弘农",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹仁",
+        "city": "陈留",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "乐进",
+        "city": "陈留",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯渊",
+        "city": "濮阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "李典",
+        "city": "濮阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "于禁",
+        "city": "小沛",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "张辽",
+        "city": "下邳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "徐晃",
+        "city": "汝南",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "程昱",
+        "city": "寿春",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "史涣",
+        "city": "宛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "钟繇",
+        "city": "长安",
+        "type": "def",
+        "title": "镇关中"
+      },
+      {
+        "faction": "cao",
+        "name": "刘馥",
+        "city": "合肥",
+        "type": "def",
+        "title": "扬州刺史"
+      },
+      {
+        "faction": "yuan",
+        "name": "袁绍",
+        "city": "邺",
+        "type": "hero",
+        "title": "四世三公"
+      },
+      {
+        "faction": "yuan",
+        "name": "沮授",
+        "city": "邺",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "审配",
+        "city": "邺",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "颜良",
+        "city": "南皮",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "文丑",
+        "city": "平原",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "张郃",
+        "city": "晋阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "高览",
+        "city": "上党",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "田丰",
+        "city": "蓟",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "袁熙",
+        "city": "北平",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "公孙度",
+        "city": "襄平",
+        "type": "def",
+        "title": "辽东太守"
+      },
+      {
+        "faction": "yuan",
+        "name": "郭图",
+        "city": "临淄",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "淳于琼",
+        "city": "北海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yuan",
+        "name": "袁谭",
+        "city": "北海",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "孙权",
+        "city": "建业",
+        "type": "def",
+        "title": "吴主"
+      },
+      {
+        "faction": "sun",
+        "name": "张昭",
+        "city": "建业",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "周瑜",
+        "city": "吴",
+        "type": "hero",
+        "title": "美周郎"
+      },
+      {
+        "faction": "sun",
+        "name": "鲁肃",
+        "city": "会稽",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "程普",
+        "city": "柴桑",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "黄盖",
+        "city": "庐江",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "韩当",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "太史慈",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "刘表",
+        "city": "襄阳",
+        "type": "def",
+        "title": "荆州牧"
+      },
+      {
+        "faction": "biao",
+        "name": "蒯越",
+        "city": "襄阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "文聘",
+        "city": "新野",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "蔡瑁",
+        "city": "江陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "黄忠",
+        "city": "长沙",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "金旋",
+        "city": "武陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "刘度",
+        "city": "零陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "biao",
+        "name": "赵范",
+        "city": "桂阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "刘璋",
+        "city": "成都",
+        "type": "def",
+        "title": "益州牧"
+      },
+      {
+        "faction": "yi",
+        "name": "张松",
+        "city": "成都",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张任",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "严颜",
+        "city": "江州",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "吴懿",
+        "city": "永安",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "zhang",
+        "name": "张鲁",
+        "city": "汉中",
+        "type": "def",
+        "title": "师君"
+      },
+      {
+        "faction": "zhang",
+        "name": "阎圃",
+        "city": "汉中",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "ma",
+        "name": "马腾",
+        "city": "武威",
+        "type": "hero",
+        "title": "西凉铁骑"
+      },
+      {
+        "faction": "ma",
+        "name": "马超",
+        "city": "武威",
+        "type": "hero",
+        "title": "锦马超"
+      },
+      {
+        "faction": "ma",
+        "name": "庞德",
+        "city": "天水",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士燮",
+        "city": "南海",
+        "type": "def",
+        "title": "交州牧"
+      },
+      {
+        "faction": "ye",
+        "name": "孟获",
+        "city": "建宁",
+        "type": "hero",
+        "title": "南蛮王"
+      },
+      {
+        "faction": "ye",
+        "name": "高定",
+        "city": "云南",
+        "type": "def",
+        "title": ""
+      }
+    ]
+  },
+  {
+    "id": "y208",
+    "year": "208",
+    "title": "赤壁之战",
+    "sub": "东风不与周郎便",
+    "intro": "曹操北定乌桓，南下荆州，刘琮举州而降，得水军十万，顺江而东。刘备败走夏口，与孙权结盟，周瑜率三万水师拒于赤壁。五十城之中，曹操已据其半，孙刘仅存江表数郡——此战若败，天下定矣。",
+    "hanSeat": "许昌",
+    "hanLord": "刘协",
+    "factions": [
+      {
+        "key": "cao",
+        "name": "曹操",
+        "lord": "曹操",
+        "motto": "今治水军八十万众",
+        "diff": "★☆☆ 席卷天下",
+        "capital": "许昌"
+      },
+      {
+        "key": "sun",
+        "name": "孙权",
+        "lord": "孙权",
+        "motto": "据江东，已历三世",
+        "diff": "★★☆ 凭江而守",
+        "capital": "建业"
+      },
+      {
+        "key": "liu",
+        "name": "刘备",
+        "lord": "刘备",
+        "motto": "欲与将军会猎于吴",
+        "diff": "★★★ 寄寓荆南",
+        "capital": "江陵"
+      },
+      {
+        "key": "yi",
+        "name": "益州",
+        "lord": "刘璋",
+        "motto": "蜀道之难，难于上青天",
+        "diff": "★☆☆ 闭关自守",
+        "capital": "成都"
+      },
+      {
+        "key": "zhang",
+        "name": "汉中",
+        "lord": "张鲁",
+        "motto": "五斗米道，政教合一",
+        "diff": "★★★ 据险自守",
+        "capital": "汉中"
+      },
+      {
+        "key": "ma",
+        "name": "西凉",
+        "lord": "马腾",
+        "motto": "西凉铁骑，来去如风",
+        "diff": "★★☆ 兵精而寡",
+        "capital": "武威"
+      },
+      {
+        "key": "shi",
+        "name": "交州",
+        "lord": "士燮",
+        "motto": "偏处南陲，不通中原",
+        "diff": "★★★ 僻远孤弱",
+        "capital": "南海"
+      }
+    ],
+    "cities": [
+      {
+        "name": "襄平",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "北平",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "蓟",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "南皮",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "平原",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "邺",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "晋阳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "上党",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "临淄",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "北海",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "武威",
+        "owner": "ma",
+        "garrison": 6
+      },
+      {
+        "name": "天水",
+        "owner": "ma",
+        "garrison": 5
+      },
+      {
+        "name": "长安",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "弘农",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "洛阳",
+        "owner": "cao",
+        "garrison": 8
+      },
+      {
+        "name": "濮阳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "陈留",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "小沛",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "下邳",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "许昌",
+        "owner": "cao",
+        "garrison": 8
+      },
+      {
+        "name": "汝南",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "宛",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "新野",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "襄阳",
+        "owner": "cao",
+        "garrison": 7
+      },
+      {
+        "name": "江陵",
+        "owner": "liu",
+        "garrison": 7
+      },
+      {
+        "name": "江夏",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "长沙",
+        "owner": "liu",
+        "garrison": 6
+      },
+      {
+        "name": "武陵",
+        "owner": "liu",
+        "garrison": 5
+      },
+      {
+        "name": "零陵",
+        "owner": "liu",
+        "garrison": 5
+      },
+      {
+        "name": "桂阳",
+        "owner": "liu",
+        "garrison": 5
+      },
+      {
+        "name": "寿春",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "庐江",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "柴桑",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "建业",
+        "owner": "sun",
+        "garrison": 8
+      },
+      {
+        "name": "吴",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "会稽",
+        "owner": "sun",
+        "garrison": 6
+      },
+      {
+        "name": "汉中",
+        "owner": "zhang",
+        "garrison": 6
+      },
+      {
+        "name": "梓潼",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "成都",
+        "owner": "yi",
+        "garrison": 8
+      },
+      {
+        "name": "江州",
+        "owner": "yi",
+        "garrison": 6
+      },
+      {
+        "name": "永安",
+        "owner": "yi",
+        "garrison": 5
+      },
+      {
+        "name": "建宁",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "云南",
+        "owner": null,
+        "garrison": 4
+      },
+      {
+        "name": "南海",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "合肥",
+        "owner": "cao",
+        "garrison": 6
+      },
+      {
+        "name": "谯",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "彭城",
+        "owner": "cao",
+        "garrison": 5
+      },
+      {
+        "name": "上庸",
+        "owner": "cao",
+        "garrison": 3
+      },
+      {
+        "name": "阆中",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "雒城",
+        "owner": "yi",
+        "garrison": 4
+      },
+      {
+        "name": "交趾",
+        "owner": "shi",
+        "garrison": 5
+      }
+    ],
+    "generals": [
+      {
+        "faction": "cao",
+        "name": "曹操",
+        "city": "许昌",
+        "type": "hero",
+        "title": "魏武"
+      },
+      {
+        "faction": "cao",
+        "name": "荀彧",
+        "city": "许昌",
+        "type": "wis",
+        "title": "王佐"
+      },
+      {
+        "faction": "cao",
+        "name": "许褚",
+        "city": "许昌",
+        "type": "atk",
+        "title": "虎痴"
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯惇",
+        "city": "洛阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹洪",
+        "city": "弘农",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹仁",
+        "city": "陈留",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "夏侯渊",
+        "city": "濮阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "于禁",
+        "city": "小沛",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "张辽",
+        "city": "下邳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "徐晃",
+        "city": "汝南",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "程昱",
+        "city": "寿春",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "曹纯",
+        "city": "宛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "钟繇",
+        "city": "长安",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "张郃",
+        "city": "南皮",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "李典",
+        "city": "平原",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "荀攸",
+        "city": "邺",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "朱灵",
+        "city": "晋阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "臧霸",
+        "city": "上党",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "田豫",
+        "city": "蓟",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "阎柔",
+        "city": "北平",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "张绣",
+        "city": "襄平",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "乐进",
+        "city": "临淄",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "文聘",
+        "city": "北海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "蔡瑁",
+        "city": "新野",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "蒯越",
+        "city": "襄阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "cao",
+        "name": "刘馥",
+        "city": "合肥",
+        "type": "def",
+        "title": "扬州刺史"
+      },
+      {
+        "faction": "sun",
+        "name": "孙权",
+        "city": "建业",
+        "type": "def",
+        "title": "吴主"
+      },
+      {
+        "faction": "sun",
+        "name": "张昭",
+        "city": "建业",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "周瑜",
+        "city": "吴",
+        "type": "hero",
+        "title": "美周郎"
+      },
+      {
+        "faction": "sun",
+        "name": "鲁肃",
+        "city": "会稽",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "程普",
+        "city": "柴桑",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "黄盖",
+        "city": "庐江",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "韩当",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "sun",
+        "name": "太史慈",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "liu",
+        "name": "刘备",
+        "city": "江陵",
+        "type": "hero",
+        "title": "左将军"
+      },
+      {
+        "faction": "liu",
+        "name": "诸葛亮",
+        "city": "江陵",
+        "type": "wis",
+        "title": "卧龙"
+      },
+      {
+        "faction": "liu",
+        "name": "关羽",
+        "city": "江陵",
+        "type": "hero",
+        "title": "武圣"
+      },
+      {
+        "faction": "liu",
+        "name": "张飞",
+        "city": "长沙",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "liu",
+        "name": "赵云",
+        "city": "长沙",
+        "type": "hero",
+        "title": "常山赵子龙"
+      },
+      {
+        "faction": "liu",
+        "name": "糜竺",
+        "city": "武陵",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "liu",
+        "name": "孙乾",
+        "city": "零陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "liu",
+        "name": "简雍",
+        "city": "桂阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "刘璋",
+        "city": "成都",
+        "type": "def",
+        "title": "益州牧"
+      },
+      {
+        "faction": "yi",
+        "name": "张松",
+        "city": "成都",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "张任",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "严颜",
+        "city": "江州",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "yi",
+        "name": "吴懿",
+        "city": "永安",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "zhang",
+        "name": "张鲁",
+        "city": "汉中",
+        "type": "def",
+        "title": "师君"
+      },
+      {
+        "faction": "zhang",
+        "name": "阎圃",
+        "city": "汉中",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "ma",
+        "name": "马腾",
+        "city": "武威",
+        "type": "hero",
+        "title": "西凉铁骑"
+      },
+      {
+        "faction": "ma",
+        "name": "马超",
+        "city": "武威",
+        "type": "hero",
+        "title": "锦马超"
+      },
+      {
+        "faction": "ma",
+        "name": "庞德",
+        "city": "天水",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "ma",
+        "name": "马岱",
+        "city": "天水",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士燮",
+        "city": "南海",
+        "type": "def",
+        "title": "交州牧"
+      },
+      {
+        "faction": "ye",
+        "name": "孟获",
+        "city": "建宁",
+        "type": "hero",
+        "title": "南蛮王"
+      },
+      {
+        "faction": "ye",
+        "name": "高定",
+        "city": "云南",
+        "type": "def",
+        "title": ""
+      }
+    ]
+  },
+  {
+    "id": "y220",
+    "year": "220",
+    "title": "三分天下",
+    "sub": "鼎足之势成矣",
+    "intro": "曹操既没，曹丕受禅于许，改元黄初。刘备称帝于成都，孙权受封吴王，三国鼎立之势遂成。魏据中原九州，吴有江东六郡，蜀保益州天险，辽东公孙渊首鼠两端，南中孟获亦未宾服。",
+    "hanSeat": null,
+    "hanLord": null,
+    "factions": [
+      {
+        "key": "wei",
+        "name": "魏",
+        "lord": "曹丕",
+        "motto": "受禅于汉，奄有九州",
+        "diff": "★☆☆ 带甲百万",
+        "capital": "洛阳"
+      },
+      {
+        "key": "shu",
+        "name": "蜀",
+        "lord": "刘备",
+        "motto": "汉贼不两立，王业不偏安",
+        "diff": "★★☆ 据险一州",
+        "capital": "成都"
+      },
+      {
+        "key": "wu",
+        "name": "吴",
+        "lord": "孙权",
+        "motto": "长江天堑，限南北之分",
+        "diff": "★★☆ 凭江立国",
+        "capital": "建业"
+      },
+      {
+        "key": "meng",
+        "name": "南中",
+        "lord": "孟获",
+        "motto": "南人不复反矣",
+        "diff": "★★★ 蛮荒之地",
+        "capital": "建宁"
+      },
+      {
+        "key": "gong",
+        "name": "辽东",
+        "lord": "公孙渊",
+        "motto": "燕王据辽，首鼠两端",
+        "diff": "★★★ 孤悬海外",
+        "capital": "襄平"
+      },
+      {
+        "key": "shi",
+        "name": "交州",
+        "lord": "士燮",
+        "motto": "偏处南陲，不通中原",
+        "diff": "★★★ 僻远孤弱",
+        "capital": "南海"
+      }
+    ],
+    "cities": [
+      {
+        "name": "襄平",
+        "owner": "gong",
+        "garrison": 6
+      },
+      {
+        "name": "北平",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "蓟",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "南皮",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "平原",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "邺",
+        "owner": "wei",
+        "garrison": 7
+      },
+      {
+        "name": "晋阳",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "上党",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "临淄",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "北海",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "武威",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "天水",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "长安",
+        "owner": "wei",
+        "garrison": 7
+      },
+      {
+        "name": "弘农",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "洛阳",
+        "owner": "wei",
+        "garrison": 9
+      },
+      {
+        "name": "濮阳",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "陈留",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "小沛",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "下邳",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "许昌",
+        "owner": "wei",
+        "garrison": 7
+      },
+      {
+        "name": "汝南",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "宛",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "新野",
+        "owner": "wei",
+        "garrison": 5
+      },
+      {
+        "name": "襄阳",
+        "owner": "wei",
+        "garrison": 7
+      },
+      {
+        "name": "江陵",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "江夏",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "长沙",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "武陵",
+        "owner": "wu",
+        "garrison": 5
+      },
+      {
+        "name": "零陵",
+        "owner": "wu",
+        "garrison": 5
+      },
+      {
+        "name": "桂阳",
+        "owner": "wu",
+        "garrison": 5
+      },
+      {
+        "name": "寿春",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "庐江",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "柴桑",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "建业",
+        "owner": "wu",
+        "garrison": 9
+      },
+      {
+        "name": "吴",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "会稽",
+        "owner": "wu",
+        "garrison": 6
+      },
+      {
+        "name": "汉中",
+        "owner": "shu",
+        "garrison": 6
+      },
+      {
+        "name": "梓潼",
+        "owner": "shu",
+        "garrison": 6
+      },
+      {
+        "name": "成都",
+        "owner": "shu",
+        "garrison": 9
+      },
+      {
+        "name": "江州",
+        "owner": "shu",
+        "garrison": 6
+      },
+      {
+        "name": "永安",
+        "owner": "shu",
+        "garrison": 5
+      },
+      {
+        "name": "建宁",
+        "owner": "meng",
+        "garrison": 4
+      },
+      {
+        "name": "云南",
+        "owner": "meng",
+        "garrison": 4
+      },
+      {
+        "name": "南海",
+        "owner": "shi",
+        "garrison": 5
+      },
+      {
+        "name": "合肥",
+        "owner": "wei",
+        "garrison": 7
+      },
+      {
+        "name": "谯",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "彭城",
+        "owner": "wei",
+        "garrison": 6
+      },
+      {
+        "name": "上庸",
+        "owner": "wei",
+        "garrison": 4
+      },
+      {
+        "name": "阆中",
+        "owner": "shu",
+        "garrison": 4
+      },
+      {
+        "name": "雒城",
+        "owner": "shu",
+        "garrison": 4
+      },
+      {
+        "name": "交趾",
+        "owner": "shi",
+        "garrison": 5
+      }
+    ],
+    "generals": [
+      {
+        "faction": "wei",
+        "name": "曹丕",
+        "city": "洛阳",
+        "type": "hero",
+        "title": "魏文帝"
+      },
+      {
+        "faction": "wei",
+        "name": "司马懿",
+        "city": "洛阳",
+        "type": "hero",
+        "title": "冢虎"
+      },
+      {
+        "faction": "wei",
+        "name": "陈群",
+        "city": "洛阳",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "曹真",
+        "city": "许昌",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "王朗",
+        "city": "许昌",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "曹休",
+        "city": "陈留",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "郭淮",
+        "city": "弘农",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "满宠",
+        "city": "濮阳",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "张郃",
+        "city": "小沛",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "臧霸",
+        "city": "下邳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "徐晃",
+        "city": "汝南",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "王凌",
+        "city": "寿春",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "文聘",
+        "city": "宛",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "钟繇",
+        "city": "长安",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "田豫",
+        "city": "南皮",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "贾逵",
+        "city": "平原",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "司马孚",
+        "city": "邺",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "郝昭",
+        "city": "晋阳",
+        "type": "def",
+        "title": "守城名将"
+      },
+      {
+        "faction": "wei",
+        "name": "邓艾",
+        "city": "上党",
+        "type": "hero",
+        "title": "偷渡阴平"
+      },
+      {
+        "faction": "wei",
+        "name": "毌丘俭",
+        "city": "蓟",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "阎柔",
+        "city": "北平",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "王基",
+        "city": "临淄",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "孙礼",
+        "city": "北海",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "牛金",
+        "city": "新野",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "夏侯尚",
+        "city": "襄阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "游楚",
+        "city": "天水",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "苏则",
+        "city": "武威",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wei",
+        "name": "张辽",
+        "city": "合肥",
+        "type": "atk",
+        "title": "威震逍遥津"
+      },
+      {
+        "faction": "wei",
+        "name": "孟达",
+        "city": "上庸",
+        "type": "def",
+        "title": "新城太守"
+      },
+      {
+        "faction": "shu",
+        "name": "刘备",
+        "city": "成都",
+        "type": "hero",
+        "title": "昭烈帝"
+      },
+      {
+        "faction": "shu",
+        "name": "诸葛亮",
+        "city": "成都",
+        "type": "hero",
+        "title": "卧龙"
+      },
+      {
+        "faction": "shu",
+        "name": "蒋琬",
+        "city": "成都",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "魏延",
+        "city": "汉中",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "吴懿",
+        "city": "汉中",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "马岱",
+        "city": "梓潼",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "李严",
+        "city": "江州",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "shu",
+        "name": "陈到",
+        "city": "永安",
+        "type": "def",
+        "title": "白毦兵"
+      },
+      {
+        "faction": "shu",
+        "name": "张飞",
+        "city": "阆中",
+        "type": "atk",
+        "title": "车骑将军"
+      },
+      {
+        "faction": "wu",
+        "name": "孙权",
+        "city": "建业",
+        "type": "hero",
+        "title": "吴大帝"
+      },
+      {
+        "faction": "wu",
+        "name": "张昭",
+        "city": "建业",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "陆逊",
+        "city": "吴",
+        "type": "hero",
+        "title": "伯言"
+      },
+      {
+        "faction": "wu",
+        "name": "顾雍",
+        "city": "会稽",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "诸葛瑾",
+        "city": "柴桑",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "徐盛",
+        "city": "庐江",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "韩当",
+        "city": "江夏",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "朱然",
+        "city": "江陵",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "潘濬",
+        "city": "长沙",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "步骘",
+        "city": "武陵",
+        "type": "wis",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "吕岱",
+        "city": "零陵",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "wu",
+        "name": "全琮",
+        "city": "桂阳",
+        "type": "atk",
+        "title": ""
+      },
+      {
+        "faction": "meng",
+        "name": "孟获",
+        "city": "建宁",
+        "type": "hero",
+        "title": "南蛮王"
+      },
+      {
+        "faction": "meng",
+        "name": "高定",
+        "city": "云南",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "gong",
+        "name": "公孙渊",
+        "city": "襄平",
+        "type": "def",
+        "title": "燕王"
+      },
+      {
+        "faction": "gong",
+        "name": "公孙恭",
+        "city": "襄平",
+        "type": "def",
+        "title": ""
+      },
+      {
+        "faction": "shi",
+        "name": "士燮",
+        "city": "南海",
+        "type": "def",
+        "title": "交州牧"
+      },
+      {
+        "faction": "shi",
+        "name": "士徽",
+        "city": "南海",
+        "type": "def",
+        "title": ""
+      }
+    ]
+  }
+]

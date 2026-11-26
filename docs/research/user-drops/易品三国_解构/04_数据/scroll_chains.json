@@ -1,0 +1,987 @@
+[
+  {
+    "id": "relief_debate",
+    "sys": "politics",
+    "topic": "civil",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{city}} · 仓廪告急",
+    "when": "hungry",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "calm",
+      "convoy",
+      "defer",
+      "remit"
+    ],
+    "frames": [
+      {
+        "speaker": "乡里父老",
+        "text": "{{year}}年，{{city}}仓中只余 {{stock}} 粮。父老携老幼诣县廷请粮，说今岁收成已尽，军屯之粟尚未入仓。",
+        "kind": "创作",
+        "colophon": "情境创作 · 非史书原话"
+      },
+      {
+        "speaker": "仓曹吏",
+        "text": "仓曹捧簿入呈：本城现存 {{stock}} 粮，军民口粮、守备留粮与转运损耗须分别核算；未到之粮，不得先记入仓。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·吴主传》",
+          "juan": "卷四十七·灾后宽赋息调",
+          "text": "赋税、仓廪与灾后处置见卷中记事"
+        },
+        "colophon": "制度背景 · 据卷中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前仓粮推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "派系与旧交不同，故异议不同"
+      },
+      {
+        "speaker": "主君",
+        "text": "{{prior}}开仓、调粮、暂缓或宽赋，四条路都在此。仓粮与运路是实数，人心与信义也要计入。",
+        "kind": "创作",
+        "colophon": "此刻由你定夺"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·吴主传》",
+          "juan": "卷四十七·灾后宽赋息调",
+          "text": "灾后免租税、宽赋息调"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "court_clique",
+    "sys": "politics",
+    "topic": "civil",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "朝堂数家 · 一家独大则他家侧目",
+    "when": "clique",
+    "need": "morale",
+    "mode": "create",
+    "choices": [
+      "honor",
+      "record",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "朝议记事",
+        "text": "朝堂不是一张名单，是几家人。{{cliqueA}}与{{cliqueB}}同列，所争往往不在事，而在由谁来办。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·幕府分党",
+          "text": "郭图与沮授异议，幕府分党"
+        },
+        "colophon": "制度背景 · 据传中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向与派系推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "可跳过 · 只保留结论"
+      }
+    ]
+  },
+  {
+    "id": "edict_han",
+    "sys": "politics",
+    "topic": "civil",
+    "importance": "major",
+    "kind": "史实",
+    "title": "奉天子 · 朝廷威信与一道檄文",
+    "when": "han",
+    "need": "review",
+    "mode": "create",
+    "choices": [
+      "edict",
+      "court",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "尚书台记事",
+        "text": "{{year}}年，天子所在与朝廷名分仍是实有的筹码。奉天子则征召、表奏、檄文皆有所出；失之则号令无名。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安元年迎天子都许",
+          "text": "迎天子都许"
+        },
+        "colophon": "制度背景 · 据卷中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "故旧与派系不同，故所见不同"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安元年迎天子都许",
+          "text": "迎天子都许"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "evernormal",
+    "sys": "economy",
+    "topic": "civil",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "{{city}} · 常平议粜",
+    "when": "market",
+    "need": "tax",
+    "mode": "create",
+    "choices": [
+      "buy",
+      "levy",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "市吏呈报",
+        "text": "本城谷价随岁丰歉而动。以金籴谷、以谷粜金，府库现钱 {{gold}}，仓粮 {{stock}}；平籴可平价，加征则伤乡里。",
+        "kind": "创作",
+        "colophon": "数值取自本局实际账目"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依秉性与府库推演"
+      },
+      {
+        "speaker": "仓曹题跋",
+        "text": "屯田积谷、开渠转输，是汉末诸镇赖以久守的实法；本卷所拟平籴与互市之额，为游戏化取舍，不作史实判定。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·邓艾传》",
+          "juan": "卷二十八·淮南屯田、开河渠",
+          "text": "淮南屯田、开河渠，转输不乏"
+        },
+        "colophon": "史源 · 与本局规则分列"
+      }
+    ]
+  },
+  {
+    "id": "tax_clan",
+    "sys": "economy",
+    "topic": "civil",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "{{city}} · 赋敛与乡里",
+    "when": "tax",
+    "need": "tax",
+    "mode": "create",
+    "choices": [
+      "remit",
+      "levy",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "县廷呈报",
+        "text": "{{city}}民心 {{morale}}，世族隐匿户口与灾后田赋相牵。本期钱赋若照常征解，乡里便少一分喘息。",
+        "kind": "创作",
+        "colophon": "数值取自本局实际民心"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向推演"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·吴主传》",
+          "juan": "卷四十七·灾后宽赋息调",
+          "text": "灾后免租税、宽赋息调"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "market_trade",
+    "sys": "economy",
+    "topic": "civil",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "{{city}} · 互市与馈运",
+    "when": "supply",
+    "need": "market",
+    "mode": "create",
+    "choices": [
+      "trade",
+      "hold",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "转运吏",
+        "text": "粮队在途，沿途关津与损耗皆须计入。互市所得可补府库，但不可把未到的粮先记入本城仓储。",
+        "kind": "创作",
+        "colophon": "依本局在途粮队生成"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依秉性推演"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·刘馥传》",
+          "juan": "卷十五·立州治、广屯田",
+          "text": "合肥之守以屯田与积聚为本"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "war_council",
+    "sys": "military",
+    "topic": "war",
+    "importance": "major",
+    "kind": "史实",
+    "title": "军帐议策 · 阵前交锋 · 盟军驰援 · 败将被俘",
+    "when": "battle",
+    "need": "review",
+    "mode": "create",
+    "choices": [
+      "assault",
+      "steady",
+      "raid",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "军帐议事",
+        "text": "中军帐下，先核馈运与道路，再论进止。诸将各持所见，胜负未形，粮道已先定了一半。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·蜀书·诸葛亮传》",
+          "juan": "卷三十五·军令与战后整顿",
+          "text": "军令、责任与战后整顿"
+        },
+        "colophon": "制度背景 · 据卷中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依秉性与战法推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "交情与派系不同，故战法之议不同"
+      },
+      {
+        "speaker": "阵前交锋",
+        "text": "两军既接，胜负系于兵粮、地势与临阵调度。盟军若至，围者可解；若援道受阻，城中只能自守。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·吴书·陆逊传》",
+          "juan": "卷五十八·夷陵破先主",
+          "text": "假节督诸军，破先主于夷陵"
+        },
+        "colophon": "战事参照 · 据传中记事"
+      },
+      {
+        "speaker": "败将被俘",
+        "text": "军报入帐：败将被收，旧主之恩、同袍之谊与旧怨都还在。杀、赦、用、释，四种处置各有下文。",
+        "kind": "创作",
+        "colophon": "依本局战报生成"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·鲁肃传》",
+          "juan": "卷五十四·因势交涉",
+          "text": "使者往返、君臣讨论与因势交涉"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "prisoner_fate",
+    "sys": "military",
+    "topic": "captive",
+    "importance": "major",
+    "kind": "史实",
+    "title": "阶下相见 · 去留之间",
+    "when": "prisoner",
+    "need": "review",
+    "mode": "enrich",
+    "choices": [
+      "hold",
+      "recruit",
+      "release",
+      "execute"
+    ],
+    "frames": [
+      {
+        "speaker": "军中呈报",
+        "text": "俘将既收，旧部与故主皆在观望。处之不以一时之忿，须看其人与本局旧交。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·张辽传》",
+          "juan": "卷十七·白门归曹",
+          "text": "白门归曹，后独当合肥之任"
+        },
+        "colophon": "处置参照 · 据传中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依秉性与交情推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "旧怨者异议"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·蜀书·关羽传》",
+          "juan": "卷三十六·敌国相重",
+          "text": "操使辽以情问羽，羽叹其义"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "supply_line",
+    "sys": "military",
+    "topic": "war",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "馈运 · 兵未行而粮先计",
+    "when": "supply",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "convoy",
+      "hold",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "督运吏",
+        "text": "在途粮队须逐城推进，途中可能受阻。兵未行而粮先计，纸上兵额不可当成可战之军。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·邓艾传》",
+          "juan": "卷二十八·淮南屯田、开河渠",
+          "text": "淮南屯田、开河渠，转输不乏"
+        },
+        "colophon": "制度背景 · 据传中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依秉性推演"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·蜀书·诸葛亮传》",
+          "juan": "卷三十五·用兵先计馈运",
+          "text": "军令、责任与战后整顿"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "envoy_alliance",
+    "sys": "diplomacy",
+    "topic": "diplomacy",
+    "importance": "major",
+    "kind": "史实",
+    "title": "遣使定盟 · 一纸之约",
+    "when": "envoy",
+    "need": "diplomacy",
+    "mode": "enrich",
+    "choices": [
+      "counterAccept",
+      "counterDecline",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "使节入帐",
+        "text": "聘书既至，先核往返程途与约期。短约可整兵粮，长约则牵制进取；使者是谁，也关乎对方肯不肯信。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·鲁肃传》",
+          "juan": "卷五十四·使者往返、君臣讨论",
+          "text": "使者往返、君臣讨论与因势交涉"
+        },
+        "colophon": "制度背景 · 据卷中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向与旧交推演"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}",
+        "kind": "创作",
+        "colophon": "有旧怨者不肯同席"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·鲁肃传》",
+          "juan": "卷五十四·因势交涉",
+          "text": "反提短约与答复期限是游戏设计，并非史书所载的固定制度"
+        },
+        "colophon": "史源 · 与本局规则分列",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "hostage_marriage",
+    "sys": "diplomacy",
+    "topic": "diplomacy",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "姻亲与质子 · 信义之账",
+    "when": "envoy",
+    "need": "diplomacy",
+    "mode": "enrich",
+    "choices": [
+      "counterAccept",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "典客属吏",
+        "text": "姻亲、质子、义父子，都是账上的信义，不是空话。背约一次，此后诸侯便不复轻信。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·蜀书·糜竺传》",
+          "juan": "卷三十八·进妹、输家资以助军",
+          "text": "竺进妹、输家资以助军"
+        },
+        "colophon": "制度背景 · 据传中记事"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依交情推演"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《后汉书·公孙瓒传》",
+          "juan": "卷七十三·与刘虞积不相能",
+          "text": "瓒与虞积不相能，终执而杀之"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "oath_keeping",
+    "sys": "diplomacy",
+    "topic": "diplomacy",
+    "importance": "daily",
+    "kind": "史实",
+    "title": "守约与背盟 · 名声之账",
+    "when": "han",
+    "need": "diplomacy",
+    "mode": "create",
+    "choices": [
+      "honor",
+      "record",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "记事",
+        "text": "本局名声 {{fame}}。既许人之约，便须兑现；朝令夕改，日后遣使便无人肯信。",
+        "kind": "创作",
+        "colophon": "数值取自本局实际名声"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}",
+        "kind": "创作",
+        "colophon": "依志向推演"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《后汉书·公孙瓒传》",
+          "juan": "卷七十三·积不相能",
+          "text": "瓒与虞积不相能"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_han_exodus",
+    "sys": "politics",
+    "topic": "civil",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 天子东归",
+    "when": "yearEvent",
+    "need": "court",
+    "mode": "create",
+    "choices": [
+      "edict",
+      "court",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《后汉书·孝献帝纪》",
+          "juan": "卷九·兴平二年天子东归",
+          "text": "天子东归，百官饥馑，采稆而食"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "荀彧",
+        "text": "宜奉天子以令不臣，秉至公以服天下；名分所在，虽危不可弃。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·荀彧传》",
+          "juan": "卷十·奉天子以令不臣",
+          "text": "宜奉天子以令不臣，秉至公以服天下"
+        },
+        "colophon": "据本传所载进言"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}今仓中 {{stock}} 粮、府库 {{gold}} 金，迎与不迎，皆须先算馈运。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前仓粮推演 · 非史书原话"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}{{cliqueB}}之人未必同心，主君宜先定朝议。",
+        "kind": "创作",
+        "colophon": "依交情与派系推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·荀彧传》",
+          "juan": "卷十·奉天子以令不臣",
+          "text": "宜奉天子以令不臣"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_luoyang_ruin",
+    "sys": "politics",
+    "topic": "civil",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 洛京焚荡",
+    "when": "yearEvent",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "calm",
+      "convoy",
+      "remit",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}宫庙为烬，流民就食于野。",
+        "kind": "史实",
+        "source": {
+          "book": "《后汉书·董卓列传》",
+          "juan": "卷七十二·迁都长安",
+          "text": "悉烧宫庙官府居家，二百里内无复孑遗"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "乡里父老",
+        "text": "房舍既尽，仓廪亦空；愿主君开仓，或自邻城调粮。",
+        "kind": "创作",
+        "colophon": "情境创作 · 非史书原话"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}本城现存 {{stock}} 粮、民心 {{morale}}，开仓则守备留粮须再核算。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前仓粮推演"
+      },
+      {
+        "speaker": "仓曹吏",
+        "text": "{{stanceB}}簿录在此，请主君裁断：赈、调、缓，三者只可择一。",
+        "kind": "创作",
+        "colophon": "依交情与派系推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《后汉书·董卓列传》",
+          "juan": "卷七十二·迁都长安",
+          "text": "二百里内无复孑遗"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_xutu_tuntian",
+    "sys": "economy",
+    "topic": "civil",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 许下议屯田",
+    "when": "yearEvent",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "remit",
+      "buy",
+      "levy",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·任峻传》",
+          "juan": "卷十六·典农中郎将",
+          "text": "募百姓屯田于许下，得谷百万斛"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "枣祗",
+        "text": "流民有田则安，兵有谷则饱；请募民垦许下，官给耕牛，岁入其粟。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安元年始兴屯田",
+          "text": "用枣祗、韩浩等议，始兴屯田"
+        },
+        "colophon": "据本纪与裴注所载制度背景"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}今府库 {{gold}} 金、本城 {{stock}} 粮，屯田与平籴孰先，须看这一季的收成。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前府库推演 · 非史书原话"
+      },
+      {
+        "speaker": "任峻",
+        "text": "典农之职在积粟，不在一时之赋；仓既实，兵乃可动。",
+        "kind": "创作",
+        "colophon": "依制度背景推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·任峻传》",
+          "juan": "卷十六·典农中郎将",
+          "text": "数年中所在积粟，仓廪皆满"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_guandu",
+    "sys": "military",
+    "topic": "war",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 官渡议粮道",
+    "when": "yearEvent",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "assault",
+      "steady",
+      "raid",
+      "hold"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}两军连营，粮道在乌巢。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安五年官渡",
+          "text": "公与绍相拒于官渡，绍连营稍前，依沙堆为屯"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "田丰",
+        "text": "绍军粮广而气骄，宜以持久待其变；轻出争锋，非万全之策。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·田丰恳谏见系",
+          "text": "丰恳谏，绍怒甚，以为沮众，械系之"
+        },
+        "colophon": "据本传所载进言与下场"
+      },
+      {
+        "speaker": "许攸",
+        "text": "绍粮在乌巢，守卒无备；轻兵夜袭，彼自溃矣。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·许攸来奔",
+          "text": "许攸来奔，因说公袭乌巢，烧绍粮谷"
+        },
+        "colophon": "据本纪所载"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}本局仓中 {{stock}} 粮、{{grain}} 粮在府，奇袭与稳守，所耗不同。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前粮秣推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安五年官渡",
+          "text": "烧绍粮谷，绍众大溃"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_yuan_brothers",
+    "sys": "diplomacy",
+    "topic": "diplomacy",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 二袁阋墙",
+    "when": "yearEvent",
+    "need": "court",
+    "mode": "create",
+    "choices": [
+      "honor",
+      "record",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·袁谭袁尚相攻",
+          "text": "谭、尚相攻，谭败，奔平原"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "审配",
+        "text": "嗣位有定，郭图树党乱命；守邺以待，不可自启门庭之衅。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·审配郭图各树党与",
+          "text": "审配、郭图各树党与，谭、尚由此相攻"
+        },
+        "colophon": "据本传与裴注所载派系"
+      },
+      {
+        "speaker": "辛毗",
+        "text": "谭遣某请救；主君若许，河北之裂可为我用，然亦须防反覆。",
+        "kind": "创作",
+        "colophon": "依本传使节往来的情境创作 · 非史书原话"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}今朝廷威信与府库 {{gold}} 金皆可资遣使，然结约必录其信。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前府库推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·袁谭袁尚相攻",
+          "text": "遣辛毗诣太祖请救"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  },
+  {
+    "id": "year_zhang_water",
+    "sys": "military",
+    "topic": "war",
+    "importance": "major",
+    "kind": "史实",
+    "title": "{{year}}年 · 漳水灌邺",
+    "when": "yearEvent",
+    "need": "food",
+    "mode": "create",
+    "choices": [
+      "assault",
+      "steady",
+      "defer"
+    ],
+    "frames": [
+      {
+        "speaker": "史载",
+        "text": "{{eventTitle}}。{{eventText}}围堑既成，决漳水以灌城。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安九年围邺",
+          "text": "别作围堑，决漳水灌城中，城中饿死者过半"
+        },
+        "colophon": "年表所本 · 史载参照"
+      },
+      {
+        "speaker": "审配",
+        "text": "城虽没水，守志不移；城中粮尽，犹不肯降。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·袁绍传》",
+          "juan": "卷六·审配守邺死节",
+          "text": "配守城不屈，城破被执，终无挠辞"
+        },
+        "colophon": "据本传所载气节"
+      },
+      {
+        "speaker": "{{advisor}}",
+        "text": "{{stanceA}}水攻久围耗粮，本局仓中 {{stock}} 粮；急攻抑或待其自毙，主君裁之。{{echo}}",
+        "kind": "创作",
+        "colophon": "依志向、秉性与当前粮秣推演 · 非史书原话"
+      },
+      {
+        "speaker": "{{second}}",
+        "text": "{{stanceB}}久顿坚城之下，馈运一断，胜负便不在我。",
+        "kind": "创作",
+        "colophon": "依交情与派系推演 · 非史书原话"
+      },
+      {
+        "speaker": "卷末题跋",
+        "text": "{{sourceText}}。以下抉择为本局分岔，非史实。",
+        "kind": "史实",
+        "source": {
+          "book": "《三国志·魏书·武帝纪》",
+          "juan": "卷一·建安九年围邺",
+          "text": "决漳水灌城中"
+        },
+        "colophon": "史源",
+        "blank": true
+      }
+    ]
+  }
+]
