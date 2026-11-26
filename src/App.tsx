@@ -99,7 +99,7 @@ export default function App() {
           className="text-center max-w-sm text-[0.95rem] leading-relaxed mb-8"
           style={{ color: 'var(--fg)' }}
         >
-          {chapter.title} · 双害选择题。点气泡推进，点蓝词看注释。
+          {chapter.title} · 史料锚定的双害抉择。点气泡推进，点蓝词看出处。
         </p>
         <button
           type="button"

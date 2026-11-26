@@ -1,85 +1,112 @@
 import type { Chapter } from '../types'
 
+/** 赤壁前夜 Demo v2 — 史料锚定，幽默≤1/10 */
 export const redCliffsEve: Chapter = {
   id: 'red-cliffs-eve',
   title: '赤壁前夜',
-  subtitle: '曹操不容易 · Demo',
+  subtitle: '曹操不容易 · 史料版 Demo',
   start: 'N00',
   gloss: {
-    连锁: {
-      id: '连锁',
-      title: '连锁',
-      body: '把船用铁链、木板连成一片，减少风浪颠簸。利：北方士兵少晕船。弊：火一起，整排船走不掉。',
-      source: '《三国志》裴注引《江表传》等记赤壁用火攻破连船。',
+    八十万: {
+      id: '八十万',
+      title: '水军八十万',
+      body: '遗孙权书中的胁降口径（《江表传》/《通鉴》）。周瑜夜校：中国人不过十五六万且疲，表众极七八万且狐疑。不可当作审计实数。',
+      source: '《周瑜传》注引《江表传》',
+    },
+    军实: {
+      id: '军实',
+      title: '江陵军实',
+      body: '江陵所藏粮械船资。《先主传》明写曹操「以江陵有军实，恐先主据之」，故释辎重轻军急追。细目史默。',
+      source: '《三国志·先主传》',
+    },
+    更始: {
+      id: '更始',
+      title: '与之更始',
+      body: '进江陵后下令荆州吏民「与之更始」，并论服从之功、封侯、用荆州将吏。安抚与东下争夺同一段日历。',
+      source: '《三国志·武帝纪》',
     },
     疾疫: {
       id: '疾疫',
       title: '疾疫',
-      body: '军中流行的传染病。北方人到江南，水土不服，病亡可拖垮整支部队。',
-      source: '《三国志·武帝纪》记赤壁前后「大疫，吏士多死者」。',
+      body: '《周瑜传》：遇于赤壁时「军众已有疾病」。疫在初战前已存在，不是火攻后才出现。《武帝纪》亦书大疫、吏士多死。',
+      source: '《周瑜传》《武帝纪》',
     },
-    粮道: {
-      id: '粮道',
-      title: '粮道',
-      body: '运粮的水路与中转仓。江上打仗，粮船晚一天，前线就可能饿一天。',
+    四患: {
+      id: '四患',
+      title: '周瑜所陈四患',
+      body: '关西马超韩遂为后患；舍鞍马仗舟楫非中国所长；盛寒马无藁草；远涉不习水土必生疾病。操「皆冒行之」。',
+      source: '《三国志·周瑜传》',
     },
-    火攻: {
-      id: '火攻',
-      title: '火攻',
-      body: '用火烧船、烧营。冬日东南风一起，火借风势，连船最怕这个。',
+    首尾相接: {
+      id: '首尾相接',
+      title: '船舰首尾相接',
+      body: '黄盖观察操军船阵「首尾相接」，以为可烧。《通鉴》作「方连船舰」。史载是结果，不是「因晕船而连环」的动机句——动机属推演。',
+      source: '《周瑜传》；《通鉴》卷65',
     },
-    东南风: {
-      id: '东南风',
-      title: '东南风',
-      body: '冬天长江一带偶发的东南风。火攻方若借上这阵风，风向对曹操不利。',
+    诈降: {
+      id: '诈降',
+      title: '黄盖诈降',
+      body: '先书报欺以欲降；注载操「但恐汝诈」，仍许重赏。吏士延颈观望，通鉴更写「出营立观」，火船得近。',
+      source: '《周瑜传》及注引《江表传》',
     },
-    降将: {
-      id: '降将',
-      title: '降将',
-      body: '刚投降过来的将领。有真降，也有诈降。你信不信，本身就是赌注。',
+    玄武池: {
+      id: '玄武池',
+      title: '玄武池肄舟师',
+      body: '建安十三年春，曹操还邺，作玄武池练水军。解决的是静水基础，不等于长江盛寒、疾疫、降附混编下的会战能力。',
+      source: '《三国志·武帝纪》',
     },
-    荆州水军: {
-      id: '荆州水军',
-      title: '荆州水军',
-      body: '原属荆州的水上手。曹操得荆州后收编他们，但忠诚与编制都未稳。',
+    长坂: {
+      id: '长坂',
+      title: '长坂急追',
+      body: '精骑五千，一日一夜三百余里，及于当阳长坂，大获人众辎重。破竹与人马过用是同一条链。',
+      source: '《三国志·先主传》',
     },
-    乌林: {
-      id: '乌林',
-      title: '乌林',
-      body: '长江南岸一带地名，赤壁对岸。曹军屯驻处之一，火攻后溃退常从此起。',
+    统本兵: {
+      id: '统本兵',
+      title: '文聘统本兵',
+      body: '以刘表大将文聘为江夏太守，「使统本兵」——保留荆州将领对旧部的指挥权，换水战能力，也留下狐疑风险。',
+      source: '《三国志·武帝纪》',
     },
   },
   nodes: {
     N00: {
       id: 'N00',
-      title: '开场',
+      title: '开场 · 江陵',
       lines: [
         {
           speaker: 'system',
-          text: '建安十三年冬。长江。你是曹操。',
+          text: '建安十三年。刘琮已降。你在江陵。',
         },
         {
           speaker: 'system',
-          text: '北方八十万大军压境——帐下这么报；真能打的，你心里有数。',
-        },
-        {
-          speaker: 'cao',
-          text: '风往南刮的时候，连船像一座城。风要是转了……城会变成柴火。',
+          text: '本节据《武帝纪》《周瑜传》《先主传》及裴注缺口推演。点蓝词看出处。',
         },
         {
           speaker: 'cheng',
-          text: '丞相，今晚三件事：船要不要再加链，病号报不报实数，还有——有人说要来降。',
+          text: '丞相差遣已核：{{长坂}}所获人众辎重尚在清点；江陵{{军实}}已入册；荆州吏民{{更始}}令已下，侯者名籍未齐。',
+        },
+        {
+          speaker: 'xun',
+          text: '春间{{玄武池}}肄舟师，是邺城静水。今日要驾的是荆州降附的蒙冲斗舰，与北军步骑同江——两套编制，尚未合成一令。',
         },
         {
           speaker: 'jia',
-          text: '我只提醒一句：每件事你选快，后面都会催你更快。',
+          text: '江东已见恐吓口径：书称{{八十万}}。他们若信，或迎或战；他们若不信，会按实数来打我们。',
+        },
+        {
+          speaker: 'cao',
+          text: '把日历摊开。东下与安抚，哪一件先做完。',
+        },
+        {
+          speaker: 'cheng',
+          text: '不能两件都「做完」。只能选哪一件先欠着。',
         },
       ],
       choices: [
         {
           id: 'N00_go',
-          label: '先把船的事定了',
-          hint: '进入第一难',
+          label: '议东下与再抚',
+          hint: '进入第一难 · 锚定 TL-06',
           next: 'N01',
         },
       ],
@@ -87,42 +114,52 @@ export const redCliffsEve: Chapter = {
 
     N01: {
       id: 'N01',
-      title: '第一难 · 连锁',
+      title: '第一难 · 江陵日历',
       lines: [
         {
           speaker: 'cheng',
-          text: '{{连锁}}已经铺了一半。北方兵终于不太吐了，粮草也省在舱里。',
+          text: '诸将请顺江会猎：备新败，江东震恐，书已出，窗口短。',
+        },
+        {
+          speaker: 'xun',
+          text: '未完之事：降人条品、舰籍归谁指挥、文聘{{统本兵}}与北军水督如何接令、刘璋给军是否入账。再留旬月，账更实，敌也更备。',
+        },
+        {
+          speaker: 'jia',
+          text: '周瑜若主战，会陈{{四患}}：关西、水战、盛寒马草、水土疾病。我们若此刻东下，等于四患都认领。',
         },
         {
           speaker: 'soldier',
-          text: '报告：下游有人夜探，像是东吴的小船。要不要今晚把余下的链全焊死？',
-        },
-        {
-          speaker: 'jia',
-          text: '焊死，稳；留缝，活。稳的时候，火来了你跑不掉。活的时候，风浪来了你吐到明天。',
+          text: '斥候报：柴桑方向使者往来频繁。江东是迎是战，尚无定谳。',
         },
         {
           speaker: 'cao',
-          text: '说人话。',
-        },
-        {
-          speaker: 'jia',
-          text: '人话：你今晚省下的呕吐，可能变成明天的灰。',
+          text: '东下：抢时间、养「八十万」之势。再抚：养编制、养粮、养降人——可能把会猎写成相持。',
         },
       ],
       choices: [
         {
           id: 'N01_A',
-          label: 'A · 全部连锁，今晚焊死',
-          hint: '稳，但怕火',
-          effects: [{ set: 'loose_ships', value: false }],
+          label: 'A · 即日部署东下',
+          hint: '短利：威压与时间差；欠账：更始与筛疫',
+          effects: [
+            { set: 'haste', value: true },
+            {
+              cost: '江陵安抚与舰籍清点压缩；粮械随军前送，后方留屯减员。',
+            },
+          ],
           next: 'N01_A_out',
         },
         {
           id: 'N01_B',
-          label: 'B · 留活口，分批连锁',
-          hint: '活，但晃',
-          effects: [{ set: 'loose_ships', value: true }],
+          label: 'B · 再留旬日，先完更始与舰籍',
+          hint: '短利：降附与指挥栈；欠账：敌方备战窗口',
+          effects: [
+            { set: 'haste', value: false },
+            {
+              cost: '多耗江陵仓廪与时日；会猎胁降时效下降。',
+            },
+          ],
           next: 'N01_B_out',
         },
       ],
@@ -133,15 +170,15 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'cheng',
-          text: '得令。铁链连夜加紧。士兵睡稳了，营里终于安静。',
+          text: '得令。前锋舟骑按巴丘方向序次；文聘部随水军建制，条品未完者暂挂原将名下。',
         },
         {
-          speaker: 'cao',
-          text: '安静好。安静到对手听不见我们喘气。',
+          speaker: 'xun',
+          text: '名籍未齐就开拔，日后战报上的「兵力」会比实营好看——也会比实营脆弱。',
         },
         {
           speaker: 'jia',
-          text: '也听不见我们拆链的声音——如果有必要拆的话。',
+          text: '你买到了日历。日历的利息，后面用疾疫和船阵来付。',
         },
       ],
       next: 'N02',
@@ -152,15 +189,15 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'cheng',
-          text: '得令。外圈留活扣，内圈照旧。有人又开始吐了。',
+          text: '得令。侯者名籍限期呈核；舰籍分「可战」「转运」「未验」三簿；北军不得擅征荆州水手，须经军府。',
         },
         {
-          speaker: 'cao',
-          text: '吐就吐。吐完还能跑，比跑不了强。',
+          speaker: 'xun',
+          text: '仓廪会明显下降。降人安定一分，东下的「势」就淡一分。',
         },
         {
           speaker: 'jia',
-          text: '希望你明天还记得今晚说的这句话。',
+          text: '江东若在这旬日内定战，我们送给他们的不是粮，是准备时间。',
         },
       ],
       next: 'N02',
@@ -168,47 +205,61 @@ export const redCliffsEve: Chapter = {
 
     N02: {
       id: 'N02',
-      title: '第二难 · 疾疫',
+      title: '第二难 · 疾疫名册',
       lines: [
         {
+          speaker: 'system',
+          text: '汇合 · 疫报到案（不论东下急缓，名册问题都会来）',
+        },
+        {
+          speaker: 'soldier',
+          text: '军医密报：咳热、下痢已在数营出现。尚不足定「大疫」之名，但按满员派差，已有人死于途。',
+        },
+        {
           speaker: 'xun',
-          text: '丞相，{{疾疫}}的名册……帐上写「偶有不适」。军医私下说：每十人里有两三个抬不动刀。',
+          text: '《后书》未到。若按周瑜逻辑，远涉江湖「必生疾病」。我们若在遇敌前装作无事，编制是假的。',
         },
         {
           speaker: 'cheng',
-          text: '若报实数，后方会催粮、催援，也有人会说丞相治军不严。若不报——前线按虚数派活，死人会更快。',
+          text: '若摊牌：须减勤务、隔离、催药——账面兵力立刻难看，恐吓江东的{{八十万}}也会自我拆穿。',
         },
         {
           speaker: 'jia',
-          text: '诚实花钱，撒谎也花钱。差别只是：谁先发现账单是假的。',
+          text: '若隐瞒：短期能维持出征政治；代价是病卒仍按健卒使用，传染链更难截断。',
         },
         {
           speaker: 'cao',
-          text: '发现的人，是我，还是东吴？',
+          text: '遇敌时若已有疾病——那不是事后才发生的事。现在就要定：名册从真，还是从势。',
         },
         {
-          speaker: 'jia',
-          text: '最好是你。最坏是东南风。',
+          speaker: 'cheng',
+          text: '（callback）因江陵已抢日历，医药与留养的余地更薄。压报能保日程，也会把病卒继续送上橹。',
+          when: { haste: true },
+        },
+        {
+          speaker: 'cheng',
+          text: '（callback）江陵既已留抚，隔离营与药船尚可调度——但仍要你定：实报还是压报。',
+          when: { haste: false },
         },
       ],
       choices: [
         {
           id: 'N02_A',
-          label: 'A · 报实数，减勤务、催药',
-          hint: '账真，士气可能晃',
+          label: 'A · 压报，维持满员出征编制',
+          hint: '短利：势与日程；欠账：真实战力',
           effects: [
-            { set: 'plague_honesty', value: true },
-            { cost: '本旬药钱、运力上浮；部分将领私下嘀咕「丞相示弱」。' },
+            { set: 'plague_honesty', value: false },
+            { cost: '病卒仍按满员派差；药与隔离后置。' },
           ],
           next: 'N02_A_out',
         },
         {
           id: 'N02_B',
-          label: 'B · 维持虚报，强撑编制',
-          hint: '账假，派活照旧',
+          label: 'B · 实报减员，隔离并催药',
+          hint: '短利：可战者更实；欠账：势与流言',
           effects: [
-            { set: 'plague_honesty', value: false },
-            { cost: '当面省了奏报麻烦；病号仍按满员派差。' },
+            { set: 'plague_honesty', value: true },
+            { cost: '账面兵力下调；药船与运力上浮；「示弱」流言起。' },
           ],
           next: 'N02_B_out',
         },
@@ -220,11 +271,15 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'xun',
-          text: '名册改了。药船今夜起锚。有人骂你慌——更多人终于能躺下。',
+          text: '名册不动。巡营记「偶有不适」。能走路的，仍上橹。',
+        },
+        {
+          speaker: 'jia',
+          text: '江东细作若在，他们看见的病号会比名册多。',
         },
         {
           speaker: 'cao',
-          text: '骂我的人明天还要吃饭。躺下的人，明天或许还能站起来。',
+          text: '先把江走完。账，到对岸再算。',
         },
       ],
       next: 'N03',
@@ -235,15 +290,15 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'xun',
-          text: '名册不动。巡营的人装没看见有人咳血。',
+          text: '名册改实。重病出列，轻病减役，药船今夜离栈。有将领已问：丞相是否怯战。',
+        },
+        {
+          speaker: 'cheng',
+          text: '怯战之名可辩。虚数赴敌，死后无法辩。',
         },
         {
           speaker: 'cao',
-          text: '装没看见，也是一种看见。',
-        },
-        {
-          speaker: 'jia',
-          text: '东吴那边若有细作，他们看见的比你多。',
+          text: '让他们问。问的人，至少还站得住。',
         },
       ],
       next: 'N03',
@@ -251,23 +306,29 @@ export const redCliffsEve: Chapter = {
 
     N03: {
       id: 'N03',
-      title: '过场 · 粮与风',
+      title: '过场 · 巴丘至江面',
       lines: [
         {
-          speaker: 'cheng',
-          text: '{{粮道}}报：上游两艘粮船晚了半日。不是丢了，是风不对。',
+          speaker: 'system',
+          text: '军至巴丘一线。合肥方向另遣偏师——两线分兵已成事实，主攻仍在长江。',
         },
         {
-          speaker: 'cao',
-          text: '风不对，人就饿。人饿了，链再稳也没用。',
+          speaker: 'cheng',
+          text: '北岸泊区报：浪颠、夜散、号令不齐。有人请将船舰密泊，首尾相衔，便于统一指挥。',
         },
         {
           speaker: 'jia',
-          text: '观测说今夜可能转{{东南风}}。也可能只是观星的人喝多了。',
+          text: '密泊的收益是稳与令。风险是火。史书日后若只写「首尾相接」，不会替我们解释动机——动机要我们自己承担。',
         },
         {
-          speaker: 'system',
-          text: '你没有更多情报。只有下一道选择题。',
+          speaker: 'xun',
+          text: '（callback）疾疫名册若是假的，密泊会把病人与健卒锁在同一风口里。',
+          when: { plague_honesty: false },
+        },
+        {
+          speaker: 'xun',
+          text: '名册既已改实，密泊至少不会把重病者硬锁进核心舟阵——但仍须定防火间距。',
+          when: { plague_honesty: true },
         },
       ],
       next: 'N04',
@@ -275,49 +336,43 @@ export const redCliffsEve: Chapter = {
 
     N04: {
       id: 'N04',
-      title: '第三难 · 降将',
+      title: '第三难 · 船阵',
       lines: [
         {
-          speaker: 'soldier',
-          text: '有人夜叩外营，自称东吴{{降将}}，带十艘小船、愿献火油与水路图。',
-        },
-        {
           speaker: 'cheng',
-          text: '验过刀伤，像真的。但真伤也可以是戏。',
+          text: '议案甲：舟舰{{首尾相接}}，如营寨。利：减散阵、便号令、利北军上下。',
         },
         {
           speaker: 'jia',
-          text: '你若全信，门开得太大；你若全疑，可能把真降推回去——而他手里的图，也许是假的，也许是要命的真。',
+          text: '议案乙：分屯疏泊，预留防火道与砍缆预案。利：火攻难以一网。弊：浪颠、夜惊、指挥变慢——黄盖所惧「难与持久」，可能朝我们反噬。',
+        },
+        {
+          speaker: 'soldier',
+          text: '对岸已有敌帆。初战若不利，将引次江北对峙——船阵会在对峙里被看清。',
         },
         {
           speaker: 'cao',
-          text: '我最烦的不是骗子。是半真半假的人。',
-        },
-        {
-          speaker: 'jia',
-          text: '半真半假，才配得上「不容易」。',
+          text: '相接是结果。我要的是：这个结果值不值得用火灾风险去换。',
         },
       ],
       choices: [
         {
           id: 'N04_A',
-          label: 'A · 收船、收人，速战速决',
-          hint: '快，但门大',
+          label: 'A · 密泊相接，统一号令',
+          hint: '史实观察向；稳，怕火',
           effects: [
-            { set: 'suspect_defection', value: false },
-            { set: 'haste', value: true },
-            { cost: '外营今夜对「来船」放行一档；斥候班次压缩。' },
+            { set: 'loose_ships', value: false },
+            { cost: '泊阵如营；火灾时分割困难。' },
           ],
           next: 'N04_A_out',
         },
         {
           id: 'N04_B',
-          label: 'B · 扣人验供，船泊外港',
-          hint: '慢，但门窄',
+          label: 'B · 疏泊分屯，留砍缆与防火道',
+          hint: '旁支；活，怕散与持久',
           effects: [
-            { set: 'suspect_defection', value: true },
-            { set: 'haste', value: false },
-            { cost: '今夜多耗一队精卒看守；进攻窗口可能错半日。' },
+            { set: 'loose_ships', value: true },
+            { cost: '指挥变慢；夜警与浪损上升；防火分割可行。' },
           ],
           next: 'N04_B_out',
         },
@@ -329,15 +384,11 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'cheng',
-          text: '人收下了。他说东南风起时，可顺流点{{火攻}}。听着很甜。',
-        },
-        {
-          speaker: 'cao',
-          text: '甜的东西，我吃过。有的是蜜，有的是药。',
+          text: '舟阵按相接部署。夜号一次可传全泊区。北军上下船明显顺利。',
         },
         {
           speaker: 'jia',
-          text: '药和蜜混在一碗里的时候，舌头最先说谎。',
+          text: '对岸若有人「观操军船舰」，他们会得到一句很干净的话：首尾相接，可烧而走。',
         },
       ],
       next: 'N05',
@@ -348,15 +399,11 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'cheng',
-          text: '人扣在外港。供词前后有两处对不上——他说「记混了」。',
-        },
-        {
-          speaker: 'cao',
-          text: '记混了，也可以是怕。也可以是演。',
+          text: '外圈疏泊，内圈要地仍近卫。砍缆斧已发到什长。有人抱怨：这不像丞相平日的「整」。',
         },
         {
           speaker: 'jia',
-          text: '你至少没把钥匙直接塞进陌生人手里。钥匙在你这儿，火来了，你还能选择锁哪扇门。',
+          text: '整，是为了打。散，是为了不被一火打完。两者都姓「整」，只是整的对象不同。',
         },
       ],
       next: 'N05',
@@ -364,47 +411,58 @@ export const redCliffsEve: Chapter = {
 
     N05: {
       id: 'N05',
-      title: '第四难 · 何时出手',
+      title: '第四难 · 来降',
       lines: [
         {
+          speaker: 'system',
+          text: '初战不利的消息与江北屯驻令相继抵达。对岸有人先书请降。',
+        },
+        {
+          speaker: 'soldier',
+          text: '来书自称黄盖部曲，言江东众寡不敌，愿为前部归命。船数、膏油味、牙旗——斥候描摹与「降船」相近，也与「火船」相近。',
+        },
+        {
           speaker: 'cheng',
-          text: '{{荆州水军}}编制未稳，有人请战，有人请守。{{乌林}}方向烟多，像有人在练火。',
+          text: '受降：可拆敌、可示强、可速决。史路如此。',
+        },
+        {
+          speaker: 'jia',
+          text: '注里会有一句「但恐汝诈」。怕，却仍可能让吏士{{诈降}}观望、甚至出营立观——怕与松懈可以同时存在。',
         },
         {
           speaker: 'xun',
-          text: '若今夜出击，可打乱对方节奏；若再等一日，粮到、病号喘息——可对方也可能等同一日。',
-        },
-        {
-          speaker: 'jia',
-          text: '你前面选的「快」或「稳」，会在这里结算。不是道德结算，是风向结算。',
+          text: '远泊戒备、强弩外拒、不许出营：火船难近。代价是持久。黄盖正怕持久；我们若防诈，可能把战争拖进他们更擅长的节奏。',
         },
         {
           speaker: 'cao',
-          text: '结算词呢？',
+          text: '（callback）船阵既已相接，观降一旦失距，烧的是整泊区。',
+          when: { loose_ships: false },
         },
         {
-          speaker: 'jia',
-          text: '两个字：撑住。或者：撤。',
+          speaker: 'cao',
+          text: '（callback）疏泊尚在，仍不可把「观降」当成阅兵。',
+          when: { loose_ships: true },
         },
       ],
       choices: [
         {
           id: 'N05_A',
-          label: 'A · 今夜进逼，抢窗口',
-          hint: '加压，容错更小',
+          label: 'A · 受降接洽，许以爵赏，放近观验',
+          hint: '短利：速决与拆敌；史实诱向',
           effects: [
+            { set: 'suspect_defection', value: false },
             { set: 'haste', value: true },
-            { cost: '斥候与预备队提前消耗；若风向突变，回旋余地变薄。' },
+            { cost: '外泊警戒降档；吏士得出营观望。' },
           ],
           next: 'N05_A_out',
         },
         {
           id: 'N05_B',
-          label: 'B · 再等一昼夜，固营观风',
-          hint: '留气，也可能把气等没',
+          label: 'B · 扣使验供，船泊射程外，禁出营',
+          hint: '短利：防火距；欠账：持久与时效',
           effects: [
-            { set: 'haste', value: false },
-            { cost: '多耗一日粮与焦躁；进攻主动权可能易手。' },
+            { set: 'suspect_defection', value: true },
+            { cost: '精卒看守与延期；进攻窗口变窄。' },
           ],
           next: 'N05_B_out',
         },
@@ -415,12 +473,12 @@ export const redCliffsEve: Chapter = {
       id: 'N05_A_out',
       lines: [
         {
-          speaker: 'system',
-          text: '号角压低。船影朝南压过去。江面像一块被撕开的布。',
+          speaker: 'cheng',
+          text: '行人已见。口敕备下：若信实，赏格从优。泊区有人延颈——像在等一场自己的胜利。',
         },
         {
-          speaker: 'cao',
-          text: '快走。走慢了，火会先到。',
+          speaker: 'jia',
+          text: '胜利若来自降幡，火也从同一方向来。',
         },
       ],
       next: 'N06',
@@ -430,12 +488,12 @@ export const redCliffsEve: Chapter = {
       id: 'N05_B_out',
       lines: [
         {
-          speaker: 'system',
-          text: '营火压暗。江上只听见链环偶尔一响。',
+          speaker: 'cheng',
+          text: '使扣外寨。供词两处不合。船令停于强弩界外，夜禁出营。有将问：丞相要与江东熬到何时。',
         },
         {
-          speaker: 'cao',
-          text: '等。等不是认输，是把刀子握热。',
+          speaker: 'jia',
+          text: '熬，是防诈的利息。不熬，是火的利息。两笔都是利息。',
         },
       ],
       next: 'N06',
@@ -443,23 +501,19 @@ export const redCliffsEve: Chapter = {
 
     N06: {
       id: 'N06',
-      title: '风向',
+      title: '风向与火',
       lines: [
         {
           speaker: 'soldier',
-          text: '报——东南风起！',
+          text: '报——风转猛！对岸船队举帆前趋，有人呼降。',
         },
         {
           speaker: 'cheng',
-          text: '对岸火光连成一线。不是炊烟。',
-        },
-        {
-          speaker: 'jia',
-          text: '该结算了。',
+          text: '烟已起。请丞相阅战报拼装——按今夜之前四次抉择入账。',
         },
         {
           speaker: 'cao',
-          text: '……把账拿来。',
+          text: '取账。',
         },
       ],
       next: 'N07_report',
@@ -472,7 +526,7 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'system',
-          text: '【战报拼装中——依你今夜四次抉择】',
+          text: '【战报拼装】',
         },
       ],
       next: 'N08_route',
@@ -483,7 +537,7 @@ export const redCliffsEve: Chapter = {
       lines: [
         {
           speaker: 'system',
-          text: '江面还在烧。你得给自己一个说法。',
+          text: '账已齐。结局按摘要变量裁定。',
         },
       ],
       next: 'ENDING_PICK',
@@ -491,44 +545,64 @@ export const redCliffsEve: Chapter = {
 
     ENDING_PICK: {
       id: 'ENDING_PICK',
+      lines: [{ speaker: 'system', text: '（路由）' }],
+      next: 'E_BURN',
+    },
+
+    E_BURN: {
+      id: 'E_BURN',
+      kind: 'ending',
+      endingId: 'canon-ash',
+      title: '结局 · 史实灰',
       lines: [
         {
           speaker: 'system',
-          text: '（路由结局）',
+          text: '船阵相接，警戒因受降而松。风盛火猛，舟营俱焚。军中本已有疾病，溃后饥疫并书，吏士多死。',
+        },
+        {
+          speaker: 'cheng',
+          text: '请留曹仁等守江陵，主力北还。江南诸郡将不在掌握。',
+        },
+        {
+          speaker: 'cao',
+          text: '日后若需一书，可写：值有疾病，烧船自退。那是给外人看的句子。',
+        },
+        {
+          speaker: 'jia',
+          text: '给自己看的句子更短：日历、名册、泊距、观降——四笔里，你选了史书最熟悉的组合。',
+        },
+        {
+          speaker: 'system',
+          text: '【结局：史实灰】绝对优势在此失效：疾疫在前，火攻在后，自辩在最后。',
         },
       ],
-      next: 'E_ESCAPE',
     },
 
     E_ESCAPE: {
       id: 'E_ESCAPE',
       kind: 'ending',
-      endingId: 'escape',
-      title: '结局 · 跑得掉',
+      endingId: 'bitter-win',
+      title: '结局 · 苦持',
       lines: [
         {
           speaker: 'system',
-          text: '火咬住外圈，内圈的活扣被砍开。人挤上小船，骂声、水声、铁链断裂声搅在一起。',
-        },
-        {
-          speaker: 'cao',
-          text: '丢脸。但丢脸的人还活着，能写下一道命令。',
-        },
-        {
-          speaker: 'jia',
-          text: '你留下了缝。缝很小，刚好够一条命侧身过去。',
+          text: '火未能尽吞泊区。疏泊或远拒使火攻减效；江面转入更长的对峙与消耗。',
         },
         {
           speaker: 'cheng',
-          text: '清点：船损过半，人……还能整编。丞相，往哪里？',
+          text: '南岸仍在压迫。我们保下了一部分舟骑，也把「八十万」的神话穿了孔。许下会有人写别的账。',
         },
         {
           speaker: 'cao',
-          text: '往还能喘气的地方。然后——再谈「不容易」。',
+          text: '活着的编制，比完整的话术重要。但活着的编制，不够写成一场漂亮的胜。',
+        },
+        {
+          speaker: 'jia',
+          text: '旁支的胜利通常难看。难看，是你付过防火与疑降的利息。',
         },
         {
           speaker: 'system',
-          text: '【结局：跑得掉】不是胜利。是还握得住下一局的资格。',
+          text: '【结局：苦持】火攻史路偏转；战争不会因此变仁慈。',
         },
       ],
     },
@@ -536,65 +610,28 @@ export const redCliffsEve: Chapter = {
     E_HOLD: {
       id: 'E_HOLD',
       kind: 'ending',
-      endingId: 'hold',
-      title: '结局 · 撑住',
+      endingId: 'honest-bleed',
+      title: '结局 · 摊牌余生',
       lines: [
         {
           speaker: 'system',
-          text: '火来了，但编制没先崩。病号名单是真的，预备队还在。有人诈降被扣在外港，火船没能贴到核心。',
-        },
-        {
-          speaker: 'cao',
-          text: '撑住。不是英雄，是账单勉强平。',
-        },
-        {
-          speaker: 'jia',
-          text: '平账单的人，很少被写成英雄。但明天军还在。',
+          text: '名册从实，戒备从严，东下未全押在恐吓上。初战与疾疫仍在，但崩溃没有一次烧穿。',
         },
         {
           speaker: 'xun',
-          text: '东吴退了半里。我们……也退了半里。江还是那条江。',
+          text: '能战之卒少于出发时的话术。江东可以笑话我们「示弱」；他们笑话的时候，我们的人还在。',
         },
         {
           speaker: 'cao',
-          text: '那就够了。今晚够了。',
-        },
-        {
-          speaker: 'system',
-          text: '【结局：撑住】你没赢赤壁。你赢了一夜没把命赔光。',
-        },
-      ],
-    },
-
-    E_BURN: {
-      id: 'E_BURN',
-      kind: 'ending',
-      endingId: 'burn',
-      title: '结局 · 烧穿',
-      lines: [
-        {
-          speaker: 'system',
-          text: '链是死的，门是开的，名册是假的，脚步是急的。东南风只负责点火，其余是你亲自堆的柴。',
-        },
-        {
-          speaker: 'cao',
-          text: '……我听见自己的船在叫。',
+          text: '丞相府不需要鼓掌。需要下一道还能发出的军令。',
         },
         {
           speaker: 'jia',
-          text: '船不会叫。叫的是还没烧完的人。',
-        },
-        {
-          speaker: 'cheng',
-          text: '丞相！北岸——北岸还有路！',
-        },
-        {
-          speaker: 'cao',
-          text: '走。把今晚记住。记住「快」是怎么变成灰的。',
+          text: '你丢掉的是势。你留下的是还可以计算的兵力。',
         },
         {
           speaker: 'system',
-          text: '【结局：烧穿】史书会写火攻。你自己清楚：火只是最后一根火柴。',
+          text: '【结局：摊牌余生】像正确的成年人——帐里未必有人恭喜。',
         },
       ],
     },

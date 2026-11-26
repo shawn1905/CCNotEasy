@@ -9,7 +9,7 @@ import type {
   SceneNode,
 } from './types'
 
-const STORAGE_KEY = 'ccne-red-cliffs-eve-v1'
+const STORAGE_KEY = 'ccne-red-cliffs-eve-v2'
 
 export const DEFAULT_FLAGS: Flags = {
   haste: false,
@@ -99,55 +99,55 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
   const lines: BubbleLine[] = [
     {
       speaker: 'system',
-      text: '【战报】建安十三年冬 · 长江赤壁一带',
+      text: '【战报】建安十三年 · 赤壁—乌林对峙段（据抉择拼装，非单一史文照抄）',
     },
   ]
 
-  if (flags.loose_ships) {
+  if (flags.haste) {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：外圈留活扣。火起时，一部分船还能砍链侧滑——代价是今夜吐得更凶，队形也散。',
+      text: '日历：江陵东下优先。更始与舰籍未齐即序次前送；胁降时效保住，降附整合与筛疫偏欠。',
     })
   } else {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：连锁焊死。风平浪静时像水上城寨；东南风一起，城寨就是干柴。',
+      text: '日历：江陵留抚优先。侯籍、舰籍、隔离尚有安排；会猎窗口让出一部分给敌方备战。',
     })
   }
 
   if (flags.plague_honesty) {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：实数上账，药船先行。编制缩了，但还能动的人是真的还能动。',
+      text: '疾疫：实数入册，减役催药。可战卒少于话术；遇敌时「已有疾病」至少被己方承认过。',
     })
   } else {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：虚报维持。纸面满员，江上却有人咳着被派去堵口——缺口会在最不该出现的时候出现。',
+      text: '疾疫：压报满员。编制好看；病卒仍上橹。对岸若有细作，其见闻将严于我名册。',
+    })
+  }
+
+  if (flags.loose_ships) {
+    lines.push({
+      speaker: 'cheng',
+      text: '船阵：疏泊分屯，留砍缆与防火道。火攻难以一网；夜惊、浪损、号令变慢已入账。',
+    })
+  } else {
+    lines.push({
+      speaker: 'cheng',
+      text: '船阵：密泊相接，号令如营。北军上下便利；若被观察为「首尾相接」，可烧前提成立。',
     })
   }
 
   if (flags.suspect_defection) {
     lines.push({
       speaker: 'jia',
-      text: '降将：扣在外港。火船想贴核心，多过了一道门。门窄，你也慢了半拍。',
+      text: '来降：扣使、外泊、禁出营。「但恐汝诈」落到了条令上；持久风险上升，火船贴心难度上升。',
     })
   } else {
     lines.push({
       speaker: 'jia',
-      text: '降将：收入营中。情报来得快，门也开得大——快与险，是同一枚铜板。',
-    })
-  }
-
-  if (flags.haste) {
-    lines.push({
-      speaker: 'cao',
-      text: '节奏：抢了窗口。刀出鞘了，回鞘的时间变短。',
-    })
-  } else {
-    lines.push({
-      speaker: 'cao',
-      text: '节奏：留了一昼夜。气还在，主动权却可能已经易手。',
+      text: '来降：接洽、许赏、观验。短利是拆敌与速决；吏士延颈（乃至出营立观）使火入距离变短。',
     })
   }
 
@@ -160,7 +160,7 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
 
   lines.push({
     speaker: 'system',
-    text: '火与风不问动机。它们只问：你的链、你的门、你的名册、你的脚步——哪一环先断。',
+    text: '结算句：疾疫在前，船阵与观降决定火是否一次烧穿。风只负责最后一截。',
   })
 
   return lines
