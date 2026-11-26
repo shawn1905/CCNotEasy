@@ -1,11 +1,14 @@
 # 曹操不容易
 
-回合制战略——模拟曹操的决策。
+回合制战略——模拟曹操的决策。开源、概念阶段。
 
-## 当前状态
+## 文档
 
-概念阶段。制作计划见 [`PLAN.md`](./PLAN.md)。待确认项未齐前不开始实现。
+- [`PLAN.md`](./PLAN.md) — 制作计划（确认 / 待确认分开）
+- [`docs/research/comparable-games.md`](./docs/research/comparable-games.md) — 竞品与参考作品
 
-## 本地运行
+待概念确认齐之前，不开始可玩实现。
 
-尚未搭建可运行工程（等概念与 GDD 确认后接入）。
+## 许可
+
+[MIT](./LICENSE)
