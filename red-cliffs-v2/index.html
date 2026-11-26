@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="red-cliffs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0c0b">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23151210'/><rect x='2' y='2' width='28' height='28' fill='none' stroke='%23e86f3a' stroke-width='2'/><text x='16' y='22' text-anchor='middle' fill='%23e86f3a' font-size='16' font-family='serif'>曹</text></svg>">
+  <title>《曹操不容易》// V2 实验切片 · 江陵柜台日</title>
+  <style>
+    :root {
+      --bg: #151210;
+      --bg-dark: #0f0c0b;
+      --bg-darker: #0a0807;
+      --bg-light: #221c18;
+      --fg: #dfd5c5;
+      --fg-dim: #9c8d7a;
+      --fg-bright: #f6eee0;
+      --accent: #e86f3a;
+      --accent-soft: rgba(232, 111, 58, 0.16);
+      --danger: #e04f5f;
+      --warn: #d9a84e;
+      --ok: #7fb069;
+      --teal: #5aa6a0;
+      --muted: #3d332c;
+      --selection: #2e241d;
+      --radius: 2px;
+      --font-ui: "JetBrains Mono", "Sarasa Mono SC", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --font-prose: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      --font-serif: "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      background: var(--bg-darker); color: var(--fg);
+      font-family: var(--font-prose); font-size: 15px; line-height: 1.6;
+      overflow: hidden; user-select: none; -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font-family: inherit; color: inherit; background: none;
+      border: none; padding: 0; cursor: pointer; touch-action: manipulation;
+    }
+
+    .viewport-frame {
+      width: 100%; height: 100dvh; display: flex; justify-content: center;
+      background: var(--bg-darker);
+    }
+
+    .app-shell {
+      position: relative; width: 100%; max-width: 460px; height: 100dvh;
+      display: flex; flex-direction: column; background: var(--bg); overflow: hidden;
+    }
+
+    @media (min-width: 480px) {
+      .app-shell { border-left: 1px solid var(--muted); border-right: 1px solid var(--muted); }
+    }
+
+    /* Chapter Theme 3-Piece Background Layer */
+    .chapter-bg {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: url("./bg-red-cliffs.jpg") center bottom / cover no-repeat;
+      opacity: 0.44; transition: opacity 500ms ease, filter 500ms ease;
+    }
+    .app-shell[data-mood="fire"] .chapter-bg { opacity: 0.56; filter: saturate(1.28); }
+
+    .atmosphere {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(15, 12, 11, 0.84) 0%, rgba(15, 12, 11, 0.55) 45%, rgba(15, 12, 11, 0.78) 100%),
+        radial-gradient(ellipse 110% 50% at 50% 100%, rgba(232, 111, 58, 0.14) 0%, transparent 72%);
+      transition: background 450ms ease;
+    }
+    .app-shell[data-mood="fire"] .atmosphere {
+      background:
+        linear-gradient(180deg, rgba(18, 10, 9, 0.84) 0%, rgba(22, 11, 9, 0.50) 45%, rgba(26, 9, 8, 0.78) 100%),
+        radial-gradient(ellipse 120% 58% at 50% 100%, rgba(232, 111, 58, 0.28) 0%, rgba(224, 79, 95, 0.12) 48%, transparent 80%);
+    }
+
+    .app-layer {
+      position: relative; z-index: 2; flex: 1; min-height: 0;
+      display: flex; flex-direction: column;
+    }
+
+    /* Splash */
+    .splash {
+      position: absolute; inset: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: center; padding: 18px;
+      background: rgba(10, 8, 7, 0.86);
+    }
+    .splash.hidden { display: none; }
+    .splash-card {
+      width: 100%; border: 1px solid var(--muted); border-top: 2px solid var(--accent);
+      border-radius: var(--radius); background: rgba(15, 12, 11, 0.94); padding: 18px 16px;
+    }
+    .splash-kicker {
+      display: flex; justify-content: space-between; font-family: var(--font-ui);
+      font-size: 10.5px; color: var(--fg-dim); letter-spacing: 0.06em;
+    }
+    .splash-kicker span:last-child { color: var(--accent); }
+    .splash-title { margin: 10px 0 4px; font-size: 24px; font-weight: 700; color: var(--fg-bright); }
+    .splash-sub { font-family: var(--font-ui); font-size: 12.5px; color: var(--accent); margin-bottom: 12px; }
+    .splash-desc {
+      margin: 0 0 14px; font-size: 13.5px; line-height: 1.65; color: var(--fg);
+      border-left: 2px solid var(--teal); padding-left: 10px;
+    }
+    .splash-rules {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px;
+    }
+    .rule-pill {
+      padding: 7px 6px; border: 1px solid var(--muted); border-radius: var(--radius);
+      background: var(--bg-darker); text-align: center;
+    }
+    .rule-pill strong { display: block; font-family: var(--font-ui); font-size: 11px; color: var(--fg-bright); }
+    .rule-pill span { display: block; font-size: 10.5px; color: var(--fg-dim); margin-top: 2px; }
+    .btn-primary {
+      width: 100%; padding: 11px 14px; border: 1px solid var(--accent);
+      border-left: 3px solid var(--accent); border-radius: var(--radius);
+      background: var(--accent-soft); color: var(--fg-bright);
+      font-size: 14.5px; font-weight: 700; letter-spacing: 0.04em;
+    }
+    .btn-primary:active { transform: translateY(1px); background: rgba(232, 111, 58, 0.28); }
+    .splash-foot {
+      margin-top: 12px; display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-ui); font-size: 11px; color: var(--fg-dim);
+    }
+    .audio-pill {
+      padding: 4px 8px; border: 1px solid var(--muted); border-radius: var(--radius);
+      font-family: var(--font-ui); font-size: 11px; color: var(--fg);
+    }
+    .audio-pill.is-on { border-color: var(--accent); color: var(--accent); }
+
+    /* Dual-Axis HUD: Row 1 Blood Bars + Row 2 Ticking Deadline ("Rent") */
+    .hud-wrap {
+      flex: 0 0 auto; background: rgba(15, 12, 11, 0.94);
+      border-bottom: 1px solid var(--muted);
+      padding: calc(6px + env(safe-area-inset-top, 0px)) 10px 7px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .hud-row-1 { display: flex; align-items: center; gap: 6px; }
+    .res-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .res-box {
+      padding: 4px 6px; border: 1px solid var(--muted); border-radius: var(--radius);
+      background: var(--bg-darker); text-align: left; position: relative;
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .res-box.is-warn {
+      border-color: var(--warn); background: rgba(217, 168, 78, 0.12);
+      animation: pulseWarn 1.6s ease-in-out infinite;
+    }
+    .res-box.is-crit {
+      border-color: var(--danger); background: rgba(224, 79, 95, 0.18);
+      animation: pulseCrit 0.9s ease-in-out infinite;
+    }
+    @keyframes pulseWarn { 0%,100% { border-color: rgba(217,168,78,0.45); } 50% { border-color: #d9a84e; } }
+    @keyframes pulseCrit { 0%,100% { border-color: rgba(224,79,95,0.45); } 50% { border-color: #e04f5f; } }
+
+    .res-top { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-ui); font-size: 11px; }
+    .res-name { color: var(--fg-dim); }
+    .res-tag { font-size: 9px; margin-left: 2px; color: var(--warn); font-weight: 700; }
+    .res-box.is-crit .res-tag { color: var(--danger); }
+    .res-val { font-size: 13px; font-weight: 700; color: var(--fg-bright); }
+    .res-bars { display: flex; gap: 2px; margin-top: 3px; }
+    .res-seg { flex: 1; height: 3px; background: var(--muted); }
+    .res-seg.on { background: var(--accent); }
+    .res-box.is-warn .res-seg.on { background: var(--warn); }
+    .res-box.is-crit .res-seg.on { background: var(--danger); }
+
+    .delta-pop {
+      position: absolute; right: 4px; top: -6px; font-family: var(--font-ui);
+      font-size: 11px; font-weight: 700; pointer-events: none;
+      animation: floatUp 1.1s ease-out forwards;
+    }
+    .delta-pop.pos { color: var(--ok); }
+    .delta-pop.neg { color: var(--danger); }
+    @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-14px); } }
+
+    .hud-icon-btn {
+      width: 32px; height: 32px; flex: 0 0 auto; border: 1px solid var(--muted);
+      border-radius: var(--radius); background: var(--bg-darker);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-ui); font-size: 12px; color: var(--fg-dim);
+    }
+    .hud-icon-btn.is-on { border-color: var(--accent); color: var(--accent); }
+
+    /* Deadline ("Rent") Bar */
+    .deadline-row {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-ui); font-size: 11px;
+    }
+    .deadline-label { color: var(--fg-dim); white-space: nowrap; }
+    .deadline-label strong { color: var(--accent); }
+    .deadline-track {
+      flex: 1; height: 7px; border: 1px solid var(--muted); border-radius: 1px;
+      background: var(--bg-darker); display: flex; gap: 2px; padding: 1px;
+    }
+    .dl-pip { flex: 1; background: rgba(61, 51, 44, 0.55); transition: background 220ms ease; }
+    .dl-pip.filled { background: var(--accent); }
+    .dl-pip.danger { background: var(--danger); }
+    .deadline-num { color: var(--fg-bright); font-weight: 700; min-width: 28px; text-align: right; }
+    .deadline-row.is-urgent .deadline-label strong,
+    .deadline-row.is-urgent .deadline-num { color: var(--danger); }
+
+    /* Stream */
+    .stream {
+      flex: 1 1 auto; min-height: 0; overflow-y: auto;
+      padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 11px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .case-divider {
+      flex: 0 0 auto; display: flex; align-items: center; gap: 8px; margin: 6px 0 2px;
+      font-family: var(--font-ui); font-size: 11px; color: var(--fg-dim);
+    }
+    .case-divider::before, .case-divider::after { content: ""; flex: 1; height: 1px; background: var(--muted); }
+    .case-divider span {
+      padding: 2px 8px; border: 1px solid var(--muted); border-radius: var(--radius);
+      background: var(--bg-dark); color: var(--accent); font-weight: 700;
+    }
+
+    /* Frameless Background Typography for Walking / Patrol */
+    .walk-block {
+      flex: 0 0 auto; padding: 10px 8px 12px;
+      border-top: 1px solid rgba(156, 141, 122, 0.2);
+      border-bottom: 1px solid rgba(156, 141, 122, 0.14);
+      font-family: var(--font-serif); font-size: 14.5px; line-height: 1.85;
+      letter-spacing: 0.04em; color: var(--fg-bright);
+      text-shadow: 0 1px 10px rgba(8, 6, 5, 0.98), 0 0 3px rgba(8, 6, 5, 0.96);
+      animation: fadeUp 180ms ease-out both;
+    }
+    .walk-kicker {
+      text-align: center; font-family: var(--font-ui); font-size: 10.5px;
+      color: var(--teal); letter-spacing: 0.16em; margin-bottom: 6px;
+    }
+    .walk-clues {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px;
+    }
+    .clue-chip {
+      font-family: var(--font-ui); font-size: 11px; color: var(--teal);
+      padding: 2px 7px; border: 1px dashed rgba(90, 166, 160, 0.6);
+      background: rgba(10, 8, 7, 0.65); border-radius: var(--radius);
+    }
+
+    /* Dialogue Boxes (Sharp contrast with frameless walk blocks) */
+    .msg-row {
+      flex: 0 0 auto; display: flex; flex-direction: column; width: 100%;
+      animation: fadeUp 140ms ease-out both;
+    }
+    .msg-row.left { align-items: flex-start; }
+    .msg-row.right { align-items: flex-end; }
+    .msg-box {
+      max-width: 89%; padding: 9px 11px; border: 1px solid var(--muted);
+      border-radius: var(--radius); background: rgba(34, 28, 24, 0.94);
+      font-size: 14.5px; line-height: 1.6;
+    }
+    .msg-row.left .msg-box { border-left: 2px solid var(--accent); }
+    .msg-row.right .msg-box {
+      max-width: 86%; background: rgba(46, 36, 29, 0.95);
+      border-right: 2px solid var(--accent); color: var(--fg-bright);
+    }
+    .msg-head {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 4px;
+      font-family: var(--font-ui); font-size: 11px;
+    }
+    .msg-spk { font-weight: 700; color: var(--fg-bright); }
+    .msg-role { color: var(--fg-dim); font-size: 10.5px; }
+
+    /* Typewriter character pop */
+    .char-pop {
+      display: inline-block; white-space: pre-wrap;
+      animation: charPop 145ms cubic-bezier(0.22, 1.35, 0.36, 1) both;
+    }
+    .char-pop.emph { color: var(--accent); font-weight: 700; animation: charEmph 175ms cubic-bezier(0.2, 1.45, 0.32, 1) both; }
+    @keyframes charPop { 0% { opacity: 0; transform: translateY(5px) scale(0.86); } 65% { opacity: 1; transform: translateY(-1.5px) scale(1.06); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes charEmph { 0% { opacity: 0; transform: translateY(6px) scale(0.82); } 60% { opacity: 1; transform: translateY(-2px) scale(1.12); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Counter Case Desk Card (Papers Please style contradiction check + Stamp) */
+    .case-card {
+      flex: 0 0 auto; position: relative; border: 1px solid var(--muted);
+      border-top: 2px solid var(--warn); border-radius: var(--radius);
+      background: rgba(15, 12, 11, 0.96); overflow: hidden;
+      animation: fadeUp 160ms ease-out both;
+    }
+    .case-head {
+      padding: 8px 11px; background: var(--bg-darker); border-bottom: 1px solid var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-ui); font-size: 11px;
+    }
+    .case-title { color: var(--warn); font-weight: 700; }
+    .case-status { color: var(--fg-dim); }
+    .case-body { padding: 11px; display: flex; flex-direction: column; gap: 8px; }
+    .case-hint { margin: 0; font-size: 12.5px; color: var(--fg-dim); }
+
+    .claim-item {
+      border: 1px solid var(--muted); border-radius: var(--radius);
+      background: var(--bg-light); overflow: hidden;
+    }
+    .claim-item.is-exposed { border-color: var(--danger); }
+    .claim-btn {
+      width: 100%; text-align: left; padding: 9px 10px;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+      font-size: 13.5px; color: var(--fg-bright); line-height: 1.5;
+    }
+    .claim-badge {
+      flex: 0 0 auto; padding: 1px 6px; border: 1px solid var(--warn);
+      border-radius: 1px; font-family: var(--font-ui); font-size: 10px; color: var(--warn);
+    }
+    .claim-item.is-exposed .claim-badge {
+      border-color: var(--danger); color: var(--danger); background: rgba(224, 79, 95, 0.14);
+    }
+    .claim-proof {
+      padding: 8px 10px; border-top: 1px dashed var(--muted);
+      background: rgba(10, 8, 7, 0.88); font-size: 12.5px; line-height: 1.55; color: var(--teal);
+    }
+    .claim-proof strong { color: var(--danger); }
+
+    /* Three Physical Stamp Options */
+    .stamp-deck {
+      margin-top: 4px; display: flex; flex-direction: column; gap: 7px;
+    }
+    .stamp-deck.is-locked { opacity: 0.45; pointer-events: none; }
+    .stamp-btn {
+      width: 100%; text-align: left; padding: 9px 11px;
+      border: 1px solid var(--muted); border-left: 3px solid var(--muted);
+      border-radius: var(--radius); background: var(--bg-darker);
+      transition: transform 80ms ease, border-color 120ms ease;
+    }
+    .stamp-btn:active { transform: translateY(1px); }
+    .stamp-btn.kind-approve { border-left-color: var(--fg-dim); }
+    .stamp-btn.kind-reject { border-left-color: var(--teal); }
+    .stamp-btn.kind-dirty {
+      border-color: rgba(232, 111, 58, 0.65); border-left: 3px solid var(--accent);
+      background: rgba(232, 111, 58, 0.09);
+    }
+    .stamp-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .stamp-name { font-size: 14px; font-weight: 700; color: var(--fg-bright); }
+    .stamp-btn.kind-dirty .stamp-name { color: var(--accent); }
+    .stamp-cost { font-family: var(--font-ui); font-size: 10.5px; color: var(--fg-dim); }
+    .stamp-desc { margin-top: 3px; font-size: 12px; color: var(--fg); line-height: 1.45; }
+    .stamp-interest {
+      margin-top: 3px; font-family: var(--font-ui); font-size: 10.5px; color: var(--warn);
+    }
+
+    /* Slammed Vermilion Stamp Overlay */
+    .stamp-mark {
+      position: absolute; right: 12px; top: 38px;
+      padding: 4px 10px; border: 2px solid var(--danger); color: var(--danger);
+      font-family: var(--font-serif); font-size: 16px; font-weight: 900;
+      letter-spacing: 0.14em; transform: rotate(-10deg) scale(1);
+      background: rgba(15, 12, 11, 0.82); pointer-events: none;
+      animation: stampSlam 200ms cubic-bezier(0.15, 1.4, 0.3, 1) both;
+    }
+    .stamp-mark.is-dirty { border-color: var(--accent); color: var(--accent); }
+    .stamp-mark.is-reject { border-color: var(--teal); color: var(--teal); }
+    @keyframes stampSlam {
+      0% { opacity: 0; transform: rotate(-16deg) scale(2.1); }
+      75% { opacity: 1; transform: rotate(-9deg) scale(0.94); }
+      100% { opacity: 1; transform: rotate(-10deg) scale(1); }
+    }
+
+    /* Settlement / Warning Strip */
+    .strip {
+      flex: 0 0 auto; padding: 7px 10px; border: 1px solid var(--muted);
+      border-left: 3px solid var(--accent); border-radius: var(--radius);
+      background: rgba(15, 12, 11, 0.92); font-size: 12.5px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    }
+    .strip.is-warn { border-color: var(--warn); border-left-color: var(--warn); background: rgba(217, 168, 78, 0.12); }
+    .strip.is-danger { border-color: var(--danger); border-left-color: var(--danger); background: rgba(224, 79, 95, 0.14); }
+    .strip-badge {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+      padding: 1px 6px; border: 1px solid var(--accent); color: var(--accent);
+    }
+    .strip.is-warn .strip-badge { border-color: var(--warn); color: var(--warn); }
+    .strip.is-danger .strip-badge { border-color: var(--danger); color: var(--danger); }
+
+    /* Ending & LLM Critique Card */
+    .ending-card {
+      flex: 0 0 auto; border: 1px solid var(--muted); border-top: 2px solid var(--accent);
+      border-radius: var(--radius); background: rgba(15, 12, 11, 0.96); overflow: hidden;
+    }
+    .ending-hero { padding: 15px 14px; background: var(--bg-darker); border-bottom: 1px solid var(--muted); }
+    .ending-badge {
+      display: inline-block; padding: 2px 7px; border: 1px solid var(--accent);
+      font-family: var(--font-ui); font-size: 11px; color: var(--accent); margin-bottom: 7px;
+    }
+    .ending-title { margin: 0; font-size: 19px; color: var(--fg-bright); }
+    .ending-sub { margin-top: 4px; font-size: 12.5px; color: var(--fg-dim); }
+    .ending-sec { padding: 12px 14px; border-bottom: 1px solid var(--muted); }
+    .ending-sec:last-child { border-bottom: none; }
+    .sec-kicker { font-family: var(--font-ui); font-size: 10.5px; color: var(--fg-dim); margin-bottom: 7px; letter-spacing: 0.06em; }
+    .build-box {
+      padding: 10px 12px; border: 1px solid var(--accent); border-radius: var(--radius);
+      background: var(--selection);
+    }
+    .build-name { font-size: 16px; font-weight: 700; color: var(--fg-bright); }
+    .build-quote { margin-top: 4px; font-size: 13px; color: var(--accent); font-family: var(--font-serif); }
+    .interest-item {
+      padding: 8px 10px; margin-bottom: 6px; border-left: 2px solid var(--danger);
+      background: var(--bg); font-size: 13px; line-height: 1.55;
+    }
+    .interest-item.good { border-left-color: var(--ok); }
+    .llm-diag {
+      padding: 9px 11px; border: 1px solid var(--muted); border-left: 3px solid var(--teal);
+      background: var(--bg); font-size: 13px; line-height: 1.65; margin-bottom: 8px;
+    }
+    .llm-details { border: 1px solid var(--muted); background: var(--bg-darker); margin-bottom: 8px; }
+    .llm-details summary { padding: 7px 10px; font-family: var(--font-ui); font-size: 11px; color: var(--fg-dim); cursor: pointer; }
+    .llm-pre {
+      margin: 0; padding: 9px 10px; border-top: 1px solid var(--muted);
+      font-family: var(--font-ui); font-size: 11px; line-height: 1.5; color: var(--fg);
+      white-space: pre-wrap; max-height: 200px; overflow-y: auto; user-select: text;
+    }
+    .btn-copy {
+      width: 100%; padding: 9px 12px; border: 1px solid var(--teal);
+      background: rgba(90, 166, 160, 0.14); color: var(--fg-bright);
+      font-family: var(--font-ui); font-size: 12px; font-weight: 700; border-radius: var(--radius);
+    }
+    .btn-copy.is-copied { border-color: var(--ok); color: var(--ok); background: rgba(127, 176, 105, 0.15); }
+
+    /* Bottom Tap Bar */
+    .bottom-bar {
+      flex: 0 0 auto; background: rgba(15, 12, 11, 0.96);
+      border-top: 1px solid var(--muted);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .tap-btn {
+      width: 100%; padding: 12px 14px; display: flex; justify-content: space-between;
+      align-items: center; font-family: var(--font-ui); font-size: 12.5px; color: var(--fg-bright);
+    }
+    .tap-btn.hidden { display: none; }
+    .tap-right { color: var(--accent); font-size: 11.5px; }
+
+    /* Modal for HUD resource rule info */
+    .modal-bg {
+      position: fixed; inset: 0; z-index: 30; background: rgba(0, 0, 0, 0.72);
+      display: flex; align-items: flex-end; justify-content: center; padding: 12px;
+    }
+    .modal-bg.hidden { display: none; }
+    .modal-sheet {
+      width: 100%; max-width: 440px; border: 1px solid var(--muted);
+      border-top: 2px solid var(--accent); background: var(--bg-dark); padding: 14px;
+    }
+    .modal-head { display: flex; justify-content: space-between; font-family: var(--font-ui); font-size: 11px; color: var(--fg-dim); margin-bottom: 8px; }
+    .modal-title { font-size: 16px; font-weight: 700; color: var(--fg-bright); margin-bottom: 6px; }
+    .modal-body { font-size: 13.5px; line-height: 1.6; color: var(--fg); }
+  </style>
+</head>
+<body>
+  <div class="viewport-frame">
+    <main class="app-shell" id="app-shell" data-mood="calm">
+      <div class="chapter-bg" aria-hidden="true"></div>
+      <div class="atmosphere" aria-hidden="true"></div>
+
+      <!-- Splash -->
+      <section class="splash" id="splash">
+        <div class="splash-card">
+          <div class="splash-kicker">
+            <span>CCNOTEASY // V2 实验切片</span>
+            <span>建安十三年冬 · 江陵</span>
+          </div>
+          <h1 class="splash-title">江陵柜台日</h1>
+          <div class="splash-sub">巡营取证 · 比对打脸 · 盖章耍脏招</div>
+          <p class="splash-desc">
+            三桩军政案卷正陆续摆上丞相案头。先出门巡营看真现场，再回帐核对假账矛盾，最后拍下朱砂大印——老实查办会拖爆「江东定战死线」，耍曹氏脏招当场真香、但入夜要还高利贷。
+          </p>
+          <div class="splash-rules">
+            <div class="rule-pill"><strong>三项血条</strong><span>≤1 告急 · =0 崩盘</span></div>
+            <div class="rule-pill"><strong>江东死线</strong><span>满 6 格抢先开火</span></div>
+            <div class="rule-pill"><strong>三枚大印</strong><span>照准 / 驳回 / 脏招</span></div>
+          </div>
+          <button type="button" class="btn-primary" id="btn-start">坐上帅案，开始批文</button>
+          <div class="splash-foot">
+            <span>赤壁玄墨 · 烬火</span>
+            <button type="button" class="audio-pill" id="btn-splash-audio">赤壁·麦田烬风8x：静音</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="app-layer">
+        <!-- Dual-Axis HUD -->
+        <header class="hud-wrap">
+          <div class="hud-row-1">
+            <div class="res-grid">
+              <button type="button" class="res-box" data-res="coin">
+                <div class="res-top"><span class="res-name">钱帛</span><span class="res-val">3</span></div>
+                <div class="res-bars"></div>
+              </button>
+              <button type="button" class="res-box" data-res="grain">
+                <div class="res-top"><span class="res-name">粮草</span><span class="res-val">3</span></div>
+                <div class="res-bars"></div>
+              </button>
+              <button type="button" class="res-box" data-res="troops">
+                <div class="res-top"><span class="res-name">兵力</span><span class="res-val">4</span></div>
+                <div class="res-bars"></div>
+              </button>
+            </div>
+            <button type="button" class="hud-icon-btn" id="btn-audio" title="声音开关">静</button>
+            <button type="button" class="hud-icon-btn" id="btn-reset" title="重开">重</button>
+          </div>
+
+          <div class="deadline-row" id="deadline-row">
+            <span class="deadline-label">死线 · <strong>江东定战</strong></span>
+            <div class="deadline-track" id="deadline-track"></div>
+            <span class="deadline-num" id="deadline-num">0/6</span>
+          </div>
+        </header>
+
+        <section class="stream" id="stream"></section>
+
+        <footer class="bottom-bar">
+          <button type="button" class="tap-btn hidden" id="tap-btn">
+            <span id="tap-left">点击继续</span>
+            <span class="tap-right" id="tap-right"></span>
+          </button>
+        </footer>
+      </div>
+
+      <div class="modal-bg hidden" id="modal-bg">
+        <div class="modal-sheet">
+          <div class="modal-head">
+            <span>// 规则说明</span>
+            <button type="button" id="modal-close">关闭</button>
+          </div>
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-body" id="modal-body"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    /* ======================================================================
+       1. Audio & Haptics Engine (Gapless AudioBufferSourceNode + Foley)
+       ====================================================================== */
+    const AudioEngine = (function () {
+      let ctx = null, master = null, bgmGain = null, sfxGain = null;
+      let bgmBuf = null, bgmNode = null, bgmLoading = false, bgmEl = null;
+      let enabled = false, mood = "calm";
+
+      function vib(p) {
+        try {
+          if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
+          if (navigator.vibrate) navigator.vibrate(p);
+        } catch (e) {}
+      }
+
+      function ensureCtx() {
+        if (ctx) { if (ctx.state === "suspended") ctx.resume().catch(() => {}); return true; }
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return false;
+        ctx = new AC();
+        master = ctx.createGain(); master.gain.value = enabled ? 0.9 : 0; master.connect(ctx.destination);
+        bgmGain = ctx.createGain(); bgmGain.gain.value = 0.45; bgmGain.connect(master);
+        sfxGain = ctx.createGain(); sfxGain.gain.value = 0.72; sfxGain.connect(master);
+        return true;
+      }
+
+      function startBuf() {
+        if (!ctx || !bgmBuf || !enabled) return;
+        stopBgm();
+        const n = ctx.createBufferSource();
+        n.buffer = bgmBuf; n.loop = true;
+        n.playbackRate.setValueAtTime(mood === "fire" ? 0.9 : 1.0, ctx.currentTime);
+        n.connect(bgmGain); n.start(0);
+        bgmNode = n;
+      }
+
+      function startBgm() {
+        if (!enabled || !ensureCtx()) return;
+        if (bgmBuf) { startBuf(); return; }
+        if (bgmLoading) return;
+        if (location.protocol === "file:" || !window.fetch) {
+          if (!bgmEl) {
+            bgmEl = new Audio("./bgm-red-cliffs.mp3");
+            bgmEl.loop = true; bgmEl.volume = 0.44;
+            bgmEl.addEventListener("ended", () => { if (enabled) { bgmEl.currentTime = 0; bgmEl.play().catch(() => {}); } });
+          }
+          bgmEl.play().catch(() => {});
+          return;
+        }
+        bgmLoading = true;
+        fetch("./bgm-red-cliffs.mp3")
+          .then(r => r.arrayBuffer())
+          .then(ab => ctx.decodeAudioData(ab))
+          .then(buf => { bgmLoading = false; bgmBuf = buf; if (enabled && !document.hidden) startBuf(); })
+          .catch(() => { bgmLoading = false; });
+      }
+
+      function stopBgm() {
+        if (bgmNode) { try { bgmNode.stop(); bgmNode.disconnect(); } catch (e) {} bgmNode = null; }
+        if (bgmEl) { try { bgmEl.pause(); } catch (e) {} }
+      }
+
+      function playTick(emph) {
+        if (!enabled || !ensureCtx()) return;
+        const now = ctx.currentTime;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle";
+        const f = emph ? 320 : 600 + Math.random() * 140;
+        o.frequency.setValueAtTime(f, now);
+        o.frequency.exponentialRampToValueAtTime(f * 0.46, now + 0.02);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(emph ? 0.13 : 0.05, now + 0.002);
+        g.gain.exponentialRampToValueAtTime(0.0005, now + 0.024);
+        o.connect(g); g.connect(sfxGain); o.start(now); o.stop(now + 0.028);
+      }
+
+      function playExpose() {
+        vib(10);
+        if (!enabled || !ensureCtx()) return;
+        const now = ctx.currentTime;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(587.33, now);
+        o.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(0.16, now + 0.008);
+        g.gain.exponentialRampToValueAtTime(0.0008, now + 0.2);
+        o.connect(g); g.connect(sfxGain); o.start(now); o.stop(now + 0.22);
+      }
+
+      function playStamp(isDirty) {
+        vib(isDirty ? [20, 26, 18] : 15);
+        if (!enabled || !ensureCtx()) return;
+        const now = ctx.currentTime;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle";
+        o.frequency.setValueAtTime(isDirty ? 160 : 220, now);
+        o.frequency.exponentialRampToValueAtTime(52, now + 0.16);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(0.38, now + 0.006);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        o.connect(g); g.connect(sfxGain); o.start(now); o.stop(now + 0.22);
+      }
+
+      function playAlert() {
+        vib([18, 30, 24]);
+        if (!enabled || !ensureCtx()) return;
+        const now = ctx.currentTime;
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.setValueAtTime(112, now);
+        o.frequency.exponentialRampToValueAtTime(44, now + 0.35);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.linearRampToValueAtTime(0.42, now + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0008, now + 0.42);
+        o.connect(g); g.connect(sfxGain); o.start(now); o.stop(now + 0.45);
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopBgm();
+        else if (enabled) startBgm();
+      });
+
+      return {
+        toggle() {
+          enabled = !enabled;
+          if (enabled) { ensureCtx(); master.gain.setTargetAtTime(0.9, ctx.currentTime, 0.04); startBgm(); }
+          else { stopBgm(); if (ctx) master.gain.setTargetAtTime(0, ctx.currentTime, 0.04); }
+          return enabled;
+        },
+        isEnabled: () => enabled,
+        setMood(m) {
+          mood = m || "calm";
+          if (ctx && bgmNode) bgmNode.playbackRate.setTargetAtTime(mood === "fire" ? 0.9 : 1.0, ctx.currentTime, 0.4);
+        },
+        vib, playTick, playExpose, playStamp, playAlert
+      };
+    })();
+
+    /* ======================================================================
+       2. V2 Counter-Day Case Data (3 Escalating Cases + Reckoning)
+       ====================================================================== */
+    const CASES = [
+      {
+        id: "C1",
+        num: "案壹",
+        title: "荆州降将请赏与船籍表",
+        mood: "calm",
+        walk: {
+          kicker: "巡营所见 · 寅时 · 江陵南码头",
+          text: "天还没亮，你披着黑氅走过南门湿滑的石阶。码头雾重，你顺手数了数船坞：**真正刷了新桐油的斗舰只有十二艘**，后头排开三十条全是连桨架都没钉牢的运粮平底船。拐角处，刚封了列侯的降将亲兵正把两箱官造箭矢往自家骡车里塞。",
+          clues: ["证物①：实有斗舰仅12艘，余30艘为平底粮船", "证物②：新封列侯亲兵私搬官库箭矢"]
+        },
+        introMsgs: [
+          { side: "left", speaker: "荆州降吏", role: "蒯氏门客", text: "（双手捧上装潢齐整的《水师请赏实册》）明公大喜！荆州水营已整编完毕，诸将感念「与之更始」之恩，只等丞相盖印支发安家钱帛。" },
+          { side: "right", speaker: "曹操", role: "心中", text: "刚从码头踩着一鞋底泥回来，案头上这本册子倒写得干干净净。**先戳穿他的假话，再决定盖哪颗印。**" }
+        ],
+        docTitle: "《荆州水师船籍与请赏表》",
+        claims: [
+          {
+            surface: "「计点江陵现役蒙冲斗舰五十艘，桅帆齐备，即日可顺江会猎。」",
+            proof: "你刚在南码头亲眼数过：能打仗的斗舰只有十二艘，剩下三十条是连桨都没配齐的平底运粮船——这是拿货船充主力舰报功。"
+          },
+          {
+            surface: "「新封列侯十五人皆秋毫无犯，恳请先支一笔安家钱帛以稳军心。」",
+            proof: "拐角骡车里塞着的两箱官造箭矢还没捂热，这边就伸手要安家费——真发下去，钱进了私囊，军械照样流失。"
+          }
+        ],
+        stamps: [
+          {
+            id: "approve", kind: "approve", stampText: "照准",
+            label: "【照准】闭眼盖印，给足体面",
+            costText: "钱帛 -1 · 兵力 +1 · 死线 +1",
+            desc: "不拆穿假账，照单发钱封赏。荆州水营当场欢呼，但三十条平底货船混进了主力编制。",
+            interest: "隐患：开战时平底船队将拖垮全阵",
+            effects: { coin: -1, troops: 1, deadline: 1 },
+            flag: { key: "c1_mode", val: "approve" },
+            reply: "（提笔照准）册子孤收下了。安家钱今晚就发——告诉诸位列侯，拿了孤的钱，上了江就别嫌浪大。"
+          },
+          {
+            id: "reject", kind: "reject", stampText: "驳回",
+            label: "【驳回查办】当场掀桌，逐船重验",
+            costText: "钱帛 +0 · 死线 +2",
+            desc: "把南码头亲见摔在降吏脸上，扣下安家费逐船重核。省了府库，但清查耗时两日，柴桑趁机定战。",
+            interest: "代价：江东定战死线急涨 +2",
+            effects: { deadline: 2 },
+            flag: { key: "c1_mode", val: "reject" },
+            reply: "（把册子摔回阶下）十二条战舰敢报五十条？滚去码头一条一条重数！数不清，列侯印绶一并收回！"
+          },
+          {
+            id: "dirty", kind: "dirty", stampText: "将错就错",
+            label: "【曹氏脏招】假册盖大印抄送柴桑，赏钱改「凭首级领」",
+            costText: "钱帛 +1 · 死线 -1（真香！）",
+            desc: "「五十艘？好！孤给你盖丞相大印，连夜故意漏给江东细作看——吓死孙权！」同时把安家费改签为「战后凭首级折现」，顺手罚没私搬军械的钱粮。",
+            interest: "⚠ 高利贷：假船充数 + 降将怀恨，夜战必还狠息",
+            effects: { coin: 1, deadline: -1 },
+            flag: { key: "c1_mode", val: "dirty", dirty: "假舰册诈柴桑+罚没安家费" },
+            reply: "（冷笑盖印）五十艘太少了，替孤再添个『号水军八十万』抄送柴桑！至于安家钱——打完周瑜凭首级领，谁私搬箭矢先交罚金！"
+          }
+        ]
+      },
+      {
+        id: "C2",
+        num: "案贰",
+        title: "江陵东仓盘点与医棚药籍",
+        mood: "tense",
+        walk: {
+          kicker: "巡营所见 · 酉时 · 医棚后墙与东仓",
+          text: "黄昏起风，你绕过医棚后墙，苦艾草混着陈醋味直呛肺管。墙角码着**七卷刚捆好的新草席**，两名杂役正悄悄把高热说胡话的河北兵往北岸破庙抬。再往东走三十步，管仓小吏把最里排**发霉生芽的陈谷**飞快盖上了新麻布。",
+          clues: ["证物①：医棚外备七卷新草席，染疫绝非三人", "证物②：东仓里排陈谷已发霉生芽"]
+        },
+        introMsgs: [
+          { side: "left", speaker: "医曹与仓曹", role: "联名呈报", text: "（满脸堆笑递上《冬防平安折》）托明公洪福！营中仅偶感风寒三人，东仓粮廒粒粒饱满，请明公趁士气正旺即刻东进！" },
+          { side: "right", speaker: "曹操", role: "心中", text: "艾草味都快飘进帅帐了，还敢给孤递「平安折」。**先点破纸面鬼话，再看这笔烂账怎么算。**" }
+        ],
+        docTitle: "《冬防平安与东仓满廒折》",
+        claims: [
+          {
+            surface: "「全营入冬以来仅偶感风寒三人，皆已服姜汤痊愈，无碍大军开拔。」",
+            proof: "医棚后墙堆着七卷新草席，杂役正偷偷往破庙抬高热兵卒——这是捂着疫报怕担「乱军心」的责。"
+          },
+          {
+            surface: "「江陵东仓存谷干燥饱满，足支大军顺江东下两月漕运。」",
+            proof: "东仓最里排陈谷已经受潮发霉生芽，硬拉上船不仅不够吃，还会把肠胃本就脆弱的北兵彻底放倒。"
+          }
+        ],
+        stamps: [
+          {
+            id: "approve", kind: "approve", stampText: "压报东进",
+            label: "【照准压报】维持满员声势，连夜拔营",
+            costText: "粮草 -1 · 死线 -1",
+            desc: "顺着「勿乱军心」把病籍按进袖里，预支漕运粮强行提速东下，抢在周瑜之前压境。",
+            interest: "隐患：疫病与霉粮将在决战夜集中爆发",
+            effects: { grain: -1, deadline: -1 },
+            flag: { key: "c2_mode", val: "approve" },
+            reply: "（把折子压在砚台下）既然无碍，那便传令明早开拔。病号的事——谁嘴碎，按动摇军心论处。"
+          },
+          {
+            id: "reject", kind: "reject", stampText: "开仓隔离",
+            label: "【驳回隔离】掀掉麻布，病卒移岸单开药灶",
+            costText: "粮草 -1 · 兵力 -1 · 死线 +2",
+            desc: "当众烧毁平安折，丢弃霉谷、划隔离营单煮热粥。彻底掐断瘟疫链，但减员又耗时，柴桑彻底从容。",
+            interest: "代价：兵粮双损 + 死线再涨 +2",
+            effects: { grain: -1, troops: -1, deadline: 2 },
+            flag: { key: "c2_mode", val: "reject" },
+            reply: "（撕碎折子）把霉谷全倒进江里喂鱼！病卒即刻移上北岸隔离，另支好米熬粥——孤宁可少一营人，也不带一船死人过江！"
+          },
+          {
+            id: "dirty", kind: "dirty", stampText: "以霉换新",
+            label: "【曹氏脏招】霉谷折价换豪族新米，轻症病卒编入江心疑兵",
+            costText: "粮草 +1 · 死线 -1（真香！）",
+            desc: "「霉谷别倒，按市价折给荆州大族换新米——敢嫌霉就是怀念刘表！轻症弟兄编进前锋疑兵船队去江心擂鼓，病死在船上也是吓周瑜的八十万！」",
+            interest: "⚠ 高利贷：荆襄大族彻底反感 + 前锋疑兵夜战溃散",
+            effects: { grain: 1, deadline: -1 },
+            flag: { key: "c2_mode", val: "dirty", dirty: "霉谷强换豪族新米+病卒充疑兵" },
+            reply: "（提笔批红）东仓霉谷按平价派给荆州大族置换新粮，敢推辞的以通敌论！轻症弟兄别躺后营了，上疑兵船敲鼓去！"
+          }
+        ]
+      },
+      {
+        id: "C3",
+        num: "案叁",
+        title: "黄盖密信与东南风夜报",
+        mood: "fire",
+        walk: {
+          kicker: "巡营所见 · 子时 · 乌林望江哨台",
+          text: "半夜你独自登上望江哨台。刮了半个月的刺骨北风突然停了，脸颊贴上一股反常的暖湿**东南风**。黑漆漆的江心里，十余条蒙冲正顺风疾冲过来——**船身吃水浅得像空壳**，顺风飘来一丝极淡的松脂与鱼油腥气。",
+          clues: ["证物①：今夜突转急东南风，顺风直扑北岸", "证物②：来船吃水极浅且飘松脂鱼油味，绝非满载粮船"]
+        },
+        introMsgs: [
+          { side: "left", speaker: "密信吏", role: "水营急报", text: "（喜极而泣冲上哨台）成了！江东老将黄盖携粮船十艘、满载粳米趁夜来降！诸将已在码头挑高灯笼，请明公高台立观受降！" },
+          { side: "right", speaker: "曹操", role: "心中", text: "东南风起、空船疾冲、还飘着鱼油味……周瑜这出戏演得连剧本都快贴孤脸上了。**拆穿它，盖下今晚最后一颗印！**" }
+        ],
+        docTitle: "《黄盖携粮来降受降呈文》",
+        claims: [
+          {
+            surface: "「黄盖满载江南新粳米十船，愿献给大军以解冬粮之急。」",
+            proof: "满载大米的船吃水必深、行速必缓；江心来船吃水极浅、快如离弦之箭，还飘着鱼油松脂味——那十条全是火船！"
+          },
+          {
+            surface: "「今夜江面风平浪静，请撤去沿江强弩夜巡，挑高灯笼迎接降船靠岸。」",
+            proof: "北风已转急东南风，直吹我军水寨！这时候撤强弩、挑灯笼，等于给黄盖点亮靶心。"
+          }
+        ],
+        stamps: [
+          {
+            id: "approve", kind: "approve", stampText: "高台受降",
+            label: "【照准受降】赌一把不战而降，省下夜巡钱帛",
+            costText: "钱帛 +0 · 死线 -1",
+            desc: "万一黄盖真降了呢？省下夜巡火油弩矢赏钱，亲登高台迎船——把整座水寨押在侥幸上。",
+            interest: "后果：十艘火船顺风直撞北岸大营",
+            effects: { deadline: -1 },
+            flag: { key: "c3_mode", val: "approve" },
+            reply: "（大笑）黄公覆乃孙氏三世老臣，今夜来归，江南定矣！挑高灯笼，孤亲出大营迎他！"
+          },
+          {
+            id: "reject", kind: "reject", stampText: "强弩封江",
+            label: "【驳回戒备】令其远泊江心，强弩列岸隔水射停",
+            costText: "钱帛 -1 · 死线 +1",
+            desc: "立刻支发夜巡弩矢赏钱，将黄盖十船死死卡在射程外。背上「多疑寒心」的骂名，但保住北军主力。",
+            interest: "代价：消耗钱帛 -1 + 死线 +1",
+            effects: { coin: -1, deadline: 1 },
+            flag: { key: "c3_mode", val: "reject" },
+            reply: "（脸色一沉）装米的船跑这么快？传令强弩营上弦！再往前划一丈，连人带船给孤射成刺猬！"
+          },
+          {
+            id: "dirty", kind: "dirty", stampText: "借刀洗营",
+            label: "【终极脏招】放火船进降营，北军撤高坡借周瑜的火清内患",
+            costText: "钱帛 +0 · 兵力 -1 · 死线 -2（极狠！）",
+            desc: "「别拦！把最外围那两营心怀鬼胎的荆州降船划出去当『迎降先锋』，北军主力趁黑撤上北岸高坡！黄盖一把火替孤清掉内患，事后还能写信骂孙权『烧船自退』！」",
+            interest: "⚠ 终极高利贷：北军保全且破火攻，但背负「卖降求存」千古毒名",
+            effects: { troops: -1, deadline: -2 },
+            flag: { key: "c3_mode", val: "dirty", dirty: "借黄盖火船清理荆州降营" },
+            reply: "（压低嗓子）传密令：北军各营立刻弃舟登高坡！把外围那两营不听话的荆州船推前去『迎降』——周公瑾这份点火的人情，孤替他笑纳了！"
+          }
+        ]
+      }
+    ];
+
+    /* ======================================================================
+       3. Engine State & Rendering
+       ====================================================================== */
+    const RES_INFO = {
+      coin: { name: "钱帛", max: 5, warn: 1, desc: "归零即「府库告罄」：赏格断供、降将连夜翻脸，大营从账房里散架。" },
+      grain: { name: "粮草", max: 5, warn: 1, desc: "归零即「断炊绝粮」：寒冬腊月三军断炊，夜半营啸自溃。" },
+      troops: { name: "兵力", max: 6, warn: 1, desc: "归零即「兵力折尽」：点卯册只剩空名，连亲卫都凑不齐。" }
+    };
+
+    let state = null;
+    let queue = [];
+    let activeTW = null;
+    let waitingCase = false;
+
+    const elShell = document.getElementById("app-shell");
+    const elSplash = document.getElementById("splash");
+    const elStream = document.getElementById("stream");
+    const elTapBtn = document.getElementById("tap-btn");
+    const elTapLeft = document.getElementById("tap-left");
+    const elTapRight = document.getElementById("tap-right");
+    const elBtnAudio = document.getElementById("btn-audio");
+    const elSplashAudio = document.getElementById("btn-splash-audio");
+    const elDlRow = document.getElementById("deadline-row");
+    const elDlTrack = document.getElementById("deadline-track");
+    const elDlNum = document.getElementById("deadline-num");
+    const elModal = document.getElementById("modal-bg");
+
+    function freshState() {
+      return {
+        res: { coin: 3, grain: 3, troops: 4 },
+        deadline: 1,
+        maxDeadline: 6,
+        caseIdx: 0,
+        flags: {},
+        dirtyTricks: [],
+        choiceLog: [],
+        warned: {},
+        finished: false
+      };
+    }
+
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function fmtBold(s) {
+      return esc(s).replace(/\*\*([^*\n]+)\*\*/g, '<strong class="emph-txt">$1</strong>');
+    }
+
+    function scrollBottom() {
+      requestAnimationFrame(() => { elStream.scrollTop = elStream.scrollHeight; });
+    }
+
+    function renderHud(deltas) {
+      ["coin", "grain", "troops"].forEach(k => {
+        const box = document.querySelector(`.res-box[data-res="${k}"]`);
+        const info = RES_INFO[k];
+        const v = state.res[k];
+        const crit = v <= 0;
+        const warn = !crit && v <= info.warn;
+        box.classList.toggle("is-warn", warn);
+        box.classList.toggle("is-crit", crit);
+
+        box.querySelector(".res-val").textContent = v;
+        const nameEl = box.querySelector(".res-name");
+        nameEl.innerHTML = info.name + (crit ? '<span class="res-tag">红线</span>' : (warn ? '<span class="res-tag">告急</span>' : ""));
+
+        const bars = box.querySelector(".res-bars");
+        let h = "";
+        for (let i = 0; i < info.max; i++) h += `<span class="res-seg${i < v ? " on" : ""}"></span>`;
+        bars.innerHTML = h;
+
+        if (deltas && typeof deltas[k] === "number" && deltas[k] !== 0) {
+          const pop = document.createElement("span");
+          pop.className = "delta-pop " + (deltas[k] > 0 ? "pos" : "neg");
+          pop.textContent = (deltas[k] > 0 ? "+" : "") + deltas[k];
+          box.appendChild(pop);
+          setTimeout(() => pop.remove(), 1100);
+        }
+      });
+
+      // Deadline ("Rent") bar
+      elDlNum.textContent = `${state.deadline}/${state.maxDeadline}`;
+      elDlRow.classList.toggle("is-urgent", state.deadline >= 4);
+      let pips = "";
+      for (let i = 0; i < state.maxDeadline; i++) {
+        const cls = i < state.deadline ? (state.deadline >= 4 ? "dl-pip danger" : "dl-pip filled") : "dl-pip";
+        pips += `<span class="${cls}"></span>`;
+      }
+      elDlTrack.innerHTML = pips;
+    }
+
+    function finishTW() {
+      if (activeTW) { const t = activeTW; activeTW = null; t.finish(); return true; }
+      return false;
+    }
+
+    function typewrite(el, html, onDone) {
+      finishTW();
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      const steps = [];
+      function walk(node, target, emph) {
+        if (node.nodeType === 3) {
+          for (const ch of Array.from(node.nodeValue || "")) steps.push({ k: "c", ch, emph, target });
+        } else if (node.nodeType === 1) {
+          const cl = node.cloneNode(false);
+          steps.push({ k: "o", el: cl, target });
+          for (const child of node.childNodes) walk(child, cl, emph || node.tagName === "STRONG");
+        }
+      }
+      for (const child of tmp.childNodes) walk(child, el, false);
+
+      el.innerHTML = "";
+      let i = 0, timer = null, done = false, prev = "", cnt = 0;
+
+      function complete(instant) {
+        if (done) return;
+        done = true;
+        if (timer) clearTimeout(timer);
+        if (activeTW && activeTW.id === id) activeTW = null;
+        if (instant) el.innerHTML = html;
+        scrollBottom();
+        if (onDone) onDone();
+      }
+
+      function step() {
+        if (done) return;
+        if (i >= steps.length) { complete(false); return; }
+        const s = steps[i++];
+        if (s.k === "o") { s.target.appendChild(s.el); step(); return; }
+        const sp = document.createElement("span");
+        sp.className = s.emph ? "char-pop emph" : "char-pop";
+        sp.textContent = s.ch;
+        s.target.appendChild(sp);
+        cnt++;
+        if (s.emph) { AudioEngine.playTick(true); if (cnt % 2 === 1) AudioEngine.vib(5); }
+        else if (cnt % 2 === 0 && !/\s/.test(s.ch)) AudioEngine.playTick(false);
+        if (s.ch === "！" || s.ch === "？") AudioEngine.vib(6);
+
+        let d = s.emph ? 34 : 22;
+        if ("，、；：".includes(s.ch)) d += 95;
+        else if ("。！？".includes(s.ch)) d += 150;
+        else if (s.ch === "—" && prev === "—") d += 190;
+        prev = s.ch;
+        if (cnt % 8 === 0) scrollBottom();
+        timer = setTimeout(step, d);
+      }
+
+      const id = Math.random();
+      activeTW = { id, finish: () => complete(true) };
+      step();
+    }
+
+    function updateTapBar() {
+      if (waitingCase || state.finished) { elTapBtn.classList.add("hidden"); return; }
+      if (activeTW) {
+        elTapBtn.classList.remove("hidden");
+        elTapLeft.textContent = "轻触快显本句";
+        elTapRight.textContent = "跳字中…";
+        return;
+      }
+      if (queue.length > 0) {
+        elTapBtn.classList.remove("hidden");
+        elTapLeft.textContent = "点击继续";
+        const rem = queue.filter(x => x.kind !== "cb").length;
+        elTapRight.textContent = rem > 0 ? `剩余 ${rem} 条` : "进入案卷";
+      } else {
+        elTapBtn.classList.add("hidden");
+      }
+    }
+
+    function addStrip(badge, text, kind) {
+      const d = document.createElement("div");
+      d.className = "strip" + (kind ? " " + kind : "");
+      d.innerHTML = `<span class="strip-badge">${esc(badge)}</span><span>${esc(text)}</span>`;
+      elStream.appendChild(d);
+      scrollBottom();
+    }
+
+    function applyEffects(eff, label) {
+      const deltas = {};
+      const parts = [];
+      ["coin", "grain", "troops"].forEach(k => {
+        if (typeof eff[k] === "number" && eff[k] !== 0) {
+          state.res[k] = Math.max(0, Math.min(RES_INFO[k].max, state.res[k] + eff[k]));
+          deltas[k] = eff[k];
+          parts.push(`${RES_INFO[k].name} ${eff[k] > 0 ? "+" : ""}${eff[k]}`);
+        }
+      });
+      if (typeof eff.deadline === "number" && eff.deadline !== 0) {
+        state.deadline = Math.max(0, Math.min(state.maxDeadline, state.deadline + eff.deadline));
+        parts.push(`江东死线 ${eff.deadline > 0 ? "+" : ""}${eff.deadline}`);
+      }
+      renderHud(deltas);
+      addStrip(parts.join(" · ") || "已批示", label, eff.deadline >= 2 ? "is-warn" : "");
+
+      // Check red-line collapse on blood bars
+      const zeros = ["coin", "grain", "troops"].filter(k => state.res[k] <= 0);
+      if (zeros.length > 0) {
+        AudioEngine.playAlert();
+        const names = zeros.map(k => RES_INFO[k].name).join("、");
+        addStrip("⚠ 红线崩盘", `${names}已归零！大营支撑不住，本局直接结束。`, "is-danger");
+        renderEnding({ type: "collapse", zeros });
+        return true;
+      }
+
+      // Warn on low blood bars
+      ["coin", "grain", "troops"].forEach(k => {
+        if (state.res[k] <= RES_INFO[k].warn && !state.warned[k]) {
+          state.warned[k] = true;
+          AudioEngine.playAlert();
+          addStrip(`⚠ ${RES_INFO[k].name}告急`, RES_INFO[k].desc, "is-warn");
+        }
+      });
+
+      // Check deadline explosion ("Rent due!")
+      if (state.deadline >= state.maxDeadline) {
+        AudioEngine.playAlert();
+        addStrip("⚠ 死线已满 6/6", "江东主战派彻底定计！周瑜抢先发难，你失去了全部先手。", "is-danger");
+        renderEnding({ type: "deadline" });
+        return true;
+      }
+
+      if (state.deadline >= 4 && !state.warned.deadline) {
+        state.warned.deadline = true;
+        AudioEngine.playAlert();
+        addStrip("⚠ 柴桑催命", "江东定战死线已达 4/6！再拖延下去，不等你查完账周瑜就先动手了。", "is-warn");
+      }
+
+      return false;
+    }
+
+    function renderCaseCard(c) {
+      waitingCase = true;
+      updateTapBar();
+
+      const card = document.createElement("div");
+      card.className = "case-card";
+      const exposed = new Set();
+
+      function draw() {
+        const allExposed = exposed.size >= c.claims.length;
+        let claimsHtml = "";
+        c.claims.forEach((cl, idx) => {
+          const isExp = exposed.has(idx);
+          claimsHtml += `
+            <div class="claim-item${isExp ? " is-exposed" : ""}">
+              <button type="button" class="claim-btn" data-cidx="${idx}">
+                <span>${esc(cl.surface)}</span>
+                <span class="claim-badge">${isExp ? "已打脸" : "核对证物"}</span>
+              </button>
+              ${isExp ? `<div class="claim-proof"><strong>【巡营打脸】</strong>${esc(cl.proof)}</div>` : ""}
+            </div>`;
+        });
+
+        let stampsHtml = "";
+        c.stamps.forEach((st, idx) => {
+          stampsHtml += `
+            <button type="button" class="stamp-btn kind-${st.kind}" data-sidx="${idx}">
+              <div class="stamp-top">
+                <span class="stamp-name">${esc(st.label)}</span>
+                <span class="stamp-cost">${esc(st.costText)}</span>
+              </div>
+              <div class="stamp-desc">${esc(st.desc)}</div>
+              <div class="stamp-interest">${esc(st.interest)}</div>
+            </button>`;
+        });
+
+        card.innerHTML = `
+          <div class="case-head">
+            <span class="case-title">[柜台案卷] ${esc(c.docTitle)}</span>
+            <span class="case-status">已戳穿 ${exposed.size}/${c.claims.length} 处矛盾</span>
+          </div>
+          <div class="case-body">
+            <p class="case-hint">${allExposed ? "矛盾已全部戳穿——请拿起丞相大印，拍板处置：" : "点击公文中的可疑表述，用刚才巡营亲见的证物当场打脸："}</p>
+            ${claimsHtml}
+            <div class="stamp-deck${allExposed ? "" : " is-locked"}">${stampsHtml}</div>
+          </div>`;
+
+        card.querySelectorAll(".claim-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.getAttribute("data-cidx"));
+            if (!exposed.has(idx)) {
+              exposed.add(idx);
+              AudioEngine.playExpose();
+              draw();
+              scrollBottom();
+            }
+          });
+        });
+
+        card.querySelectorAll(".stamp-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            if (!allExposed) return;
+            const st = c.stamps[Number(btn.getAttribute("data-sidx"))];
+            AudioEngine.playStamp(st.kind === "dirty");
+
+            // Lock card & slam vermilion stamp
+            card.querySelectorAll("button").forEach(b => b.disabled = true);
+            const mark = document.createElement("div");
+            mark.className = "stamp-mark" + (st.kind === "dirty" ? " is-dirty" : (st.kind === "reject" ? " is-reject" : ""));
+            mark.textContent = st.stampText;
+            card.appendChild(mark);
+
+            state.flags[st.flag.key] = st.flag.val;
+            if (st.flag.dirty) state.dirtyTricks.push(st.flag.dirty);
+            state.choiceLog.push({ caseNum: c.num, title: c.title, stamp: st.stampText, kind: st.kind, label: st.label });
+
+            // Post Cao Cao's spoken reply
+            const row = document.createElement("div");
+            row.className = "msg-row right";
+            row.innerHTML = `<div class="msg-box"><div class="msg-head"><span class="msg-spk">曹操</span><span class="msg-role">拍板盖印</span></div><div>${fmtBold(st.reply)}</div></div>`;
+            elStream.appendChild(row);
+
+            waitingCase = false;
+            const ended = applyEffects(st.effects, st.label);
+            if (ended) return;
+
+            state.caseIdx++;
+            if (state.caseIdx < CASES.length) {
+              queue.push({ kind: "cb", fn: () => runCase(state.caseIdx) });
+              updateTapBar();
+            } else {
+              queue.push({ kind: "cb", fn: () => renderEnding({ type: "complete" }) });
+              updateTapBar();
+            }
+            scrollBottom();
+          });
+        });
+      }
+
+      draw();
+      elStream.appendChild(card);
+      scrollBottom();
+    }
+
+    function runCase(idx) {
+      const c = CASES[idx];
+      elShell.setAttribute("data-mood", c.mood);
+      AudioEngine.setMood(c.mood);
+
+      const div = document.createElement("div");
+      div.className = "case-divider";
+      div.innerHTML = `<span>${c.num} · ${c.title}</span>`;
+      elStream.appendChild(div);
+
+      queue = [];
+      queue.push({ kind: "walk", data: c.walk });
+      c.introMsgs.forEach(m => queue.push({ kind: "msg", data: m }));
+      queue.push({ kind: "cb", fn: () => renderCaseCard(c) });
+
+      advance();
+    }
+
+    function advance() {
+      if (waitingCase || state.finished) return;
+      if (finishTW()) { updateTapBar(); return; }
+      if (queue.length === 0) { updateTapBar(); return; }
+
+      const item = queue.shift();
+      if (item.kind === "cb") { item.fn(); return; }
+
+      if (item.kind === "walk") {
+        AudioEngine.playTick(false);
+        const w = document.createElement("div");
+        w.className = "walk-block";
+        w.innerHTML = `<div class="walk-kicker">— ${esc(item.data.kicker)} —</div><div class="walk-text"></div>`;
+        elStream.appendChild(w);
+        const textEl = w.querySelector(".walk-text");
+        typewrite(textEl, fmtBold(item.data.text), () => {
+          const cluesWrap = document.createElement("div");
+          cluesWrap.className = "walk-clues";
+          item.data.clues.forEach(cl => {
+            const sp = document.createElement("span");
+            sp.className = "clue-chip";
+            sp.textContent = cl;
+            cluesWrap.appendChild(sp);
+          });
+          w.appendChild(cluesWrap);
+          scrollBottom();
+          updateTapBar();
+        });
+        updateTapBar();
+        return;
+      }
+
+      if (item.kind === "msg") {
+        AudioEngine.playTick(false);
+        const row = document.createElement("div");
+        row.className = "msg-row " + item.data.side;
+        row.innerHTML = `<div class="msg-box"><div class="msg-head"><span class="msg-spk">${esc(item.data.speaker)}</span><span class="msg-role">${esc(item.data.role)}</span></div><div class="msg-body"></div></div>`;
+        elStream.appendChild(row);
+        typewrite(row.querySelector(".msg-body"), fmtBold(item.data.text), () => {
+          if (queue.length > 0 && queue[0].kind === "cb") {
+            const cb = queue.shift();
+            cb.fn();
+            return;
+          }
+          updateTapBar();
+        });
+        updateTapBar();
+      }
+    }
+
+    /* ======================================================================
+       4. Reckoning ("高利贷利息结算") + Shareable Build + LLM Review Prompt
+       ====================================================================== */
+    function renderEnding(info) {
+      state.finished = true;
+      waitingCase = false;
+      queue = [];
+      finishTW();
+      updateTapBar();
+      elShell.setAttribute("data-mood", "fire");
+      AudioEngine.setMood("fire");
+
+      const dirtyCount = state.dirtyTricks.length;
+      const f = state.flags;
+
+      // Determine ending title + shareable build
+      let badge = "", title = "", sub = "", buildName = "", buildQuote = "";
+      if (info.type === "collapse") {
+        badge = "红线崩盘 · 提前出局";
+        title = "账本先炸了，没等到东南风";
+        sub = "三项底线之一归零，江陵大营从内部瓦解。";
+        buildName = "账房爆雷流 · 战术很硬但本钱花光";
+        buildQuote = "「我那局光顾着算计周瑜，结果先把自家库房/粮仓算干了。」";
+      } else if (info.type === "deadline") {
+        badge = "死线爆表 · 痛失先手";
+        title = "账还没查清，周瑜的船已经撞门了";
+        sub = "江东定战死线拉满 6/6——你在江陵越求稳，南岸的火船备得越齐。";
+        buildName = "清官拖死流 · 账本干干净净但输给了时间";
+        buildQuote = "「我那局每笔假账都掀了桌，结果查完账抬头一看周瑜已经开火了。」";
+      } else if (f.c3_mode === "approve") {
+        badge = "史实灰 · 烈火乌林";
+        title = "你踩中了最甜的那口诱饵";
+        sub = "前两案再精明，最后一案高台迎黄盖，十艘火船顺东南风一夜烧穿水寨。";
+        buildName = dirtyCount >= 1 ? "精明一世糊涂一时流" : "正史复刻流 · 曹公同款翻车";
+        buildQuote = "「我那局前两案把账算得飞起，最后一刻贪了个『不战而降』直接进火海。」";
+      } else if (dirtyCount >= 2) {
+        badge = "曹氏枭雄 · 脏活赢麻";
+        title = "治世能臣算个屁，乱世奸雄活下来了";
+        sub = "靠假舰册、霉谷换新粮、借刀洗降营一路压死江东死线——赢相极丑，但你真带着主力活着走出了赤壁。";
+        buildName = f.c3_mode === "dirty" ? "借刀清营流 · 拿周瑜的火烧自家降将" : "假账诈胡流 · 靠骗编制撑过柴桑";
+        buildQuote = `「我那局靠【${state.dirtyTricks.join(" + ")}】硬把赤壁打成了阳谋，骂名我背，主力全归！」`;
+      } else if (f.c3_mode === "dirty") {
+        badge = "毒手破局 · 天下寒心";
+        title = "一把借来的火，烧掉了江东也烧掉了名声";
+        sub = "你放黄盖火船撞进荆州降营，北军毫发无伤——代价是从此天下无人再敢信你的「与之更始」。";
+        buildName = "绝户借刀流 · 死道友不死贫道";
+        buildQuote = "「我那局没拦黄盖，顺手拿他的火船帮我清理了不听话的降营。」";
+      } else {
+        badge = "苦撑破局 · 铁壁北归";
+        title = "挨了满营骂，但火没烧起来";
+        sub = "你忍着死线逼近把每颗雷都拆了——没赢下江南，也没让周瑜赚走千古名声。";
+        buildName = "铁壁风控流 · 谁劝我豪赌我掀谁桌子";
+        buildQuote = "「我那局顶着 5/6 死线硬扛，愣是没给黄盖留一点空子。」";
+      }
+
+      // Build delayed interest reckoning list
+      const interests = [];
+      if (f.c1_mode === "dirty") interests.push({ good: false, text: "【案壹利息】假舰册确实把柴桑吓住了半日，但那三十条平底货船在江面根本转不了向，荆州降将也记恨你扣了安家费。" });
+      else if (f.c1_mode === "approve") interests.push({ good: false, text: "【案壹利息】照单发钱买了一时太平，开战时才发现水师编制里掺了大半条运粮平底船。" });
+      else if (f.c1_mode === "reject") interests.push({ good: true, text: "【案壹回响】逐船清查虽然拖慢了节奏，但出江的十二艘斗舰条条扎实，没在紧要关头掉链子。" });
+
+      if (f.c2_mode === "dirty") interests.push({ good: false, text: "【案贰利息】靠霉谷强换新米解了粮荒，但荆州大族暗地把你的兵力虚实全透给了刘备；疑兵船上的病卒也在江心率先溃散。" });
+      else if (f.c2_mode === "approve") interests.push({ good: false, text: "【案贰利息】压进袖子里的疫报在乌林夜总算账——一半北兵连刀都拎不起来。" });
+      else if (f.c2_mode === "reject") interests.push({ good: true, text: "【案贰回响】北岸隔离营稳住了大军底盘，全营咳嗽声轻了一半，没在决战夜发生瘟疫崩盘。" });
+
+      if (f.c3_mode === "dirty") interests.push({ good: false, text: "【案叁利息】北军主力完好撤上高坡，但「卖降营挡火船」的消息一夜传遍荆襄，许昌清流弹劾的奏疏已雪片般飞来。" });
+      else if (f.c3_mode === "approve") interests.push({ good: false, text: "【案叁利息】高台灯笼成了黄盖十艘火船最亮的靶心，东南风借火势一夜吞没水寨。" });
+      else if (f.c3_mode === "reject") interests.push({ good: true, text: "【案叁回响】强弩营把黄盖死死卡在暗水外，十艘火船自己在江心烧成了白昼。" });
+
+      // Local consistency diagnosis
+      const modes = [f.c1_mode, f.c2_mode, f.c3_mode].filter(Boolean);
+      const uniqueModes = new Set(modes);
+      let diag = "";
+      if (uniqueModes.size === 1 && modes.length === 3) {
+        const only = modes[0];
+        if (only === "dirty") diag = "<strong>【逻辑一致性 · 100% 枭雄闭环】</strong>三桩案子你一连耍了三手脏招，从骗编制、榨豪族到借刀清营，毫无心理负担——极度实用主义、结果导向，但组织信用已彻底清零。";
+        else if (only === "reject") diag = "<strong>【逻辑一致性 · 100% 铁壁审计】</strong>三案全部掀桌查办，宁可顶着死线爆表也绝不妥协原则——典型的强风控性格，守得住底线，但容易被时间拖死。";
+        else diag = "<strong>【逻辑一致性 · 100% 赌势头】</strong>三案全选照准/顺势，永远相信场面与气势能盖过隐患——高风险偏好，顺风无敌，逆风一波带走。";
+      } else {
+        diag = "<strong>【逻辑一致性 · 灵活变阵】</strong>你没有死守单一原则，而是盯着顶栏的血条与死线动态切换手腕（该查办时查办，该耍脏招时毫不手软）——典型的现实政治家/老练操盘手气质。";
+      }
+
+      const logLines = state.choiceLog.map((c, i) => `${i + 1}. [${c.caseNum} ${c.title}] 盖印【${c.stamp}】：${c.label}`).join("\n");
+      const llmPrompt = [
+        "你是一位毒舌、敏锐、懂《三国志》又懂职场政治的马伯庸风历史谋士。",
+        "我刚玩完《曹操不容易 · V2 江陵柜台日》实验切片（机制：巡营取证 → 打脸假账 → 盖章处置，含钱粮兵三血条 + 江东定战死线 + 灰色脏招）。请点评我：",
+        "",
+        `【结局】${badge} — ${title}`,
+        `【流派】${buildName}`,
+        `【终局账本】钱帛 ${state.res.coin} / 粮草 ${state.res.grain} / 兵力 ${state.res.troops} / 江东死线 ${state.deadline}/${state.maxDeadline}`,
+        `【耍过的脏招】${state.dirtyTricks.length ? state.dirtyTricks.join("；") : "无（全程没碰脏招）"}`,
+        "【逐案盖章流水】",
+        logLines,
+        "",
+        "请分三段犀利点评（300~450字，拒绝鸡汤）：",
+        "1. 前后选择逻辑一致性（是首尾一贯的枭雄/清官，还是看菜下碟的机会主义者？）",
+        "2. 决策性格画像（如果我在现实里带团队或做业务，会是什么风格？给一个三国人物类比）",
+        "3. 最狠/最蠢的一颗印，以及如果重开怎么玩出更离谱的流派。"
+      ].join("\n");
+
+      const card = document.createElement("div");
+      card.className = "ending-card";
+      card.innerHTML = `
+        <div class="ending-hero">
+          <span class="ending-badge">${esc(badge)}</span>
+          <h2 class="ending-title">${esc(title)}</h2>
+          <div class="ending-sub">${esc(sub)}</div>
+        </div>
+        <div class="ending-sec">
+          <div class="sec-kicker">// 本局可吹流派</div>
+          <div class="build-box">
+            <div class="build-name">${esc(buildName)}</div>
+            <div class="build-quote">${esc(buildQuote)}</div>
+          </div>
+        </div>
+        ${interests.length ? `
+        <div class="ending-sec">
+          <div class="sec-kicker">// 入夜利息结算（每一颗印的回响）</div>
+          ${interests.map(it => `<div class="interest-item${it.good ? " good" : ""}">${esc(it.text)}</div>`).join("")}
+        </div>` : ""}
+        <div class="ending-sec">
+          <div class="sec-kicker">// AI 谋士复盘 · 逻辑一致性与性格点评</div>
+          <div class="llm-diag">${diag}</div>
+          <details class="llm-details">
+            <summary>展开专属 LLM 深度点评提示词（含本局脏招与盖章流水）</summary>
+            <pre class="llm-pre">${esc(llmPrompt)}</pre>
+          </details>
+          <button type="button" class="btn-copy" id="btn-copy-llm">一键复制专属 LLM 点评提示词</button>
+        </div>
+        <div class="ending-sec">
+          <button type="button" class="btn-primary" id="btn-replay">再来一局（换套脏招试试）</button>
+        </div>`;
+
+      elStream.appendChild(card);
+
+      card.querySelector("#btn-copy-llm").addEventListener("click", function () {
+        const btn = this;
+        const done = () => {
+          AudioEngine.playStamp(false);
+          btn.classList.add("is-copied");
+          btn.textContent = "已复制！粘贴给任意 AI 即可点评";
+          setTimeout(() => { btn.classList.remove("is-copied"); btn.textContent = "一键复制专属 LLM 点评提示词"; }, 2400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(llmPrompt).then(done).catch(() => {});
+        }
+      });
+
+      card.querySelector("#btn-replay").addEventListener("click", () => {
+        AudioEngine.playStamp(false);
+        startGame();
+      });
+
+      scrollBottom();
+    }
+
+    function startGame() {
+      state = freshState();
+      queue = [];
+      waitingCase = false;
+      finishTW();
+      elSplash.classList.add("hidden");
+      elStream.innerHTML = "";
+      renderHud(null);
+      runCase(0);
+    }
+
+    function syncAudioUI() {
+      const on = AudioEngine.isEnabled();
+      elBtnAudio.classList.toggle("is-on", on);
+      elBtnAudio.textContent = on ? "音" : "静";
+      elSplashAudio.classList.toggle("is-on", on);
+      elSplashAudio.textContent = on ? "赤壁·麦田烬风8x：已开启" : "赤壁·麦田烬风8x：静音";
+    }
+
+    // Event bindings
+    document.getElementById("btn-start").addEventListener("click", () => {
+      AudioEngine.playStamp(false);
+      startGame();
+    });
+    elSplashAudio.addEventListener("click", () => { AudioEngine.toggle(); syncAudioUI(); });
+    elBtnAudio.addEventListener("click", () => { AudioEngine.toggle(); syncAudioUI(); });
+    document.getElementById("btn-reset").addEventListener("click", () => {
+      if (confirm("重开本局《江陵柜台日》？")) startGame();
+    });
+    elTapBtn.addEventListener("click", advance);
+    elStream.addEventListener("click", e => {
+      if (e.target.closest("button, details, summary, .case-card, .ending-card")) return;
+      if (activeTW || queue.length > 0) advance();
+    });
+
+    // HUD resource info modal
+    document.querySelectorAll(".res-box").forEach(box => {
+      box.addEventListener("click", () => {
+        const k = box.getAttribute("data-res");
+        const info = RES_INFO[k];
+        AudioEngine.playExpose();
+        document.getElementById("modal-title").textContent = `${info.name} · 当前 ${state.res[k]} / ${info.max}`;
+        document.getElementById("modal-body").textContent = `警戒线 ≤ ${info.warn}（亮灯报警），红线 = 0（立即崩盘）。${info.desc}`;
+        elModal.classList.remove("hidden");
+      });
+    });
+    document.getElementById("modal-close").addEventListener("click", () => elModal.classList.add("hidden"));
+    elModal.addEventListener("click", e => { if (e.target === elModal) elModal.classList.add("hidden"); });
+
+    state = freshState();
+    renderHud(null);
+    syncAudioUI();
+  })();
+  </script>
+</body>
+</html>
