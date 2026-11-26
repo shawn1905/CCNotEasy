@@ -45,15 +45,30 @@ export type ReferenceCard = {
   topic?: string
 }
 
+/** 拍板前可主动做的事：走动 / 问策 / 翻卷 */
+export type PrepKind = 'walk' | 'ask' | 'read'
+
+export type PrepAction = {
+  id: string
+  kind: PrepKind
+  label: string
+  hint?: string
+  lines: BubbleLine[]
+  /** 翻卷后弹出的本议卡 */
+  showRefs?: string[]
+}
+
 export type SceneNode = {
   id: string
   title?: string
   lines: BubbleLine[]
   choices?: Choice[]
+  /** 拍板前互动（有则先进决策台，再出 A/B） */
+  prep?: PrepAction[]
   /** 本节点可打开的史料卡 id */
   refs?: string[]
   next?: string
-  kind?: 'normal' | 'report' | 'ending'
+  kind?: 'normal' | 'report' | 'ending' | 'deliberate'
   endingId?: string
 }
 

@@ -1,12 +1,13 @@
 import type { Chapter } from '../types'
 import { dossiers } from './dossiers'
 import { gloss } from './gloss'
+import { prepN01, prepN02, prepN04, prepN05 } from './deliberations'
 
 /** 赤壁前夜 · 史料加厚版（对话+本议史料×10） */
 export const redCliffsEve: Chapter = {
   id: 'red-cliffs-eve',
   title: '赤壁前夜',
-  subtitle: '曹操不容易 · 史料库加厚 Demo',
+  subtitle: '曹操不容易 · 决策台 Demo',
   start: 'N00',
   gloss,
   refs: dossiers,
@@ -58,7 +59,7 @@ export const redCliffsEve: Chapter = {
         },
         {
           speaker: 'cheng',
-          text: '丞相差遣：进入府议。第一难——江陵日历。东下与再抚，不能两件都做完。只能选哪一件先欠。',
+          text: '丞相差遣：进入府议。第一难——江陵日历。进门后你可以走动、问策、翻卷，再拍板。',
         },
       ],
       choices: [
@@ -73,62 +74,24 @@ export const redCliffsEve: Chapter = {
 
     'N01': {
       id: 'N01',
+      kind: 'deliberate',
       title: '第一难 · 江陵日历',
-      refs: ['R-jiangling-more', 'R-water-fleet', 'R-four-woes', 'R-eighty-wan', 'R-changban-cost', 'R-wenping', 'R-liuzhang', 'R-y01', 'R-y02', 'R-y03', 'R-y04', 'R-y05', 'R-z01', 'R-z02', 'R-z03', 'R-z04', 'R-z05'],
+      refs: ['R-jiangling-more', 'R-water-fleet', 'R-four-woes', 'R-eighty-wan', 'R-changban-cost', 'R-wenping', 'R-z01', 'R-z02', 'R-z03'],
       lines: [
         {
           speaker: 'system',
-          text: '府议开。案上两卷：东下行程，与再抚清单。两者抢同一段日子。',
+          text: '府议案上两卷：东下行程，与再抚清单。两者抢同一段日子。',
         },
         {
-          speaker: 'cheng',
-          text: '议案甲：即日部署东下。前锋按{{巴丘}}序次。理由很硬——备走{{夏口}}，江东尚未定谳，{{柴桑}}使者往来密。抢窗口，是抢「他们还在怕」的那几天。',
-        },
-        {
-          speaker: 'cheng',
-          text: '甲案的短利看得见：威压、会猎时效、先发。欠账也看得见：{{更始}}半做、{{条品}}未齐、{{舰籍}}未分、文聘{{统本兵}}如何接令、{{刘璋给军}}是否入账——全被日历咬薄。',
-        },
-        {
-          speaker: 'xun',
-          text: '议案乙：再留旬日。先完更始与舰籍。降人要安家，名士要接见，船要分可战、转运、未验三簿。再留，账更实——敌也更备。',
-        },
-        {
-          speaker: 'xun',
-          text: '{{文聘}}迟诣，你字谓忠臣，使统本兵——这是买水战能力，也买「旧部听谁」的风险。名籍未齐就动旗，日后战报上的兵力会比实营好看，也会比实营脆。',
-        },
-        {
-          speaker: 'jia',
-          text: '周瑜夜校会说：中国人不过十五六万且{{疲惫}}，表众极七八万且{{狐疑}}。你用势压过去，他们就更有理由把「冒行」写进主战檄文。',
-        },
-        {
-          speaker: 'jia',
-          text: '通鉴里有王威请奇兵徼你，{{刘琮}}不纳。降后瞬间存在「轻进可袭」的反事实——史实未发生，但说明轻进两侧都有牙。',
-        },
-        {
-          speaker: 'soldier',
-          text: '斥候：{{柴桑}}主战主和未定。{{鲁肃}}途中结备，{{诸葛亮}}说权拒操——他们也在抢日历。你慢一天，他们可能定战一天。',
-        },
-        {
-          speaker: 'soldier',
-          text: '帐外将校说：{{奉辞伐罪}}已出，不取更待何时。磨刀声大。咳嗽声也被压下去了。',
-        },
-        {
-          speaker: 'cheng',
-          text: '（补充）{{侯者}}十五人不是修辞，是一批要安置的本地利益。名籍未齐就开拔，等于欠下一笔政治债上船。',
-        },
-        {
-          speaker: 'xun',
-          text: '（补充）引用{{韩嵩}}、邓义等名士，是给荆州看：新政权要用人。用人需要接见、考核、安家——这就是日历。',
-        },
-        {
-          speaker: 'jia',
-          text: '两害：东下买势欠缝；再抚买缝欠势。禁止假装有第三条——「又快又稳」不在材料里。',
+          speaker: 'system',
+          text: '帐外鼓噪，署里灯亮，江边船影。信息不会自己走进你耳朵——你要走过去，或把人叫进来，或把卷打开。',
         },
         {
           speaker: 'cao',
-          text: '东下买势。再抚买命与编制。选。选完，不许装没选过。',
+          text: '东下买势。再抚买缝。拍板前，先做你该做的事。',
         },
       ],
+      prep: prepN01,
       choices: [
         {
           id: 'N01_A',
@@ -268,68 +231,24 @@ export const redCliffsEve: Chapter = {
 
     'N02': {
       id: 'N02',
+      kind: 'deliberate',
       title: '第二难 · 疾疫名册',
-      refs: ['R-plague-before', 'R-plague-must', 'R-plague-aftermath', 'R-eighty-wan', 'R-pibing', 'R-tongjian-yi', 'R-xianzhu-yi', 'R-isolation', 'R-false-roster', 'R-y06', 'R-y07', 'R-y08', 'R-y09', 'R-y10', 'R-z06', 'R-z07', 'R-z08', 'R-z09', 'R-z10'],
+      refs: ['R-plague-before', 'R-plague-must', 'R-plague-aftermath', 'R-eighty-wan', 'R-isolation', 'R-false-roster', 'R-z06', 'R-z08'],
       lines: [
         {
           speaker: 'system',
-          text: '汇合 · 疫报到案。欢呼退了，名册上台。',
+          text: '汇合 · 疫报到案。欢呼退了，名册上台——但名册不会自己解释。',
         },
         {
           speaker: 'soldier',
-          text: '军医密报：咳热、下痢已在数营。还够不上「{{大疫}}」二字——够不上，人已经死在路上了。轻病能走，重病抬不出营门。',
-        },
-        {
-          speaker: 'soldier',
-          text: '问隔离：有人说「一提隔离，士气先崩」。也有人说「不隔离，崩得更干净」。',
-        },
-        {
-          speaker: 'xun',
-          text: '周瑜早说过：远涉江湖，「不习水土，必生疾病」。遇敌时若「已有疾病」，那不是意外，是账单提前到了。',
-        },
-        {
-          speaker: 'xun',
-          text: '《武帝纪》战后写：战不利，于是大疫，吏士多死者，乃引军还。自辩可写「值有疾病，{{烧船自退}}」——那是政治句子，不能取消初战不利与已有疾病。',
-        },
-        {
-          speaker: 'cheng',
-          text: '摊牌：减勤务、{{隔离}}、催药——账面立刻难看，{{八十万}}自我拆穿。压报：日程与势都保住——病卒仍按健卒上橹。',
-        },
-        {
-          speaker: 'cheng',
-          text: '两害写死：假编制打真仗，死时才发现骗过的是自己的调度；实名册示弱，江东与许下都会笑——笑的时候人还在。',
-        },
-        {
-          speaker: 'jia',
-          text: '细作若在，他们看见的病号比你名册多。你输的第一仗，可能是情报仗。压报保的是自己人眼里的势，不是敌方眼里的实。',
-        },
-        {
-          speaker: 'jia',
-          text: '{{狐疑}}的人更难执行隔离与纪律。密泊时纪律成本更高——疾疫与降附互加，不是两件无关事。',
-        },
-        {
-          speaker: 'cheng',
-          text: '（因为你东下已宣）旗已动，药与留养的余地被日历咬薄。压报能保势；也会把咳送上船。前送与药船争栈，争不过旗。',
-          when: { haste: true },
-        },
-        {
-          speaker: 'cheng',
-          text: '（因为你留抚）隔离营与药船尚可腾。你可以实报——也可以继续用势压死真相。缝给你选择权，不给你免死符。',
-          when: { haste: false },
-        },
-        {
-          speaker: 'xun',
-          text: '医药优先级冲突：你若压报，军医只能「后置」。后置不是不治，是让传染链多跑几营。',
-        },
-        {
-          speaker: 'soldier',
-          text: '有将低声：丞相若实报，外面会说怕了。有吏低声：丞相若压报，船上会说欺了。两边都在听你选。',
+          text: '军医在门外等。栈桥在争位。巡营簿上有小字。',
         },
         {
           speaker: 'cao',
-          text: '名册从真，还是从势。选完，不许装没选过。',
+          text: '名册从真还是从势。先看、先问、先翻。再选。',
         },
       ],
+      prep: prepN02,
       choices: [
         {
           id: 'N02_A',
@@ -532,64 +451,24 @@ export const redCliffsEve: Chapter = {
 
     'N04': {
       id: 'N04',
+      kind: 'deliberate',
       title: '第三难 · 船阵',
-      refs: ['R-ships-join', 'R-ships-tongjian', 'R-hard-persist', 'R-ships-motive-bound', 'R-fire-kit', 'R-south-bank', 'R-wind', 'R-y11', 'R-y12', 'R-y13', 'R-y14', 'R-y15', 'R-z11', 'R-z12', 'R-z13', 'R-z14', 'R-z15'],
+      refs: ['R-ships-join', 'R-hard-persist', 'R-ships-motive-bound', 'R-fire-kit', 'R-z11', 'R-z14', 'R-z15'],
       lines: [
         {
           speaker: 'system',
-          text: '泊区府议。案上两图：密泊如营，疏泊留道。',
+          text: '北岸泊区议船阵。浪在说话，甲板在吐，对岸帆影在看。',
         },
         {
-          speaker: 'cheng',
-          text: '议案甲：舟舰{{首尾相接}}，如营。利：减散阵、便号令、北军上下省力。将校多赞成——像又赢了长坂那样整齐。',
-        },
-        {
-          speaker: 'cheng',
-          text: '甲案短利：体验、指挥、夜不散。欠账：火灾时难以分割；对岸观阵得到干净靶标——「可烧而走」的前提被你摆好。',
-        },
-        {
-          speaker: 'jia',
-          text: '议案乙：疏泊分屯，留{{防火道}}与{{砍缆}}。利：火难一网。弊：夜惊、浪损、指挥变慢。{{黄盖}}怕的正是「{{难与持久}}」——你防久了，可能正合他意。',
-        },
-        {
-          speaker: 'jia',
-          text: '乙案短利：活。欠账：难看、散、持久战的牙。旁支往往从难看开始。',
-        },
-        {
-          speaker: 'xun',
-          text: '史载观察是相接。动机「因晕船才连」属推演——本文不写成史实。你要决策的是结果：密还是疏，不是后人的心理戏。',
-        },
-        {
-          speaker: 'xun',
-          text: '火攻装具在敌方：薪草、{{膏油}}、帷幕、{{牙旗}}、{{走舸}}。他们计划发火后自撤——这是进攻战术，不是同归于尽。你的泊距，决定他们要不要冒险靠近。',
-        },
-        {
-          speaker: 'soldier',
-          text: '对岸已有帆影。初一交战若不利，将引次江北。那时密泊更像营，也更像柴堆。',
-        },
-        {
-          speaker: 'soldier',
-          text: '有什长说：密泊才能睡。有老卒说：密泊才能死得整齐。两种声音都真实。',
-        },
-        {
-          speaker: 'cheng',
-          text: '（因为疫报被压）密泊等于把咳关进同一阵风。你若相接，疾病与火共享通道。',
-          when: { plague_honesty: false },
-        },
-        {
-          speaker: 'cheng',
-          text: '（因为名册从实）疏泊仍累——但至少不是拿满员假数去证明「我们很整」。',
-          when: { plague_honesty: true },
-        },
-        {
-          speaker: 'jia',
-          text: '靶标清晰度：对岸看清才能写「观」。疏泊降低清晰度，也降低你自己的整齐自豪。自豪不是战力。',
+          speaker: 'system',
+          text: '密泊如营，或疏泊留道——短利与利息都在现场，不在空话里。',
         },
         {
           speaker: 'cao',
-          text: '相接是别人眼里的结果。我要问：这个结果，值不值得用整泊区去换。选。',
+          text: '相接是别人眼里的结果。我先去量距、问人、翻卷。',
         },
       ],
+      prep: prepN04,
       choices: [
         {
           id: 'N04_A',
@@ -717,74 +596,24 @@ export const redCliffsEve: Chapter = {
 
     'N05': {
       id: 'N05',
+      kind: 'deliberate',
       title: '第四难 · 来降',
-      refs: ['R-false-surrender', 'R-fear-fraud', 'R-first-defeat', 'R-hard-persist', 'R-gai-letter', 'R-chuying', 'R-two-li', 'R-persist-trap', 'R-y16', 'R-y17', 'R-y18', 'R-y19', 'R-y20', 'R-z16', 'R-z17', 'R-z18', 'R-z19', 'R-z20'],
+      refs: ['R-false-surrender', 'R-fear-fraud', 'R-first-defeat', 'R-hard-persist', 'R-z16', 'R-z17', 'R-z18', 'R-z19'],
       lines: [
         {
           speaker: 'system',
-          text: '初战不利。{{引次江北}}。对岸有人先书请降——像送来一把钥匙，也像送来一根引线。',
+          text: '初战不利。{{引次江北}}。对岸有书请降——钥匙，或引线。',
         },
         {
-          speaker: 'soldier',
-          text: '来书自称{{黄盖}}部曲：众寡不敌，愿为前部归命。船近时有{{膏油}}气。斥候说：像降船，也像火船。',
-        },
-        {
-          speaker: 'soldier',
-          text: '盖请为前部：把靠近合理化。许其靠近，等于许其进入发火距离。',
-        },
-        {
-          speaker: 'cheng',
-          text: '受降：拆敌、示强、速决。史路如此。将校已经开始伸脖子——初战之后，人更需要一场「不战而胜」。',
-        },
-        {
-          speaker: 'cheng',
-          text: '口敕若写「若信实，当授{{爵赏}}，超于前后」，赏格本身可能催生迎降松懈。短利很甜。',
-        },
-        {
-          speaker: 'jia',
-          text: '注里会有「但恐汝诈」。怕，却仍可能{{延颈观望}}、甚至{{出营立观}}。怕与松懈，能同时活在一个人身上——尤其是打累了的人。',
-        },
-        {
-          speaker: 'jia',
-          text: '「指言盖降」：众人指认那是来降。集体认知一旦形成，禁出营就会被骂扫兴——B的政治孤独从这里开始。',
-        },
-        {
-          speaker: 'xun',
-          text: '远泊、强弩、禁出营：火船难近。代价是「{{难与持久}}」。{{黄盖}}怕持久；你防诈，可能把战争拖进他更怕、也更擅长熬的节奏。',
-        },
-        {
-          speaker: 'xun',
-          text: 'B不必斩使屠船；最小是距离与出营纪律。这是可执行的旁支——也是会被骂的旁支。',
+          speaker: 'system',
+          text: '营门已有人练伸脖子。降书在案。外泊有气味。',
         },
         {
           speaker: 'cao',
-          text: '（因为船阵相接）观降一旦失距，烧的是整泊区——不是一艘船。',
-          when: { loose_ships: false },
-        },
-        {
-          speaker: 'cao',
-          text: '（因为疏泊尚在）仍不可把观降当阅兵。疏泊只给你第二次机会，不是豁免。',
-          when: { loose_ships: true },
-        },
-        {
-          speaker: 'cao',
-          text: '（因为名册曾说谎）满员观降，等于让病卒也来凑热闹。热闹最贵。',
-          when: { plague_honesty: false },
-        },
-        {
-          speaker: 'cao',
-          text: '（因为名册从实）人少了，更经不起一次失距。疑降不是怯，是算术。',
-          when: { plague_honesty: true },
-        },
-        {
-          speaker: 'jia',
-          text: '密问仍可能放行——史路证明「怕」不等于「防」。你要写的是条令，不是心情。',
-        },
-        {
-          speaker: 'cao',
-          text: '钥匙还是引线。选。',
+          text: '怕是心情。距是条令。拍板前，先确认你有没有距。',
         },
       ],
+      prep: prepN05,
       choices: [
         {
           id: 'N05_A',

@@ -4,15 +4,21 @@ import { Bubble } from './components/Bubble'
 import { ChoiceBar } from './components/ChoiceBar'
 import { DesktopShell } from './components/DesktopShell'
 import { GlossModal } from './components/GlossModal'
+import { PrepDesk } from './components/PrepDesk'
 import {
   advanceAfterChoice,
   advanceLineOrNode,
+  applyPrepAction,
+  availablePrep,
   canShowChoices,
+  canShowPrep,
+  clearPendingRefs,
   clearSave,
   createInitialState,
   currentLines,
   getNode,
   loadSave,
+  markReadyToDecide,
   persistSave,
   redCliffsEve,
   type SaveState,
@@ -26,7 +32,7 @@ export default function App() {
   const [gloss, setGloss] = useState<GlossEntry | null>(null)
   const [archiveOpen, setArchiveOpen] = useState(false)
   const [archiveModeHint, setArchiveModeHint] = useState<'本议' | '全库'>('本议')
-  /** 刷新始终先回 boot；有存档用「继续」进入 */
+  const [archiveFocusOverride, setArchiveFocusOverride] = useState<string[] | null>(null)
   const [started, setStarted] = useState(false)
   const hasSave = Boolean(loadSave())
   const scroller = useRef<HTMLDivElement>(null)
@@ -35,13 +41,15 @@ export default function App() {
   const node = getNode(chapter, state.nodeId)
   const lines = currentLines(chapter, state)
   const revealed = lines.slice(0, state.lineIndex + 1)
+  const showPrep = canShowPrep(chapter, state)
   const showChoices = canShowChoices(chapter, state)
-  const showTapHint = !showChoices && !state.ended && revealed.length > 0
-  const focusIds = node.refs ?? []
+  const showTapHint = !showPrep && !showChoices && !state.ended && revealed.length > 0
+  const focusIds = archiveFocusOverride ?? node.refs ?? []
   const allCards: ReferenceCard[] = useMemo(
     () => Object.values(chapter.refs),
     [],
   )
+  const prepAvailable = availablePrep(chapter, state)
 
   useEffect(() => {
     if (!started) return
@@ -50,19 +58,28 @@ export default function App() {
 
   useEffect(() => {
     setArchiveOpen(false)
+    setArchiveFocusOverride(null)
   }, [state.nodeId])
 
   useEffect(() => {
     const el = scroller.current
     if (!el) return
     el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
-  }, [state.nodeId, state.lineIndex, showChoices])
+  }, [state.nodeId, state.lineIndex, showChoices, showPrep])
+
+  useEffect(() => {
+    if (!state.pendingRefIds.length) return
+    setArchiveFocusOverride(state.pendingRefIds)
+    setArchiveModeHint('本议')
+    setArchiveOpen(true)
+    setState((s) => clearPendingRefs(s))
+  }, [state.pendingRefIds])
 
   function openGloss(id: string) {
     const entry = chapter.gloss[id] ?? {
       id,
       title: id,
-      body: '词条尚未收录。请打开「史料库」查看本段相关原文。',
+      body: '词条尚未收录。请打开「史料库」或决策台「翻卷」查看相关原文。',
     }
     setGloss(entry)
     setState((s) => ({
@@ -72,14 +89,24 @@ export default function App() {
   }
 
   function onTapAdvance() {
-    if (showChoices || state.ended) return
+    if (showPrep || showChoices || state.ended) return
     setFreshIndex(state.lineIndex + 1)
     setState((s) => advanceLineOrNode(chapter, s))
   }
 
   function onPick(choice: Choice) {
     setFreshIndex(0)
+    setArchiveFocusOverride(null)
     setState((s) => advanceAfterChoice(chapter, s, choice))
+  }
+
+  function onPrep(id: string) {
+    setFreshIndex(null)
+    setState((s) => applyPrepAction(chapter, s, id))
+  }
+
+  function onReadyDecide() {
+    setState((s) => markReadyToDecide(s))
   }
 
   function goBoot() {
@@ -91,6 +118,7 @@ export default function App() {
   function newGame() {
     clearSave()
     setFreshIndex(null)
+    setArchiveFocusOverride(null)
     setState(createInitialState())
     setStarted(true)
   }
@@ -101,6 +129,7 @@ export default function App() {
   }
 
   function openArchive(mode: '本议' | '全库') {
+    setArchiveFocusOverride(null)
     setArchiveModeHint(mode)
     setArchiveOpen(true)
   }
@@ -122,7 +151,7 @@ export default function App() {
             曹操不容易
           </h1>
           <p className="max-w-sm text-[0.95rem] leading-relaxed mb-8" style={{ color: 'var(--fg)' }}>
-            {chapter.title} · 史料库加厚版。点蓝词看词条；随时翻「史料库」；抉择时看「本议」。
+            {chapter.title} · 决策台版。拍板前可走动、问策、翻卷；点蓝词看词条。
           </p>
           {hasSave ? (
             <>
@@ -235,11 +264,23 @@ export default function App() {
         ) : null}
       </div>
 
+      {showPrep && node.prep ? (
+        <PrepDesk
+          actions={prepAvailable}
+          doneIds={state.donePrep}
+          allActions={node.prep}
+          onPrep={onPrep}
+          onDecide={onReadyDecide}
+          hasRefs={(node.refs?.length ?? 0) > 0}
+          onOpenRefs={() => openArchive('本议')}
+        />
+      ) : null}
+
       {showChoices && node.choices ? (
         <ChoiceBar
           choices={node.choices}
           onPick={onPick}
-          hasRefs={focusIds.length > 0}
+          hasRefs={(node.refs?.length ?? 0) > 0}
           onOpenRefs={() => openArchive('本议')}
         />
       ) : null}
@@ -247,7 +288,10 @@ export default function App() {
       <GlossModal entry={gloss} onClose={() => setGloss(null)} />
       <ArchivePanel
         open={archiveOpen}
-        onClose={() => setArchiveOpen(false)}
+        onClose={() => {
+          setArchiveOpen(false)
+          setArchiveFocusOverride(null)
+        }}
         allCards={allCards}
         focusIds={focusIds}
         sceneTitle={node.title ?? chapter.title}

@@ -6,10 +6,11 @@ import type {
   Effect,
   FlagName,
   Flags,
+  PrepAction,
   SceneNode,
 } from './types'
 
-const STORAGE_KEY = 'ccne-red-cliffs-eve-v5'
+const STORAGE_KEY = 'ccne-red-cliffs-eve-v6'
 
 export const DEFAULT_FLAGS: Flags = {
   haste: false,
@@ -26,6 +27,27 @@ export type SaveState = {
   seenGloss: string[]
   ended: boolean
   endingId?: string
+  /** 本节点已执行的 prep id */
+  donePrep: string[]
+  /** 走动/问策/翻卷追加进对话流的句子 */
+  injectedLines: BubbleLine[]
+  /** 是否已点「准备拍板」，露出 A/B */
+  readyToDecide: boolean
+  /** 翻卷后待弹出的史料 id */
+  pendingRefIds: string[]
+}
+
+function clearDeskFields(partial: Partial<SaveState> = {}): Pick<
+  SaveState,
+  'donePrep' | 'injectedLines' | 'readyToDecide' | 'pendingRefIds'
+> {
+  return {
+    donePrep: [],
+    injectedLines: [],
+    readyToDecide: false,
+    pendingRefIds: [],
+    ...partial,
+  }
 }
 
 export function createInitialState(chapter: Chapter = redCliffsEve): SaveState {
@@ -36,6 +58,7 @@ export function createInitialState(chapter: Chapter = redCliffsEve): SaveState {
     costs: [],
     seenGloss: [],
     ended: false,
+    ...clearDeskFields(),
   }
 }
 
@@ -43,7 +66,16 @@ export function loadSave(): SaveState | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return null
-    return JSON.parse(raw) as SaveState
+    const parsed = JSON.parse(raw) as SaveState
+    return {
+      ...createInitialState(),
+      ...parsed,
+      flags: { ...DEFAULT_FLAGS, ...parsed.flags },
+      donePrep: parsed.donePrep ?? [],
+      injectedLines: parsed.injectedLines ?? [],
+      readyToDecide: parsed.readyToDecide ?? false,
+      pendingRefIds: parsed.pendingRefIds ?? [],
+    }
   } catch {
     return null
   }
@@ -73,6 +105,12 @@ function flagsClash(flags: Flags, partial?: Partial<Flags>): boolean {
 
 export function visibleLines(node: SceneNode, flags: Flags): BubbleLine[] {
   return node.lines.filter(
+    (line) => flagsMatch(flags, line.when) && !flagsClash(flags, line.unless),
+  )
+}
+
+export function filterLines(lines: BubbleLine[], flags: Flags): BubbleLine[] {
+  return lines.filter(
     (line) => flagsMatch(flags, line.when) && !flagsClash(flags, line.unless),
   )
 }
@@ -187,7 +225,6 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
     })
   }
 
-  // cross terms
   if (!flags.loose_ships && !flags.suspect_defection) {
     lines.push({
       speaker: 'system',
@@ -233,12 +270,6 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
   return lines
 }
 
-/**
- * Ending router (from script annotations):
- * - burn: chained + hasty + (dishonest plague OR trusted defector)
- * - escape: loose ships + (suspect OR honest) — can cut and run
- * - hold: otherwise, especially honesty + suspect without full haste trap
- */
 export function pickEndingNodeId(flags: Flags): string {
   const chained = !flags.loose_ships
   const burnedTrap =
@@ -284,6 +315,93 @@ export function getNode(chapter: Chapter, id: string): SceneNode {
   return node
 }
 
+export function currentLines(chapter: Chapter, state: SaveState): BubbleLine[] {
+  const node = getNode(chapter, state.nodeId)
+  if (node.kind === 'report') {
+    return buildReportLines(state.flags, state.costs)
+  }
+  return [
+    ...visibleLines(node, state.flags),
+    ...filterLines(state.injectedLines, state.flags),
+  ]
+}
+
+export function linesCaughtUp(chapter: Chapter, state: SaveState): boolean {
+  const lines = currentLines(chapter, state)
+  if (lines.length === 0) return true
+  return state.lineIndex >= lines.length - 1
+}
+
+/** 决策台：有 prep，台词读完，尚未点拍板 */
+export function canShowPrep(chapter: Chapter, state: SaveState): boolean {
+  const node = getNode(chapter, state.nodeId)
+  if (!node.prep?.length) return false
+  if (state.readyToDecide) return false
+  return linesCaughtUp(chapter, state)
+}
+
+export function canShowChoices(chapter: Chapter, state: SaveState): boolean {
+  const node = getNode(chapter, state.nodeId)
+  if (!node.choices?.length) return false
+  if (node.kind === 'ending') return false
+  if (node.prep?.length && !state.readyToDecide) return false
+  return linesCaughtUp(chapter, state)
+}
+
+export function applyPrepAction(
+  chapter: Chapter,
+  state: SaveState,
+  actionId: string,
+): SaveState {
+  const node = getNode(chapter, state.nodeId)
+  const action = node.prep?.find((a) => a.id === actionId)
+  if (!action) return state
+  if (state.donePrep.includes(actionId)) return state
+
+  const before = currentLines(chapter, state)
+  const added = filterLines(action.lines, state.flags)
+  if (added.length === 0) {
+    const next: SaveState = {
+      ...state,
+      donePrep: [...state.donePrep, actionId],
+      pendingRefIds: action.showRefs ?? [],
+    }
+    persistSave(next)
+    return next
+  }
+
+  const next: SaveState = {
+    ...state,
+    donePrep: [...state.donePrep, actionId],
+    injectedLines: [...state.injectedLines, ...action.lines],
+    lineIndex: before.length,
+    pendingRefIds: action.showRefs ?? [],
+  }
+  persistSave(next)
+  return next
+}
+
+export function markReadyToDecide(state: SaveState): SaveState {
+  const next: SaveState = { ...state, readyToDecide: true, pendingRefIds: [] }
+  persistSave(next)
+  return next
+}
+
+export function clearPendingRefs(state: SaveState): SaveState {
+  if (!state.pendingRefIds.length) return state
+  const next: SaveState = { ...state, pendingRefIds: [] }
+  persistSave(next)
+  return next
+}
+
+export function availablePrep(
+  chapter: Chapter,
+  state: SaveState,
+): PrepAction[] {
+  const node = getNode(chapter, state.nodeId)
+  return (node.prep ?? []).filter((a) => !state.donePrep.includes(a.id))
+}
+
 export function advanceAfterChoice(
   _chapter: Chapter,
   state: SaveState,
@@ -294,6 +412,7 @@ export function advanceAfterChoice(
     ...next,
     nodeId: choice.next,
     lineIndex: 0,
+    ...clearDeskFields(),
   }
   persistSave(next)
   return next
@@ -304,10 +423,7 @@ export function advanceLineOrNode(
   state: SaveState,
 ): SaveState {
   const node = getNode(chapter, state.nodeId)
-  const lines =
-    node.kind === 'report'
-      ? buildReportLines(state.flags, state.costs)
-      : visibleLines(node, state.flags)
+  const lines = currentLines(chapter, state)
 
   if (state.lineIndex < lines.length - 1) {
     const next = { ...state, lineIndex: state.lineIndex + 1 }
@@ -315,20 +431,22 @@ export function advanceLineOrNode(
     return next
   }
 
-  // finished lines
   if (node.kind === 'ending') {
     const next: SaveState = {
       ...state,
       ended: true,
       endingId: node.endingId,
-      lineIndex: lines.length - 1,
+      lineIndex: Math.max(0, lines.length - 1),
     }
     persistSave(next)
     return next
   }
 
+  if (node.prep?.length && !state.readyToDecide) {
+    return state
+  }
+
   if (node.choices?.length) {
-    // stay; UI shows choices
     return state
   }
 
@@ -339,25 +457,10 @@ export function advanceLineOrNode(
     ...state,
     nodeId: nextId,
     lineIndex: 0,
+    ...clearDeskFields(),
   }
   persistSave(next)
   return next
-}
-
-export function currentLines(chapter: Chapter, state: SaveState): BubbleLine[] {
-  const node = getNode(chapter, state.nodeId)
-  if (node.kind === 'report') {
-    return buildReportLines(state.flags, state.costs)
-  }
-  return visibleLines(node, state.flags)
-}
-
-export function canShowChoices(chapter: Chapter, state: SaveState): boolean {
-  const node = getNode(chapter, state.nodeId)
-  if (!node.choices?.length) return false
-  if (node.kind === 'ending') return false
-  const lines = currentLines(chapter, state)
-  return state.lineIndex >= lines.length - 1
 }
 
 export { redCliffsEve }
