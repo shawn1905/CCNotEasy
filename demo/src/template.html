@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="tokyo-night">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#13141c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>《曹操不容易》// 赤壁前夜 · 建安十三年冬</title>
+  <style>
+/*__INLINE_STYLES__*/
+  </style>
+</head>
+<body>
+  <div class="viewport-frame">
+    <main class="app-shell" id="app-shell" data-mood="calm">
+      <!-- Subtle Liftoff Dusk Backdrop + Lightweight Ember Canvas -->
+      <div class="atmosphere-bg" aria-hidden="true"></div>
+      <canvas class="ember-canvas" id="ember-canvas" aria-hidden="true"></canvas>
+
+      <!-- Splash / Title Screen -->
+      <section class="splash-screen" id="splash-screen" aria-label="开场界面">
+        <div class="splash-card">
+          <div class="splash-meta">
+            <span>CCNOTEASY // TERMINAL-SLIP</span>
+            <span class="splash-era" id="splash-era">建安十三年冬</span>
+          </div>
+          <h1 class="splash-title" id="splash-title">《曹操不容易》</h1>
+          <div class="splash-subtitle" id="splash-subtitle">赤壁前夜 · 手机互动切片</div>
+          <div class="splash-divider"></div>
+          <p class="splash-tagline" id="splash-tagline">绝对优势为什么会失效？</p>
+          <p class="splash-desc">
+            你刚拿下荆州，帐内将校人人以为顺江而下便能一统天下。
+            但军报、漕运、疫病与官场潜台词正一条条涌进中军帐——每一次拍板，都是两害相权。
+          </p>
+          <div class="splash-slips">
+            <div class="splash-slip-item">
+              <span class="splash-slip-k">交互</span>
+              <span class="splash-slip-v">单手点按流</span>
+            </div>
+            <div class="splash-slip-item">
+              <span class="splash-slip-k">时长</span>
+              <span class="splash-slip-v">约 15 分钟</span>
+            </div>
+            <div class="splash-slip-item">
+              <span class="splash-slip-k">史料</span>
+              <span class="splash-slip-v">三国志 / 通鉴</span>
+            </div>
+          </div>
+          <div class="splash-actions">
+            <button type="button" class="btn-primary" id="btn-start">开始决策</button>
+            <button type="button" class="btn-secondary hidden" id="btn-resume">继续上次存档</button>
+          </div>
+          <div class="splash-footer">
+            <span>Omarchy Tokyo Night</span>
+            <button type="button" class="splash-audio-btn" id="btn-splash-audio">麦田8x氛围音：静音</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Gameplay Layer -->
+      <div class="app-layer">
+        <!-- Sticky Top HUD (48px) -->
+        <header class="hud-bar" aria-label="军政状态栏">
+          <div class="hud-resources">
+            <div class="res-gauge" data-res="coin">
+              <div class="res-top">
+                <span class="res-label">钱帛</span>
+                <span class="res-val-wrap"><span class="res-val">6</span></span>
+              </div>
+              <div class="res-segs" aria-hidden="true"></div>
+            </div>
+            <div class="res-gauge" data-res="grain">
+              <div class="res-top">
+                <span class="res-label">粮草</span>
+                <span class="res-val-wrap"><span class="res-val">6</span></span>
+              </div>
+              <div class="res-segs" aria-hidden="true"></div>
+            </div>
+            <div class="res-gauge" data-res="troops">
+              <div class="res-top">
+                <span class="res-label">兵力</span>
+                <span class="res-val-wrap"><span class="res-val">6</span></span>
+              </div>
+              <div class="res-segs" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="hud-actions">
+            <button type="button" class="hud-btn" id="btn-audio" aria-label="开启声音" title="麦田8x氛围音与音效"></button>
+            <button type="button" class="hud-btn" id="btn-drawer" aria-label="打开案牍与词典" title="案牍/词典">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Chapter Progress Strip (24px) -->
+        <div class="chapter-strip" aria-label="章节进度">
+          <div class="chapter-label">
+            <span class="chapter-act" id="chapter-act">序</span>
+            <span id="chapter-title">江陵初定</span>
+          </div>
+          <span class="chapter-step" id="chapter-step">1/7</span>
+          <div class="chapter-progress-track">
+            <div class="chapter-progress-fill" id="chapter-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Lifeline Chat Stream -->
+        <section class="chat-stream" id="chat-stream" aria-live="polite"></section>
+
+        <!-- Bottom Pinned Dock: Tap-to-Advance OR Choice Deck -->
+        <footer class="bottom-dock" id="bottom-dock">
+          <button type="button" class="tap-prompt hidden" id="tap-prompt">
+            <span class="tap-prompt-left">
+              <span>点击继续</span>
+              <span class="cursor-blink" aria-hidden="true"></span>
+            </span>
+            <span id="tap-remaining">剩余 1 条</span>
+          </button>
+          <div class="choice-deck hidden" id="choice-deck" role="group" aria-label="决策选项"></div>
+        </footer>
+      </div>
+
+      <!-- Gloss & Subtext Bottom Popover Sheet -->
+      <div class="modal-backdrop hidden" id="modal-backdrop" role="dialog" aria-modal="true">
+        <div class="popover-sheet" id="popover-sheet"></div>
+      </div>
+
+      <!-- Slide-over Drawer (案牍 / 词典 / 设置) -->
+      <div class="drawer-backdrop hidden" id="drawer-backdrop" role="dialog" aria-modal="true" aria-label="案牍与设置">
+        <aside class="drawer-panel">
+          <div class="drawer-head">
+            <span class="drawer-title">// 丞相案牍 · DOSSIER</span>
+            <button type="button" class="popover-close" id="btn-drawer-close">关闭</button>
+          </div>
+          <div class="drawer-tabs" role="tablist">
+            <button type="button" class="drawer-tab is-active" data-tab="gloss" role="tab">释义词典</button>
+            <button type="button" class="drawer-tab" data-tab="subtext" role="tab">潜台词</button>
+            <button type="button" class="drawer-tab" data-tab="settings" role="tab">设置</button>
+          </div>
+          <div class="drawer-body" id="drawer-body"></div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script>
+/*__INLINE_STORY__*/
+  </script>
+  <script>
+/*__INLINE_AUDIO__*/
+  </script>
+  <script>
+/*__INLINE_ENGINE__*/
+  </script>
+</body>
+</html>
