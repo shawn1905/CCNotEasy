@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import type { PrepAction, PrepKind } from '../game/types'
 
 type Props = {
@@ -28,92 +29,115 @@ export function PrepDesk({
   hasRefs,
 }: Props) {
   const doneSet = new Set(doneIds)
-  const byKind = (kind: PrepKind) => allActions.filter((a) => a.kind === kind)
+  const availableIds = useMemo(
+    () => new Set(actions.map((a) => a.id)),
+    [actions],
+  )
+
+  const kindsPresent = KIND_ORDER.filter((k) =>
+    allActions.some((a) => a.kind === k),
+  )
+  const [tab, setTab] = useState<PrepKind>(kindsPresent[0] ?? 'walk')
+  const list = allActions.filter((a) => a.kind === tab)
 
   return (
-    <div className="choices-enter choice-dock flex flex-col gap-2.5 px-3 py-3">
-      <div className="flex items-center justify-between gap-2 px-0.5">
+    <div
+      className="choices-enter choice-dock flex flex-col gap-2 px-3 pt-2 pb-3"
+      style={{ maxHeight: '42vh' }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="flex items-center justify-between gap-2 px-0.5 shrink-0">
         <div
           className="font-mono-ui text-[0.65rem] tracking-wider uppercase"
           style={{ color: 'var(--fg-dim)' }}
         >
-          desk — 走动 · 问策 · 翻卷
+          desk — 拍板前
         </div>
-        {hasRefs && onOpenRefs ? (
-          <button
-            type="button"
-            className="font-mono-ui text-[0.7rem] px-2 py-1"
-            style={{
-              color: 'var(--accent)',
-              border: '1px solid var(--glass-border)',
-              borderRadius: 'var(--radius)',
-              background: 'rgba(122, 162, 247, 0.08)',
-            }}
-            onClick={(e) => {
-              e.stopPropagation()
-              onOpenRefs()
-            }}
-          >
-            本议史料
-          </button>
-        ) : null}
+        <div className="flex items-center gap-2">
+          <span className="font-mono-ui text-[0.65rem]" style={{ color: 'var(--fg-dim)' }}>
+            {doneIds.length}/{allActions.length}
+          </span>
+          {hasRefs && onOpenRefs ? (
+            <button
+              type="button"
+              className="font-mono-ui text-[0.7rem] px-2 py-1"
+              style={{
+                color: 'var(--accent)',
+                border: '1px solid var(--glass-border)',
+                borderRadius: 'var(--radius)',
+                background: 'rgba(122, 162, 247, 0.08)',
+              }}
+              onClick={onOpenRefs}
+            >
+              本议
+            </button>
+          ) : null}
+        </div>
       </div>
 
-      <p className="text-[0.75rem] leading-relaxed px-0.5" style={{ color: 'var(--fg-dim)' }}>
-        拍板前你可以先做几件事。不强制做完——但没看过的东西，不会替你说话。
-      </p>
-
-      {KIND_ORDER.map((kind) => {
-        const list = byKind(kind)
-        if (!list.length) return null
-        return (
-          <div key={kind} className="flex flex-col gap-1.5">
-            <div
-              className="font-mono-ui text-[0.65rem] tracking-wide px-0.5"
-              style={{ color: 'var(--info)' }}
+      <div className="flex gap-1.5 shrink-0">
+        {kindsPresent.map((k) => {
+          const total = allActions.filter((a) => a.kind === k).length
+          const done = allActions.filter(
+            (a) => a.kind === k && doneSet.has(a.id),
+          ).length
+          const active = tab === k
+          return (
+            <button
+              key={k}
+              type="button"
+              className="font-mono-ui text-[0.7rem] px-2.5 py-1"
+              style={{
+                color: active ? 'var(--bg-darker)' : 'var(--fg)',
+                background: active ? 'var(--accent)' : 'transparent',
+                border: '1px solid var(--glass-border)',
+                borderRadius: 'var(--radius)',
+              }}
+              onClick={() => setTab(k)}
             >
-              {KIND_LABEL[kind]}
-            </div>
-            <div className="flex flex-col gap-1.5">
-              {list.map((a) => {
-                const done = doneSet.has(a.id)
-                const available = actions.some((x) => x.id === a.id)
-                return (
-                  <button
-                    key={a.id}
-                    type="button"
-                    disabled={done || !available}
-                    onClick={() => onPrep(a.id)}
-                    className="choice-card w-full text-left px-3 py-2"
-                    style={{
-                      color: done ? 'var(--fg-dim)' : 'var(--fg-bright)',
-                      opacity: done ? 0.55 : 1,
-                    }}
-                  >
-                    <div className="text-[0.9rem] font-medium">
-                      {done ? '✓ ' : ''}
-                      {a.label}
-                    </div>
-                    {a.hint ? (
-                      <div
-                        className="mt-0.5 text-[0.72rem]"
-                        style={{ color: 'var(--fg-dim)' }}
-                      >
-                        {a.hint}
-                      </div>
-                    ) : null}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )
-      })}
+              {KIND_LABEL[k]} · {done}/{total}
+            </button>
+          )
+        })}
+      </div>
+
+      <div className="overflow-y-auto flex flex-col gap-1.5 min-h-0 flex-1">
+        {list.map((a) => {
+          const done = doneSet.has(a.id)
+          const available = availableIds.has(a.id)
+          return (
+            <button
+              key={a.id}
+              type="button"
+              disabled={done || !available}
+              onClick={() => onPrep(a.id)}
+              className="choice-card w-full text-left px-2.5 py-1.5"
+              style={{
+                color: done ? 'var(--muted)' : 'var(--fg-bright)',
+                opacity: done ? 0.7 : 1,
+              }}
+            >
+              <div className="text-[0.85rem] font-medium leading-snug">
+                {done ? '〔已查〕' : ''}
+                {a.label}
+              </div>
+              {a.hint && !done ? (
+                <div
+                  className="mt-0.5 text-[0.68rem] leading-snug"
+                  style={{ color: 'var(--fg-dim)' }}
+                >
+                  {a.hint}
+                </div>
+              ) : null}
+            </button>
+          )
+        })}
+      </div>
 
       <button
         type="button"
         onClick={onDecide}
-        className="w-full text-left px-3 py-2.5 mt-1 font-mono-ui text-[0.9rem]"
+        className="w-full text-left px-3 py-2 shrink-0 font-mono-ui text-[0.85rem]"
         style={{
           background: 'var(--accent)',
           color: 'var(--bg-darker)',
@@ -121,10 +145,7 @@ export function PrepDesk({
           boxShadow: '0 0 18px rgba(122, 162, 247, 0.2)',
         }}
       >
-        准备拍板 →
-        <span className="block text-[0.7rem] mt-0.5 opacity-80">
-          露出 A / B · 已查 {doneIds.length}/{allActions.length}
-        </span>
+        准备拍板 → 露出 A / B
       </button>
     </div>
   )
