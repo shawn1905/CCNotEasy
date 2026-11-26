@@ -9,7 +9,7 @@ import type {
   SceneNode,
 } from './types'
 
-const STORAGE_KEY = 'ccne-red-cliffs-eve-v3'
+const STORAGE_KEY = 'ccne-red-cliffs-eve-v4'
 
 export const DEFAULT_FLAGS: Flags = {
   haste: false,
@@ -106,48 +106,48 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
   if (flags.haste) {
     lines.push({
       speaker: 'cheng',
-      text: '日历：江陵东下优先。更始与舰籍未齐即序次前送；胁降时效保住，降附整合与筛疫偏欠。',
+      text: '日历：你抢了窗口。旗先动，更始与舰籍后置——势在，缝不在。',
     })
   } else {
     lines.push({
       speaker: 'cheng',
-      text: '日历：江陵留抚优先。侯籍、舰籍、隔离尚有安排；会猎窗口让出一部分给敌方备战。',
+      text: '日历：你买了缝。编制稍实，会猎的势淡了一截；敌方多出的准备，也记在你账上。',
     })
   }
 
   if (flags.plague_honesty) {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：实数入册，减役催药。可战卒少于话术；遇敌时「已有疾病」至少被己方承认过。',
+      text: '疾疫：你让名册说实话。可战者变少，调度却不再拿假人数去撞。',
     })
   } else {
     lines.push({
       speaker: 'xun',
-      text: '疾疫：压报满员。编制好看；病卒仍上橹。对岸若有细作，其见闻将严于我名册。',
+      text: '疾疫：你让名册说谎。好看的编制上了江——咳也上了江。',
     })
   }
 
   if (flags.loose_ships) {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：疏泊分屯，留砍缆与防火道。火攻难以一网；夜惊、浪损、号令变慢已入账。',
+      text: '船阵：疏泊、砍缆、防火道。火难一网；指挥变难看，夜已经在收利息。',
     })
   } else {
     lines.push({
       speaker: 'cheng',
-      text: '船阵：密泊相接，号令如营。北军上下便利；若被观察为「首尾相接」，可烧前提成立。',
+      text: '船阵：密泊相接，号令如营。别人眼里那句「可烧而走」，被你亲手摆好。',
     })
   }
 
   if (flags.suspect_defection) {
     lines.push({
       speaker: 'jia',
-      text: '来降：扣使、外泊、禁出营。「但恐汝诈」落到了条令上；持久风险上升，火船贴心难度上升。',
+      text: '来降：你把「恐诈」写成条令。火船难近；持久的牙开始咬人。',
     })
   } else {
     lines.push({
       speaker: 'jia',
-      text: '来降：接洽、许赏、观验。短利是拆敌与速决；吏士延颈（乃至出营立观）使火入距离变短。',
+      text: '来降：你把短利写成观降。伸脖子的距离，就是火进来的距离。',
     })
   }
 
@@ -160,7 +160,7 @@ export function buildReportLines(flags: Flags, costs: string[]): BubbleLine[] {
 
   lines.push({
     speaker: 'system',
-    text: '结算句：疾疫在前，船阵与观降决定火是否一次烧穿。风只负责最后一截。',
+    text: '结算：疾疫在前，泊距与观降决定火是否一次烧穿。风只负责最后一截——前面四笔是你签的。',
   })
 
   return lines
