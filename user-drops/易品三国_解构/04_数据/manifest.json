@@ -1,0 +1,30 @@
+{
+  "source": "~/Desktop/易品三国-轻量版-v34.2(1).html",
+  "app": "易品三国 34.2 · 郡县图志",
+  "built": "2026-11-26",
+  "extraction": "静态解构；仅文字与数值，不含图片/音频",
+  "counts": {
+    "scenarios": 5,
+    "year_events": 30,
+    "landmarks": 16,
+    "yellow_route": 28,
+    "jingzhou_route": 7,
+    "studies": 7,
+    "scroll_chains": 18,
+    "history_chapters": 37,
+    "history_sources": 43,
+    "random_events": 6
+  },
+  "files": {
+    "scenarios.json": "SCENARIOS",
+    "year_events.json": "YEAR_EVENTS",
+    "landmarks.json": "LANDMARK_EVENTS",
+    "yellow_route.json": "YELLOW_ROUTE309",
+    "jingzhou_route.json": "JINGZHOU_ROUTE296",
+    "studies.json": "STUDIES278",
+    "scroll_chains.json": "SCROLL_CHAINS",
+    "history_chapters.json": "HISTORY_CHAPTERS286",
+    "history_sources.json": "HISTORY_SOURCES286",
+    "random_events.json": "EVENTS"
+  }
+}
