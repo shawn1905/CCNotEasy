@@ -163,10 +163,14 @@
 
 | 文档 | 内容 |
 |------|------|
-| [`docs/research/comparable-games.md`](./docs/research/comparable-games.md) | 竞品/参考作品笔记；资料库工具选型待确认 |
+| [`docs/research/comparable-games.md`](./docs/research/comparable-games.md) | 竞品/参考作品笔记 |
+| [`docs/research/red-cliffs/`](./docs/research/red-cliffs/) | **赤壁前夜** timeline / facts / tensions |
+| [`docs/research/sources/bibliography.md`](./docs/research/sources/bibliography.md) | 书目索引 |
+| [`docs/research/lexicon/`](./docs/research/lexicon/) | 中国风用语 / 禁用词 |
+| [`docs/research/user-drops/`](./docs/research/user-drops/) | 你发的材料（待投入） |
 
 **公开仓库：** https://github.com/shawn1905/CCNotEasy（Public，MIT）  
-资料库以仓库 `docs/` 为权威源。Google NotebookLM：**未启用**（用户暂用仓库）。
+史料深度：**切片够用（A）**；语言：**简体为主（A）**。NotebookLM 未启用。
 
 ---
 
