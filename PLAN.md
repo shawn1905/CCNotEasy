@@ -1,7 +1,7 @@
 # 《曹操不容易》制作计划
 
-> 状态：概念 **已齐** · 技术架构 **已确认** → 下一步视觉规范初稿 → GDD 签字 → 搭骨架  
-> 原则：**未确认事项一律标为「待确认」，不擅自补全。**  
+> 状态：概念/技术/视觉默认 **已齐** → **剧本优先（趣味）** → 再挂薄壳  
+> 原则：**未确认事项一律标为「待确认」，不擅自补全。** Demo 以趣味与剧本为先。  
 > 更新日期：2026-11-26（Asia/Shanghai）
 
 ---
@@ -154,8 +154,9 @@
 
 **下一步：**
 
-1. 你签 [`docs/GDD-outline.md`](./docs/GDD-outline.md)（或说「按大纲开干」）。  
-2. 脚手架（Vite+React+Tokyo Night）+ 「赤壁前夜」第一条可玩对话链。
+1. **剧本方法论已立**（见下）；先出节脊 + 节拍卡，你审趣味。  
+2. 对话本通过后，再挂 Vite 薄壳（字进气泡即验收）。  
+3. GDD 大纲视同配合剧本；有冲突以「好玩的两害」为准回改大纲。
 
 ---
 
@@ -169,9 +170,10 @@
 | [`docs/research/lexicon/`](./docs/research/lexicon/) | 中国风用语 / 禁用词 |
 | [`docs/research/user-drops/`](./docs/research/user-drops/) | 投递材料；含朋友「易品三国」解构（权重第 2） |
 | [`docs/design/architecture.md`](./docs/design/architecture.md) | **技术架构（已确认）** |
-| [`docs/design/visual-bible.md`](./docs/design/visual-bible.md) | **视觉规范初稿**（Tokyo Night + 章换肤） |
+| [`docs/design/visual-bible.md`](./docs/design/visual-bible.md) | 视觉：Quattro/Tokyo Night 复用 |
+| [`docs/design/script-method.md`](./docs/design/script-method.md) | **剧本优先方法论（趣味）** |
 | [`docs/design/interaction-lifeline.md`](./docs/design/interaction-lifeline.md) | Lifeline 交互对照 |
-| [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲（待签字） |
+| [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲 |
 
 **材料权重：** ① 公开严肃史料（事实） → ② 朋友易品三国稿（看法/调性） → ③ 演义与二手。冲突时 ① 优先。  
 **公开仓库：** https://github.com/shawn1905/CCNotEasy（Public，MIT）  
@@ -188,3 +190,4 @@
 | 2026-11-26 | 入库朋友「易品三国」解构；确认权重：公开史料 > 朋友看法/调性 |
 | 2026-11-26 | 确认技术架构：Vite+TS+React+自研 JSON 事件机（现代/丝滑/轻量） |
 | 2026-11-26 | 视觉规范：锁定复用 Omarchy Quattro 默认（Tokyo Night + Liftoff 氛围） |
+| 2026-11-26 | Demo 方法论：趣味与剧本优先；先节脊/节拍卡，后薄壳 |

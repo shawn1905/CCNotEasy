@@ -1,6 +1,6 @@
 # 《曹操不容易》GDD 大纲（一页纸）
 
-> 状态：**待签字**  
+> 状态：**配合剧本推进**（Demo 以趣味/剧本为先）  
 > 依据：`PLAN.md` 已确认项；本切片范围以「赤壁前夜」为准。  
 > 日期：2026-11-26（Asia/Shanghai）
 
@@ -46,11 +46,11 @@
 - 音：UI 音效 + 一套古意 BGM（可用免版税素材占位）  
 - ASCII 特效：后置  
 
-## 6. 技术（骨架建议，待签字后落地）
+## 6. 技术（剧本通过后再挂）
 
-- Next.js + TypeScript + Tailwind；手机优先布局  
-- 事件数据驱动（JSON/TS 模块）；本地存档  
-- 路由：开场 → 赤壁前夜节 → 结局页  
+- Vite + TypeScript + React + Tailwind（见 `docs/design/architecture.md`）  
+- 事件 JSON；本地存档；Tokyo Night  
+- **顺序：** 节脊 → 节拍卡 → 对话本 → 再脚手架（见 `docs/design/script-method.md`）
 
 ## 7. 验收（本切片）
 
