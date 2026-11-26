@@ -227,12 +227,16 @@ export default function App() {
           />
         ))}
         {showTapHint ? (
-          <p
-            className="text-center text-[0.7rem] font-mono-ui pt-2 pb-4"
-            style={{ color: 'var(--fg-dim)' }}
-          >
-            tap to continue _
-          </p>
+          <div className="text-center pt-2 pb-4 px-3 flex flex-col gap-1">
+            {node.prep?.length && !state.readyToDecide ? (
+              <p className="text-[0.7rem] font-mono-ui" style={{ color: 'var(--info)' }}>
+                决策台稍后回来 · 先看完这段
+              </p>
+            ) : null}
+            <p className="text-[0.7rem] font-mono-ui" style={{ color: 'var(--fg-dim)' }}>
+              tap to continue _
+            </p>
+          </div>
         ) : null}
         {state.ended ? (
           <div className="px-4 pt-2 pb-6 flex flex-col gap-2 items-center">
