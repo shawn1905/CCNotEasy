@@ -89,7 +89,25 @@
 
 ---
 
-## D. 资料库工具选型（待确认）
+## D. 主循环相关参考（用户选定 E 后补充）
+
+主循环方向：**文字抉择为主 + 战斗结算，无独立战棋**；多场景形态；LLM 推演为加花意向。
+
+可点参考（形态灵感，非抄玩法）：
+
+| 形态 | 参考 | 链接 |
+|------|------|------|
+| 卡片式两害抉择 | Reigns / Reigns: Three Kingdoms | https://store.steampowered.com/app/474750/Reigns/ |
+| 请愿/政务队列 | Yes, Your Grace | https://store.steampowered.com/app/1015500/Yes_Your_Grace/ |
+| 长文政治抉择 | Suzerain | https://store.steampowered.com/app/1207650/Suzerain/ |
+| 史实节点 + 分支 | 《三国志曹操传》系 / 《三国戏魏传》 | https://www.taptap.cn/app/224722 |
+| 事件结算战果 | 许多策略 AVG 的「战报一页」 | （实现时再钉具体作品） |
+
+LLM 推演：尚无对标产品定案；仅作「加花」记录，接入方式待确认。
+
+---
+
+## E. 资料库工具选型（待确认）
 
 用户提问：要不要启用 Google Notebook？
 
