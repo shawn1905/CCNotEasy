@@ -1,3 +1,11 @@
-# new-project
+# 曹操不容易
 
-This project was created by a Cursor cloud agent.
+回合制战略——模拟曹操的决策。
+
+## 当前状态
+
+概念阶段。制作计划见 [`PLAN.md`](./PLAN.md)。待确认项未齐前不开始实现。
+
+## 本地运行
+
+尚未搭建可运行工程（等概念与 GDD 确认后接入）。
