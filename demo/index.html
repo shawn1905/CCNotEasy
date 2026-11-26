@@ -14,29 +14,34 @@
    ========================================================================== */
 
 :root,
-[data-theme="tokyo-night"] {
-  --bg: #1a1b26;
-  --bg-dark: #13141c;
-  --bg-darker: #0e0e14;
-  --bg-light: #24283b;
-  --fg: #a9b1d6;
-  --fg-dim: #565f89;
-  --fg-bright: #c0caf5;
-  --accent: #7aa2f7;
-  --selection: #292e42;
-  --muted: #414868;
-  --danger: #f7768e;
-  --warn: #e0af68;
-  --fire: #ff9e64;
-  --ok: #9ece6a;
-  --info: #449dab;
-  --special: #ad8ee6;
+[data-theme="tokyo-night"],
+[data-theme="red-cliffs"] {
+  /* Default Chapter 1 Palette: 赤壁玄墨 · 烬火 (Overridable per-chapter via STORY.theme.palette) */
+  --bg: #151210;
+  --bg-dark: #0f0c0b;
+  --bg-darker: #0a0807;
+  --bg-light: #221c18;
+  --fg: #dfd5c5;
+  --fg-dim: #9c8d7a;
+  --fg-bright: #f6eee0;
+  --accent: #e86f3a;
+  --accent-soft: rgba(232, 111, 58, 0.16);
+  --selection: #2e241d;
+  --muted: #3d332c;
+  --danger: #e04f5f;
+  --warn: #d9a84e;
+  --fire: #f08a4b;
+  --ok: #7fb069;
+  --info: #5aa6a0;
+  --teal: #5aa6a0;
+  --special: #b5838d;
   --earth: #75493d;
 
   --radius: 2px;
   --border: 1px solid var(--muted);
   --font-ui: "JetBrains Mono", "Sarasa Mono SC", "Noto Sans Mono CJK SC", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-prose: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
 
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -109,6 +114,23 @@ button:focus-visible {
   }
 }
 
+.chapter-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.42;
+  transition: opacity 600ms ease, filter 600ms ease;
+}
+
+.app-shell[data-mood="fire"] .chapter-bg-image {
+  opacity: 0.54;
+  filter: saturate(1.25) contrast(1.06);
+}
+
 .atmosphere-bg {
   position: absolute;
   inset: 0;
@@ -116,32 +138,34 @@ button:focus-visible {
   z-index: 0;
   transition: opacity 420ms ease, background 420ms ease;
   background:
-    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(122, 162, 247, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(68, 157, 171, 0.05) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.82) 0%, rgba(15, 12, 11, 0.56) 46%, rgba(15, 12, 11, 0.72) 100%),
+    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(232, 111, 58, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(90, 166, 160, 0.07) 0%, transparent 70%);
 }
 
 .app-shell[data-mood="calm"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(122, 162, 247, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(68, 157, 171, 0.05) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.82) 0%, rgba(15, 12, 11, 0.56) 46%, rgba(15, 12, 11, 0.72) 100%),
+    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(232, 111, 58, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(90, 166, 160, 0.08) 0%, transparent 70%);
 }
 
 .app-shell[data-mood="tense"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 100% 45% at 50% 0%, rgba(122, 162, 247, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 115% 55% at 50% 100%, rgba(224, 175, 104, 0.10) 0%, transparent 72%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.84) 0%, rgba(15, 12, 11, 0.52) 48%, rgba(20, 14, 10, 0.76) 100%),
+    radial-gradient(ellipse 115% 55% at 50% 100%, rgba(217, 168, 78, 0.14) 0%, transparent 72%);
 }
 
 .app-shell[data-mood="cold"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 110% 60% at 50% 0%, rgba(68, 157, 171, 0.11) 0%, transparent 72%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(86, 95, 137, 0.09) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(12, 14, 15, 0.84) 0%, rgba(12, 15, 16, 0.56) 48%, rgba(10, 12, 14, 0.76) 100%),
+    radial-gradient(ellipse 110% 60% at 50% 0%, rgba(90, 166, 160, 0.14) 0%, transparent 72%);
 }
 
 .app-shell[data-mood="fire"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 100% 40% at 50% 0%, rgba(247, 118, 142, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 120% 58% at 50% 100%, rgba(255, 158, 100, 0.16) 0%, rgba(247, 118, 142, 0.06) 45%, transparent 78%);
+    linear-gradient(180deg, rgba(18, 10, 9, 0.82) 0%, rgba(22, 12, 10, 0.48) 48%, rgba(24, 10, 8, 0.74) 100%),
+    radial-gradient(ellipse 125% 60% at 50% 100%, rgba(232, 111, 58, 0.24) 0%, rgba(224, 79, 95, 0.10) 48%, transparent 80%);
 }
 
 .ember-canvas {
@@ -733,11 +757,44 @@ button:focus-visible {
   border-right: 2px solid var(--accent);
 }
 
+/* Frameless Background Typography for Walking / Observation / Scene Transitions */
+.bubble-row.side-center {
+  margin: 6px 0;
+}
+
 .bubble-row.side-center .bubble {
   max-width: 100%;
-  background: var(--bg-dark);
-  border: 1px solid rgba(65, 72, 104, 0.8);
-  border-left: 2px solid var(--bubble-tone, var(--fg-dim));
+  padding: 10px 10px 12px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(156, 141, 122, 0.18);
+  border-bottom: 1px solid rgba(156, 141, 122, 0.12);
+  border-radius: 0;
+  color: var(--fg);
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 10px rgba(8, 6, 5, 0.96), 0 0 2px rgba(8, 6, 5, 0.95);
+}
+
+.bubble-row.side-center .bubble .bubble-head {
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.bubble-row.side-center .bubble .bubble-speaker {
+  color: var(--teal);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.bubble-row.side-center .bubble.is-walk .bubble-speaker::before,
+.bubble-row.side-center .bubble.is-walk .bubble-speaker::after {
+  content: " — ";
+  color: var(--fg-dim);
+}
   color: var(--fg);
   font-size: 13.5px;
 }
@@ -2029,11 +2086,153 @@ body.hide-source-tags .source-tag {
   50%, 100% { opacity: 0.15; }
 }
 
+/* Remove old boxed walk override; side-center is now pure frameless background typography */
 .bubble-row.side-center .bubble.is-walk {
-  border-left: 2px solid var(--teal);
-  background: rgba(19, 20, 28, 0.92);
+  background: transparent;
+  border-left: none;
   text-align: left;
+  color: var(--fg-bright);
+  padding: 12px 12px 14px;
+}
+
+/* ==========================================================================
+   Resource Warning / Red-Line Alerts & Interactive Gauge Click
+   ========================================================================== */
+
+.res-gauge {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius);
+  transition: background 140ms ease, box-shadow 140ms ease;
+}
+
+.res-gauge:active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.res-gauge.is-warning {
+  background: rgba(217, 168, 78, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.55);
+  animation: gaugePulseWarn 1.8s ease-in-out infinite;
+}
+
+.res-gauge.is-critical {
+  background: rgba(224, 79, 95, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 0.85);
+  animation: gaugePulseCrit 0.9s ease-in-out infinite;
+}
+
+.res-warn-tag {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--warn);
+  margin-left: 3px;
+}
+
+.res-gauge.is-critical .res-warn-tag {
+  color: var(--danger);
+}
+
+@keyframes gaugePulseWarn {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.35); }
+  50% { box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.9); }
+}
+
+@keyframes gaugePulseCrit {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 0.45); }
+  50% { box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 1); }
+}
+
+.settlement-strip.is-warn {
+  border-color: var(--warn);
+  border-left: 3px solid var(--warn);
+  background: rgba(217, 168, 78, 0.10);
+}
+
+.settlement-strip.is-warn .settlement-badge {
+  color: var(--warn);
+  border-color: rgba(217, 168, 78, 0.55);
+}
+
+/* ==========================================================================
+   LLM Review & Logical Consistency Critique Module (Ending Screen)
+   ========================================================================== */
+
+.llm-review-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.llm-diagnosis {
+  padding: 10px 12px;
+  border: 1px solid var(--muted);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-size: 13.5px;
+  line-height: 1.65;
   color: var(--fg);
+}
+
+.llm-diagnosis strong {
+  color: var(--fg-bright);
+}
+
+.llm-prompt-details {
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  overflow: hidden;
+}
+
+.llm-prompt-details summary {
+  padding: 8px 10px;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  cursor: pointer;
+  user-select: none;
+}
+
+.llm-prompt-code {
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid var(--muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.btn-copy-prompt {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--fg-bright);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background 120ms ease, transform 80ms ease;
+}
+
+.btn-copy-prompt:active {
+  transform: translateY(1px);
+}
+
+.btn-copy-prompt.is-copied {
+  border-color: var(--ok);
+  background: rgba(127, 176, 105, 0.16);
+  color: var(--ok);
 }
 
 /* ==========================================================================
@@ -2055,7 +2254,8 @@ body.hide-source-tags .source-tag {
 <body>
   <div class="viewport-frame">
     <main class="app-shell" id="app-shell" data-mood="calm">
-      <!-- Subtle Liftoff Dusk Backdrop + Lightweight Ember Canvas -->
+      <!-- Chapter Theme Background Artwork + Dusk Vignette + Ember Canvas -->
+      <div class="chapter-bg-image" id="chapter-bg-image" aria-hidden="true"></div>
       <div class="atmosphere-bg" aria-hidden="true"></div>
       <canvas class="ember-canvas" id="ember-canvas" aria-hidden="true"></canvas>
 
@@ -2093,8 +2293,8 @@ body.hide-source-tags .source-tag {
             <button type="button" class="btn-secondary hidden" id="btn-resume">继续上次存档</button>
           </div>
           <div class="splash-footer">
-            <span>Omarchy Tokyo Night</span>
-            <button type="button" class="splash-audio-btn" id="btn-splash-audio">麦田8x氛围音：静音</button>
+            <span id="splash-theme-name">赤壁玄墨 · 烬火</span>
+            <button type="button" class="splash-audio-btn" id="btn-splash-audio">赤壁·麦田烬风8x：静音</button>
           </div>
         </div>
       </section>
@@ -2190,16 +2390,78 @@ body.hide-source-tags .source-tag {
 window.CC_STORY = {
   meta: {
     title: "曹操不容易",
-    subtitle: "建安十三年 · 赤壁前夜",
+    subtitle: "第一章 · 建安十三年 · 赤壁前夜",
     tagline: "坐拥荆州仓廒、水军号称八十万——看绝对优势是怎么一笔一笔亏光的。",
-    version: "0.4.0-demo",
+    version: "0.5.0-chapter1",
     estimatedMinutes: 15
   },
 
+  /* 章节三件套主题配置：背景图 + 颜色套系 + 背景音乐（后续章节直接换此对象即可切换整套氛围） */
+  theme: {
+    id: "red-cliffs",
+    name: "赤壁玄墨 · 烬火",
+    background: {
+      image: "./bg-red-cliffs.jpg",
+      opacity: 0.42
+    },
+    palette: {
+      "--bg": "#151210",
+      "--bg-dark": "#0f0c0b",
+      "--bg-darker": "#0a0807",
+      "--bg-light": "#221c18",
+      "--fg": "#dfd5c5",
+      "--fg-dim": "#9c8d7a",
+      "--fg-bright": "#f6eee0",
+      "--accent": "#e86f3a",
+      "--accent-soft": "rgba(232, 111, 58, 0.16)",
+      "--fire": "#f08a4b",
+      "--danger": "#e04f5f",
+      "--warn": "#d9a84e",
+      "--ok": "#7fb069",
+      "--teal": "#5aa6a0",
+      "--purple": "#b5838d",
+      "--muted": "#3d332c",
+      "--selection": "#2e241d"
+    },
+    bgm: {
+      src: "./bgm-red-cliffs.mp3",
+      label: "赤壁 · 麦田烬风 8x",
+      moodRates: { calm: 1.0, tense: 0.94, fire: 0.88 }
+    }
+  },
+
   initialResources: {
-    money: 6,
-    grain: 6,
-    troops: 8
+    money: 4,
+    grain: 3,
+    troops: 5
+  },
+
+  resourceRules: {
+    warnAt: 2,
+    collapseAt: 0,
+    collapseEndings: {
+      coin: "E-collapse-coin",
+      grain: "E-collapse-grain",
+      troops: "E-collapse-troops",
+      multi: "E-collapse-multi"
+    },
+    details: {
+      coin: {
+        label: "钱帛",
+        warnText: "府库余钱已跌破警戒线——再挥霍一次，赏格发不出去，降将与工坊当夜就敢掀桌子。",
+        redlineDesc: "归零即「府库告罄」：赏赐断供、降将反水、军府从账房里散架。"
+      },
+      grain: {
+        label: "粮草",
+        warnText: "漕运军粮已入红区——盛寒腊月再抽一笔，江陵仓见底，前营就要先闹营啸。",
+        redlineDesc: "归零即「断炊绝粮」：三军断炊、杀马充饥、夜半营啸自溃。"
+      },
+      troops: {
+        label: "兵力",
+        warnText: "可战健卒已贴近警戒线——再折损下去，点卯册只剩空名，连中军亲卫都凑不齐。",
+        redlineDesc: "归零即「兵力折尽」：前锋打空、病卒满营、孤帐狼狈北遁。"
+      }
+    }
   },
 
   initialVars: {
@@ -4275,6 +4537,142 @@ window.CC_STORY = {
       ],
       careerSeed: "生涯伏笔：北归问责已成定局——相府威信裂出大缝，下一步是铁腕清洗，还是向世族让步？",
       verdict: "最惨烈的战略崩盘：拒救合肥以豪赌长江，却未守住疫病或火攻防线，致淮南与江汉两线同溃。"
+    },
+
+    "E-collapse-coin": {
+      id: "E-collapse-coin",
+      isCollapse: true,
+      badge: "红线崩盘 · 府库告罄",
+      title: "没等周瑜放火，账房先炸了",
+      subtitle: "钱帛归零——江陵最贵的不是铁索，是降将眼里突然凉下去的光。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "（把空木匣倒扣在帅案上，只滚出两枚磨平的五铢钱）明公，**府库一文不剩了**。工坊停了铁锤，荆州新封的十五个列侯连安家钱都没领全。"
+        },
+        {
+          type: "msg",
+          speaker: "军报",
+          roleTag: "夜巡",
+          tone: "danger",
+          tag: "崩盘",
+          text: "刚过二更，两营荆州水卒趁黑解缆投了南岸——走前还顺手把码头上的新船凿漏了七艘。账房一空，嘴上再怎么「与之更始」，也没人替空口袋卖命。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "你走出中军帐。江东一箭未发，北岸码头已经火把乱窜、吵成一锅粥。你忽然明白——大军南下，先输掉的往往不是江面，是那只摸不见底的钱箱。"
+        }
+      ],
+      careerSeed: "红线教训：钱帛归零直接触发军心解体。下次拍板前，记得盯紧顶栏的警戒线。",
+      verdict: "钱帛耗尽触发红线崩盘：赏格成空、降众倒戈、工坊罢作，未及决战便从内部散架。"
+    },
+
+    "E-collapse-grain": {
+      id: "E-collapse-grain",
+      isCollapse: true,
+      badge: "红线崩盘 · 断炊绝粮",
+      title: "八十万张嘴，锅里只剩江水",
+      subtitle: "粮草归零——盛寒腊月，比周瑜更可怕的是半夜敲响的空饭盆。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "江陵仓底连发霉的陈谷都刮干净了，许昌北漕又卡在泥道上。**明早三军断炊**——不是少吃一顿，是一粒米都没有。"
+        },
+        {
+          type: "msg",
+          speaker: "北方将",
+          roleTag: "中军",
+          tone: "danger",
+          tag: "崩盘",
+          text: "（甲胄都没系全便冲进帐）前营营啸了！饥兵抢了马槽里的豆料，还把督粮的军吏绑在了旗杆上——再不北撤，明早咱们自己人就得先砍自己人！"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "寒风卷着空锅与马嘶压过江面。你回头望了一眼灯火通明的江陵大仓——进城那天你还嫌钥匙太沉，如今那把钥匙只锁着一屋子冷风。"
+        }
+      ],
+      careerSeed: "红线教训：粮草归零触发三军营啸自溃。大军未动，粮道永远是第一条命脉。",
+      verdict: "粮草耗尽触发红线崩盘：江陵仓空、北漕断绝，盛寒营啸逼得大军不战自溃。"
+    },
+
+    "E-collapse-troops": {
+      id: "E-collapse-troops",
+      isCollapse: true,
+      badge: "红线崩盘 · 兵力折尽",
+      title: "花名册还在，能站起来的没了",
+      subtitle: "兵力归零——病倒的、吐垮的、分兵抽空的，最后只剩帅旗在风里硬撑。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "医曹",
+          roleTag: "军医",
+          tone: "danger",
+          tag: "崩盘",
+          text: "明公别再点卯了。隔离的、晕船的、调去淮南的、夜里逃散的加在一处，**能披甲列阵的成建制营头已经清零**。"
+        },
+        {
+          type: "msg",
+          speaker: "参谋",
+          roleTag: "议曹",
+          tone: "warn",
+          tag: "崩盘",
+          text: "（压低嗓子）南岸探船已经摸到江心了。趁周瑜还没发现咱们大营里全是空帐篷，明公带着亲卫连夜走陆路北归吧……再晚一步，连退路都兜不住。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "你亲手拔下帐前那面写着「曹」字的大纛。纸上吹出来的「八十万」还没散尽，现实里连替你抬舆的健卒都凑不齐一队。"
+        }
+      ],
+      careerSeed: "红线教训：兵力归零触发前线解体。止损虽稳，但把本钱全割光了，也就没资格留在牌桌上。",
+      verdict: "兵力耗尽触发红线崩盘：隔离、分兵与水土减员叠加，大营成空壳，被迫连夜北遁。"
+    },
+
+    "E-collapse-multi": {
+      id: "E-collapse-multi",
+      isCollapse: true,
+      badge: "红线崩盘 · 全面失血",
+      title: "钱粮兵齐见底，大营一夜成灰",
+      subtitle: "多项指标同时跌穿红线——还没见着东南风，牌桌自己先塌了。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "钱匣空了、粮仓空了、点卯册也空了——**三本账同一夜齐齐见底**。明公，这已经不是打不打得赢周瑜的事，是咱们能不能活着走出荆州的事。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "江风扑灭了中军帐口的最后一盏油灯。营外哭喊声、马蹄声、逃兵砸开粮车的声响混成一片——绝对优势崩盘起来，比任何一场败仗都快。"
+        }
+      ],
+      careerSeed: "红线教训：多项资源同时触底，彻底失去腾挪空间。下一局试着在「体面」与「活命」之间留一口气。",
+      verdict: "多项资源同时触及红线：军政后勤全面断链，大军未战先溃，仓皇北逃。"
     }
   },
 
@@ -4350,7 +4748,9 @@ window.CC_STORY = {
   let sfxGain = null;
   let noiseBuffer = null;
 
-  // HTML5 Audio element for the 8x-slowed wheatfield ambient loop
+  // HTML5 Audio element for the chapter BGM loop
+  let bgmSrc = "./bgm-red-cliffs.mp3";
+  let bgmMoodRates = { calm: 1.0, tense: 0.94, fire: 0.88 };
   let bgmAudioEl = null;
   let bgmMediaSource = null;
   let bgmFallbackNodes = null;
@@ -4477,11 +4877,30 @@ window.CC_STORY = {
     bgmFallbackNodes = null;
   }
 
+  function setBgmConfig(cfg) {
+    if (!cfg || typeof cfg !== "object") return;
+    if (cfg.src && cfg.src !== bgmSrc) {
+      bgmSrc = cfg.src;
+      if (bgmAudioEl) {
+        const wasPlaying = !bgmAudioEl.paused;
+        bgmAudioEl.src = bgmSrc;
+        bgmUsingFallback = false;
+        if (wasPlaying && enabled && bgmEnabled) {
+          bgmAudioEl.play().catch(function () {});
+        }
+      }
+    }
+    if (cfg.moodRates && typeof cfg.moodRates === "object") {
+      bgmMoodRates = Object.assign({}, bgmMoodRates, cfg.moodRates);
+      updateBgmMoodGain();
+    }
+  }
+
   function initBgmElement() {
     if (bgmAudioEl) return;
     bgmLoadAttempted = true;
     try {
-      const el = new Audio("./bgm.mp3");
+      const el = new Audio(bgmSrc);
       el.loop = true;
       el.preload = "auto";
       el.volume = 0.42;
@@ -4540,8 +4959,7 @@ window.CC_STORY = {
   }
 
   function updateBgmMoodGain() {
-    // Slightly deeper, slightly slower playback rate on tense/fire moods for subtle drama
-    const targetRate = currentMood === "fire" ? 0.92 : (currentMood === "tense" ? 0.96 : 1.0);
+    const targetRate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
     const targetVol = currentMood === "fire" ? 0.36 : 0.44;
     if (bgmAudioEl) {
       try {
@@ -4802,6 +5220,7 @@ window.CC_STORY = {
     toggle: toggle,
     setBgmEnabled: setBgmEnabled,
     setHapticsEnabled: setHapticsEnabled,
+    setBgmConfig: setBgmConfig,
     setMood: setMood,
     vibrate: vibrate,
     playCharPop: playCharPop,
@@ -4999,6 +5418,7 @@ window.CC_STORY = {
       setEnabled: function () { return false; },
       toggle: function () { return false; },
       setBgmEnabled: function () { return false; },
+      setBgmConfig: function () {},
       setHapticsEnabled: function () { return false; },
       setMood: function () {},
       vibrate: function () {},
@@ -5024,11 +5444,23 @@ window.CC_STORY = {
     const endingsMap = toMap(STORY.endings, "id");
     const chapters = Array.isArray(STORY.chapters) ? STORY.chapters : [];
 
-    // Parse initial resources
+    // Parse initial resources & threshold rules
+    const resourceRules = Object.assign({
+      warnAt: 2,
+      collapseAt: 0,
+      collapseEndings: {
+        coin: "E-collapse-coin",
+        grain: "E-collapse-grain",
+        troops: "E-collapse-troops",
+        multi: "E-collapse-multi"
+      },
+      details: {}
+    }, STORY.resourceRules || {});
+
     function parseInitialResources() {
-      const raw = STORY.initialResources || { coin: 6, grain: 6, troops: 6 };
-      const res = { coin: 5, grain: 5, troops: 5 };
-      const maxRes = { coin: 10, grain: 10, troops: 10 };
+      const raw = STORY.initialResources || { coin: 4, grain: 3, troops: 5 };
+      const res = { coin: 4, grain: 3, troops: 5 };
+      const maxRes = { coin: 6, grain: 6, troops: 6 };
 
       Object.keys(raw).forEach(function (k) {
         const canon = mapResourceKey(k);
@@ -5036,16 +5468,45 @@ window.CC_STORY = {
         const v = raw[k];
         if (typeof v === "number") {
           res[canon] = v;
-          maxRes[canon] = Math.max(10, v);
+          maxRes[canon] = Math.max(6, v + 1);
         } else if (v && typeof v === "object") {
-          res[canon] = typeof v.value === "number" ? v.value : (typeof v.initial === "number" ? v.initial : 5);
-          maxRes[canon] = typeof v.max === "number" ? v.max : Math.max(10, res[canon]);
+          res[canon] = typeof v.value === "number" ? v.value : (typeof v.initial === "number" ? v.initial : 4);
+          maxRes[canon] = typeof v.max === "number" ? v.max : Math.max(6, res[canon] + 1);
         }
       });
       return { values: res, max: maxRes };
     }
 
     const resConfig = parseInitialResources();
+
+    // Apply Chapter 3-Piece Theme Kit (Background Art + Color Palette + BGM)
+    function applyChapterTheme(theme) {
+      if (!theme || typeof theme !== "object") return;
+      if (theme.id) {
+        document.documentElement.setAttribute("data-theme", theme.id);
+      }
+      if (theme.palette && typeof theme.palette === "object") {
+        Object.keys(theme.palette).forEach(function (cssVar) {
+          document.documentElement.style.setProperty(cssVar, theme.palette[cssVar]);
+        });
+      }
+      const bgEl = document.getElementById("chapter-bg-image");
+      if (bgEl && theme.background && theme.background.image) {
+        bgEl.style.backgroundImage = 'url("' + theme.background.image + '")';
+        if (typeof theme.background.opacity === "number") {
+          bgEl.style.opacity = String(theme.background.opacity);
+        }
+      }
+      if (theme.bgm && typeof AUDIO.setBgmConfig === "function") {
+        AUDIO.setBgmConfig(theme.bgm);
+      }
+      const themeNameEl = document.getElementById("splash-theme-name");
+      if (themeNameEl && theme.name) {
+        themeNameEl.textContent = theme.name;
+      }
+    }
+
+    applyChapterTheme(STORY.theme);
 
     // DOM references
     const elApp = document.getElementById("app-shell");
@@ -5100,6 +5561,8 @@ window.CC_STORY = {
         mood: "calm",
         resources: clone(resConfig.values),
         vars: clone(STORY.initialVars || {}),
+        warnedResources: {},
+        choiceLog: [],
         fakeTroopBadge: false,
         unlockedGlosses: [],
         decodedSubtexts: [],
@@ -5133,6 +5596,8 @@ window.CC_STORY = {
           mood: state.mood,
           resources: state.resources,
           vars: state.vars,
+          warnedResources: state.warnedResources,
+          choiceLog: state.choiceLog,
           fakeTroopBadge: state.fakeTroopBadge,
           unlockedGlosses: state.unlockedGlosses,
           decodedSubtexts: state.decodedSubtexts,
@@ -5241,18 +5706,68 @@ window.CC_STORY = {
       AUDIO.setMood(mood);
     }
 
+    function openResourcePopover(resKey) {
+      const meta = RES_META.find(function (m) { return m.key === resKey; });
+      const info = (resourceRules.details && resourceRules.details[resKey]) || {};
+      const val = state.resources[resKey];
+      const warnAt = resourceRules.warnAt;
+      const collapseAt = resourceRules.collapseAt;
+      const statusText = val <= collapseAt
+        ? "已跌穿红线（崩盘）"
+        : (val <= warnAt ? "告急警戒（再降将触红线）" : "尚可周转");
+
+      AUDIO.playGloss();
+      elPopoverSheet.classList.remove("is-subtext");
+      elPopoverSheet.innerHTML =
+        '<div class="popover-head">' +
+          '<span class="popover-kicker">// 军政指标说明 · THRESHOLD</span>' +
+          '<button type="button" class="popover-close" id="btn-pop-close">关闭 [ESC]</button>' +
+        "</div>" +
+        '<div class="popover-term">' + escapeHtml((meta ? meta.label : resKey) + " · 当前 " + val) + "</div>" +
+        '<div class="popover-plain">当前状态：<strong>' + escapeHtml(statusText) + "</strong><br>" +
+          "警戒线：≤ " + warnAt + "（亮灯报警） · 崩盘红线：= " + collapseAt + "<br><br>" +
+          escapeHtml(info.redlineDesc || "任意单项或多项指标归零，大营立即崩盘结束本局。") +
+        "</div>";
+
+      elModalBackdrop.classList.remove("hidden");
+      const closeBtn = document.getElementById("btn-pop-close");
+      if (closeBtn) closeBtn.addEventListener("click", closePopover);
+    }
+
     function renderHud(deltas) {
+      const warnAt = typeof resourceRules.warnAt === "number" ? resourceRules.warnAt : 2;
+      const collapseAt = typeof resourceRules.collapseAt === "number" ? resourceRules.collapseAt : 0;
+
       RES_META.forEach(function (meta) {
         const gauge = document.querySelector('.res-gauge[data-res="' + meta.key + '"]');
         if (!gauge) return;
         const val = state.resources[meta.key];
-        const max = resConfig.max[meta.key] || 10;
+        const max = resConfig.max[meta.key] || 6;
 
         const valEl = gauge.querySelector(".res-val");
         if (valEl) valEl.textContent = String(val);
 
-        gauge.classList.toggle("is-low", val <= 2);
-        gauge.classList.toggle("is-warn", val === 3);
+        const isCrit = val <= collapseAt;
+        const isWarn = !isCrit && val <= warnAt;
+        gauge.classList.toggle("is-low", isCrit || isWarn);
+        gauge.classList.toggle("is-warning", isWarn);
+        gauge.classList.toggle("is-critical", isCrit);
+
+        // Micro warning / critical label next to resource name
+        const labelEl = gauge.querySelector(".res-label");
+        if (labelEl) {
+          let tag = gauge.querySelector(".res-warn-tag");
+          if (isCrit || isWarn) {
+            if (!tag) {
+              tag = document.createElement("span");
+              tag.className = "res-warn-tag";
+              labelEl.appendChild(tag);
+            }
+            tag.textContent = isCrit ? "红线" : "告急";
+          } else if (tag) {
+            tag.remove();
+          }
+        }
 
         // Mini segment bar (8 crisp segments)
         const segsWrap = gauge.querySelector(".res-segs");
@@ -5339,6 +5854,8 @@ window.CC_STORY = {
           nodeId: ch.startNode || ch.nodeId || ch.id || state.nodeId,
           resources: clone(state.resources),
           vars: clone(state.vars),
+          warnedResources: clone(state.warnedResources),
+          choiceLog: clone(state.choiceLog),
           fakeTroopBadge: state.fakeTroopBadge
         };
       }
@@ -5448,7 +5965,50 @@ window.CC_STORY = {
         renderSettlementStrip(summaryParts, finalReason, deltas, containerEl || elStream);
       }
 
+      // Check resource warning threshold & red-line collapse
+      const warnAt = typeof resourceRules.warnAt === "number" ? resourceRules.warnAt : 2;
+      const collapseAt = typeof resourceRules.collapseAt === "number" ? resourceRules.collapseAt : 0;
+      const collapsedKeys = [];
+
+      if (hasNonZeroDelta && !state.finished) {
+        RES_META.forEach(function (meta) {
+          const k = meta.key;
+          const v = state.resources[k];
+          if (v <= collapseAt) {
+            collapsedKeys.push(k);
+          } else if (v <= warnAt && !state.warnedResources[k]) {
+            state.warnedResources[k] = true;
+            const detail = (resourceRules.details && resourceRules.details[k]) || {};
+            renderWarningStrip(meta.label + "告急 (余 " + v + ")", detail.warnText || (meta.label + "已跌至警戒线，归零将直接崩盘！"), containerEl || elStream);
+            AUDIO.playAlert();
+          } else if (v > warnAt && state.warnedResources[k]) {
+            state.warnedResources[k] = false;
+          }
+        });
+      }
+
       saveState();
+
+      if (collapsedKeys.length > 0 && !state.finished) {
+        const map = resourceRules.collapseEndings || {};
+        const endId = collapsedKeys.length > 1
+          ? (map.multi || "E-collapse-multi")
+          : (map[collapsedKeys[0]] || "E-collapse-multi");
+        if (endingsMap[endId]) {
+          return { collapsed: true, collapseEndingId: endId, collapsedKeys: collapsedKeys };
+        }
+      }
+      return { collapsed: false };
+    }
+
+    function renderWarningStrip(badgeText, reasonText, parentEl) {
+      const strip = document.createElement("div");
+      strip.className = "settlement-strip is-warn";
+      strip.innerHTML =
+        '<span class="settlement-badge">⚠ ' + escapeHtml(badgeText) + "</span>" +
+        '<span class="settlement-reason">' + escapeHtml(reasonText || "") + "</span>";
+      parentEl.appendChild(strip);
+      scrollToBottom();
     }
 
     function renderSettlementStrip(summaryParts, reason, deltas, parentEl) {
@@ -6412,8 +6972,23 @@ window.CC_STORY = {
             appendBubble({ speaker: "曹操", side: "right", instant: true, text: ch.label || "" });
           }
 
-          // Apply effects + settlement strip
-          applyEffects(ch.effects, ch.vars, ch.reason || ch.settlement, null, ch.fakeTroopBadge);
+          // Record choice in chronological log for LLM review
+          const curCh = chapters.find(function (c) { return c.id === state.chapterId; });
+          state.choiceLog.push({
+            act: curCh ? (curCh.num + "·" + curCh.title) : (node.id || "抉择"),
+            choiceId: ch.id || "",
+            label: ch.label || "",
+            reason: ch.reason || ch.settlement || ""
+          });
+
+          // Apply effects + settlement strip (and check red-line collapse!)
+          const resCheck = applyEffects(ch.effects, ch.vars, ch.reason || ch.settlement, null, ch.fakeTroopBadge);
+          if (resCheck && resCheck.collapsed && resCheck.collapseEndingId) {
+            pendingQueue = [];
+            AUDIO.playAlert();
+            enterEnding(resCheck.collapseEndingId);
+            return;
+          }
 
           const nextId = resolveNext(ch.next) || resolveNext(node.next);
           if (nextId) {
@@ -6599,6 +7174,116 @@ window.CC_STORY = {
       };
     }
 
+    /* ======================================================================
+       LLM Consistency & Personality Critique Builder
+       ====================================================================== */
+
+    function buildLocalConsistencyDiagnosis(st, end) {
+      const v = st.vars || {};
+      const lines = [];
+
+      // 1. Logical consistency check
+      const earlyAggressive = Number(v.haste || 0) >= 1 || Number(v.rhetoric_bluff || 0) >= 2;
+      const midDefensive = Number(v.plague_honesty || 0) >= 1 || Number(v.loose_ships || 0) >= 1 || Number(v.suspect_defection || 0) >= 1;
+      const allAggressive = Number(v.haste || 0) >= 2 && Number(v.loose_ships || 0) === 0 && Number(v.suspect_defection || 0) === 0;
+      const allDefensive = Number(v.haste || 0) === 0 && Number(v.plague_honesty || 0) >= 1 && Number(v.loose_ships || 0) >= 1;
+
+      if (end && end.isCollapse) {
+        lines.push("<strong>【逻辑一致性】</strong>你在局部看似步步有理，却忽略了全局账本的底线——把同一项资源连续透支到红线归零，属于典型的「战术勤奋、账房失控」型崩盘。");
+      } else if (allAggressive) {
+        lines.push("<strong>【逻辑一致性 · 极高（赌徒闭环）】</strong>从江陵写狠信、压疫报、连铁索到迎黄盖，你的每一拍都在押注「虚声压垮江东」——逻辑高度自洽，只是自洽着一路开进了火海。");
+      } else if (allDefensive) {
+        lines.push("<strong>【逻辑一致性 · 极高（风控铁壁）】</strong>你从头到尾拒绝任何虚胖诱惑，宁可挨骂、减员、花钱，也要把每处漏洞堵死——战略定力极强，但为此付出了沉重的政治与面子账。");
+      } else if (earlyAggressive && midDefensive) {
+        lines.push("<strong>【逻辑一致性 · 前冲后收（嘴硬心实）】</strong>前半程高举「八十万会猎」大旗把调子起满，到了疫病/连舟/诈降关口又突然踩刹车认栽——典型的「嘴上赢麻了、真要赌命时很诚实」型决策者。");
+      } else {
+        lines.push("<strong>【逻辑一致性 · 实用折中】</strong>你在进取与止损之间反复摇摆，根据每一步的即时账面动态调仓——不算极端，但也意味着哪一头都没吃到满额红利。");
+      }
+
+      // 2. Personality trait
+      const clues = Number(v.clues_found || 0);
+      const decoded = (st.decodedSubtexts || []).length;
+      if (clues >= 5 || decoded >= 4) {
+        lines.push("<strong>【性格侧写】</strong>细节控兼官场老狐狸：连降将名册与密信里的字缝都翻得底朝天，极难被场面话忽悠。");
+      } else if (Number(v.jingzhou_trust || 0) >= 1 && Number(v.suspect_defection || 0) === 0) {
+        lines.push("<strong>【性格侧写】</strong>大局乐观派：习惯用大棒加甜枣快速收编局面，相信势头能盖过隐患，直到黑天鹅贴脸才警觉。");
+      } else {
+        lines.push("<strong>【性格侧写】</strong>冷酷算账派：比起听满帐人喊万岁，你更相信手里的算筹和退路，哪怕当场冷场也敢拍反调。");
+      }
+
+      return lines.join("<br>");
+    }
+
+    function buildLlmReviewPrompt(st, end, persona) {
+      const logLines = (st.choiceLog || []).length
+        ? st.choiceLog.map(function (c, i) {
+            return (i + 1) + ". [" + c.act + "] 选 " + (c.choiceId || "-") + "：" + c.label + (c.reason ? "（代价/理由：" + c.reason + "）" : "");
+          }).join("\n")
+        : "（本局未记录完整抉择流水，请结合下方变量与结局点评）";
+
+      const v = st.vars || {};
+      const r = st.resources || {};
+      return [
+        "你是一位毒舌、敏锐、懂《三国志》又深谙组织政治的「马伯庸风」历史谋士。",
+        "我刚刚玩完互动历史文字游戏《曹操不容易 · 第一章：赤壁前夜》，以下是我的完整决策档案，请你对我进行深度点评：",
+        "",
+        "【最终结局】" + (end.badge || "") + " — " + (end.title || ""),
+        "【系统评定称号】" + (persona ? persona.name : ""),
+        "【终局余账】钱帛 " + r.coin + "（初 4） / 粮草 " + r.grain + "（初 3） / 兵力 " + r.troops + "（初 5）",
+        "【关键行为指标】急进值 haste=" + Number(v.haste || 0) +
+          "，疫病摊牌 plague_honesty=" + Number(v.plague_honesty || 0) +
+          "，分屯防火 loose_ships=" + Number(v.loose_ships || 0) +
+          "，戒备诈降 suspect_defection=" + Number(v.suspect_defection || 0) +
+          "，援救合肥 hefei_aid=" + Number(v.hefei_aid || 0) +
+          "，信任荆州 jingzhou_trust=" + Number(v.jingzhou_trust || 0) +
+          "，查出破绽数=" + Number(v.clues_found || 0) +
+          "，破译潜台词数=" + (st.decodedSubtexts || []).length,
+        "",
+        "【我的逐拍选择流水】",
+        logLines,
+        "",
+        "请你分三部分点评我（语气灵动辛辣、拒绝官腔鸡汤，300~500字）：",
+        "1. **前后选择逻辑一致性**：我这套打法是首尾一贯，还是前脚吹牛后脚认怂、自相矛盾？指出最明显的一处前后呼应或逻辑分裂。",
+        "2. **决策性格画像**：从我的账本习惯和冒险偏好，推测我在现实工作/带团队时是什么性格？顺便给一个三国人物或现代职场角色类比。",
+        "3. **最致命/最神来的一步棋**：点出改变我整局走向的关键一拍，以及如果重来你建议我改哪一步。"
+      ].join("\n");
+    }
+
+    function copyTextToClipboard(text, btnEl) {
+      function markCopied() {
+        AUDIO.playChoice();
+        if (btnEl) {
+          btnEl.classList.add("is-copied");
+          btnEl.textContent = "已复制！粘贴给任意 AI（ChatGPT / Claude / DeepSeek）即可点评";
+          setTimeout(function () {
+            btnEl.classList.remove("is-copied");
+            btnEl.textContent = "一键复制专属 LLM 点评提示词";
+          }, 2600);
+        }
+      }
+      if (global.navigator && global.navigator.clipboard && global.navigator.clipboard.writeText) {
+        global.navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+          fallbackCopy(text, markCopied);
+        });
+      } else {
+        fallbackCopy(text, markCopied);
+      }
+    }
+
+    function fallbackCopy(text, onOk) {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (onOk) onOk();
+      } catch (e) {}
+    }
+
     function enterEnding(endingId) {
       const end = endingsMap[endingId];
       if (!end) return;
@@ -6682,6 +7367,9 @@ window.CC_STORY = {
           "</button>";
       });
 
+      const localDiagnosisHtml = buildLocalConsistencyDiagnosis(state, end);
+      const llmPromptText = buildLlmReviewPrompt(state, end, persona);
+
       const card = document.createElement("div");
       card.className = "ending-card";
       if (end.tone) card.setAttribute("data-tone", end.tone);
@@ -6695,6 +7383,17 @@ window.CC_STORY = {
           '<div class="ending-sec-title">// 史论判词</div>' +
           '<p class="ending-verdict">' + renderRichText(end.verdict || "") + "</p>" +
           (end.careerSeed ? '<div class="ending-seed">' + renderRichText(end.careerSeed) + "</div>" : "") +
+        "</div>" +
+        '<div class="ending-section">' +
+          '<div class="ending-sec-title">// AI 谋士复盘 · 逻辑一致性与性格点评</div>' +
+          '<div class="llm-review-box">' +
+            '<div class="llm-diagnosis">' + localDiagnosisHtml + "</div>" +
+            '<details class="llm-prompt-details">' +
+              "<summary>展开专属 LLM 深度点评提示词（含本局完整选择流水）</summary>" +
+              '<pre class="llm-prompt-code">' + escapeHtml(llmPromptText) + "</pre>" +
+            "</details>" +
+            '<button type="button" class="btn-copy-prompt" id="btn-copy-llm-prompt">一键复制专属 LLM 点评提示词</button>' +
+          "</div>" +
         "</div>" +
         '<div class="ending-section">' +
           '<div class="ending-sec-title">// 本局账本 & 丞相称号</div>' +
@@ -6729,6 +7428,13 @@ window.CC_STORY = {
       elStream.appendChild(card);
       elTapPrompt.classList.add("hidden");
       elChoiceDeck.classList.add("hidden");
+
+      const copyPromptBtn = card.querySelector("#btn-copy-llm-prompt");
+      if (copyPromptBtn) {
+        copyPromptBtn.addEventListener("click", function () {
+          copyTextToClipboard(llmPromptText, copyPromptBtn);
+        });
+      }
 
       const restartBtn = card.querySelector("#btn-end-restart");
       if (restartBtn) {
@@ -6768,6 +7474,8 @@ window.CC_STORY = {
       if (snap) {
         state.resources = clone(snap.resources);
         state.vars = clone(snap.vars);
+        state.warnedResources = clone(snap.warnedResources || {});
+        state.choiceLog = clone(snap.choiceLog || []);
         state.fakeTroopBadge = Boolean(snap.fakeTroopBadge);
       }
 
@@ -6992,8 +7700,9 @@ window.CC_STORY = {
           : '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
       }
       if (elSplashAudio) {
+        const bgmLabel = (STORY.theme && STORY.theme.bgm && STORY.theme.bgm.label) || "赤壁·麦田烬风8x";
         elSplashAudio.classList.toggle("is-on", on);
-        elSplashAudio.textContent = on ? "麦田8x氛围音：已开启" : "麦田8x氛围音：静音";
+        elSplashAudio.textContent = on ? (bgmLabel + "：已开启") : (bgmLabel + "：静音");
       }
     }
 
@@ -7092,6 +7801,14 @@ window.CC_STORY = {
 
     if (elBtnDrawer) elBtnDrawer.addEventListener("click", openDrawer);
     if (elBtnDrawerClose) elBtnDrawerClose.addEventListener("click", closeDrawer);
+
+    // Tap any resource gauge in top HUD to inspect its warning & red-line threshold
+    document.querySelectorAll(".res-gauge").forEach(function (g) {
+      g.addEventListener("click", function () {
+        const k = g.getAttribute("data-res");
+        if (k) openResourcePopover(k);
+      });
+    });
 
     elDrawerBackdrop.addEventListener("click", function (e) {
       if (e.target === elDrawerBackdrop) closeDrawer();

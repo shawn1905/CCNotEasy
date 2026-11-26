@@ -183,6 +183,7 @@
       setEnabled: function () { return false; },
       toggle: function () { return false; },
       setBgmEnabled: function () { return false; },
+      setBgmConfig: function () {},
       setHapticsEnabled: function () { return false; },
       setMood: function () {},
       vibrate: function () {},
@@ -208,11 +209,23 @@
     const endingsMap = toMap(STORY.endings, "id");
     const chapters = Array.isArray(STORY.chapters) ? STORY.chapters : [];
 
-    // Parse initial resources
+    // Parse initial resources & threshold rules
+    const resourceRules = Object.assign({
+      warnAt: 2,
+      collapseAt: 0,
+      collapseEndings: {
+        coin: "E-collapse-coin",
+        grain: "E-collapse-grain",
+        troops: "E-collapse-troops",
+        multi: "E-collapse-multi"
+      },
+      details: {}
+    }, STORY.resourceRules || {});
+
     function parseInitialResources() {
-      const raw = STORY.initialResources || { coin: 6, grain: 6, troops: 6 };
-      const res = { coin: 5, grain: 5, troops: 5 };
-      const maxRes = { coin: 10, grain: 10, troops: 10 };
+      const raw = STORY.initialResources || { coin: 4, grain: 3, troops: 5 };
+      const res = { coin: 4, grain: 3, troops: 5 };
+      const maxRes = { coin: 6, grain: 6, troops: 6 };
 
       Object.keys(raw).forEach(function (k) {
         const canon = mapResourceKey(k);
@@ -220,16 +233,45 @@
         const v = raw[k];
         if (typeof v === "number") {
           res[canon] = v;
-          maxRes[canon] = Math.max(10, v);
+          maxRes[canon] = Math.max(6, v + 1);
         } else if (v && typeof v === "object") {
-          res[canon] = typeof v.value === "number" ? v.value : (typeof v.initial === "number" ? v.initial : 5);
-          maxRes[canon] = typeof v.max === "number" ? v.max : Math.max(10, res[canon]);
+          res[canon] = typeof v.value === "number" ? v.value : (typeof v.initial === "number" ? v.initial : 4);
+          maxRes[canon] = typeof v.max === "number" ? v.max : Math.max(6, res[canon] + 1);
         }
       });
       return { values: res, max: maxRes };
     }
 
     const resConfig = parseInitialResources();
+
+    // Apply Chapter 3-Piece Theme Kit (Background Art + Color Palette + BGM)
+    function applyChapterTheme(theme) {
+      if (!theme || typeof theme !== "object") return;
+      if (theme.id) {
+        document.documentElement.setAttribute("data-theme", theme.id);
+      }
+      if (theme.palette && typeof theme.palette === "object") {
+        Object.keys(theme.palette).forEach(function (cssVar) {
+          document.documentElement.style.setProperty(cssVar, theme.palette[cssVar]);
+        });
+      }
+      const bgEl = document.getElementById("chapter-bg-image");
+      if (bgEl && theme.background && theme.background.image) {
+        bgEl.style.backgroundImage = 'url("' + theme.background.image + '")';
+        if (typeof theme.background.opacity === "number") {
+          bgEl.style.opacity = String(theme.background.opacity);
+        }
+      }
+      if (theme.bgm && typeof AUDIO.setBgmConfig === "function") {
+        AUDIO.setBgmConfig(theme.bgm);
+      }
+      const themeNameEl = document.getElementById("splash-theme-name");
+      if (themeNameEl && theme.name) {
+        themeNameEl.textContent = theme.name;
+      }
+    }
+
+    applyChapterTheme(STORY.theme);
 
     // DOM references
     const elApp = document.getElementById("app-shell");
@@ -284,6 +326,8 @@
         mood: "calm",
         resources: clone(resConfig.values),
         vars: clone(STORY.initialVars || {}),
+        warnedResources: {},
+        choiceLog: [],
         fakeTroopBadge: false,
         unlockedGlosses: [],
         decodedSubtexts: [],
@@ -317,6 +361,8 @@
           mood: state.mood,
           resources: state.resources,
           vars: state.vars,
+          warnedResources: state.warnedResources,
+          choiceLog: state.choiceLog,
           fakeTroopBadge: state.fakeTroopBadge,
           unlockedGlosses: state.unlockedGlosses,
           decodedSubtexts: state.decodedSubtexts,
@@ -425,18 +471,68 @@
       AUDIO.setMood(mood);
     }
 
+    function openResourcePopover(resKey) {
+      const meta = RES_META.find(function (m) { return m.key === resKey; });
+      const info = (resourceRules.details && resourceRules.details[resKey]) || {};
+      const val = state.resources[resKey];
+      const warnAt = resourceRules.warnAt;
+      const collapseAt = resourceRules.collapseAt;
+      const statusText = val <= collapseAt
+        ? "已跌穿红线（崩盘）"
+        : (val <= warnAt ? "告急警戒（再降将触红线）" : "尚可周转");
+
+      AUDIO.playGloss();
+      elPopoverSheet.classList.remove("is-subtext");
+      elPopoverSheet.innerHTML =
+        '<div class="popover-head">' +
+          '<span class="popover-kicker">// 军政指标说明 · THRESHOLD</span>' +
+          '<button type="button" class="popover-close" id="btn-pop-close">关闭 [ESC]</button>' +
+        "</div>" +
+        '<div class="popover-term">' + escapeHtml((meta ? meta.label : resKey) + " · 当前 " + val) + "</div>" +
+        '<div class="popover-plain">当前状态：<strong>' + escapeHtml(statusText) + "</strong><br>" +
+          "警戒线：≤ " + warnAt + "（亮灯报警） · 崩盘红线：= " + collapseAt + "<br><br>" +
+          escapeHtml(info.redlineDesc || "任意单项或多项指标归零，大营立即崩盘结束本局。") +
+        "</div>";
+
+      elModalBackdrop.classList.remove("hidden");
+      const closeBtn = document.getElementById("btn-pop-close");
+      if (closeBtn) closeBtn.addEventListener("click", closePopover);
+    }
+
     function renderHud(deltas) {
+      const warnAt = typeof resourceRules.warnAt === "number" ? resourceRules.warnAt : 2;
+      const collapseAt = typeof resourceRules.collapseAt === "number" ? resourceRules.collapseAt : 0;
+
       RES_META.forEach(function (meta) {
         const gauge = document.querySelector('.res-gauge[data-res="' + meta.key + '"]');
         if (!gauge) return;
         const val = state.resources[meta.key];
-        const max = resConfig.max[meta.key] || 10;
+        const max = resConfig.max[meta.key] || 6;
 
         const valEl = gauge.querySelector(".res-val");
         if (valEl) valEl.textContent = String(val);
 
-        gauge.classList.toggle("is-low", val <= 2);
-        gauge.classList.toggle("is-warn", val === 3);
+        const isCrit = val <= collapseAt;
+        const isWarn = !isCrit && val <= warnAt;
+        gauge.classList.toggle("is-low", isCrit || isWarn);
+        gauge.classList.toggle("is-warning", isWarn);
+        gauge.classList.toggle("is-critical", isCrit);
+
+        // Micro warning / critical label next to resource name
+        const labelEl = gauge.querySelector(".res-label");
+        if (labelEl) {
+          let tag = gauge.querySelector(".res-warn-tag");
+          if (isCrit || isWarn) {
+            if (!tag) {
+              tag = document.createElement("span");
+              tag.className = "res-warn-tag";
+              labelEl.appendChild(tag);
+            }
+            tag.textContent = isCrit ? "红线" : "告急";
+          } else if (tag) {
+            tag.remove();
+          }
+        }
 
         // Mini segment bar (8 crisp segments)
         const segsWrap = gauge.querySelector(".res-segs");
@@ -523,6 +619,8 @@
           nodeId: ch.startNode || ch.nodeId || ch.id || state.nodeId,
           resources: clone(state.resources),
           vars: clone(state.vars),
+          warnedResources: clone(state.warnedResources),
+          choiceLog: clone(state.choiceLog),
           fakeTroopBadge: state.fakeTroopBadge
         };
       }
@@ -632,7 +730,50 @@
         renderSettlementStrip(summaryParts, finalReason, deltas, containerEl || elStream);
       }
 
+      // Check resource warning threshold & red-line collapse
+      const warnAt = typeof resourceRules.warnAt === "number" ? resourceRules.warnAt : 2;
+      const collapseAt = typeof resourceRules.collapseAt === "number" ? resourceRules.collapseAt : 0;
+      const collapsedKeys = [];
+
+      if (hasNonZeroDelta && !state.finished) {
+        RES_META.forEach(function (meta) {
+          const k = meta.key;
+          const v = state.resources[k];
+          if (v <= collapseAt) {
+            collapsedKeys.push(k);
+          } else if (v <= warnAt && !state.warnedResources[k]) {
+            state.warnedResources[k] = true;
+            const detail = (resourceRules.details && resourceRules.details[k]) || {};
+            renderWarningStrip(meta.label + "告急 (余 " + v + ")", detail.warnText || (meta.label + "已跌至警戒线，归零将直接崩盘！"), containerEl || elStream);
+            AUDIO.playAlert();
+          } else if (v > warnAt && state.warnedResources[k]) {
+            state.warnedResources[k] = false;
+          }
+        });
+      }
+
       saveState();
+
+      if (collapsedKeys.length > 0 && !state.finished) {
+        const map = resourceRules.collapseEndings || {};
+        const endId = collapsedKeys.length > 1
+          ? (map.multi || "E-collapse-multi")
+          : (map[collapsedKeys[0]] || "E-collapse-multi");
+        if (endingsMap[endId]) {
+          return { collapsed: true, collapseEndingId: endId, collapsedKeys: collapsedKeys };
+        }
+      }
+      return { collapsed: false };
+    }
+
+    function renderWarningStrip(badgeText, reasonText, parentEl) {
+      const strip = document.createElement("div");
+      strip.className = "settlement-strip is-warn";
+      strip.innerHTML =
+        '<span class="settlement-badge">⚠ ' + escapeHtml(badgeText) + "</span>" +
+        '<span class="settlement-reason">' + escapeHtml(reasonText || "") + "</span>";
+      parentEl.appendChild(strip);
+      scrollToBottom();
     }
 
     function renderSettlementStrip(summaryParts, reason, deltas, parentEl) {
@@ -1596,8 +1737,23 @@
             appendBubble({ speaker: "曹操", side: "right", instant: true, text: ch.label || "" });
           }
 
-          // Apply effects + settlement strip
-          applyEffects(ch.effects, ch.vars, ch.reason || ch.settlement, null, ch.fakeTroopBadge);
+          // Record choice in chronological log for LLM review
+          const curCh = chapters.find(function (c) { return c.id === state.chapterId; });
+          state.choiceLog.push({
+            act: curCh ? (curCh.num + "·" + curCh.title) : (node.id || "抉择"),
+            choiceId: ch.id || "",
+            label: ch.label || "",
+            reason: ch.reason || ch.settlement || ""
+          });
+
+          // Apply effects + settlement strip (and check red-line collapse!)
+          const resCheck = applyEffects(ch.effects, ch.vars, ch.reason || ch.settlement, null, ch.fakeTroopBadge);
+          if (resCheck && resCheck.collapsed && resCheck.collapseEndingId) {
+            pendingQueue = [];
+            AUDIO.playAlert();
+            enterEnding(resCheck.collapseEndingId);
+            return;
+          }
 
           const nextId = resolveNext(ch.next) || resolveNext(node.next);
           if (nextId) {
@@ -1783,6 +1939,116 @@
       };
     }
 
+    /* ======================================================================
+       LLM Consistency & Personality Critique Builder
+       ====================================================================== */
+
+    function buildLocalConsistencyDiagnosis(st, end) {
+      const v = st.vars || {};
+      const lines = [];
+
+      // 1. Logical consistency check
+      const earlyAggressive = Number(v.haste || 0) >= 1 || Number(v.rhetoric_bluff || 0) >= 2;
+      const midDefensive = Number(v.plague_honesty || 0) >= 1 || Number(v.loose_ships || 0) >= 1 || Number(v.suspect_defection || 0) >= 1;
+      const allAggressive = Number(v.haste || 0) >= 2 && Number(v.loose_ships || 0) === 0 && Number(v.suspect_defection || 0) === 0;
+      const allDefensive = Number(v.haste || 0) === 0 && Number(v.plague_honesty || 0) >= 1 && Number(v.loose_ships || 0) >= 1;
+
+      if (end && end.isCollapse) {
+        lines.push("<strong>【逻辑一致性】</strong>你在局部看似步步有理，却忽略了全局账本的底线——把同一项资源连续透支到红线归零，属于典型的「战术勤奋、账房失控」型崩盘。");
+      } else if (allAggressive) {
+        lines.push("<strong>【逻辑一致性 · 极高（赌徒闭环）】</strong>从江陵写狠信、压疫报、连铁索到迎黄盖，你的每一拍都在押注「虚声压垮江东」——逻辑高度自洽，只是自洽着一路开进了火海。");
+      } else if (allDefensive) {
+        lines.push("<strong>【逻辑一致性 · 极高（风控铁壁）】</strong>你从头到尾拒绝任何虚胖诱惑，宁可挨骂、减员、花钱，也要把每处漏洞堵死——战略定力极强，但为此付出了沉重的政治与面子账。");
+      } else if (earlyAggressive && midDefensive) {
+        lines.push("<strong>【逻辑一致性 · 前冲后收（嘴硬心实）】</strong>前半程高举「八十万会猎」大旗把调子起满，到了疫病/连舟/诈降关口又突然踩刹车认栽——典型的「嘴上赢麻了、真要赌命时很诚实」型决策者。");
+      } else {
+        lines.push("<strong>【逻辑一致性 · 实用折中】</strong>你在进取与止损之间反复摇摆，根据每一步的即时账面动态调仓——不算极端，但也意味着哪一头都没吃到满额红利。");
+      }
+
+      // 2. Personality trait
+      const clues = Number(v.clues_found || 0);
+      const decoded = (st.decodedSubtexts || []).length;
+      if (clues >= 5 || decoded >= 4) {
+        lines.push("<strong>【性格侧写】</strong>细节控兼官场老狐狸：连降将名册与密信里的字缝都翻得底朝天，极难被场面话忽悠。");
+      } else if (Number(v.jingzhou_trust || 0) >= 1 && Number(v.suspect_defection || 0) === 0) {
+        lines.push("<strong>【性格侧写】</strong>大局乐观派：习惯用大棒加甜枣快速收编局面，相信势头能盖过隐患，直到黑天鹅贴脸才警觉。");
+      } else {
+        lines.push("<strong>【性格侧写】</strong>冷酷算账派：比起听满帐人喊万岁，你更相信手里的算筹和退路，哪怕当场冷场也敢拍反调。");
+      }
+
+      return lines.join("<br>");
+    }
+
+    function buildLlmReviewPrompt(st, end, persona) {
+      const logLines = (st.choiceLog || []).length
+        ? st.choiceLog.map(function (c, i) {
+            return (i + 1) + ". [" + c.act + "] 选 " + (c.choiceId || "-") + "：" + c.label + (c.reason ? "（代价/理由：" + c.reason + "）" : "");
+          }).join("\n")
+        : "（本局未记录完整抉择流水，请结合下方变量与结局点评）";
+
+      const v = st.vars || {};
+      const r = st.resources || {};
+      return [
+        "你是一位毒舌、敏锐、懂《三国志》又深谙组织政治的「马伯庸风」历史谋士。",
+        "我刚刚玩完互动历史文字游戏《曹操不容易 · 第一章：赤壁前夜》，以下是我的完整决策档案，请你对我进行深度点评：",
+        "",
+        "【最终结局】" + (end.badge || "") + " — " + (end.title || ""),
+        "【系统评定称号】" + (persona ? persona.name : ""),
+        "【终局余账】钱帛 " + r.coin + "（初 4） / 粮草 " + r.grain + "（初 3） / 兵力 " + r.troops + "（初 5）",
+        "【关键行为指标】急进值 haste=" + Number(v.haste || 0) +
+          "，疫病摊牌 plague_honesty=" + Number(v.plague_honesty || 0) +
+          "，分屯防火 loose_ships=" + Number(v.loose_ships || 0) +
+          "，戒备诈降 suspect_defection=" + Number(v.suspect_defection || 0) +
+          "，援救合肥 hefei_aid=" + Number(v.hefei_aid || 0) +
+          "，信任荆州 jingzhou_trust=" + Number(v.jingzhou_trust || 0) +
+          "，查出破绽数=" + Number(v.clues_found || 0) +
+          "，破译潜台词数=" + (st.decodedSubtexts || []).length,
+        "",
+        "【我的逐拍选择流水】",
+        logLines,
+        "",
+        "请你分三部分点评我（语气灵动辛辣、拒绝官腔鸡汤，300~500字）：",
+        "1. **前后选择逻辑一致性**：我这套打法是首尾一贯，还是前脚吹牛后脚认怂、自相矛盾？指出最明显的一处前后呼应或逻辑分裂。",
+        "2. **决策性格画像**：从我的账本习惯和冒险偏好，推测我在现实工作/带团队时是什么性格？顺便给一个三国人物或现代职场角色类比。",
+        "3. **最致命/最神来的一步棋**：点出改变我整局走向的关键一拍，以及如果重来你建议我改哪一步。"
+      ].join("\n");
+    }
+
+    function copyTextToClipboard(text, btnEl) {
+      function markCopied() {
+        AUDIO.playChoice();
+        if (btnEl) {
+          btnEl.classList.add("is-copied");
+          btnEl.textContent = "已复制！粘贴给任意 AI（ChatGPT / Claude / DeepSeek）即可点评";
+          setTimeout(function () {
+            btnEl.classList.remove("is-copied");
+            btnEl.textContent = "一键复制专属 LLM 点评提示词";
+          }, 2600);
+        }
+      }
+      if (global.navigator && global.navigator.clipboard && global.navigator.clipboard.writeText) {
+        global.navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+          fallbackCopy(text, markCopied);
+        });
+      } else {
+        fallbackCopy(text, markCopied);
+      }
+    }
+
+    function fallbackCopy(text, onOk) {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (onOk) onOk();
+      } catch (e) {}
+    }
+
     function enterEnding(endingId) {
       const end = endingsMap[endingId];
       if (!end) return;
@@ -1866,6 +2132,9 @@
           "</button>";
       });
 
+      const localDiagnosisHtml = buildLocalConsistencyDiagnosis(state, end);
+      const llmPromptText = buildLlmReviewPrompt(state, end, persona);
+
       const card = document.createElement("div");
       card.className = "ending-card";
       if (end.tone) card.setAttribute("data-tone", end.tone);
@@ -1879,6 +2148,17 @@
           '<div class="ending-sec-title">// 史论判词</div>' +
           '<p class="ending-verdict">' + renderRichText(end.verdict || "") + "</p>" +
           (end.careerSeed ? '<div class="ending-seed">' + renderRichText(end.careerSeed) + "</div>" : "") +
+        "</div>" +
+        '<div class="ending-section">' +
+          '<div class="ending-sec-title">// AI 谋士复盘 · 逻辑一致性与性格点评</div>' +
+          '<div class="llm-review-box">' +
+            '<div class="llm-diagnosis">' + localDiagnosisHtml + "</div>" +
+            '<details class="llm-prompt-details">' +
+              "<summary>展开专属 LLM 深度点评提示词（含本局完整选择流水）</summary>" +
+              '<pre class="llm-prompt-code">' + escapeHtml(llmPromptText) + "</pre>" +
+            "</details>" +
+            '<button type="button" class="btn-copy-prompt" id="btn-copy-llm-prompt">一键复制专属 LLM 点评提示词</button>' +
+          "</div>" +
         "</div>" +
         '<div class="ending-section">' +
           '<div class="ending-sec-title">// 本局账本 & 丞相称号</div>' +
@@ -1913,6 +2193,13 @@
       elStream.appendChild(card);
       elTapPrompt.classList.add("hidden");
       elChoiceDeck.classList.add("hidden");
+
+      const copyPromptBtn = card.querySelector("#btn-copy-llm-prompt");
+      if (copyPromptBtn) {
+        copyPromptBtn.addEventListener("click", function () {
+          copyTextToClipboard(llmPromptText, copyPromptBtn);
+        });
+      }
 
       const restartBtn = card.querySelector("#btn-end-restart");
       if (restartBtn) {
@@ -1952,6 +2239,8 @@
       if (snap) {
         state.resources = clone(snap.resources);
         state.vars = clone(snap.vars);
+        state.warnedResources = clone(snap.warnedResources || {});
+        state.choiceLog = clone(snap.choiceLog || []);
         state.fakeTroopBadge = Boolean(snap.fakeTroopBadge);
       }
 
@@ -2176,8 +2465,9 @@
           : '<svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
       }
       if (elSplashAudio) {
+        const bgmLabel = (STORY.theme && STORY.theme.bgm && STORY.theme.bgm.label) || "赤壁·麦田烬风8x";
         elSplashAudio.classList.toggle("is-on", on);
-        elSplashAudio.textContent = on ? "麦田8x氛围音：已开启" : "麦田8x氛围音：静音";
+        elSplashAudio.textContent = on ? (bgmLabel + "：已开启") : (bgmLabel + "：静音");
       }
     }
 
@@ -2276,6 +2566,14 @@
 
     if (elBtnDrawer) elBtnDrawer.addEventListener("click", openDrawer);
     if (elBtnDrawerClose) elBtnDrawerClose.addEventListener("click", closeDrawer);
+
+    // Tap any resource gauge in top HUD to inspect its warning & red-line threshold
+    document.querySelectorAll(".res-gauge").forEach(function (g) {
+      g.addEventListener("click", function () {
+        const k = g.getAttribute("data-res");
+        if (k) openResourcePopover(k);
+      });
+    });
 
     elDrawerBackdrop.addEventListener("click", function (e) {
       if (e.target === elDrawerBackdrop) closeDrawer();

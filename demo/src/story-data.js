@@ -1,16 +1,78 @@
 window.CC_STORY = {
   meta: {
     title: "曹操不容易",
-    subtitle: "建安十三年 · 赤壁前夜",
+    subtitle: "第一章 · 建安十三年 · 赤壁前夜",
     tagline: "坐拥荆州仓廒、水军号称八十万——看绝对优势是怎么一笔一笔亏光的。",
-    version: "0.4.0-demo",
+    version: "0.5.0-chapter1",
     estimatedMinutes: 15
   },
 
+  /* 章节三件套主题配置：背景图 + 颜色套系 + 背景音乐（后续章节直接换此对象即可切换整套氛围） */
+  theme: {
+    id: "red-cliffs",
+    name: "赤壁玄墨 · 烬火",
+    background: {
+      image: "./bg-red-cliffs.jpg",
+      opacity: 0.42
+    },
+    palette: {
+      "--bg": "#151210",
+      "--bg-dark": "#0f0c0b",
+      "--bg-darker": "#0a0807",
+      "--bg-light": "#221c18",
+      "--fg": "#dfd5c5",
+      "--fg-dim": "#9c8d7a",
+      "--fg-bright": "#f6eee0",
+      "--accent": "#e86f3a",
+      "--accent-soft": "rgba(232, 111, 58, 0.16)",
+      "--fire": "#f08a4b",
+      "--danger": "#e04f5f",
+      "--warn": "#d9a84e",
+      "--ok": "#7fb069",
+      "--teal": "#5aa6a0",
+      "--purple": "#b5838d",
+      "--muted": "#3d332c",
+      "--selection": "#2e241d"
+    },
+    bgm: {
+      src: "./bgm-red-cliffs.mp3",
+      label: "赤壁 · 麦田烬风 8x",
+      moodRates: { calm: 1.0, tense: 0.94, fire: 0.88 }
+    }
+  },
+
   initialResources: {
-    money: 6,
-    grain: 6,
-    troops: 8
+    money: 4,
+    grain: 3,
+    troops: 5
+  },
+
+  resourceRules: {
+    warnAt: 2,
+    collapseAt: 0,
+    collapseEndings: {
+      coin: "E-collapse-coin",
+      grain: "E-collapse-grain",
+      troops: "E-collapse-troops",
+      multi: "E-collapse-multi"
+    },
+    details: {
+      coin: {
+        label: "钱帛",
+        warnText: "府库余钱已跌破警戒线——再挥霍一次，赏格发不出去，降将与工坊当夜就敢掀桌子。",
+        redlineDesc: "归零即「府库告罄」：赏赐断供、降将反水、军府从账房里散架。"
+      },
+      grain: {
+        label: "粮草",
+        warnText: "漕运军粮已入红区——盛寒腊月再抽一笔，江陵仓见底，前营就要先闹营啸。",
+        redlineDesc: "归零即「断炊绝粮」：三军断炊、杀马充饥、夜半营啸自溃。"
+      },
+      troops: {
+        label: "兵力",
+        warnText: "可战健卒已贴近警戒线——再折损下去，点卯册只剩空名，连中军亲卫都凑不齐。",
+        redlineDesc: "归零即「兵力折尽」：前锋打空、病卒满营、孤帐狼狈北遁。"
+      }
+    }
   },
 
   initialVars: {
@@ -2086,6 +2148,142 @@ window.CC_STORY = {
       ],
       careerSeed: "生涯伏笔：北归问责已成定局——相府威信裂出大缝，下一步是铁腕清洗，还是向世族让步？",
       verdict: "最惨烈的战略崩盘：拒救合肥以豪赌长江，却未守住疫病或火攻防线，致淮南与江汉两线同溃。"
+    },
+
+    "E-collapse-coin": {
+      id: "E-collapse-coin",
+      isCollapse: true,
+      badge: "红线崩盘 · 府库告罄",
+      title: "没等周瑜放火，账房先炸了",
+      subtitle: "钱帛归零——江陵最贵的不是铁索，是降将眼里突然凉下去的光。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "（把空木匣倒扣在帅案上，只滚出两枚磨平的五铢钱）明公，**府库一文不剩了**。工坊停了铁锤，荆州新封的十五个列侯连安家钱都没领全。"
+        },
+        {
+          type: "msg",
+          speaker: "军报",
+          roleTag: "夜巡",
+          tone: "danger",
+          tag: "崩盘",
+          text: "刚过二更，两营荆州水卒趁黑解缆投了南岸——走前还顺手把码头上的新船凿漏了七艘。账房一空，嘴上再怎么「与之更始」，也没人替空口袋卖命。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "你走出中军帐。江东一箭未发，北岸码头已经火把乱窜、吵成一锅粥。你忽然明白——大军南下，先输掉的往往不是江面，是那只摸不见底的钱箱。"
+        }
+      ],
+      careerSeed: "红线教训：钱帛归零直接触发军心解体。下次拍板前，记得盯紧顶栏的警戒线。",
+      verdict: "钱帛耗尽触发红线崩盘：赏格成空、降众倒戈、工坊罢作，未及决战便从内部散架。"
+    },
+
+    "E-collapse-grain": {
+      id: "E-collapse-grain",
+      isCollapse: true,
+      badge: "红线崩盘 · 断炊绝粮",
+      title: "八十万张嘴，锅里只剩江水",
+      subtitle: "粮草归零——盛寒腊月，比周瑜更可怕的是半夜敲响的空饭盆。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "江陵仓底连发霉的陈谷都刮干净了，许昌北漕又卡在泥道上。**明早三军断炊**——不是少吃一顿，是一粒米都没有。"
+        },
+        {
+          type: "msg",
+          speaker: "北方将",
+          roleTag: "中军",
+          tone: "danger",
+          tag: "崩盘",
+          text: "（甲胄都没系全便冲进帐）前营营啸了！饥兵抢了马槽里的豆料，还把督粮的军吏绑在了旗杆上——再不北撤，明早咱们自己人就得先砍自己人！"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "寒风卷着空锅与马嘶压过江面。你回头望了一眼灯火通明的江陵大仓——进城那天你还嫌钥匙太沉，如今那把钥匙只锁着一屋子冷风。"
+        }
+      ],
+      careerSeed: "红线教训：粮草归零触发三军营啸自溃。大军未动，粮道永远是第一条命脉。",
+      verdict: "粮草耗尽触发红线崩盘：江陵仓空、北漕断绝，盛寒营啸逼得大军不战自溃。"
+    },
+
+    "E-collapse-troops": {
+      id: "E-collapse-troops",
+      isCollapse: true,
+      badge: "红线崩盘 · 兵力折尽",
+      title: "花名册还在，能站起来的没了",
+      subtitle: "兵力归零——病倒的、吐垮的、分兵抽空的，最后只剩帅旗在风里硬撑。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "医曹",
+          roleTag: "军医",
+          tone: "danger",
+          tag: "崩盘",
+          text: "明公别再点卯了。隔离的、晕船的、调去淮南的、夜里逃散的加在一处，**能披甲列阵的成建制营头已经清零**。"
+        },
+        {
+          type: "msg",
+          speaker: "参谋",
+          roleTag: "议曹",
+          tone: "warn",
+          tag: "崩盘",
+          text: "（压低嗓子）南岸探船已经摸到江心了。趁周瑜还没发现咱们大营里全是空帐篷，明公带着亲卫连夜走陆路北归吧……再晚一步，连退路都兜不住。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "你亲手拔下帐前那面写着「曹」字的大纛。纸上吹出来的「八十万」还没散尽，现实里连替你抬舆的健卒都凑不齐一队。"
+        }
+      ],
+      careerSeed: "红线教训：兵力归零触发前线解体。止损虽稳，但把本钱全割光了，也就没资格留在牌桌上。",
+      verdict: "兵力耗尽触发红线崩盘：隔离、分兵与水土减员叠加，大营成空壳，被迫连夜北遁。"
+    },
+
+    "E-collapse-multi": {
+      id: "E-collapse-multi",
+      isCollapse: true,
+      badge: "红线崩盘 · 全面失血",
+      title: "钱粮兵齐见底，大营一夜成灰",
+      subtitle: "多项指标同时跌穿红线——还没见着东南风，牌桌自己先塌了。",
+      tone: "danger",
+      bubbles: [
+        {
+          type: "msg",
+          speaker: "管粮吏",
+          roleTag: "仓曹",
+          tone: "danger",
+          tag: "崩盘",
+          text: "钱匣空了、粮仓空了、点卯册也空了——**三本账同一夜齐齐见底**。明公，这已经不是打不打得赢周瑜的事，是咱们能不能活着走出荆州的事。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          type: "walk",
+          tone: "danger",
+          text: "江风扑灭了中军帐口的最后一盏油灯。营外哭喊声、马蹄声、逃兵砸开粮车的声响混成一片——绝对优势崩盘起来，比任何一场败仗都快。"
+        }
+      ],
+      careerSeed: "红线教训：多项资源同时触底，彻底失去腾挪空间。下一局试着在「体面」与「活命」之间留一口气。",
+      verdict: "多项资源同时触及红线：军政后勤全面断链，大军未战先溃，仓皇北逃。"
     }
   },
 

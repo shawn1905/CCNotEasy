@@ -16,7 +16,9 @@
   let sfxGain = null;
   let noiseBuffer = null;
 
-  // HTML5 Audio element for the 8x-slowed wheatfield ambient loop
+  // HTML5 Audio element for the chapter BGM loop
+  let bgmSrc = "./bgm-red-cliffs.mp3";
+  let bgmMoodRates = { calm: 1.0, tense: 0.94, fire: 0.88 };
   let bgmAudioEl = null;
   let bgmMediaSource = null;
   let bgmFallbackNodes = null;
@@ -143,11 +145,30 @@
     bgmFallbackNodes = null;
   }
 
+  function setBgmConfig(cfg) {
+    if (!cfg || typeof cfg !== "object") return;
+    if (cfg.src && cfg.src !== bgmSrc) {
+      bgmSrc = cfg.src;
+      if (bgmAudioEl) {
+        const wasPlaying = !bgmAudioEl.paused;
+        bgmAudioEl.src = bgmSrc;
+        bgmUsingFallback = false;
+        if (wasPlaying && enabled && bgmEnabled) {
+          bgmAudioEl.play().catch(function () {});
+        }
+      }
+    }
+    if (cfg.moodRates && typeof cfg.moodRates === "object") {
+      bgmMoodRates = Object.assign({}, bgmMoodRates, cfg.moodRates);
+      updateBgmMoodGain();
+    }
+  }
+
   function initBgmElement() {
     if (bgmAudioEl) return;
     bgmLoadAttempted = true;
     try {
-      const el = new Audio("./bgm.mp3");
+      const el = new Audio(bgmSrc);
       el.loop = true;
       el.preload = "auto";
       el.volume = 0.42;
@@ -206,8 +227,7 @@
   }
 
   function updateBgmMoodGain() {
-    // Slightly deeper, slightly slower playback rate on tense/fire moods for subtle drama
-    const targetRate = currentMood === "fire" ? 0.92 : (currentMood === "tense" ? 0.96 : 1.0);
+    const targetRate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
     const targetVol = currentMood === "fire" ? 0.36 : 0.44;
     if (bgmAudioEl) {
       try {
@@ -468,6 +488,7 @@
     toggle: toggle,
     setBgmEnabled: setBgmEnabled,
     setHapticsEnabled: setHapticsEnabled,
+    setBgmConfig: setBgmConfig,
     setMood: setMood,
     vibrate: vibrate,
     playCharPop: playCharPop,

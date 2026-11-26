@@ -4,29 +4,34 @@
    ========================================================================== */
 
 :root,
-[data-theme="tokyo-night"] {
-  --bg: #1a1b26;
-  --bg-dark: #13141c;
-  --bg-darker: #0e0e14;
-  --bg-light: #24283b;
-  --fg: #a9b1d6;
-  --fg-dim: #565f89;
-  --fg-bright: #c0caf5;
-  --accent: #7aa2f7;
-  --selection: #292e42;
-  --muted: #414868;
-  --danger: #f7768e;
-  --warn: #e0af68;
-  --fire: #ff9e64;
-  --ok: #9ece6a;
-  --info: #449dab;
-  --special: #ad8ee6;
+[data-theme="tokyo-night"],
+[data-theme="red-cliffs"] {
+  /* Default Chapter 1 Palette: 赤壁玄墨 · 烬火 (Overridable per-chapter via STORY.theme.palette) */
+  --bg: #151210;
+  --bg-dark: #0f0c0b;
+  --bg-darker: #0a0807;
+  --bg-light: #221c18;
+  --fg: #dfd5c5;
+  --fg-dim: #9c8d7a;
+  --fg-bright: #f6eee0;
+  --accent: #e86f3a;
+  --accent-soft: rgba(232, 111, 58, 0.16);
+  --selection: #2e241d;
+  --muted: #3d332c;
+  --danger: #e04f5f;
+  --warn: #d9a84e;
+  --fire: #f08a4b;
+  --ok: #7fb069;
+  --info: #5aa6a0;
+  --teal: #5aa6a0;
+  --special: #b5838d;
   --earth: #75493d;
 
   --radius: 2px;
   --border: 1px solid var(--muted);
   --font-ui: "JetBrains Mono", "Sarasa Mono SC", "Noto Sans Mono CJK SC", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-prose: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
 
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -99,6 +104,23 @@ button:focus-visible {
   }
 }
 
+.chapter-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.42;
+  transition: opacity 600ms ease, filter 600ms ease;
+}
+
+.app-shell[data-mood="fire"] .chapter-bg-image {
+  opacity: 0.54;
+  filter: saturate(1.25) contrast(1.06);
+}
+
 .atmosphere-bg {
   position: absolute;
   inset: 0;
@@ -106,32 +128,34 @@ button:focus-visible {
   z-index: 0;
   transition: opacity 420ms ease, background 420ms ease;
   background:
-    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(122, 162, 247, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(68, 157, 171, 0.05) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.82) 0%, rgba(15, 12, 11, 0.56) 46%, rgba(15, 12, 11, 0.72) 100%),
+    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(232, 111, 58, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(90, 166, 160, 0.07) 0%, transparent 70%);
 }
 
 .app-shell[data-mood="calm"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(122, 162, 247, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(68, 157, 171, 0.05) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.82) 0%, rgba(15, 12, 11, 0.56) 46%, rgba(15, 12, 11, 0.72) 100%),
+    radial-gradient(ellipse 110% 55% at 50% 0%, rgba(232, 111, 58, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(90, 166, 160, 0.08) 0%, transparent 70%);
 }
 
 .app-shell[data-mood="tense"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 100% 45% at 50% 0%, rgba(122, 162, 247, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 115% 55% at 50% 100%, rgba(224, 175, 104, 0.10) 0%, transparent 72%);
+    linear-gradient(180deg, rgba(15, 12, 11, 0.84) 0%, rgba(15, 12, 11, 0.52) 48%, rgba(20, 14, 10, 0.76) 100%),
+    radial-gradient(ellipse 115% 55% at 50% 100%, rgba(217, 168, 78, 0.14) 0%, transparent 72%);
 }
 
 .app-shell[data-mood="cold"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 110% 60% at 50% 0%, rgba(68, 157, 171, 0.11) 0%, transparent 72%),
-    radial-gradient(ellipse 100% 45% at 50% 100%, rgba(86, 95, 137, 0.09) 0%, transparent 70%);
+    linear-gradient(180deg, rgba(12, 14, 15, 0.84) 0%, rgba(12, 15, 16, 0.56) 48%, rgba(10, 12, 14, 0.76) 100%),
+    radial-gradient(ellipse 110% 60% at 50% 0%, rgba(90, 166, 160, 0.14) 0%, transparent 72%);
 }
 
 .app-shell[data-mood="fire"] .atmosphere-bg {
   background:
-    radial-gradient(ellipse 100% 40% at 50% 0%, rgba(247, 118, 142, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 120% 58% at 50% 100%, rgba(255, 158, 100, 0.16) 0%, rgba(247, 118, 142, 0.06) 45%, transparent 78%);
+    linear-gradient(180deg, rgba(18, 10, 9, 0.82) 0%, rgba(22, 12, 10, 0.48) 48%, rgba(24, 10, 8, 0.74) 100%),
+    radial-gradient(ellipse 125% 60% at 50% 100%, rgba(232, 111, 58, 0.24) 0%, rgba(224, 79, 95, 0.10) 48%, transparent 80%);
 }
 
 .ember-canvas {
@@ -723,11 +747,44 @@ button:focus-visible {
   border-right: 2px solid var(--accent);
 }
 
+/* Frameless Background Typography for Walking / Observation / Scene Transitions */
+.bubble-row.side-center {
+  margin: 6px 0;
+}
+
 .bubble-row.side-center .bubble {
   max-width: 100%;
-  background: var(--bg-dark);
-  border: 1px solid rgba(65, 72, 104, 0.8);
-  border-left: 2px solid var(--bubble-tone, var(--fg-dim));
+  padding: 10px 10px 12px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(156, 141, 122, 0.18);
+  border-bottom: 1px solid rgba(156, 141, 122, 0.12);
+  border-radius: 0;
+  color: var(--fg);
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 10px rgba(8, 6, 5, 0.96), 0 0 2px rgba(8, 6, 5, 0.95);
+}
+
+.bubble-row.side-center .bubble .bubble-head {
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.bubble-row.side-center .bubble .bubble-speaker {
+  color: var(--teal);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.bubble-row.side-center .bubble.is-walk .bubble-speaker::before,
+.bubble-row.side-center .bubble.is-walk .bubble-speaker::after {
+  content: " — ";
+  color: var(--fg-dim);
+}
   color: var(--fg);
   font-size: 13.5px;
 }
@@ -2019,11 +2076,153 @@ body.hide-source-tags .source-tag {
   50%, 100% { opacity: 0.15; }
 }
 
+/* Remove old boxed walk override; side-center is now pure frameless background typography */
 .bubble-row.side-center .bubble.is-walk {
-  border-left: 2px solid var(--teal);
-  background: rgba(19, 20, 28, 0.92);
+  background: transparent;
+  border-left: none;
   text-align: left;
+  color: var(--fg-bright);
+  padding: 12px 12px 14px;
+}
+
+/* ==========================================================================
+   Resource Warning / Red-Line Alerts & Interactive Gauge Click
+   ========================================================================== */
+
+.res-gauge {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius);
+  transition: background 140ms ease, box-shadow 140ms ease;
+}
+
+.res-gauge:active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.res-gauge.is-warning {
+  background: rgba(217, 168, 78, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.55);
+  animation: gaugePulseWarn 1.8s ease-in-out infinite;
+}
+
+.res-gauge.is-critical {
+  background: rgba(224, 79, 95, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 0.85);
+  animation: gaugePulseCrit 0.9s ease-in-out infinite;
+}
+
+.res-warn-tag {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--warn);
+  margin-left: 3px;
+}
+
+.res-gauge.is-critical .res-warn-tag {
+  color: var(--danger);
+}
+
+@keyframes gaugePulseWarn {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.35); }
+  50% { box-shadow: inset 0 0 0 1px rgba(217, 168, 78, 0.9); }
+}
+
+@keyframes gaugePulseCrit {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 0.45); }
+  50% { box-shadow: inset 0 0 0 1px rgba(224, 79, 95, 1); }
+}
+
+.settlement-strip.is-warn {
+  border-color: var(--warn);
+  border-left: 3px solid var(--warn);
+  background: rgba(217, 168, 78, 0.10);
+}
+
+.settlement-strip.is-warn .settlement-badge {
+  color: var(--warn);
+  border-color: rgba(217, 168, 78, 0.55);
+}
+
+/* ==========================================================================
+   LLM Review & Logical Consistency Critique Module (Ending Screen)
+   ========================================================================== */
+
+.llm-review-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.llm-diagnosis {
+  padding: 10px 12px;
+  border: 1px solid var(--muted);
+  border-left: 3px solid var(--teal);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font-size: 13.5px;
+  line-height: 1.65;
   color: var(--fg);
+}
+
+.llm-diagnosis strong {
+  color: var(--fg-bright);
+}
+
+.llm-prompt-details {
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  overflow: hidden;
+}
+
+.llm-prompt-details summary {
+  padding: 8px 10px;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  cursor: pointer;
+  user-select: none;
+}
+
+.llm-prompt-code {
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid var(--muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow-y: auto;
+  user-select: text;
+}
+
+.btn-copy-prompt {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+  color: var(--fg-bright);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background 120ms ease, transform 80ms ease;
+}
+
+.btn-copy-prompt:active {
+  transform: translateY(1px);
+}
+
+.btn-copy-prompt.is-copied {
+  border-color: var(--ok);
+  background: rgba(127, 176, 105, 0.16);
+  color: var(--ok);
 }
 
 /* ==========================================================================
