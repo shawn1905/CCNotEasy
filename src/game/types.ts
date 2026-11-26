@@ -15,9 +15,7 @@ export type Effect =
 export type BubbleLine = {
   speaker: Speaker
   text: string
-  /** show only when all listed flags match */
   when?: Partial<Flags>
-  /** hide when any listed flag matches these values */
   unless?: Partial<Flags>
 }
 
@@ -29,14 +27,30 @@ export type Choice = {
   next: string
 }
 
+/** 抉择旁可读史料卡：白话先，原文次，出处必有 */
+export type ReferenceCard = {
+  id: string
+  title: string
+  /** 白话：决策可读 */
+  plain: string
+  /** 原文短引 */
+  quote: string
+  /** 出处 */
+  source: string
+  /** 对哪一边更有参考价值 */
+  leans: 'A' | 'B' | 'both'
+  /** 一层标签：史载 / 注 / 推演边界 */
+  layer: 'A' | 'B' | 'C'
+}
+
 export type SceneNode = {
   id: string
   title?: string
   lines: BubbleLine[]
   choices?: Choice[]
-  /** auto-advance after last line */
+  /** 本节点可打开的史料卡 id */
+  refs?: string[]
   next?: string
-  /** special: assemble battle report then route ending */
   kind?: 'normal' | 'report' | 'ending'
   endingId?: string
 }
@@ -55,4 +69,5 @@ export type Chapter = {
   start: string
   nodes: Record<string, SceneNode>
   gloss: Record<string, GlossEntry>
+  refs: Record<string, ReferenceCard>
 }

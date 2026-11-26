@@ -3,6 +3,7 @@ import { Bubble } from './components/Bubble'
 import { ChoiceBar } from './components/ChoiceBar'
 import { DesktopShell } from './components/DesktopShell'
 import { GlossModal } from './components/GlossModal'
+import { ReferencePanel } from './components/ReferencePanel'
 import {
   advanceAfterChoice,
   advanceLineOrNode,
@@ -16,13 +17,14 @@ import {
   redCliffsEve,
   type SaveState,
 } from './game/engine'
-import type { Choice, GlossEntry } from './game/types'
+import type { Choice, GlossEntry, ReferenceCard } from './game/types'
 
 const chapter = redCliffsEve
 
 export default function App() {
   const [state, setState] = useState<SaveState>(() => loadSave() ?? createInitialState())
   const [gloss, setGloss] = useState<GlossEntry | null>(null)
+  const [refsOpen, setRefsOpen] = useState(false)
   const [started, setStarted] = useState(() => Boolean(loadSave()))
   const scroller = useRef<HTMLDivElement>(null)
   const [freshIndex, setFreshIndex] = useState<number | null>(null)
@@ -32,10 +34,17 @@ export default function App() {
   const revealed = lines.slice(0, state.lineIndex + 1)
   const showChoices = canShowChoices(chapter, state)
   const showTapHint = !showChoices && !state.ended && revealed.length > 0
+  const refCards: ReferenceCard[] = (node.refs ?? [])
+    .map((id) => chapter.refs[id])
+    .filter(Boolean)
 
   useEffect(() => {
     persistSave(state)
   }, [state])
+
+  useEffect(() => {
+    setRefsOpen(false)
+  }, [state.nodeId])
 
   useEffect(() => {
     const el = scroller.current
@@ -44,8 +53,11 @@ export default function App() {
   }, [state.nodeId, state.lineIndex, showChoices])
 
   function openGloss(id: string) {
-    const entry = chapter.gloss[id]
-    if (!entry) return
+    const entry = chapter.gloss[id] ?? {
+      id,
+      title: id,
+      body: '词条尚未收录。请用抉择栏「本议史料」查看本段相关原文。',
+    }
     setGloss(entry)
     setState((s) => ({
       ...s,
@@ -88,7 +100,7 @@ export default function App() {
             曹操不容易
           </h1>
           <p className="max-w-sm text-[0.95rem] leading-relaxed mb-8" style={{ color: 'var(--fg)' }}>
-            {chapter.title} · 史料锚定的双害抉择。点气泡推进，点蓝词看出处。
+            {chapter.title} · 史料加强版。点蓝词看词条；抉择时打开「本议史料」。
           </p>
           <button
             type="button"
@@ -167,10 +179,21 @@ export default function App() {
       </div>
 
       {showChoices && node.choices ? (
-        <ChoiceBar choices={node.choices} onPick={onPick} />
+        <ChoiceBar
+          choices={node.choices}
+          onPick={onPick}
+          hasRefs={refCards.length > 0}
+          onOpenRefs={() => setRefsOpen(true)}
+        />
       ) : null}
 
       <GlossModal entry={gloss} onClose={() => setGloss(null)} />
+      <ReferencePanel
+        open={refsOpen}
+        title={node.title ?? chapter.title}
+        cards={refCards}
+        onClose={() => setRefsOpen(false)}
+      />
     </DesktopShell>
   )
 }

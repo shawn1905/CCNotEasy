@@ -9,7 +9,7 @@ import type {
   SceneNode,
 } from './types'
 
-const STORAGE_KEY = 'ccne-red-cliffs-eve-v2'
+const STORAGE_KEY = 'ccne-red-cliffs-eve-v3'
 
 export const DEFAULT_FLAGS: Flags = {
   haste: false,
