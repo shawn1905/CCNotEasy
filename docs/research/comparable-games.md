@@ -91,19 +91,20 @@
 
 ## D. 主循环相关参考（用户选定 E 后补充）
 
-主循环方向：**文字抉择为主 + 战斗结算，无独立战棋**；多场景形态；LLM 推演为加花意向。
+主循环方向：**文字抉择为主 + 战斗结算，无独立战棋**；场景须含**经济、政治**等，不能全围战争；文案**中国风**，禁用日本特色用语。
 
-可点参考（形态灵感，非抄玩法）：
+可点参考（形态灵感，非抄玩法；产品内文案仍用汉末用语）：
 
-| 形态 | 参考 | 链接 |
+| 形态（中国风命名） | 参考 | 链接 |
 |------|------|------|
-| 卡片式两害抉择 | Reigns / Reigns: Three Kingdoms | https://store.steampowered.com/app/474750/Reigns/ |
-| 请愿/政务队列 | Yes, Your Grace | https://store.steampowered.com/app/1015500/Yes_Your_Grace/ |
+| 两害卡片抉择 | Reigns / Reigns: Three Kingdoms | https://store.steampowered.com/app/474750/Reigns/ |
+| 政务/请愿队列 | Yes, Your Grace | https://store.steampowered.com/app/1015500/Yes_Your_Grace/ |
 | 长文政治抉择 | Suzerain | https://store.steampowered.com/app/1207650/Suzerain/ |
 | 史实节点 + 分支 | 《三国志曹操传》系 / 《三国戏魏传》 | https://www.taptap.cn/app/224722 |
-| 事件结算战果 | 许多策略 AVG 的「战报一页」 | （实现时再钉具体作品） |
+| 战报一页结算 | 策略 AVG 战果页 | （实现时再钉） |
+| 赋税/屯田/民生 | Tropico / Democracy 类治国压力（仅机制灵感） | — |
 
-LLM 推演：尚无对标产品定案；仅作「加花」记录，接入方式待确认。
+LLM：**第一版接真模型（7c=C）**；密钥与降级策略待实现时确认。
 
 ---
 
