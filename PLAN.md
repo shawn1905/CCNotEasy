@@ -168,8 +168,9 @@
 | [`docs/research/red-cliffs/`](./docs/research/red-cliffs/) | **赤壁前夜** timeline / facts / tensions |
 | [`docs/research/sources/bibliography.md`](./docs/research/sources/bibliography.md) | 书目索引 |
 | [`docs/research/lexicon/`](./docs/research/lexicon/) | 中国风用语 / 禁用词 |
-| [`docs/research/user-drops/`](./docs/research/user-drops/) | 你发的材料（待投入） |
+| [`docs/research/user-drops/`](./docs/research/user-drops/) | 投递材料；含朋友「易品三国」解构（权重第 2） |
 
+**材料权重：** ① 公开严肃史料（事实） → ② 朋友易品三国稿（看法/调性） → ③ 演义与二手。冲突时 ① 优先。  
 **公开仓库：** https://github.com/shawn1905/CCNotEasy（Public，MIT）  
 史料深度：**切片够用（A）**；语言：**简体为主（A）**。NotebookLM 未启用。
 
@@ -181,3 +182,4 @@
 |------------------------|------|
 | 2026-11-26 | 初稿：按常规制作流程搭骨架；仅录入已确认四点；其余全部列为待确认 |
 | 2026-11-26 | 落入竞品参考笔记；增加资料库工具选型待确认 |
+| 2026-11-26 | 入库朋友「易品三国」解构；确认权重：公开史料 > 朋友看法/调性 |
