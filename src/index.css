@@ -89,12 +89,12 @@ body {
 .desktop-wallpaper__grid {
   position: absolute;
   inset: 0;
-  opacity: 0.45;
+  opacity: 0.7;
   background-image:
-    linear-gradient(rgba(122, 162, 247, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(122, 162, 247, 0.18) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 95%);
+    linear-gradient(rgba(125, 207, 255, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 207, 255, 0.28) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
 }
 
 .desktop-wallpaper__scan {
@@ -122,8 +122,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
-    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom)) max(1.25rem, env(safe-area-inset-left));
 }
 
 .desktop-stage--compact {
@@ -132,8 +132,9 @@ body {
 
 .console-window {
   width: min(28rem, 100%);
-  height: min(100%, 52rem);
-  max-height: 100%;
+  /* 留出壁纸上下边，避免桌面感被抽干 */
+  height: min(calc(100% - 0.5rem), 42rem);
+  max-height: calc(100dvh - 3rem);
   display: flex;
   flex-direction: column;
   background: var(--glass);
@@ -151,7 +152,7 @@ body {
 
 .desktop-stage--compact .console-window {
   height: auto;
-  max-height: min(88vh, 40rem);
+  max-height: min(82vh, 36rem);
 }
 
 .console-titlebar {

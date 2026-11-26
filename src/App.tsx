@@ -25,7 +25,9 @@ export default function App() {
   const [state, setState] = useState<SaveState>(() => loadSave() ?? createInitialState())
   const [gloss, setGloss] = useState<GlossEntry | null>(null)
   const [refsOpen, setRefsOpen] = useState(false)
-  const [started, setStarted] = useState(() => Boolean(loadSave()))
+  /** 刷新始终先回 boot；有存档用「继续」进入 */
+  const [started, setStarted] = useState(false)
+  const hasSave = Boolean(loadSave())
   const scroller = useRef<HTMLDivElement>(null)
   const [freshIndex, setFreshIndex] = useState<number | null>(null)
 
@@ -39,8 +41,9 @@ export default function App() {
     .filter(Boolean)
 
   useEffect(() => {
+    if (!started) return
     persistSave(state)
-  }, [state])
+  }, [state, started])
 
   useEffect(() => {
     setRefsOpen(false)
@@ -76,10 +79,21 @@ export default function App() {
     setState((s) => advanceAfterChoice(chapter, s, choice))
   }
 
-  function restart() {
+  function goBoot() {
+    setRefsOpen(false)
+    setFreshIndex(null)
+    setStarted(false)
+  }
+
+  function newGame() {
     clearSave()
     setFreshIndex(null)
     setState(createInitialState())
+    setStarted(true)
+  }
+
+  function continueGame() {
+    setState(loadSave() ?? createInitialState())
     setStarted(true)
   }
 
@@ -102,24 +116,40 @@ export default function App() {
           <p className="max-w-sm text-[0.95rem] leading-relaxed mb-8" style={{ color: 'var(--fg)' }}>
             {chapter.title} · 史料加强版。点蓝词看词条；抉择时打开「本议史料」。
           </p>
-          <button
-            type="button"
-            onClick={() => setStarted(true)}
-            className="px-6 py-3 text-[0.95rem] font-medium font-mono-ui"
-            style={{
-              background: 'var(--accent)',
-              color: 'var(--bg-darker)',
-              borderRadius: 'var(--radius)',
-              boxShadow: '0 0 24px rgba(122, 162, 247, 0.25)',
-            }}
-          >
-            ./enter_tonight
-          </button>
-          {loadSave() ? (
-            <button type="button" onClick={restart} className="console-btn mt-4">
-              clear_save && reboot
+          {hasSave ? (
+            <>
+              <button
+                type="button"
+                onClick={continueGame}
+                className="px-6 py-3 text-[0.95rem] font-medium font-mono-ui"
+                style={{
+                  background: 'var(--accent)',
+                  color: 'var(--bg-darker)',
+                  borderRadius: 'var(--radius)',
+                  boxShadow: '0 0 24px rgba(122, 162, 247, 0.25)',
+                }}
+              >
+                ./continue
+              </button>
+              <button type="button" onClick={newGame} className="console-btn mt-4">
+                ./new_game
+              </button>
+            </>
+          ) : (
+            <button
+              type="button"
+              onClick={newGame}
+              className="px-6 py-3 text-[0.95rem] font-medium font-mono-ui"
+              style={{
+                background: 'var(--accent)',
+                color: 'var(--bg-darker)',
+                borderRadius: 'var(--radius)',
+                boxShadow: '0 0 24px rgba(122, 162, 247, 0.25)',
+              }}
+            >
+              ./enter_tonight
             </button>
-          ) : null}
+          )}
         </div>
       </DesktopShell>
     )
@@ -130,8 +160,8 @@ export default function App() {
       title="ccnoteasy://dialogue"
       subtitle={node.title ?? chapter.title}
       trailing={
-        <button type="button" className="console-btn" onClick={restart}>
-          reboot
+        <button type="button" className="console-btn" onClick={goBoot}>
+          boot
         </button>
       }
     >
@@ -167,7 +197,7 @@ export default function App() {
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
-                restart()
+                newGame()
               }}
               className="px-4 py-2 text-sm font-mono-ui choice-card"
               style={{ color: 'var(--fg-bright)' }}
