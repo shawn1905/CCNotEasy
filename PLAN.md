@@ -171,7 +171,8 @@
 | [`docs/research/user-drops/`](./docs/research/user-drops/) | 投递材料；含朋友「易品三国」解构（权重第 2） |
 | [`docs/design/architecture.md`](./docs/design/architecture.md) | **技术架构（已确认）** |
 | [`docs/design/visual-bible.md`](./docs/design/visual-bible.md) | 视觉：Quattro/Tokyo Night 复用 |
-| [`docs/design/script-method.md`](./docs/design/script-method.md) | **剧本优先方法论（趣味）** |
+| [`docs/design/script-method.md`](./docs/design/script-method.md) | **剧本优先方法论（趣味 + GitHub 手艺）** |
+| [`docs/research/comparable-writing.md`](./docs/research/comparable-writing.md) | 编剧参考链接 |
 | [`docs/design/interaction-lifeline.md`](./docs/design/interaction-lifeline.md) | Lifeline 交互对照 |
 | [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲 |
 

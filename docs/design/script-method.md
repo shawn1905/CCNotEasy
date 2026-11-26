@@ -113,9 +113,47 @@ docs/content/red-cliffs-eve/
 
 过你耳后再 `content/scenes/*.json`。
 
-## 8. 下一步（等你一句「按这个写」）
+## 8. 从 GitHub 补上的编剧手艺（不会编也按清单走）
+
+公开仓库里可直接偷师的，已筛进本 demo 用法：
+
+| 来源 | 偷什么 | 我们怎么用 |
+|------|--------|------------|
+| [ericrisco branching-and-state](https://github.com/ericrisco/rsc-harness/blob/main/skills/game-storytelling/references/branching-and-state.md) | **Foldback（串珠）**：分叉后再汇合；有意义选择三腿（意图/可预见/后果落地）；**可假结果，不可假赌注**；延迟后果要有 callback | 四节拍之间用汇合点；T-06 等「真赌注」必须读回 flag；半回执 + 「因为你当时…」 |
+| 同上 | 防爆炸：汇合、门闸、**状态优于复制场景**、结局用摘要变量 | 4 个二选一不全树展开；结局只看 2～3 个摘要轴（如 `haste` / `plague_honesty` / `fire_posture`） |
+| [Stanestane/narrative-design-skills](https://github.com/Stanestane/narrative-design-skills) | 选择审计：假能动性、劣势选项、弱反馈、状态失忆；场景先目标/阻力/转折再写台词 | 节拍卡多一栏「选择审计」；对话本前先填戏剧目标 |
+| [BranchGuard checklist](https://github.com/ExpectooPatronum/branchguard-narrative-qa-checklist) | 十分钟预检：跳转、可达、结局终端、无死胡同 | `script.md` 定稿后跑一遍手检 |
+
+### 本 demo 强制结构 = Foldback
+
+```text
+开场
+  → T-01 分叉 → 汇合「疫报到案」
+  → T-04 分叉 → 汇合「要不要连船」
+  → T-05 分叉 → 汇合「有人来降」
+  → T-06 分叉 → 战报（读摘要变量）→ 2～3 结局
+```
+
+旁支不是另开一本长篇，是**同一珠串上换台词/资源/战报口气**；只有少数 flag 进结局。
+
+### 有意义选择（写选项前默念）
+
+1. 玩家是否知道自己想选哪边（意图）  
+2. 是否想得出大概会怎样（可预见，允许事后打脸）  
+3. 后面是否**读回**这次选择（落地；否则删掉或降成纯语气）
+
+诱向史实 = 短利可见 + 谋士起哄；**不许**做成「A 正确 / B 弱智」。旁支若汇合，也要用气泡/资源承认赌注，禁止静默同结局。
+
+### 节拍卡加一栏（补进 Step 2）
+
+```text
+选择审计：有意义？非劣势项？即时反馈？延迟 callback 接到哪？
+摘要变量：本拍写入哪个（如 haste+=1）
+```
+
+## 9. 下一步（等你一句「按这个写」）
 
 1. 写出 `SPINE.md` + 四张节拍卡（先不写满气泡）  
 2. 你点哪张「不够好玩」就改哪张  
 3. 再铺 `script.md` 金线全文  
-4. 最后才脚手架挂字
+4. BranchGuard 式手检 → 再脚手架挂字
