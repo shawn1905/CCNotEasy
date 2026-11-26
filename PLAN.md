@@ -1,6 +1,6 @@
 # 《曹操不容易》制作计划
 
-> 状态：概念阶段 **已齐** → 待 GDD 大纲签字后搭骨架  
+> 状态：概念 **已齐** · 技术架构 **已确认** → 下一步视觉规范初稿 → GDD 签字 → 搭骨架  
 > 原则：**未确认事项一律标为「待确认」，不擅自补全。**  
 > 更新日期：2026-11-26（Asia/Shanghai）
 
@@ -13,7 +13,7 @@
 | 阶段 | 目标 | 当前状态 |
 |------|------|----------|
 | 1. 概念（Concept） | 一句话定位、受众、核心体验 | **已齐**（见 1.1） |
-| 2. 前期（Pre-production） | GDD、美术规范、技术选型、可玩原型 | **进行中**（GDD 大纲待签字） |
+| 2. 前期（Pre-production） | GDD、美术规范、技术选型、可玩原型 | **进行中**（技术已确认；视觉规范 → GDD 签字） |
 | 3. 生产（Production） | 系统实现、内容填充、关卡/事件 | 未开始 |
 | 4. Alpha | 核心循环完整可通关（内容可粗糙） | 未开始 |
 | 5. Beta | 内容完整、调平衡、修体验 | 未开始 |
@@ -114,15 +114,14 @@
    核心循环、系统列表、胜负、进度结构、第一版内容表
 2. **内容大纲**  
    历史节点列表、事件库结构、角色表（仍只写你确认过的范围）
-3. **美术规范（Art Bible）**  
-   基于 Omarchy 气质的配色、字体、控件、地图/立绘规范（若需要）
-4. **技术选型与架构**  
-   引擎/框架、存档方案、数据驱动方式（事件/关卡用什么格式）  
-   → **框架未确认前不锁死**
-5. **可玩原型（Prototype）**  
-   只验证主循环是否「好玩/难得合理」，美术可极简
-6. **Vertical Slice 定义**  
-   「一段完整、可展示的最小完整体验」验收标准
+3. **技术选型与架构** → **已确认**  
+   Vite + TS + React + Tailwind；自研 JSON 事件机；`localStorage`；LLM 后置可降级。  
+   详见 [`docs/design/architecture.md`](./docs/design/architecture.md)。  
+   **不上** Ink / Twine / Monogatari / Rust（第一版）。
+4. **美术规范（Art Bible）初稿** → **下一步**  
+   Omarchy / Tokyo Night；方正控件；Lifeline 气泡；手机优先（无立绘大地图）。
+5. **可玩原型 / Vertical Slice**  
+   赤壁前夜一节；验收见 GDD 大纲。
 
 ---
 
@@ -150,13 +149,13 @@
 
 ## 5. 当前阻塞与下一步
 
-**阻塞：** 第 1.2 节待确认项未齐，无法写合格 GDD，也无法负责任地开工实现。
+**已齐：** 概念 1–21；技术架构（现代/丝滑/轻量 → Vite+React+JSON 事件机）。
 
-**下一步（需你回复）：**
+**下一步：**
 
-1. 先回答 **A–E 待确认清单**（可分批；不确定的写「暂不定」或「你出 2–3 个方案我选」）。  
-2. 我根据你的答复更新本 `PLAN.md`，再产出一页纸 GDD 大纲给你签字。  
-3. 你确认 GDD 大纲后，再进前期原型。
+1. **视觉规范初稿**（配色、字体、气泡/选项、顶栏资源条）— 出方案给你过目。  
+2. 你签 [`docs/GDD-outline.md`](./docs/GDD-outline.md)。  
+3. 脚手架 + 「赤壁前夜」第一条可玩对话链。
 
 ---
 
@@ -169,6 +168,9 @@
 | [`docs/research/sources/bibliography.md`](./docs/research/sources/bibliography.md) | 书目索引 |
 | [`docs/research/lexicon/`](./docs/research/lexicon/) | 中国风用语 / 禁用词 |
 | [`docs/research/user-drops/`](./docs/research/user-drops/) | 投递材料；含朋友「易品三国」解构（权重第 2） |
+| [`docs/design/architecture.md`](./docs/design/architecture.md) | **技术架构（已确认）** |
+| [`docs/design/interaction-lifeline.md`](./docs/design/interaction-lifeline.md) | Lifeline 交互对照 |
+| [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲（待签字） |
 
 **材料权重：** ① 公开严肃史料（事实） → ② 朋友易品三国稿（看法/调性） → ③ 演义与二手。冲突时 ① 优先。  
 **公开仓库：** https://github.com/shawn1905/CCNotEasy（Public，MIT）  
@@ -183,3 +185,4 @@
 | 2026-11-26 | 初稿：按常规制作流程搭骨架；仅录入已确认四点；其余全部列为待确认 |
 | 2026-11-26 | 落入竞品参考笔记；增加资料库工具选型待确认 |
 | 2026-11-26 | 入库朋友「易品三国」解构；确认权重：公开史料 > 朋友看法/调性 |
+| 2026-11-26 | 确认技术架构：Vite+TS+React+自研 JSON 事件机（现代/丝滑/轻量） |
