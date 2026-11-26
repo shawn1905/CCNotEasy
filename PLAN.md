@@ -172,6 +172,7 @@
 | [`docs/design/architecture.md`](./docs/design/architecture.md) | **技术架构（已确认）** |
 | [`docs/design/visual-bible.md`](./docs/design/visual-bible.md) | 视觉：Quattro/Tokyo Night 复用 |
 | [`docs/design/script-method.md`](./docs/design/script-method.md) | **剧本优先方法论（趣味 + GitHub 手艺）** |
+| [`docs/design/annotations-and-resources.md`](./docs/design/annotations-and-resources.md) | **注释点击 + 资源必须说理** |
 | [`docs/research/comparable-writing.md`](./docs/research/comparable-writing.md) | 编剧参考链接 |
 | [`docs/design/interaction-lifeline.md`](./docs/design/interaction-lifeline.md) | Lifeline 交互对照 |
 | [`docs/GDD-outline.md`](./docs/GDD-outline.md) | 一页 GDD 大纲 |
@@ -193,3 +194,4 @@
 | 2026-11-26 | 视觉规范：锁定复用 Omarchy Quattro 默认（Tokyo Night + Liftoff 氛围） |
 | 2026-11-26 | Demo 方法论：趣味与剧本优先；先节脊/节拍卡，后薄壳 |
 | 2026-11-26 | 写出赤壁节脊、T-01/04/05/06、开场对话；附写文章 agent 提示词 |
+| 2026-11-26 | 确认：资源变动必说理；全局 gloss 点击注释；T-01 对话已按此改 |
