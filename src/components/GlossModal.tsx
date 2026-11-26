@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { GlossEntry } from '../game/types'
 
 type Props = {
@@ -6,6 +7,15 @@ type Props = {
 }
 
 export function GlossModal({ entry, onClose }: Props) {
+  useEffect(() => {
+    if (!entry) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [entry, onClose])
+
   if (!entry) return null
   return (
     <div

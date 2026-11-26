@@ -45,25 +45,32 @@ export function ArchivePanel({
     }
   }, [open, initialMode])
 
+  const focusSet = useMemo(() => new Set(focusIds), [focusIds])
+
+  const baseList = useMemo(() => {
+    if (mode === '本议') {
+      const focused = allCards.filter((c) => focusSet.has(c.id))
+      return focused.length > 0 ? focused : allCards
+    }
+    return allCards
+  }, [allCards, focusSet, mode])
+
   const topics = useMemo(() => {
     const set = new Set<string>()
-    for (const c of allCards) {
+    for (const c of baseList) {
       if (c.topic) set.add(c.topic)
     }
     return ['全部', ...Array.from(set).sort()]
-  }, [allCards])
+  }, [baseList])
 
-  const focusSet = useMemo(() => new Set(focusIds), [focusIds])
+  useEffect(() => {
+    if (topic !== '全部' && !topics.includes(topic)) {
+      setTopic('全部')
+    }
+  }, [topics, topic])
 
   const cards = useMemo(() => {
-    let list =
-      mode === '本议'
-        ? allCards.filter((c) => focusSet.has(c.id))
-        : allCards
-
-    if (mode === '本议' && list.length === 0) {
-      list = allCards
-    }
+    let list = baseList
 
     if (topic !== '全部') {
       list = list.filter((c) => c.topic === topic)
@@ -82,7 +89,7 @@ export function ArchivePanel({
     }
 
     return list
-  }, [allCards, focusSet, mode, topic, query])
+  }, [baseList, topic, query])
 
   if (!open) return null
 
