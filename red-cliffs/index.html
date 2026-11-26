@@ -1950,6 +1950,93 @@ body.hide-source-tags .source-tag {
 }
 
 /* ==========================================================================
+   Character-by-Character Springy Pop-In & Walking Observation Styling
+   ========================================================================== */
+
+.char-pop {
+  display: inline-block;
+  white-space: pre-wrap;
+  animation: charSpringPop 155ms cubic-bezier(0.22, 1.35, 0.36, 1) both;
+}
+
+.char-pop.is-emph {
+  color: var(--fg-bright);
+  animation: charEmphPop 185ms cubic-bezier(0.2, 1.45, 0.32, 1) both;
+}
+
+.token-pop {
+  animation: tokenPop 190ms cubic-bezier(0.22, 1.32, 0.36, 1) both;
+}
+
+.typing-caret {
+  display: inline-block;
+  width: 6px;
+  height: 13px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--accent);
+  opacity: 0.85;
+  animation: caretBlink 520ms steps(2, end) infinite;
+}
+
+@keyframes charSpringPop {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.86);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-1.5px) scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes charEmphPop {
+  0% {
+    opacity: 0;
+    transform: translateY(7px) scale(0.82);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2.5px) scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tokenPop {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.92);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes caretBlink {
+  0%, 49% { opacity: 0.9; }
+  50%, 100% { opacity: 0.15; }
+}
+
+.bubble-row.side-center .bubble.is-walk {
+  border-left: 2px solid var(--teal);
+  background: rgba(19, 20, 28, 0.92);
+  text-align: left;
+  color: var(--fg);
+}
+
+/* ==========================================================================
    Reduced Motion
    ========================================================================== */
 
@@ -2007,7 +2094,7 @@ body.hide-source-tags .source-tag {
           </div>
           <div class="splash-footer">
             <span>Omarchy Tokyo Night</span>
-            <button type="button" class="splash-audio-btn" id="btn-splash-audio">声效/古琴：静音</button>
+            <button type="button" class="splash-audio-btn" id="btn-splash-audio">麦田8x氛围音：静音</button>
           </div>
         </div>
       </section>
@@ -2041,7 +2128,7 @@ body.hide-source-tags .source-tag {
           </div>
 
           <div class="hud-actions">
-            <button type="button" class="hud-btn" id="btn-audio" aria-label="开启声音" title="声效与古琴"></button>
+            <button type="button" class="hud-btn" id="btn-audio" aria-label="开启声音" title="麦田8x氛围音与音效"></button>
             <button type="button" class="hud-btn" id="btn-drawer" aria-label="打开案牍与词典" title="案牍/词典">
               <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
             </button>
@@ -2105,7 +2192,7 @@ window.CC_STORY = {
     title: "曹操不容易",
     subtitle: "建安十三年 · 赤壁前夜",
     tagline: "坐拥荆州仓廒、水军号称八十万——看绝对优势是怎么一笔一笔亏光的。",
-    version: "0.3.0-demo",
+    version: "0.4.0-demo",
     estimatedMinutes: 15
   },
 
@@ -2364,15 +2451,7 @@ window.CC_STORY = {
           roleTag: "驿骑",
           tone: "accent",
           tag: "史载",
-          text: "今年六月明公刚拜{{gloss:chengxiang}}，九月入新野、刘琮奉印而降，{{gloss:changban}}一夜追了三百里——如今江陵大仓的铜钥匙，总算挂上您的案角了。"
-        },
-        {
-          type: "msg",
-          speaker: "府吏",
-          roleTag: "主簿",
-          tone: "default",
-          tag: "拟写",
-          text: "刘备狼狈逃往{{gloss:xiakou}}，连行李都丢在当阳道上。阶下排队递名帖的荆州官吏挤满了外署，个个笑得跟过年似的。"
+          text: "六月刚拜{{gloss:chengxiang}}，九月进新野便收了刘琮的印；{{gloss:changban}}一夜狂追三百里，刘备逃往{{gloss:xiakou}}连行囊都甩在泥道上。如今江陵大仓的铜钥匙，总算**挂上您桌角了**。"
         },
         {
           type: "msg",
@@ -2380,7 +2459,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "warn",
           tag: "拟写",
-          text: "（把算筹啪地排上案）别光顾着乐。刚点完账：钱帛六分、粮草六分、可战精锐八营。仓门看着挺满——那是把荆州刚收来的空架子也算里头了。"
+          text: "（把算筹啪地拍上案）先别急着温酒。钱帛六分、粮草六分、可战精锐八营——看着满仓满囤，**里头有一半是荆州刚充数的空米架**。"
         },
         {
           type: "msg",
@@ -2388,7 +2467,7 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "info",
           tag: "拟写",
-          text: "仓曹就是爱煞风景！江面上刚收了几百艘战船，外头茶馆都在传咱们「{{gloss:eighty_wan}}」。这数虽不知是谁先吹出来的，{{gloss:chaisang}}那头已经抖成筛子啦！"
+          text: "仓曹就会泼凉水！江面上刚接管几百条大船，茶馆里都在喊咱们「{{gloss:eighty_wan}}」——**这数谁先吹出来的没人认领，可嘴上早拿去吓人了**，{{gloss:chaisang}}那头怕是抖成筛子！"
         },
         {
           type: "msg",
@@ -2396,12 +2475,23 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "default",
           tag: "史载",
-          text: "如今{{subtext:fengci_fazui}}，全荆州都在等着看明公怎么一锤定音。眼下只剩江东孙权那小子，还蹲在长江南岸竖着耳朵听风声。"
+          text: "如今咱们顶着{{subtext:fengci_fazui}}的虎皮南下，外头排队递降表的把门槛都踩平了；只剩南岸孙权，还在拿乔赌风向。"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "账面全是顺风牌，连风吹进来都是热的。可角落里一个军医偷偷拽紧了袖口，冲着地板压住半声咳嗽。"
+          speaker: "巡营所见",
+          roleTag: "江陵檐下",
+          tag: "巡营",
+          tone: "info",
+          text: "你起身跨出闷热的帅帐，站上江陵府阴湿的石阶。廊柱下新降的荆州掾吏正捏着官凭比划体面；拐角药箱后头，一个军医偷偷把**半声咳嗽**憋进袖口——帐里谁也没回头数过药席。"
+        },
+        {
+          type: "msg",
+          speaker: "曹操",
+          roleTag: "心中",
+          tag: "暗忖",
+          tone: "accent",
+          text: "满帐人都觉得大局已定，只有仓房和药棚不敢大声喘气。偏厅笔墨已经铺好，先瞧瞧那帮文官打算怎么给孙仲谋**虚空开价**。"
         }
       ],
       next: "N01_letter_game"
@@ -2412,14 +2502,14 @@ window.CC_STORY = {
       chapter: "壹 · 会猎笔锋",
       mood: "calm",
       bubbles: [
-        { type: "divider", text: "壹 · 亲拟《遗孙权书》" },
+        { type: "divider", text: "壹 · 偏厅拟《遗孙权书》" },
         {
           type: "msg",
           speaker: "参谋",
           roleTag: "议曹",
           tone: "accent",
           tag: "史载",
-          text: "明公，孙权刚派鲁肃渡江去夏口探刘备的底，咱们这封致江东的官书今晚就得八百里送往柴桑。"
+          text: "孙权刚打发鲁肃过江去夏口摸刘备的底。趁他俩还没把酒斟进同一只壶里，咱们这封官书今晚就得**八百里砸进柴桑**。"
         },
         {
           type: "msg",
@@ -2427,7 +2517,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "default",
           tag: "拟写",
-          text: "宣纸铺开了，紫毫刚蘸饱墨。怎么把吓人的价码、称呼和狠话嵌进去——您亲自挑。"
+          text: "宣纸摊平了，紫毫也蘸饱墨了。水军虚数怎么报、地盘怎么圈、收尾留不留台阶——明公亲自定个价码。"
         }
       ],
       widget: {
@@ -2447,51 +2537,51 @@ window.CC_STORY = {
           s1: [
             {
               text: "治水军八十万众",
-              comment: "管粮吏手一抖，算筹滚了一地：「明公……名册上水陆加一起还没二十五万，这八十万是把江里的鳜鱼也算成兵了吗？」",
+              comment: "管粮吏手一抖，算筹滚了一地：「明公……名册上水陆凑一块才二十来万，剩下五十五万是从长江里按鳜鱼脑袋点的吗？」",
               vars: { rhetoric_bluff: 1 }
             },
             {
               text: "统步骑舟师三十余万",
-              comment: "参谋急忙按住笔杆：「明公写实在数干嘛！跟江东人隔岸打嘴仗，报实底等于先自砍一半威风！」",
+              comment: "参谋一把按住笔杆：「明公，跟江东隔岸打嘴仗还报实底，等于当街自掀家底——真不怕柴桑算明白？」",
               vars: {}
             },
             {
               text: "合荆襄舟楫之师，蔽江而下",
-              comment: "主簿连连点头：「高明！既不露出真家底，将来御史台翻旧账也挑不出虚报军籍的毛病。」",
+              comment: "主簿连连点头：「老辣！听着遮天蔽日，将来御史台翻旧账也挑不出半句虚报军籍。」",
               vars: { wit_sharp: 1 }
             }
           ],
           s2: [
             {
               text: "方欲与将军会猎于吴",
-              comment: "参谋替周瑜先气笑了：「把人家江东六郡当打猎场！这封信送去柴桑，孙权今晚就得抄家伙跟咱们拼命。」",
+              comment: "参谋替周瑜先气笑了：「把人家江东六郡当自家猎场！这信送到柴桑，孙权今晚就得抄家伙拼命。」",
               vars: { rhetoric_bluff: 1 }
             },
             {
               text: "愿将军早遣质子，以安江表",
-              comment: "府吏缩了缩脖子：「这是当年逼袁绍的旧词——孙仲谋才二十七岁，最听不得『遣子』两个字。」",
+              comment: "府吏缩了缩脖子：「这是当年挤兑袁绍的旧词——孙仲谋才二十七岁，最听不得『遣子』俩字。」",
               vars: {}
             },
             {
               text: "若能各守封疆，共尊汉室，孤亦息兵",
-              comment: "北方将急得直搓铁甲：「明公！咱们刚打完长坂，怎么口气忽然软成哄小孩了？」",
+              comment: "北方将急得直搓铁甲：「明公！咱们刚在长坂奔袭三百里，怎么信纸一铺软成劝架乡绅了？」",
               vars: {}
             }
           ],
           s3: [
             {
               text: "吉凶之决，将军其自审之",
-              comment: "军候嘶了一声：「墨里都带火药味！江东主战派今晚连辩论都省了，直接把战鼓抬出来敲。」",
+              comment: "军候嘶了一声：「墨里都飘火药味！江东主战派今晚连架都省得吵，直接抬战鼓出来敲。」",
               vars: { rhetoric_bluff: 1 }
             },
             {
               text: "幸勿自误，致如荆州之覆辙",
-              comment: "帘外几个刚降的荆州小吏脖子一缩，脸色比墙灰还白：「拿咱们当反面教材……明公真会扎心。」",
+              comment: "廊外几个刚降的荆州小吏脖子一缩，脸色比墙灰还白：「拿咱们当反面典型……明公扎心真挑地方。」",
               vars: { wit_sharp: 1 }
             },
             {
               text: "书不尽言，孤在江陵候将军驿报",
-              comment: "参谋皱起眉：「收尾像衙门公文回执，倒叫柴桑猜不透咱们到底是真打还是吓唬人。」",
+              comment: "参谋皱起眉：「收尾像衙门公文回执，倒叫柴桑猜一宿——咱们到底是真发兵还是虚晃一枪。」",
               vars: {}
             }
           ]
@@ -2514,7 +2604,7 @@ window.CC_STORY = {
           tone: "info",
           tag: "推演",
           condition: { var: "rhetoric_bluff", op: ">=", val: 2 },
-          text: "好家伙，这封信墨干得比火药还快！江东收到之后，怕是半个柴桑城都要吵翻天——只是话喊满了，步子可就不好收回来。"
+          text: "墨干得比火药还快！这封信一进柴桑，江东君臣今晚别想睡整觉——只是话喊满了，**自家靴子也得跟着迈出账门**。"
         },
         {
           type: "msg",
@@ -2523,7 +2613,7 @@ window.CC_STORY = {
           tone: "default",
           tag: "推演",
           condition: { var: "rhetoric_bluff", op: "<=", val: 1 },
-          text: "信虽然递出去了，口气没把话说死。江东那头正竖着耳朵等下文——他们看的不止是信纸，更是咱们大营拔不拔锚。"
+          text: "信虽然递出去了，口气倒没把话说死。可江东盯的不是修辞漂亮不漂亮，是**江陵码头的船缆到底解不解**。"
         },
         {
           type: "msg",
@@ -2531,12 +2621,15 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "accent",
           tag: "拟写",
-          text: "明公，信都发了还犹豫什么？趁刘备在夏口气还没喘匀、江东还没凑齐心，立刻顺江东下去{{gloss:huiliie}}！{{subtext:jibukeshi}}！"
+          text: "文书刚把江东画成咱们的猎场，还不趁早拔锚？再拖到刘备在夏口把草鞋穿回去，咱们这封{{gloss:huiliie}}信可就成笑话了——{{subtext:jibukeshi}}！"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "全帐一半人把脚往船板上迈，只有算账的站在仓门前。两种法子，都要先动账本。"
+          speaker: "巡营所见",
+          roleTag: "议事堂前",
+          tag: "所见",
+          tone: "default",
+          text: "半屋子将校一只脚已经踏在船板上，唯有仓曹与主簿钉在门框旁没挪步——**两种走法，都得当场从账本里撕掉一页**。"
         },
         {
           type: "msg",
@@ -2544,7 +2637,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "warn",
           tag: "拟写",
-          text: "（把算筹敲在案角）话先说在明处：大军要是立刻开拔东下，光沿江铺开漕运接应，我得先从江陵仓预支一旬**粮草**，船队才吃得动。这是实账，不是怯。"
+          text: "（把算筹敲在案角）先把账说在前头，这不是怯：立刻开拔东下，光沿江铺开漕运接应，就得先支出一旬**粮草**，船队才吃得动。"
         },
         {
           type: "msg",
@@ -2552,7 +2645,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "default",
           tag: "拟写",
-          text: "要是再留旬月把江陵消化扎实——给降将安家、发酒肉赏钱，买他们夜里少磨刀，那就得先从府库支出一笔**钱帛**。"
+          text: "若再留旬月消化江陵——发安家赏钱、置办酒肉、买新降诸将夜里少摸刀把，就得先从府库掏出一笔**钱帛**。"
         }
       ],
       choices: [
@@ -2561,7 +2654,7 @@ window.CC_STORY = {
           label: "顺江东下，趁势压境会猎",
           bait: "诸将校目光发亮，信使已经把战马牵到堂外台阶下",
           isBait: true,
-          replyText: "兵贵神速！传令开拔，趁着江东君臣还在吵架，先把旗号插到巴丘江面！",
+          replyText: "趁江东君臣还在互相扯皮，先把帅旗插到巴丘江面！至于粮道——打穿柴桑，孙家的仓便是咱们的仓！",
           effects: { money: 0, grain: -1, troops: 0, vars: { haste: 1 } },
           reason: "顺江开拔，预支一旬漕运口粮",
           next: "N01a"
@@ -2571,7 +2664,7 @@ window.CC_STORY = {
           label: "再抚旬月，先稳江陵后方",
           bait: "帐内一瞬冷了半截，几名新立战功的校尉把牙咬得咯吱响",
           isBait: false,
-          replyText: "刚进荆州两天就往前莽冲，后院着了火谁救？先留下来发赏、点兵、稳住降人！",
+          replyText: "刚进荆州两天就往前莽冲，后院起火谁救？先留下来发赏、查仓、按住这帮降将的刀鞘！",
           effects: { money: -1, grain: 0, troops: 0, vars: { haste: 0 } },
           reason: "留驻抚安，支钱帛赏赐降将与安家",
           next: "N01b"
@@ -2590,7 +2683,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "warn",
           tag: "结算",
-          text: "……诺。江陵漕运先挖一旬口粮出来。船先吃饱，外头才好继续喊「水军八十万」。"
+          text: "……诺。江陵漕运先挖一旬口粮。船得先吃饱，外头才吹得动「八十万」。"
         },
         {
           type: "msg",
@@ -2598,12 +2691,23 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "ok",
           tag: "拟写",
-          text: "这就对了！明公这鼓点踩下去，江东今晚别想睡安稳觉！"
+          text: "痛快！明公这一嗓子下去，柴桑今晚别想有一只干枕头！"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "东进的帅旗率先升起。只是军医蹲在后营药箱边，看着新抬来的几个北方兵，迟迟没敢往下写人数。"
+          speaker: "巡营所见",
+          roleTag: "江陵湿阶",
+          tag: "巡营",
+          tone: "info",
+          text: "你走出闷热的偏厅，踏上**江陵府被潮气浸滑的石阶**。阶下几个新受官凭的荆州文吏正忙着扯正**崭新的紫绶衣带**；墙角一名书佐瞥见你的靴影，飞快把**一卷洇了水渍的竹简**缩回袖管。"
+        },
+        {
+          type: "msg",
+          speaker: "曹操",
+          roleTag: "心中",
+          tag: "暗忖",
+          tone: "accent",
+          text: "侧门边有人弯腰闷咳，见你转头立刻硬生生憋了回去。东进的旗先挂上了船桅——**只是没人敢报病号的名字**。"
         }
       ],
       next: "N02_jingzhou_court"
@@ -2620,7 +2724,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "ok",
           tag: "拟写",
-          text: "……谢明公肯听几句扫兴的实话。"
+          text: "……谢明公肯坐下来听扫兴的实账。"
         },
         {
           type: "msg",
@@ -2628,7 +2732,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "default",
           tag: "结算",
-          text: "赏钱今晚就发下去。荆州降将家里灯火一亮，帐外磨刀声总算小了些——也就小了一点点。"
+          text: "赏钱今晚就发下去。降将院里灯笼一亮，营后头的磨刀声总算轻了些——也就轻了一点点。"
         },
         {
           type: "msg",
@@ -2636,7 +2740,15 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "danger",
           tag: "拟写",
-          text: "（笑意不达眼底）明公图稳妥是好事。可「怯」这个字，只怕明天一早就先写进柴桑的议事堂里了。"
+          text: "（笑意没进眼底）明公图稳是好。只是明早**「怯」**这个字，多半先写进柴桑的酒席里了。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "江陵湿阶",
+          tag: "巡营",
+          tone: "info",
+          text: "你步出大帐走上**雨气未散的石阶**。檐灯下，刚换上新紫绶的荆州官吏正互相拱手扯平衣褶；廊柱暗处，一名书佐见你走近，慌忙把**一册潮湿的点兵名录**掩进胸前。"
         }
       ],
       next: "N02_jingzhou_court"
@@ -2647,7 +2759,7 @@ window.CC_STORY = {
       chapter: "贰 · 降将名册",
       mood: "calm",
       bubbles: [
-        { type: "divider", text: "贰 · 批阅《荆州降将名册》" },
+        { type: "divider", text: "贰 · 廊下翻看《荆州降将名册》" },
         {
           type: "msg",
           speaker: "议曹",
@@ -2655,7 +2767,7 @@ window.CC_STORY = {
           tone: "accent",
           tag: "拟写",
           condition: { var: "haste", op: ">=", val: 1 },
-          text: "前营正在装船，刚归顺的荆州大族却挤在府门外不肯散——都在等明公批红这本《归附名册》，才肯交出水营钥匙。"
+          text: "前营急着装船开拔，这群荆州大族却堵在阶下不肯散——**不在这本名册上蘸红笔，水营钥匙谁也不肯撒手**。"
         },
         {
           type: "msg",
@@ -2664,7 +2776,7 @@ window.CC_STORY = {
           tone: "default",
           tag: "拟写",
           condition: { var: "haste", op: "==", val: 0 },
-          text: "咱们既多留了几日整饬荆州，柴桑那头听见「曹军顿兵」反而松了口气。眼下最紧要的，是把这本《荆州降将名册》先过一遍筛子。"
+          text: "咱们既在江陵多留几日清账，柴桑听见「曹军顿兵」倒松了口气。眼下正好把这本《荆州降将名册》过遍细筛，**免得把空壳当宝贝接了**。"
         },
         {
           type: "msg",
@@ -2672,7 +2784,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "info",
           tag: "史载",
-          text: "头几页尽是{{gloss:wenpin}}、{{gloss:kuaiyue}}、{{gloss:hansong}}，末尾还夹着益州牧{{gloss:liuzhang}}派使送来的表文。字句个个漂亮，明公可得细瞧瞧里头的算盘。"
+          text: "头几页全是{{gloss:wenpin}}、{{gloss:kuaiyue}}、{{gloss:hansong}}，末页还夹着益州牧{{gloss:liuzhang}}送来的表文。字句个个赛过赋颂，明公不妨**拿指甲刮刮纸背**。"
         }
       ],
       widget: {
@@ -2684,16 +2796,16 @@ window.CC_STORY = {
           {
             id: "c1",
             quote: "襄阳旧将文聘，初闻王师临境闭门不见刘琮，及见明公乃涕泣顿首，言「不能保全州境，无颜早见」。",
-            clueTitle: "不降反而哭出高价？",
-            analysis: "曹操（心中记账）：别看他哭得鼻涕一把，真把旧主卖干净的贼精之辈反而不值钱。把文聘捧成忠义样板、授江夏太守，全荆州还在观望的将官今晚就能安心睡觉。",
+            clueTitle: "哭得越惨，身价越高？",
+            analysis: "曹操（心中算账）：「卖旧主比翻书还快的贼精到处都有，反倒是这种闭门不见、见面涕泣请罪的死心眼最值钱。把文聘捧成忠义样板、授江夏太守，荆州还在观望的官佐今晚全能踏实睡了。」",
             tone: "ok",
             vars: { clues_found: 1 }
           },
           {
             id: "c2",
             quote: "章陵太守蒯越等十余人率先奉表劝降，皆称「素无大志，深感明公仁德」，并附宗族田宅及水军旧籍请照旧例安置。",
-            clueTitle: "「素无大志」的红线",
-            analysis: "议曹（压低嗓子）：蒯越带头把荆州打包送来，嘴上说{{subtext:suxin_buyi}}、{{subtext:shen_gan_rende}}，附件里划的却是自家门阀田产、水营编制一寸不动的红线。封侯容易，这水营以后听谁的，可不好说。",
+            clueTitle: "「素无大志」的免税红线",
+            analysis: "议曹（压低嗓子）：「嘴上写满{{subtext:suxin_buyi}}、{{subtext:shen_gan_rende}}，翻到附件第三页——门阀田宅一亩不动、水营旧编制一寸不拆。降表越漂亮，讨价越狠。」",
             tone: "warn",
             vars: { clues_found: 1 }
           },
@@ -2701,7 +2813,7 @@ window.CC_STORY = {
             id: "c3",
             quote: "益州牧刘璋闻天威南临，遥遣别驾张松表敬，并调蜀卒数千东下「助丞相荡平江东，愿效犬马」。",
             clueTitle: "万里送兵图什么？",
-            analysis: "军候（冷笑）：益州平日连颗花椒都没朝许昌缴过，忽然送兵来{{subtext:yuanxiao_quanma}}？一半是派张松探虚实，一半是把蜀中刺头兵送来借刀消化。",
+            analysis: "军候（冷笑）：「益州往年连颗花椒都没往许昌缴过，这会儿忽然赶着{{subtext:yuanxiao_quanma}}？一半借张松来摸咱们的虚实，一半把蜀中刺头兵送来借刀消耗。」",
             tone: "info",
             vars: { clues_found: 1 }
           }
@@ -2723,7 +2835,7 @@ window.CC_STORY = {
           tone: "info",
           tag: "推演",
           condition: { var: "clues_found", op: ">=", val: 2 },
-          text: "明公眼力贼毒，这一本账底下谁在图田宅、谁在探虚实，全给您翻到底朝天了。可越是看透，越难拍板。"
+          text: "明公把这本名册翻了个透，谁护田产、谁探虚实全摸清了里子。可难题在这儿——**看穿每个人的价码，不等于不用付钱**。"
         },
         {
           type: "msg",
@@ -2731,7 +2843,7 @@ window.CC_STORY = {
           roleTag: "掾属",
           tone: "default",
           tag: "史载",
-          text: "照常规稳局法子，当传令荆州吏民{{subtext:yuzhi_gengshi}}，论劝降之功{{gloss:hou_fifteen}}，连韩嵩等名士一并破格引用。"
+          text: "按相府老规矩，先拿大印盖一张{{subtext:yuzhi_gengshi}}的顺情贴，再撒{{gloss:hou_fifteen}}金印，把荆州水军连人带船一口吞进名册！"
         },
         {
           type: "msg",
@@ -2739,7 +2851,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "warn",
           tag: "拟写",
-          text: "铸金印、发封侯赐帛得先支一笔**钱帛**；可换来荆州水军连船带人成建制入籍，前线立刻实增一营可用**兵力**！"
+          text: "铸金印、发封侯赐帛得先支一笔**钱帛**；可换来荆州水军连船带人成建制入籍，前线立刻实增一营可用**兵力**。"
         },
         {
           type: "msg",
@@ -2747,7 +2859,7 @@ window.CC_STORY = {
           roleTag: "亲卫",
           tone: "danger",
           tag: "拟写",
-          text: "（压低嗓子）敢全盘收编？不如把降营拆散混编、从北营抽老卒逐船监军！只是把刺头汰掉加上抽人看管，能上阵砍人的**兵力**当场得少掉一营，荆州士族今晚也得凉透心。"
+          text: "（压低嗓子）敢整锅端着吃？不如拆散混编、北营抽老兵逐船盯梢！只是筛掉刺头加抽人看管，能上阵砍人的**兵力**当场得少一营，荆州士族今晚也得把门闩死。"
         }
       ],
       choices: [
@@ -2756,7 +2868,7 @@ window.CC_STORY = {
           label: "与之更始，照单封侯整编水师",
           bait: "阶下荆州官吏齐齐叩首，水营点卯名册立刻厚了一截",
           isBait: true,
-          replyText: "不喜得荆州，喜得这批水陆人才！封侯十五人，文聘领江夏，水军照原建制即刻入账！",
+          replyText: "十五枚金印换一支现成水军，比在邺城挖十年池塘划算多了！封侯、授印、水营整编入账，文聘领江夏！",
           effects: { money: -1, grain: 0, troops: 1, vars: { jingzhou_trust: 1 } },
           reason: "封侯赐帛安抚降众，整编荆州水军实增一营",
           next: "N02a"
@@ -2766,7 +2878,7 @@ window.CC_STORY = {
           label: "拆散降营，北兵抽调逐船监押",
           bait: "韩嵩悄悄把拟好的谢恩表塞回袖底，阶下十几个降将脸如土灰",
           isBait: false,
-          replyText: "赏可以给，兵权不行！水师全部拆编，北营挑老兵上船盯着，宁肯少一营人，也不留整建制隐患！",
+          replyText: "爵位赏钱照发，船舵不能留原班底！水营全拆混编，北卒上船盯紧——宁可账面少一营，不留整串隐患！",
           effects: { money: 0, grain: 0, troops: -1, vars: { jingzhou_trust: 0 } },
           reason: "拆散降营汰除可疑，北兵抽调监军少一营",
           next: "N02b"
@@ -2785,7 +2897,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "ok",
           tag: "结算",
-          text: "十五枚列侯金印连夜铸发，荆州水营老卒欢天喜地挂上曹字帅旗，前军立刻多出一整营水军。"
+          text: "十五枚列侯金印连夜铸发，荆州水营欢天喜地换上曹字帅旗，前军立刻多出一整营水兵。"
         },
         {
           type: "msg",
@@ -2793,7 +2905,23 @@ window.CC_STORY = {
           roleTag: "亲卫",
           tone: "warn",
           tag: "拟写",
-          text: "（冷眼看着窗外）印刚领完，蒯家的人就回去核对免税田契了。只望真到水上动刀那天，这帮顺风兄弟别先解缆跑路。"
+          text: "（冷眼看着廊外）金印还没焐热，蒯家管家已经回去核对免税田契了。只望江上真动起刀来，这帮顺风兄弟**别先摸刀砍缆绳**。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "黄昏后营",
+          tag: "巡营",
+          tone: "cold",
+          text: "散议时暮色压下来，你拐过**后营低矮的医棚**。一阵**苦艾草混着陈醋的闷味**扑鼻而来；掀开的草帘缝里，一个北方新兵正弯腰**捂着袖口咳个不停**，外头杂役抬着没点数的竹床默默绕过。"
+        },
+        {
+          type: "msg",
+          speaker: "曹操",
+          roleTag: "心中",
+          tag: "暗忖",
+          tone: "accent",
+          text: "拿艾草和陈醋硬压热病汗臭——看来袖子里藏不住的那卷竹简，今晚要拍上桌了。"
         }
       ],
       next: "N03_plague_crisis"
@@ -2810,7 +2938,7 @@ window.CC_STORY = {
           roleTag: "亲卫",
           tone: "ok",
           tag: "结算",
-          text: "……末将这就去点名拆营。北营抽过去监押的弟兄虽少了一营战力，可至少船舱底下没人敢私藏火油。"
+          text: "……末将这就逐营拆编。北营抽去盯梢的弟兄虽少了一营战力，至少船舱底下**没人敢偷偷藏火油**。"
         },
         {
           type: "msg",
@@ -2818,7 +2946,15 @@ window.CC_STORY = {
           roleTag: "掾属",
           tone: "danger",
           tag: "拟写",
-          text: "（长叹一口气）江陵城头原本热闹得像过节，这一道令下去，半城士族的大门今晚全闩上了铁栓。"
+          text: "（长叹一口气）晌午江陵街头还热闹得像元宵，这一道令拍下去，半城世族的大门今晚全上了铁栓。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "黄昏后营",
+          tag: "巡营",
+          tone: "cold",
+          text: "走出冷冰冰的府门已近黄昏，你贴着**后营医棚**边走过。浓重的**苦艾草与陈醋气**从帐底漫出来；帘内河北卒子咳得胸膛发响，外头记数的小吏听见靴声，手忙脚乱合上了木匣。"
         }
       ],
       next: "N03_plague_crisis"
@@ -2836,7 +2972,7 @@ window.CC_STORY = {
           roleTag: "军医",
           tone: "danger",
           tag: "史载",
-          text: "（把一捆沾着水气的竹简按在案角）明公，不能再瞒了！眼下入冬盛寒，{{gloss:gaocao}}，北方弟兄又{{gloss:shuitu}}，今早又抬出去二十多个高热说胡话的！"
+          text: "（把一捆沾潮气的竹简按在案角）明公，艾草跟陈醋熏不住了！眼下入冬盛寒，{{gloss:gaocao}}，北军又{{gloss:shuitu}}，今早又抬出去二十多个高热说胡话的——**没人敢替您报总数**！"
         },
         {
           type: "msg",
@@ -2844,7 +2980,7 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "warn",
           tag: "史载",
-          text: "刚收到的细作密报：周瑜在孙权堂上力主开战，指着鼻子算准了咱们「远涉江湖，必生疾病」！"
+          text: "细作刚递回柴桑的消息：周瑜在孙权堂上押上身家主战，算准的就是咱们**「远涉江湖，必生疾病」**。"
         },
         {
           type: "msg",
@@ -2853,7 +2989,7 @@ window.CC_STORY = {
           tone: "accent",
           tag: "拟写",
           condition: { var: "haste", op: ">=", val: 1 },
-          text: "可大军东下已成既定之势，恐吓江东的「水军八十万」战书都送出门了！这时候自报染疫减员，柴桑拿到简报能笑醒！"
+          text: "可「八十万」战书已经递出门，东下大旗也竖起来了！这时候自报染疫减员，**柴桑拿到简报得笑出眼泪**！"
         },
         {
           type: "msg",
@@ -2862,7 +2998,7 @@ window.CC_STORY = {
           tone: "default",
           tag: "拟写",
           condition: { var: "haste", op: "==", val: 0 },
-          text: "明公在江陵已经多顿了一旬，外头早有闲话说大军迟疑不敢过江。这会儿再把病籍摊在明面上，前锋该连桨都懒得摇了。"
+          text: "明公在江陵已经多顿了一旬，外头早传咱们迟疑不敢过江。这时候再把病籍摊在明面上，前锋怕是连桨都懒得摇了。"
         },
         {
           type: "msg",
@@ -2870,7 +3006,7 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "info",
           tag: "拟写",
-          text: "大军冬日行军哪个不闹点风寒？把竹简塞回袖子里，{{subtext:wuluan_junxin}}——只要纸面上还稳稳顶着八十万的名头，**一兵不用扣**，孙权自己就得吓破半个胆！"
+          text: "哪回冬天行军不打几个喷嚏？把那捆发潮的竹简塞回袖筒，{{subtext:wuluan_junxin}}——只要江东还听得见「八十万」三字，账面**一兵不用扣**，孙权夜里照样发抖！"
         },
         {
           type: "msg",
@@ -2878,7 +3014,7 @@ window.CC_STORY = {
           roleTag: "军医",
           tone: "warn",
           tag: "拟写",
-          text: "（声音发干）要按诸将意思报喜不报忧，名册我一笔不动，大伙照旧混在一起吃睡硬扛；若要真止疫保命，必须立刻把病卒移上北岸隔离、名册除名，可战**兵力**立少两营！"
+          text: "（声音发干）报喜不报忧，名册我一笔不动，大伙继续挤在潮舱里拿命硬扛；若要真救人，立刻把病卒移上北岸隔离除名，可战**兵力**立少两营！"
         },
         {
           type: "msg",
@@ -2886,7 +3022,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "default",
           tag: "拟写",
-          text: "（推了推算筹补一刀）病营不能再跟大营混锅吃饭。另起药灶单煮热汤粳米、姜汤柴薪，还得从大仓再单拨一笔**粮草**。"
+          text: "（拨开算筹补一刀）病营不能再跟大营吃大锅饭。另起药灶单煮热米汤、配姜汤柴薪，还得从江陵仓单拨一笔**粮草**。"
         }
       ],
       choices: [
@@ -2895,7 +3031,7 @@ window.CC_STORY = {
           label: "压下疫报，名册一字不改",
           bait: "帐里众人齐齐长舒一口气，连夜把「大军鼎盛」的文书往各营发",
           isBait: true,
-          replyText: "军中偶感寒湿而已，何必大惊小怪自堕声势！名册封存，严禁私下议论病数！",
+          replyText: "仗还没过江，先拿一份病号单子替周瑜壮胆？病籍锁进药箱底，外头谁敢私报病数，按动摇军心论处！",
           effects: { money: 0, grain: 0, troops: 0, vars: { haste: 1, plague_honesty: 0 } },
           fakeTroopBadge: "+0（仍号八十万 · 未计病卒）",
           reason: "压下疫报不改名册，虚保八十万声势",
@@ -2906,7 +3042,7 @@ window.CC_STORY = {
           label: "当众摊牌，移岸隔离单开药灶",
           bait: "帐中瞬间冷成冰窖，几名北方将把脸别向门外冷哼了一声",
           isBait: false,
-          replyText: "死人又不能替孤划船！按医曹说的办：病卒全部移往北岸隔离除名，药灶单独支粮，账难看孤自己兜着！",
+          replyText: "死人难道能替孤摇桨？按医曹说的办：病卒全移北岸隔离除名，药灶单支米粮——这本难看的账，孤自己兜着！",
           effects: { money: 0, grain: -1, troops: -2, vars: { haste: 0, plague_honesty: 1 } },
           reason: "病卒移岸除名减两营，另起药灶单支粮草",
           next: "N03b"
@@ -2925,7 +3061,7 @@ window.CC_STORY = {
           roleTag: "军医",
           tone: "warn",
           tag: "结算",
-          text: "（默默把竹简塞回袖袋）……诺。账面上一兵不缺，营里都是铁打的好汉，没人得病。"
+          text: "（默默把竹简塞回袖袋）……诺。账面上**一兵不缺**，营里都是铁打的好汉。"
         },
         {
           type: "msg",
@@ -2933,12 +3069,15 @@ window.CC_STORY = {
           roleTag: "前锋驿",
           tone: "danger",
           tag: "史载",
-          text: "大军进抵{{gloss:baqiu}}、顺江压至赤壁，与周瑜、刘备碰了第一回头——前锋拉弓打摆子，初战不利，退扎江北{{gloss:wulin}}！"
+          text: "大军过{{gloss:baqiu}}压至赤壁，与周瑜、刘备碰了第一回头——前锋拉弓直打摆子，初战不利，退扎江北{{gloss:wulin}}！"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "花名册还在医曹袖子里捂着。只是每回入夜换岗，抬进苇塘那边的草席都比前一天沉两分。"
+          speaker: "巡营所见",
+          roleTag: "乌林湿码头",
+          tag: "巡营",
+          tone: "cold",
+          text: "败退回乌林时正落冷雨，码头栈道湿滑得站不住脚。几名河北骑兵**脸绿地扒着船帮干呕**，旁边两个荆州水手互看一眼，**默不作声地往浑江里啐了口唾沫**；苇塘边新抬下的草席，一卷比一卷沉。"
         }
       ],
       next: "N04_hefei_alarm"
@@ -2955,7 +3094,7 @@ window.CC_STORY = {
           roleTag: "军医",
           tone: "ok",
           tag: "结算",
-          text: "……谢明公肯看真账。臣这就划营隔离，先保住没倒下的弟兄。"
+          text: "……谢明公肯看真账。臣连夜划出北岸隔离营，先保住没倒下的弟兄。"
         },
         {
           type: "msg",
@@ -2963,7 +3102,7 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "danger",
           tag: "拟写",
-          text: "（憋红了脸）还没见着周瑜船影，先自砍两营人马、贴进去一笔军粮——传到江东去，人家真当我曹军是来沿江养病的！"
+          text: "（憋红了脸）没见周瑜船影先自砍两营、赔进去一笔军粮——传到江东，人家真当咱们是**来长江办养病庄子的**！"
         },
         {
           type: "msg",
@@ -2971,7 +3110,15 @@ window.CC_STORY = {
           roleTag: "前锋驿",
           tone: "warn",
           tag: "史载",
-          text: "大军进至{{gloss:baqiu}}、随即在赤壁与敌初战不利，引军退扎江北{{gloss:wulin}}；只是病营早早留在了北岸，前线大营里的咳嗽声总算轻了一半。"
+          text: "大军抵{{gloss:baqiu}}、赤壁初交锋仍吃了个闷亏，退守江北{{gloss:wulin}}；好在病营早留在了上游北岸，前线咳嗽声少了一半。"
+        },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "乌林湿码头",
+          tag: "巡营",
+          tone: "cold",
+          text: "你踩着打滑的木板走过乌林码头。曾在官渡、长坂冲阵的河北壮汉**扶着船帮吐得脸色发青**，岸边荆州老水卒见了，转过头**悄悄往江水里吐了口口水**。"
         }
       ],
       next: "N04_hefei_alarm"
@@ -2984,12 +3131,20 @@ window.CC_STORY = {
       bubbles: [
         { type: "divider", text: "肆 · 建安十三年十二月 · 合肥急报" },
         {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "乌林中军门外",
+          tag: "衔接",
+          tone: "fire",
+          text: "鞋底还粘着码头的江泥，帐外忽然一阵乱蹄崩响——一匹口吐白沫的驿马栽倒在鹿砦前，信使糊着一脑门雪泥滚进了帅帐。"
+        },
+        {
           type: "msg",
           speaker: "驿使",
           roleTag: "淮南急递",
           tone: "fire",
           tag: "史载",
-          text: "（连滚带爬扑进帅帐）八百里急报！！孙权亲自统率大军围攻{{gloss:hefei}}！{{gloss:huainan}}军民日夜死守，若再无援兵，东线门户恐难支持！"
+          text: "八百里急报！！孙权亲自统兵围攻{{gloss:hefei}}！{{gloss:huainan}}守军快把牙咬碎了，再无援兵，东线门户就要被端了！"
         },
         {
           type: "msg",
@@ -2997,7 +3152,7 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "warn",
           tag: "拟写",
-          text: "好个孙仲谋！正面叫周瑜跟咱们在乌林耗着，背面亲自去端咱们的淮南后门！"
+          text: "好毒的孙仲谋！正面叫周瑜在乌林泥潭里跟咱们耗着，背面亲自跑去撬咱们的淮南后门！"
         },
         {
           type: "msg",
@@ -3005,43 +3160,46 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "default",
           tag: "拟写",
-          text: "怕什么！咱们在长坂一天一夜跑三百里都没累垮，合肥城墙厚实，孙权那小子啃不动的——多半是地方官吓破胆谎报！"
+          text: "慌什么！长坂一天一夜跑三百里咱们都没喘过气，合肥城墙厚实，孙权那小子啃不动的——多半是地方官吓破胆夸张！"
         },
         {
-          type: "narrator",
-          tag: "旁白",
-          text: "一边是刚打了场闷仗的乌林前线，一边是快被捅穿的淮南后门。帐内嗡嗡吵成一锅粥，都在等你先定调。"
+          type: "msg",
+          speaker: "曹操",
+          roleTag: "心中",
+          tag: "暗忖",
+          tone: "accent",
+          text: "前门陷在烂江泥里，后门让人拿攻城锤砸得山响——偏偏帐里还有人拿长坂追逃兵当顺风标。"
         }
       ],
       widget: {
         type: "quip",
-        prompt: "帐中静了一瞬，你打算拿哪句话压住这屋子的噪杂？",
+        prompt: "帐内嗡嗡吵成一锅粥，你打算拿哪句话先摁住这屋子的噪杂？",
         options: [
           {
             label: "冷笑压场：他越拿合肥当饵，孤越不让他见我皱半寸眉头",
             style: "霸气威压",
-            replyText: "孙仲谋不过虚晃一枪想逼孤回头！越是这个时候，越不能让南岸看咱们慌了手脚！",
+            replyText: "孙仲谋虚晃一枪想逼孤回头！越是这时候，越不能叫南岸瞧出咱们鞋底发虚！",
             responseSpeaker: "参谋",
             responseTone: "accent",
-            responseText: "（精神一振）明公这话够稳！东线虚实虽然要紧，军心却先稳住七分了。",
+            responseText: "（精神一振）明公这话够硬气！东线虽悬，军心倒先摁住七分。",
             vars: { wit_sharp: 1 }
           },
           {
             label: "毒舌拆台：长坂是追逃兵，合肥城头可没刘琮出来递印",
             style: "毒舌拆台",
-            replyText: "长坂跑得欢，那是因为前头是刘备在抱头鼠窜；合肥城外可是孙权拿真家伙砸墙，少拿昔日威风替人家挡箭！",
+            replyText: "长坂跑得欢，那是因为前头是刘备抱头鼠窜；合肥外头是孙权拿真家伙砸门，少拿老黄历替人家挡箭！",
             responseSpeaker: "北方将",
             responseTone: "warn",
-            responseText: "（脖子一缩，立刻闭嘴退回班列）……末将失言，不敢轻忽东线。",
+            responseText: "（脖子一缩，灰溜溜退回班列）……末将失言，不敢轻忽东线。",
             vars: { wit_sharp: 1 }
           },
           {
-            label: "冷面算账：别扯威风，淮南丢了许昌的粮车走哪条水路？",
+            label: "冷面算账：别背兵书，淮南丢了许昌的粮车走哪条水路？",
             style: "冷面算账",
-            replyText: "都闭嘴！少替孤背兵书——谁来算一笔：淮南若破，汴水粮道一断，咱们拿什么过冬？",
+            replyText: "都闭嘴！算一笔实在账：淮南若破，汴水粮道一断，咱们拿什么熬过这个腊月？",
             responseSpeaker: "管粮吏",
             responseTone: "info",
-            responseText: "（猛一拍大腿）终于有人问到命根子上了！明公，汴水若阻，许昌春运全得卡死！",
+            responseText: "（猛拍大腿）终于有人问到命根子上了！明公，汴水若阻，明年春运全得瘫在半道！",
             vars: { wit_sharp: 1 }
           }
         ]
@@ -3060,7 +3218,7 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "accent",
           tag: "史载",
-          text: "明公既在乌林与敌相持，老臣建议折中：主力不退，派{{gloss:zhangxi}}率偏师星夜东援合肥！{{subtext:pianshi_zuyi}}，孙权闻风必疑！"
+          text: "老臣有个折中法子：主力一步不退，派{{gloss:zhangxi}}率偏师星夜驰援合肥！{{subtext:pianshi_zuyi}}，孙权闻风多半自己犯嘀咕。"
         },
         {
           type: "msg",
@@ -3068,7 +3226,7 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "default",
           tag: "拟写",
-          text: "（声音压低）可话说回来——万一长江没咬下、合肥又真扛不住，明公就是两线齐塌，许昌门阀连夜都得炸锅。"
+          text: "（压低嗓子）只是话说回来——万一长江没咬下、合肥又没顶住，**许昌门阀的弹劾折子连夜就能把相府门槛压塌**。"
         },
         {
           type: "msg",
@@ -3076,7 +3234,7 @@ window.CC_STORY = {
           roleTag: "仓曹",
           tone: "warn",
           tag: "拟写",
-          text: "真要派张熹东去，前线大营立刻抽走一营可用**兵力**，还得单拨一路快马急行的**粮草**，账面可就更瘦了。"
+          text: "派张熹东去，乌林前线立刻抽掉一营可用**兵力**，还得单拨一车急行**粮草**，账面可就更瘦了。"
         },
         {
           type: "msg",
@@ -3084,7 +3242,7 @@ window.CC_STORY = {
           roleTag: "资深斥候",
           tone: "danger",
           tag: "拟写",
-          text: "不如一兵不抽死压长江！只从府库支一笔**钱帛**重赏急递、买合肥死士死守——只要南岸砸穿周瑜，东吴自然撤围！"
+          text: "不如一兵不抽死压长江！只从府库支一笔**钱帛**重赏急递、买合肥死士死守——只要南岸砸穿周瑜，孙权自己就得滚回江东！"
         }
       ],
       choices: [
@@ -3093,7 +3251,7 @@ window.CC_STORY = {
           label: "遣张熹偏师赴援，主力死压长江",
           bait: "众将官松了口气，直夸「两头皆顾，不失王师气象」",
           isBait: true,
-          replyText: "令张熹即刻领一营精骑带足行粮星夜救合肥！主力一步不退，孤要叫孙权两头落空！",
+          replyText: "令张熹即刻领一营精骑带足行粮星夜救合肥！主力一步不退，孤要叫孙权两头扑空！",
           effects: { money: 0, grain: -1, troops: -1, vars: { hefei_aid: 1 } },
           reason: "遣张熹偏师赴援合肥，抽调一营兵力并拨行粮",
           next: "N04a"
@@ -3103,7 +3261,7 @@ window.CC_STORY = {
           label: "一兵不抽，支钱帛买合肥死守",
           bait: "几个淮南籍的偏将脸色瞬间发白，咬紧牙关低头看靴尖",
           isBait: false,
-          replyText: "分兵两头救，两头都不稳！开库支钱帛悬赏合肥死士死守一月，前线一兵一卒不准动！",
+          replyText: "分兵两头救，两头都不牢！开库支钱帛重赏合肥死士顶住一月，乌林前线一兵一卒不准动！",
           effects: { money: -1, grain: 0, troops: 0, vars: { hefei_aid: 0 } },
           reason: "孤注赌长江不抽兵，支钱帛重赏合肥死守",
           next: "N04b"
@@ -3122,12 +3280,15 @@ window.CC_STORY = {
           roleTag: "驿骑",
           tone: "default",
           tag: "结算",
-          text: "张熹领着偏师并一队快马粮车连夜往东狂奔。大营点卯时，前排明晃晃空出一块缺口。"
+          text: "张熹领着偏师并一队快马粮车连夜扎进东边风雪。晨起大营点卯，左翼校场明晃晃**空出一大块**。"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "东边稳住了心神，留在乌林江畔的人马却更瘦了一圈；江面风浪又大了一号。"
+          speaker: "巡营所见",
+          roleTag: "乌林北岸",
+          tag: "巡营",
+          tone: "cold",
+          text: "送走援军，你迎着风沙走回江岸。岸上头盔瘦了一圈，江面的白浪却又高出一头。"
         }
       ],
       next: "N05_iron_chains"
@@ -3144,12 +3305,15 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "warn",
           tag: "结算",
-          text: "重赏死令连同赏钱八百里砸向淮南。大营里兵马丝毫未少——只是没人敢随便往东边看。"
+          text: "死守密令连同一箱**钱帛**八百里砸向淮南。大营兵马一根汗毛没少——只是夜里谁也不敢往东边看。"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "你把全部筹码都押在了面前的这条大江上。从今晚起，乌林这一仗只许撑住，不许砸锅。"
+          speaker: "巡营所见",
+          roleTag: "乌林北岸",
+          tag: "巡营",
+          tone: "cold",
+          text: "你把全副家底都押在了面前这条寒江上。从今晚起，乌林这一局**只准硬扛，不许砸锅**。"
         }
       ],
       next: "N05_iron_chains"
@@ -3160,14 +3324,22 @@ window.CC_STORY = {
       chapter: "伍 · 铁索连舟",
       mood: "tense",
       bubbles: [
-        { type: "divider", text: "伍 · 乌林对峙 · 北兵要稳船" },
+        { type: "divider", text: "伍 · 乌林水寨 · 北兵要稳船" },
+        {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "乌林栈桥",
+          tag: "巡营",
+          tone: "default",
+          text: "走回乌林水寨的湿滑栈桥，北风刮得人脸生疼。桥头几个河北骑兵**抓着船缆吐得面如菜色**；两个荆州水兵斜眼瞟着，**默默往黑浪里啐了口唾沫**。"
+        },
         {
           type: "msg",
           speaker: "军候",
           roleTag: "水寨巡夜",
           tone: "default",
           tag: "史载",
-          text: "两家在乌林隔江{{subtext:chizhong_daiji}}。年初在邺城{{gloss:xuanwuchi}}好歹练了半年舟师，谁料死池塘跟长江寒浪两码事——北兵站上甲板腿就打颤，文书里却只敢写成{{subtext:shizu_weilao}}！"
+          text: "隔江{{subtext:chizhong_daiji}}耗到如今。年初在邺城{{gloss:xuanwuchi}}好歹练了半年水军，谁料死池塘跟长江寒浪根本两码事——北兵上船腿就打颤，文书偏只敢写成{{subtext:shizu_weilao}}。"
         },
         {
           type: "msg",
@@ -3176,7 +3348,7 @@ window.CC_STORY = {
           tone: "warn",
           tag: "拟写",
           condition: { var: "plague_honesty", op: "==", val: 0 },
-          text: "更麻烦的是船舱里好些弟兄脸青得吓人——外头说是江浪晃的，其实袖子里那份病册正在暗暗兑账。"
+          text: "更麻烦的是底舱好些弟兄脸青得发灰——嘴上说是江浪晃的，实则**袖子里那卷没入账的病册正在悄悄兑账**。"
         },
         {
           type: "msg",
@@ -3185,7 +3357,7 @@ window.CC_STORY = {
           tone: "ok",
           tag: "拟写",
           condition: { var: "plague_honesty", op: ">=", val: 1 },
-          text: "病号早先都挪上北岸隔离了，船上倒没成片躺倒；只是剩下的健卒照样{{subtext:zanwei_shuxi}}，扶着船帮吐得昏天黑地。"
+          text: "好在病号早挪去北岸隔离了，船上没成片躺倒；只是剩下来的健卒照样{{subtext:zanwei_shuxi}}，**扶着船舷把隔夜饭都吐干净了**。"
         },
         {
           type: "msg",
@@ -3193,7 +3365,7 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "accent",
           tag: "史载",
-          text: "明公快把{{gloss:mengchong_doujian}}首尾用大铁索锁死、铺上木板当陆营使！弟兄们踩得稳才拉得开强弩，再不连稳，夜里准有旱鸭子跳船跑回江陵！"
+          text: "明公快把{{gloss:mengchong_doujian}}首尾用大铁索锁死、铺厚木板当陆营使！踩得稳才拉得开强弩，今晚再不连稳，天亮前准有旱鸭子**跳船游回江陵**！"
         },
         {
           type: "msg",
@@ -3202,7 +3374,7 @@ window.CC_STORY = {
           tone: "danger",
           tag: "史载",
           condition: { var: "jingzhou_trust", op: ">=", val: 1 },
-          text: "（感念封赏之恩，硬着头皮压低嗓音）明公！南人水战最爱放火！船一旦首尾咬死，起了顺风火谁也解不开缆绳！该分屯散泊、多派{{gloss:zouge}}巡江防火！"
+          text: "（念着先前封赏旧情，硬着头皮压低嗓子）明公三思！南人打水仗最爱放火。船一旦首尾咬死，起了顺风火谁也解不开缆绳！该分屯散泊、多撒{{gloss:zouge}}巡江防火！"
         },
         {
           type: "msg",
@@ -3211,7 +3383,7 @@ window.CC_STORY = {
           tone: "default",
           tag: "史载",
           condition: { var: "jingzhou_trust", op: "==", val: 0 },
-          text: "（隔着监军北兵冷冰冰补一句）提醒一声罢了：南军最喜火攻。船钉死就一烧一片——依水战规矩本该分屯散泊、留{{gloss:zouge}}巡哨，听不听由贵营。"
+          text: "（隔着监军北兵冷笑半声）顺嘴提醒一句：南军顶爱放火。船锁成一块正好省得挑靶子——老规矩本该分屯散泊、留{{gloss:zouge}}巡哨，听不听随贵军。"
         },
         {
           type: "msg",
@@ -3219,7 +3391,7 @@ window.CC_STORY = {
           roleTag: "工坊",
           tone: "warn",
           tag: "拟写",
-          text: "（摊开工坊账）若依北方诸将钉死连舟，熟铁链、松木栈板与工匠赶工赏钱，得先从江陵工坊支一笔**钱帛**。"
+          text: "（摊开工坊簿）若依北将钉死连舟，熟铁链、松木栈板与工匠赶工赏钱，得先从江陵工坊支一笔**钱帛**。"
         },
         {
           type: "msg",
@@ -3236,7 +3408,7 @@ window.CC_STORY = {
           label: "首尾连舟，铁索钉成水上大营",
           bait: "北方诸将齐声欢呼，连扶着门框呕吐的校尉都挺直了腰",
           isBait: true,
-          replyText: "船上都站不稳还谈什么打仗！开钱帛催江陵工坊连夜打铁索、钉木板，连成铁板一块！",
+          replyText: "船上都站不直还谈什么射箭！支钱帛催江陵工坊连夜打铁索、铺木板，把水寨锁成一块铁板！",
           effects: { money: -1, grain: 0, troops: 0, vars: { loose_ships: 0 } },
           reason: "江陵工坊连夜打造铁索木板，支钱帛赶工",
           next: "N05a"
@@ -3246,7 +3418,7 @@ window.CC_STORY = {
           label: "分屯散泊，严禁连环留出水道",
           bait: "北营将校把铁盔往地上狠狠一摔，帐外一片怨骂",
           isBait: false,
-          replyText: "水战不是陆战！宁可让北兵吐着打，也不能把几百条船绑成一座火葬场！散泊分屯，留足救火水道！",
+          replyText: "水战到底不是跑马！宁可让北兵吐着打，也不能把几百条船绑成一座水上柴垛！散泊分屯，留足救火水道！",
           effects: { money: 0, grain: 0, troops: -1, vars: { loose_ships: 1 } },
           reason: "分屯散泊江浪晃荡，北兵晕船不能列阵减一营",
           next: "N05b"
@@ -3265,7 +3437,7 @@ window.CC_STORY = {
           roleTag: "工坊",
           tone: "warn",
           tag: "结算",
-          text: "……诺，连夜发钱帛催工匠叮当打铁索、架跳板。"
+          text: "……诺，连夜发**钱帛**催工匠打铁索、钉松木跳板。"
         },
         {
           type: "msg",
@@ -3273,12 +3445,15 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "ok",
           tag: "拟写",
-          text: "（用力跺了跺甲板）踏实！跟踩着许昌青石板一样，明早就能练强弩阵！"
+          text: "（重重跺了两脚甲板）纹丝不动！跟踩在**许昌大青砖**上似的，明早总算能练强弩齐射！"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "敲铁链的叮当声响了一宿，听着像在长江上打地基。岸边巡夜的伙夫偶尔嗅到一丝松油味，只当是修船桐油，打个哈欠翻身睡了。"
+          speaker: "巡营所见",
+          roleTag: "连舟甲板",
+          tag: "夜巡",
+          tone: "info",
+          text: "夜深后你提灯**走上新连好的甲板**。厚木板在靴底稳得像许昌官砖，铁匠砸铁环的叮当声响了一整夜，听着像在长江上打地基。拐到背风船舷时，一丝极淡的**松油味**擦着转身飘来——巡夜伙夫吸了吸鼻子，只当是修船桐油，打个哈欠钻回舱里。"
         }
       ],
       next: "N06_huanggai_letter"
@@ -3295,12 +3470,15 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "danger",
           tag: "结算",
-          text: "（把点卯竹简拍在案上）船散成这样，吐趴下的兄弟枪都抓不稳，明早直接少一营人——这水仗明公自己找水鬼打去吧！"
+          text: "（把点卯竹简啪地拍在案上）船散成这样，吐趴下的兄弟枪都攥不住，明早点卯直接少一营人——这水仗明公自己找水鬼打去吧！"
         },
         {
           type: "narrator",
-          tag: "旁白",
-          text: "战船散成江心几十点寒星，呕吐声混着拍船浪声响了一夜；老水卒蹲在舱尾，默默把救火木桶又多加满两只。"
+          speaker: "巡营所见",
+          roleTag: "散泊水寨",
+          tag: "夜巡",
+          tone: "cold",
+          text: "入夜后你踩着摇晃的跳板走过几条散泊战舰。黑浪里几十点孤灯各自起伏，甲板上呕吐声混着水声响了一宿；船尾一个老水手却一声不吭，默默**又往救火木桶里舀满两瓢江水**。"
         }
       ],
       next: "N06_huanggai_letter"
@@ -3313,12 +3491,20 @@ window.CC_STORY = {
       bubbles: [
         { type: "divider", text: "陆 · 建安十三年冬夜 · 黄盖密信" },
         {
+          type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "江岸巡哨",
+          tag: "夜巡",
+          tone: "fire",
+          text: "半夜你沿江岸巡哨，吹了半个月、冻裂耳朵的北风**突然齐刷刷断了档**；紧接着，一股带着水腥气的温软**东南风**，直扑扑贴着你的脸吹了过来。"
+        },
+        {
           type: "msg",
           speaker: "密信吏",
           roleTag: "暗桩",
           tone: "info",
           tag: "史载",
-          text: "（急步掀帘）机密急信！江东三世老将黄盖托心腹冒死送来密书，称愿携粮船十余艘与部曲趁夜来降！"
+          text: "（急步掀帘）机密急报！江东三世老臣黄盖托心腹摸黑送来密书，称愿携粮船十余艘与部曲趁夜来降！"
         },
         {
           type: "msg",
@@ -3327,7 +3513,7 @@ window.CC_STORY = {
           tone: "accent",
           tag: "拟写",
           condition: { var: "loose_ships", op: "==", val: 0 },
-          text: "瞧见没！咱们的铁索水寨刚连成铜墙铁壁，江面上黑压压一座水上大城——黄盖隔江一瞧，心先凉了一半，这不就派人送投名状来了！"
+          text: "明公瞧！咱们的铁索水寨刚连成铜墙铁壁，江心一座黑压压的水上大城——黄盖隔江一眼瞧凉了半截，**连夜送投名状来了**！"
         },
         {
           type: "msg",
@@ -3336,12 +3522,33 @@ window.CC_STORY = {
           tone: "default",
           tag: "拟写",
           condition: { var: "loose_ships", op: ">=", val: 1 },
-          text: "咱们分屯死熬总算稳住了阵脚——连孙家三世老将都觉着江东扛不住，偷偷派人递降书来了！"
+          text: "咱们分屯死熬总算稳住了阵脚！连孙家三世老将都看出江东扛不过这个冬天，偷偷递降书来了！"
         },
         {
-          type: "narrator",
-          tag: "史载",
-          text: "你指尖刚展开那封带着鱼腥水气的密书——账帘外呼啸了半个月的北风突然一停，随即换作一股贴着人脸直吹过来的急**东南风**。"
+          type: "msg",
+          speaker: "参谋",
+          roleTag: "议曹",
+          tone: "ok",
+          tag: "拟写",
+          condition: { var: "plague_honesty", op: "==", val: 0 },
+          text: "这信来得简直像老天递枕头！营里那些杂病正愁瞒不住，不战而收黄盖一营，连「八十万」的台面都一并赚回来了！"
+        },
+        {
+          type: "msg",
+          speaker: "参谋",
+          roleTag: "议曹",
+          tone: "info",
+          tag: "拟写",
+          condition: { var: "plague_honesty", op: ">=", val: 1 },
+          text: "前阵子当众减员，大伙心里正憋着火——趁夜收了黄盖一营，这口恶气也就顺出来了！"
+        },
+        {
+          type: "msg",
+          speaker: "曹操",
+          roleTag: "心中",
+          tag: "暗忖",
+          tone: "accent",
+          text: "北风半夜刚转东南，江东老将偏巧就在今晚运粮投诚？纸面写得再动情，先捏开封泥查查成色。"
         }
       ],
       widget: {
@@ -3353,24 +3560,24 @@ window.CC_STORY = {
           {
             id: "c4",
             quote: "盖今已备蒙冲斗舰十余艘，尽载军粮军械趁夜来附，望明公速开水寨纳之。",
-            clueTitle: "满船军粮，吃水怎么高出两尺？",
-            analysis: "老成参谋（压低声音）：「斥候刚借月色回报——十来艘自称满载粳米的蒙冲，船身吃水却比平时轻出一截！除非里头塞的不是米，是干燥芦苇浇猛火油！」曹操（眯眼）：「好轻快的米啊，一阵风都能吹飘了。」",
+            clueTitle: "满船粳米，吃水怎会高出两尺？",
+            analysis: "老成参谋（压低声音）：「斥候借月色贴近瞟过——十来艘号称装满军粮的蒙冲，吃水却比空船还轻一截！里头塞的不是大米，八成是枯芦苇浇满猛火油！」曹操（眯眼）：「莫非江东今年改种空壳轻稻了？」",
             tone: "warn",
             vars: { clues_found: 1 }
           },
           {
             id: "c5",
             quote: "惟大江水急，必俟东南风起、顺水疾行，始克于今夜子时前直抵大营前寨。",
-            clueTitle: "投降还要看黄历等风向？",
-            analysis: "老成参谋：「逃命投降哪有专挑东南急风夜出发的？顺风顺水直往咱们寨门口扎，撞进来刹车都刹不住！」曹操（摸着短须）：「周瑜账下这气象先生，挑日子挑得真准啊。」",
+            clueTitle: "逃命投降还要先看风向黄历？",
+            analysis: "老成参谋：「逃命投降哪有专挑东南急风夜出发的？顺风顺水直往咱们寨门里扎，勒缆都勒不住！」曹操（摸着短须）：「周瑜帐下这看风先生，掐点掐得比打更的还准。」",
             tone: "fire",
             vars: { clues_found: 1 }
           },
           {
             id: "c6",
             quote: "盖受孙氏厚恩，然与周瑜素有宿怨，耻居其下；今唯率部曲死士赴义，愿效犬马。",
-            clueTitle: "全族老幼全留柴桑？",
-            analysis: "曹操（指尖敲了敲案面）：「黄公覆宗族老幼百十口全在柴桑！真要反水投曹，信里连怎么接应家眷半个字都不提，光带着一帮壮丁往我怀里冲？这哪是降表，这是死士卖身契！」",
+            clueTitle: "全族老幼全留柴桑人质堆里？",
+            analysis: "曹操（指节叩案）：「黄公覆一大家子百十口全在柴桑！真要反水投曹，通篇半个字不提怎么接应家眷，光领着一群壮丁往我怀里冲？这哪是降表，分明是自带火折子的死士卖身契。」",
             tone: "danger",
             vars: { clues_found: 1 }
           }
@@ -3392,7 +3599,7 @@ window.CC_STORY = {
           tone: "info",
           tag: "推演",
           condition: { var: "clues_found", op: ">=", val: 4 },
-          text: "（冷汗冒出额角）明公把那信都拆穿成筛子了……可满帐将吏眼睛全亮着，真打算当众驳回这桩「天大喜事」吗？"
+          text: "（冷汗渗出额角）明公把那信戳得像筛子了……可满帐将吏眼睛都亮着，**真打算当众泼这盆冷水**、把「天大喜事」摁回去？"
         },
         {
           type: "msg",
@@ -3400,7 +3607,7 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "accent",
           tag: "拟写",
-          text: "黄盖跟周瑜{{subtext:suyou_suyuan}}，江东无人不知！如今{{subtext:tianming_suogui}}，明公只要准他靠岸、亲出大帐立观受降——不战而屈江东就在今夜！"
+          text: "黄盖跟周瑜{{subtext:suyou_suyuan}}，江东茶馆都在传！眼下{{subtext:tianming_suogui}}，明公只要准他靠岸、亲出大帐立观受降——**江南半壁今晚就能签进账本**！"
         },
         {
           type: "msg",
@@ -3408,7 +3615,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "ok",
           tag: "拟写",
-          text: "（捧着砚台喜气洋洋）受降露布的标题臣都起好了！况且既要受降，今晚连加派巡船的火油、弩士加岗赏钱都省了——**府库一文钱帛不动**！"
+          text: "（抱着砚台笑成一朵花）受降露布的标题臣都拟好了！况且既要受降，今晚连加派巡船的火油、弩士夜岗赏钱全免——**府库一文钱帛不动**！"
         },
         {
           type: "msg",
@@ -3416,7 +3623,7 @@ window.CC_STORY = {
           roleTag: "参军",
           tone: "danger",
           tag: "拟写",
-          text: "（盯着灯盏里猛晃的火舌）诸位都疯了！今夜这东南风吹得邪门，船又吃水浅——依老朽笨法子：不准他靠岸！令其远泊江心，调强弩营沿江加双岗、隔水点名验船！"
+          text: "（死盯着灯盏里被吹歪的火舌）诸位闻不到风向已经反了吗？！依老朽笨法子：不准靠岸！令其远泊江心，调强弩营沿江加双岗、隔水点名验船！"
         },
         {
           type: "msg",
@@ -3424,7 +3631,7 @@ window.CC_STORY = {
           roleTag: "参军",
           tone: "warn",
           tag: "拟写",
-          text: "只是这般如临大敌，夜巡快艇的火油、箭矢与强弩营加岗赏钱，得立刻先支一笔**钱帛**；而且明早全营都会骂您疑神疑鬼，寒透了降人的心。"
+          text: "只是这般兴师动众，夜巡快艇的火油、箭矢与强弩加岗赏钱，得立刻先支一笔**钱帛**；而且明早全营都会骂您疑神疑鬼，把降人的心全寒透。"
         }
       ],
       choices: [
@@ -3433,7 +3640,7 @@ window.CC_STORY = {
           label: "准其来降，出营高台立观受降",
           bait: "诸将校跪了一排催着写受降捷报，鼓乐手都扛起大鼓往岸边跑",
           isBait: true,
-          replyText: "黄公覆既深明大义，岂能疑之！传鼓乐手登台挑灯，孤亲自出寨立观受降！",
+          replyText: "黄公覆连身家老小都押过来投诚了，咱们连江面都不敢开，往后谁还敢降？传鼓乐登台、灯笼挑高三尺，孤亲自出去收下这份大礼！",
           effects: { money: 0, grain: 0, troops: 0, vars: { suspect_defection: 0 } },
           reason: "准降迎船立观，省下夜巡火油与弩士赏钱",
           next: "N06a"
@@ -3443,7 +3650,7 @@ window.CC_STORY = {
           label: "令其远泊江心，强弩列岸验船",
           bait: "帐内瞬间冻成冰窖，几名荆州降将把脑袋埋得快贴上靴面",
           isBait: false,
-          replyText: "宁可担一世「多疑」的恶名，也不能把十万性命赌在几条顺风来船上！强弩营上弦，敢越界半步直接射杀！",
+          replyText: "宁可今晚背一世「刻薄多疑」的恶名，不能拿十万条脖子去赌几艘顺风来船！强弩上弦，敢越界半步直接放箭！",
           effects: { money: -1, grain: 0, troops: 0, vars: { suspect_defection: 1 } },
           reason: "令远泊戒备，支钱帛添夜巡火油与强弩赏钱",
           next: "N06b"
@@ -3462,7 +3669,7 @@ window.CC_STORY = {
           roleTag: "主簿",
           tone: "accent",
           tag: "结算",
-          text: "（收好钱柜钥匙）一文不花办成受降大典！灯笼再挑高三尺，好让江心来船认清丞相帅旗！"
+          text: "（喀哒锁紧钱箱）**一文不花办成受降大典**！灯笼再挑高三尺，让江心来船一眼认清丞相帅旗！"
         },
         {
           type: "msg",
@@ -3470,12 +3677,15 @@ window.CC_STORY = {
           roleTag: "议曹",
           tone: "ok",
           tag: "拟写",
-          text: "成了！这一夜过去，江南六郡就能在砚台边签字收编啦！"
+          text: "成了！过完今夜，江南六郡直接在砚台边签字入库！"
         },
         {
           type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "望江哨台",
           tag: "史载",
-          text: "东南风贴着江面猛吹过来，浪头拍得栈桥咯吱乱响。江心那十几艘蒙冲乘风越冲越快——离水寨只剩二里时，前头船上同时掀开了黑油布。"
+          tone: "fire",
+          text: "你大步登上**江岸望江哨台**。湿热的东南风迎面刮得袍袖猎猎作响；漆黑江面上，黄盖那十几艘浅吃水蒙冲顺风**快得根本不像装了粮食**。离水寨只剩二里地，前头船上同时掀开了黑油布。"
         }
       ],
       next: "N08_battle_report"
@@ -3492,7 +3702,7 @@ window.CC_STORY = {
           roleTag: "参军",
           tone: "ok",
           tag: "结算",
-          text: "……谢明公肯把「刻薄多疑」四个字扛在自己肩上。强弩营，支油挑灯，上弦！"
+          text: "……谢明公肯把「刻薄多疑」四个字扛自己肩上。强弩营，支油挑灯，全员上弦！"
         },
         {
           type: "msg",
@@ -3500,12 +3710,15 @@ window.CC_STORY = {
           roleTag: "前营校尉",
           tone: "danger",
           tag: "拟写",
-          text: "（冷哼一声）降书都递到案头了还拿强弩顶着人家脑门——明公今夜要真逼退了黄盖，明天谁还敢替您卖命！"
+          text: "（冷哼一声）降书都拍在案上了还拿强弩顶人家脑门——明公今夜要真逼走了黄盖，明儿谁还敢替您卖命！"
         },
         {
           type: "narrator",
+          speaker: "巡营所见",
+          roleTag: "望江哨台",
           tag: "推演",
-          text: "黄盖来船被密密麻麻的箭雨死死卡在暗水外头，进不得半步。骂声刚在岸边响起，江心那十几艘船自己轰然烧成了白昼。"
+          tone: "fire",
+          text: "你立在**望江哨台**边盯着暗水。东南风卷着黑浪，把黄盖那十几艘浅吃水快船**推得像离弦黑箭般扑近**——却被密密麻麻的强弩射程卡死在暗水外头。岸边骂声刚起，**江心那十几条船轰然自爆，自己烧成了一片白昼**。"
         }
       ],
       next: "N08_battle_report"
@@ -3517,15 +3730,15 @@ window.CC_STORY = {
     openingByHaste: {
       "2": {
         tag: "满弦赌命",
-        text: "从江陵一口气抢出来的「八十万」鼓点，这一夜终于踩到了乌林江边。全军士气拉到最满、谁也没留退路——所有先欠下的账，今晚排着队一起来敲门。"
+        text: "从江陵一口气催出来的「八十万」鼓点，今晚终于踩到了乌林江边。全军士气拉到满弦、谁也没留退路——**一路顺风时欠下的所有赊账，今夜排着队一起来拍门**。"
       },
       "1": {
         tag: "半途纠结",
-        text: "步子曾在江陵或疫报前收过一拍、又急着抢回气势。大军压在乌林江畔，既算不上从容整备，也算不上奇兵突袭，全看哪几张底牌还在手里。"
+        text: "步子曾在江陵或疫报前踩过半脚刹车，又急着抢回气势。大军押在乌林江畔，既够不上奇兵突袭，也够不上从容兜底，全看袖子里还留了几张真牌。"
       },
       "0": {
         tag: "主动收缩",
-        text: "江陵先抚、病营先报，一路把气势让给了稳妥。「水军八十万」的招牌早已被你亲手摘下来半截，孙刘联军在南岸把阵布得整整齐齐，只等今夜这一算。"
+        text: "江陵先抚、病营先报，你一路把风头让给了算账。「水军八十万」的金字招牌早就亲手摘下来塞进包袱，孙刘联军在南岸把阵布得整整齐齐，只等今夜合算总账。"
       }
     },
 
@@ -3538,7 +3751,7 @@ window.CC_STORY = {
             speaker: "医曹",
             tone: "danger",
             tag: "史载",
-            text: "（声音哑得几乎听不清）当初捂在袖子里的那卷病籍，今晚全炸在大营里了！寒雨加江湿，高热大疫一夜放倒了三成青壮，连抬担架的人都站不起来。",
+            text: "（声音哑得几乎听不见）当初捂在袖子里的那卷醋味病籍，**今晚全炸在大营里了**！寒雨加江湿，高热大疫一夜放倒了三成青壮，连抬担架的人都站不起来。",
             effects: { money: 0, grain: 0, troops: -3 },
             reason: "袖中隐瞒的病营溃散，盛寒大疫减员三营"
           },
@@ -3547,7 +3760,7 @@ window.CC_STORY = {
             speaker: "医曹",
             tone: "ok",
             tag: "推演",
-            text: "多亏当初在江陵咬牙摊牌、早早把染病弟兄挪去北岸单灶隔离；江风再冷，总算没在决战夜串烧成全军大疫，前线人手虽少却个个能站稳。",
+            text: "多亏当初在江陵咬牙摊牌、早早把染病弟兄挪去北岸单灶隔离；江风再冷，总算没在决战夜**串烧成全军大疫**，前线人手虽少却个个站得住。",
             effects: { money: 0, grain: 0, troops: 0 },
             reason: "病营早移北岸隔离，未致全营连疫"
           }
@@ -3562,7 +3775,7 @@ window.CC_STORY = {
             speaker: "军报",
             tone: "ok",
             tag: "史载",
-            text: "十二月东线喜报穿夜而至：张熹偏师星夜赶至合肥外围，孙权闻我救兵已到，当即烧营退保江东——淮南门户稳住了，算是不幸中的一块硬骨头。",
+            text: "十二月东线急报穿夜而至：张熹偏师星夜赶至合肥外围，孙权闻我救兵已到，当即烧营退保江东——淮南门户稳住了，算是不幸里硬啃下来的一块砖。",
             effects: { money: 0, grain: 0, troops: 0 },
             reason: "张熹偏师吓退孙权，合肥解围东线未动"
           },
@@ -3575,7 +3788,7 @@ window.CC_STORY = {
             speaker: "驿使",
             tone: "danger",
             tag: "推演",
-            text: "（滚下台阶哭喊）乌林火起同一夜，合肥血书拍到案头！一兵未救之下合肥外廓被孙权砸破大半，淮南震动——不得已拆东墙补西墙，急调后方府库重金征募溃卒、抢运军粮填防线！",
+            text: "（滚下台阶哭喊）乌林火起同一夜，合肥血书拍到案头！一兵未救之下合肥外廓被孙权砸破大半，淮南震动——只得拆东墙补西墙，急调后方府库重金募溃卒、抢运军粮填防线！",
             effects: { money: -1, grain: -1, troops: 0 },
             reason: "合肥危急两线齐裂，急支钱帛军粮抢救淮南"
           },
@@ -3587,7 +3800,7 @@ window.CC_STORY = {
             speaker: "驿使",
             tone: "warn",
             tag: "推演",
-            text: "长江虽然没被烧穿，可一兵不救的合肥城头硬生生挨了孙权一通死磕，守军死伤狼藉、淮南世族骂声炸翻许昌——只能从库里再剜一笔钱帛军粮火速补防善后。",
+            text: "长江虽然没被烧穿，可一兵不救的合肥城头硬挨了孙权一通死磕，守军死伤狼藉、淮南世族骂声炸翻许昌——只能从库里再剜一笔钱帛军粮火速补防善后。",
             effects: { money: -1, grain: -1, troops: 0 },
             reason: "合肥死守残破，急调钱帛军粮安抚补防淮南"
           },
@@ -3618,7 +3831,7 @@ window.CC_STORY = {
             speaker: "军报",
             tone: "fire",
             tag: "史载",
-            text: "黄盖十余艘火船乘东南烈风直撞进铁索水寨！当初花钱打下的铁索与松木栈板此刻全成了助燃柴薪，冲天烈焰吞掉大半战船，一路延烧进乌林岸边的屯粮大垛！",
+            text: "黄盖十余艘火船乘东南烈风直撞进铁索水寨！当初花钱打下的熟铁链与松木栈板**此刻全成了助燃柴薪**，冲天烈焰吞掉大半战船，一路延烧进乌林岸边的屯粮大垛！",
             effects: { money: 0, grain: -1, troops: -2 },
             reason: "铁索连营遭火船焚毁，火势延烧乌林岸粮垛"
           },
@@ -3630,7 +3843,7 @@ window.CC_STORY = {
             speaker: "军报",
             tone: "warn",
             tag: "推演",
-            text: "迎降鼓乐吹到一半，火船还是撞进了前哨！靠前的几艘走舸与浮栈当场化作火炬；幸亏当时顶着骂声坚持分屯散泊、留出防火水道，后阵主力及时斩缆荡开，大营与岸粮保住了！",
+            text: "迎降鼓乐吹到一半，火船还是撞进了前哨！靠前几艘走舸与浮栈当场化作火炬；幸亏当时顶着骂声坚持分屯散泊、留出防火水道，后阵主力及时斩缆荡开，大营与岸粮保住了！",
             effects: { money: 0, grain: 0, troops: -1 },
             reason: "迎降前哨数舟被焚，分屯水道及时隔断大火"
           },
@@ -3642,7 +3855,7 @@ window.CC_STORY = {
             speaker: "军报",
             tone: "info",
             tag: "推演",
-            text: "强弩营隔水箭雨拦停了黄盖头船，火油提前在江心炸开，只舔焦了外围两艘哨船；只是铁索连死的战船进退极笨，全军硬卡在江北岸边整夜对峙拉锯，平白多耗掉一笔冬夜军粮。",
+            text: "强弩营隔水箭雨拦停了黄盖头船，火油提前在江心炸开，只舔焦了外围两艘哨船；只是铁索锁死的战船进退极笨，全军像铁墩子卡在江岸拉锯一整夜，平白耗掉一笔冬夜军粮。",
             effects: { money: 0, grain: -1, troops: 0 },
             reason: "强弩截停火船仅灼外舟，连舟笨重僵持耗粮"
           },
@@ -3654,7 +3867,7 @@ window.CC_STORY = {
             speaker: "军报",
             tone: "warn",
             tag: "推演",
-            text: "黄盖的火油全在射程外烧成了江东自己的烟花！我军一船未连、也未迎降，两家在刺骨东南风里实打实对拼了一夜水上硬仗，折了一营前锋、也耗去一笔寒夜战粮。",
+            text: "黄盖的火油全在射程外**烧成了江东自己的烟花**！我军一船未连、也未迎降，两家在刺骨东南风里实打实对拼了一夜水上硬仗，折了一营前锋、耗去一笔寒夜战粮。",
             effects: { money: 0, grain: -1, troops: -1 },
             reason: "火攻流产转为江心硬仗，水战折兵且耗军粮"
           }
@@ -3673,7 +3886,7 @@ window.CC_STORY = {
             speaker: "管粮吏",
             tone: "danger",
             tag: "推演",
-            text: "火光刚照亮半边江天，刚整编封赏的荆州降卒哗啦啦散了一大半，顺手还把乌林外仓几车军粮裹走逃命；唯有文聘带着少数旧部死撑着替主力收拢残卒。",
+            text: "火光刚照亮半边江天，刚封赏整编的荆州降卒哗啦啦散了一大半，顺手还把乌林外仓几车军粮裹走逃命；唯有文聘带着少数旧部死撑着替主力收拢残卒。",
             effects: { money: 0, grain: -1, troops: -1 },
             reason: "火起时整编降卒惊溃散逃，并裹掠随军粮秣"
           },
@@ -3685,7 +3898,7 @@ window.CC_STORY = {
             speaker: "军候",
             tone: "ok",
             tag: "推演",
-            text: "水寨没被大火烧穿，文聘、蒯越旧部一看阵脚还在，乖乖领着水营替北兵拉回几条失控斗舰——那十五枚列侯金印，今晚总算没打水漂。",
+            text: "水寨没被大火烧穿，文聘、蒯越旧部一看阵脚还在，乖乖领着水营替北兵拉回几条失控斗舰——**那十五枚列侯金印，今晚总算没打水漂**。",
             effects: { money: 0, grain: 0, troops: 0 },
             reason: "文聘等荆州旧部助守水寨，降营未溃"
           },
@@ -3711,7 +3924,7 @@ window.CC_STORY = {
             speaker: "府吏",
             tone: "warn",
             tag: "推演",
-            text: "当初拆散了降营、北兵盯着没敢哗变；可火一起，被你寒透了心的荆襄世族连夜锁死各地私仓拒不供粮，撤退路上米价飞涨，军粮顿时空了一截。",
+            text: "当初拆散了降营、北兵盯着没敢哗变；可火一起，被寒透了心的荆襄世族连夜锁死各地私仓拒不供粮，撤退路上米价飞涨，军粮顿时空了一截。",
             effects: { money: 0, grain: -1, troops: 0 },
             reason: "荆襄大族离心锁仓断供，后路粮草骤紧"
           },
@@ -3747,7 +3960,7 @@ window.CC_STORY = {
     excuseWidget: {
       type: "wordsmith",
       title: "亲拟《致孙权退兵书 / 许昌奏报》",
-      subtitle: "账已经算到这一步，临北撤前亲手拼一句体面台阶吧",
+      subtitle: "账算到这份上，临北撤前亲手拼一句不掉价的台阶吧",
       template: [
         "（致孙权并告朝野书）",
         { slot: "e1" },
@@ -3761,12 +3974,12 @@ window.CC_STORY = {
         e1: [
           {
             text: "赤壁之役，天降盛寒，营中值有疾病",
-            comment: "参谋击节赞叹：「高！把大败全推给老天爷和瘟疫联合办案，连御史台都挑不出您的不是！」",
+            comment: "参谋击节赞叹：「高！把大败全推给老天爷和瘟疫联合办案，连御史台都找不出您的错！」",
             vars: { rhetoric_bluff: 1 }
           },
           {
             text: "今岁南征，既定荆襄，士卒劳顿思归",
-            comment: "主簿小心翼翼提醒：「明公，前脚刚发完八十万战书，后脚改口说兵想家……许昌那帮清流怕要背地笑三天。」",
+            comment: "主簿小心翼翼提醒：「明公，前脚刚发完八十万战书，后脚改口说兵想家……许昌清流怕要背地笑三天。」",
             vars: {}
           },
           {
@@ -3795,7 +4008,7 @@ window.CC_STORY = {
         e3: [
           {
             text: "横使周瑜小儿虚获此名，天下其笑之",
-            comment: "传令官憋笑憋得直抖：「周公瑾要是收到这封信，多半得把手里茶碗砸了，再把信裱起来挂堂屋！」",
+            comment: "传令官憋笑憋得直抖：「周公瑾要是收到这封信，多半得把茶碗砸了，再把信裱起来挂堂屋！」",
             vars: { rhetoric_bluff: 1 }
           },
           {
@@ -3875,7 +4088,7 @@ window.CC_STORY = {
           roleTag: "断后驿",
           tone: "fire",
           tag: "史载",
-          text: "残军由{{gloss:huarong}}泥淖负草填路北撤，赤壁火退之后又逢盛寒大疫，吏士死者大半；刘备顺势尽取{{gloss:jingzhou_jiangnan}}，江汉再难轻下。"
+          text: "残军由{{gloss:huarong}}泥淖负草填路北撤，赤壁火退之后又逢盛寒大疫，**吏士死者大半**；刘备顺势尽取{{gloss:jingzhou_jiangnan}}，江汉再难轻下。"
         },
         {
           type: "msg",
@@ -3895,8 +4108,10 @@ window.CC_STORY = {
         },
         {
           type: "narrator",
+          speaker: "",
           tag: "结语",
-          text: "墨干了。账本合上时，把江陵那句「水军八十万」捂成一团潮黑渍。回头想想，你几乎每一拍都听了帐里最热烈的掌声。"
+          tone: "fire",
+          text: "墨干了。账本合上时，把江陵那句「水军八十万」捂成一团潮黑渍——**还有那本没拆封的受降捷报，一起烧成了灰**。"
         }
       ],
       careerSeed: "生涯伏笔：许昌朝堂的清议与门阀怨言正等着翻账——东南既定不下，先修内政、还是用重爵镇住北朝？",
@@ -3917,7 +4132,7 @@ window.CC_STORY = {
           tone: "ok",
           tag: "推演",
           condition: { var: "suspect_defection", op: ">=", val: 1 },
-          text: "黄盖苦肉诈降彻底破了功。周瑜一计不成只得稳守南岸；两家在寒江啃了一冬冷硬仗，谁也没吞掉谁。"
+          text: "黄盖那套苦肉诈降彻底破了功。周瑜一计不成只得稳守南岸；两家在寒江啃了一冬冷硬仗，谁也没吞掉谁。"
         },
         {
           type: "msg",
@@ -3935,7 +4150,7 @@ window.CC_STORY = {
           tone: "danger",
           tag: "推演",
           condition: { var: "plague_honesty", op: "==", val: 0 },
-          text: "江东的火挡住了，可袖子里捂着的大疫到底炸了；撤出乌林的人里，一半是架着木拐走出泥塘的。"
+          text: "江东的火挡住了，可袖子里捂着的大疫到底炸了；活着撤出乌林的人里，**一半是架着木拐走出泥塘的**。"
         },
         {
           type: "msg",
@@ -3956,8 +4171,10 @@ window.CC_STORY = {
         },
         {
           type: "narrator",
+          speaker: "",
           tag: "结语",
-          text: "真内容往往如此：胜利并不快乐。你没给周瑜留下一战封神的机会，顺手也撕掉了「席卷天下」的光环。"
+          tone: "warn",
+          text: "真内容往往如此：**活着，但难听**。你没给周瑜留下一战封神的机会，顺手也亲手撕掉了「席卷天下」的招牌。"
         }
       ],
       careerSeed: "生涯伏笔：功高疑重之后，许昌里议论「忠汉」还是「自王」的声气更尖了。",
@@ -3977,7 +4194,7 @@ window.CC_STORY = {
           roleTag: "军医",
           tone: "ok",
           tag: "推演",
-          text: "北岸隔离营拆棚那天，大半病卒靠那口热米汤熬过盛寒，拄着枪杆自己排着队往北走——没成片埋进乌林泥淖。"
+          text: "北岸隔离营拆棚那天，大半病卒靠那口单煮的热米汤熬过盛寒，**拄着枪杆自己排着队往北走**——没成片埋进乌林泥淖。"
         },
         {
           type: "msg",
@@ -4007,8 +4224,10 @@ window.CC_STORY = {
         },
         {
           type: "narrator",
+          speaker: "",
           tag: "结语",
-          text: "你止住了最大失血，带回了真正活着的人；代价是摘下「横扫六合」招牌塞进包袱。像做对了所有算术题的成年人——满帐无一人鼓掌。"
+          tone: "ok",
+          text: "你止住了最大失血，带回了真正喘气的人；代价是摘下「横扫六合」招牌塞进包袱。就像一个做对所有算术题的成年人——**满帐无一人鼓掌**。"
         }
       ],
       careerSeed: "生涯伏笔：带回来的是活兵不是幽灵；许昌权柄需重洗，来年尚可{{subtext:biezuo_houtu}}。",
@@ -4028,7 +4247,7 @@ window.CC_STORY = {
           roleTag: "断后驿",
           tone: "danger",
           tag: "推演",
-          text: "乌林败退经华容道北还之际，淮南急使哭进中军——一兵未援的合肥几乎被孙权破了外廓，两线败报同一夜拍碎在案头！"
+          text: "乌林败退经华容道北还之际，淮南急使哭进中军——一兵未援的合肥几乎被孙权破了外廓，**两线败报同一夜拍碎在案头**！"
         },
         {
           type: "msg",
@@ -4048,7 +4267,9 @@ window.CC_STORY = {
         },
         {
           type: "narrator",
+          speaker: "",
           tag: "结语",
+          tone: "danger",
           text: "所有资源本是同一张饼。你想省出东线兵力压死长江，结果长江自己先塌一角——残旗北卷，一路算不平的冷账。"
         }
       ],
@@ -4112,35 +4333,63 @@ window.CC_STORY = {
   </script>
   <script>
 /* ==========================================================================
-   《曹操不容易》 // Procedural Web Audio Engine (Zero External Assets)
-   D-Pentatonic Guqin Ambient BGM + Crisp Tactile SFX
+   《曹操不容易》 // Audio & Haptics Engine
+   - BGM: 8x-slowed (Paulstretch) pastoral wheatfield pop ambient (./bgm.mp3)
+          with seamless Web Audio warm pad fallback if offline/missing
+   - SFX: Crisp organic Foley (bamboo-slip char pop, wood clack, parchment flip,
+          low bronze war drum)
+   - Haptics: Tactile mobile vibration via navigator.vibrate
    ========================================================================== */
 
 (function (global) {
   "use strict";
 
-  const PENTATONIC_D = [
-    146.83, // D3
-    164.81, // E3
-    185.00, // F#3
-    220.00, // A3
-    246.94, // B3
-    293.66, // D4
-    329.63, // E4
-    369.99, // F#4
-    440.00  // A4
-  ];
-
   let ctx = null;
   let masterGain = null;
   let bgmGain = null;
   let sfxGain = null;
+  let noiseBuffer = null;
+
+  // HTML5 Audio element for the 8x-slowed wheatfield ambient loop
+  let bgmAudioEl = null;
+  let bgmMediaSource = null;
+  let bgmFallbackNodes = null;
+  let bgmUsingFallback = false;
+  let bgmLoadAttempted = false;
 
   let enabled = false;      // Master audio state (starts off until user gesture / toggle)
-  let bgmEnabled = true;    // Ambient guqin BGM flag when master is enabled
+  let bgmEnabled = true;    // Ambient BGM flag when master is enabled
+  let hapticsEnabled = true;
   let currentMood = "calm";
-  let bgmTimer = null;
-  let lastNoteIdx = 3;
+  let lastCharTickAt = 0;
+
+  /* ------------------------------------------------------------------------
+     Haptics Helper (Mobile Tactile Feedback)
+     ------------------------------------------------------------------------ */
+
+  function vibrate(pattern) {
+    if (!hapticsEnabled) return;
+    try {
+      if (global.navigator && typeof global.navigator.vibrate === "function") {
+        global.navigator.vibrate(pattern);
+      }
+    } catch (e) {
+      // Ignore unsupported or blocked vibrate calls
+    }
+  }
+
+  function setHapticsEnabled(flag) {
+    hapticsEnabled = Boolean(flag);
+    return hapticsEnabled;
+  }
+
+  function isHapticsEnabled() {
+    return hapticsEnabled;
+  }
+
+  /* ------------------------------------------------------------------------
+     Web Audio Context & Shared Noise Buffer
+     ------------------------------------------------------------------------ */
 
   function ensureContext() {
     if (ctx) {
@@ -4155,19 +4404,154 @@ window.CC_STORY = {
     try {
       ctx = new AudioCtx();
       masterGain = ctx.createGain();
-      masterGain.gain.value = enabled ? 0.85 : 0.0;
+      masterGain.gain.value = enabled ? 0.9 : 0.0;
       masterGain.connect(ctx.destination);
 
       bgmGain = ctx.createGain();
-      bgmGain.gain.value = 0.24;
+      bgmGain.gain.value = 0.42;
       bgmGain.connect(masterGain);
 
       sfxGain = ctx.createGain();
-      sfxGain.gain.value = 0.65;
+      sfxGain.gain.value = 0.72;
       sfxGain.connect(masterGain);
+
+      // Short filtered white-noise buffer for organic tactile clicks
+      const len = Math.floor(ctx.sampleRate * 0.12);
+      noiseBuffer = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     BGM: 8x-Slowed Wheatfield Ambient (./bgm.mp3) + Warm Pad Fallback
+     ------------------------------------------------------------------------ */
+
+  function startFallbackPad() {
+    if (!ctx || !bgmGain || bgmFallbackNodes) return;
+    // Ultra-warm Dmaj7 slow-motion drone pad if bgm.mp3 cannot load
+    const freqs = [146.83, 220.0, 277.18, 369.99]; // D3, A3, C#4, F#4
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 620;
+
+    const padGain = ctx.createGain();
+    padGain.gain.setValueAtTime(0.001, ctx.currentTime);
+    padGain.gain.linearRampToValueAtTime(0.16, ctx.currentTime + 2.0);
+
+    filter.connect(padGain);
+    padGain.connect(bgmGain);
+
+    const oscs = freqs.map(function (f, i) {
+      const osc = ctx.createOscillator();
+      osc.type = i === 0 ? "sine" : "triangle";
+      osc.frequency.value = f;
+      osc.detune.value = (i - 1.5) * 4;
+      osc.connect(filter);
+      osc.start();
+      return osc;
+    });
+
+    bgmFallbackNodes = { oscs: oscs, gain: padGain, filter: filter };
+  }
+
+  function stopFallbackPad() {
+    if (!bgmFallbackNodes) return;
+    try {
+      const now = ctx ? ctx.currentTime : 0;
+      bgmFallbackNodes.gain.gain.cancelScheduledValues(now);
+      bgmFallbackNodes.gain.gain.setTargetAtTime(0.0001, now, 0.2);
+      const old = bgmFallbackNodes;
+      setTimeout(function () {
+        old.oscs.forEach(function (o) {
+          try { o.stop(); } catch (e) {}
+        });
+      }, 600);
+    } catch (e) {}
+    bgmFallbackNodes = null;
+  }
+
+  function initBgmElement() {
+    if (bgmAudioEl) return;
+    bgmLoadAttempted = true;
+    try {
+      const el = new Audio("./bgm.mp3");
+      el.loop = true;
+      el.preload = "auto";
+      el.volume = 0.42;
+      el.addEventListener("error", function () {
+        bgmUsingFallback = true;
+        if (enabled && bgmEnabled && ensureContext()) {
+          startFallbackPad();
+        }
+      });
+      bgmAudioEl = el;
+
+      // Route through Web Audio if same-origin allows it; otherwise play directly via <audio>
+      if (ctx && !bgmMediaSource && global.location && global.location.protocol !== "file:") {
+        try {
+          bgmMediaSource = ctx.createMediaElementSource(el);
+          bgmMediaSource.connect(bgmGain);
+          el.volume = 1.0;
+        } catch (e) {
+          bgmMediaSource = null;
+        }
+      }
+    } catch (e) {
+      bgmUsingFallback = true;
+    }
+  }
+
+  function startBgmLoop() {
+    if (!enabled || !bgmEnabled) return;
+    if (!bgmLoadAttempted) initBgmElement();
+
+    if (bgmUsingFallback) {
+      if (ensureContext()) startFallbackPad();
+      return;
+    }
+
+    if (bgmAudioEl) {
+      updateBgmMoodGain();
+      const p = bgmAudioEl.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(function () {
+          // If blocked or missing, fall back smoothly
+          if (bgmAudioEl.error) {
+            bgmUsingFallback = true;
+            if (ensureContext()) startFallbackPad();
+          }
+        });
+      }
+    }
+  }
+
+  function stopBgmLoop() {
+    if (bgmAudioEl) {
+      try { bgmAudioEl.pause(); } catch (e) {}
+    }
+    stopFallbackPad();
+  }
+
+  function updateBgmMoodGain() {
+    // Slightly deeper, slightly slower playback rate on tense/fire moods for subtle drama
+    const targetRate = currentMood === "fire" ? 0.92 : (currentMood === "tense" ? 0.96 : 1.0);
+    const targetVol = currentMood === "fire" ? 0.36 : 0.44;
+    if (bgmAudioEl) {
+      try {
+        bgmAudioEl.playbackRate = targetRate;
+        if (!bgmMediaSource) bgmAudioEl.volume = targetVol;
+      } catch (e) {}
+    }
+    if (ctx && bgmGain) {
+      const now = ctx.currentTime;
+      bgmGain.gain.setTargetAtTime(targetVol, now, 0.35);
     }
   }
 
@@ -4180,7 +4564,7 @@ window.CC_STORY = {
       }
       const now = ctx.currentTime;
       masterGain.gain.cancelScheduledValues(now);
-      masterGain.gain.setTargetAtTime(0.85, now, 0.04);
+      masterGain.gain.setTargetAtTime(0.9, now, 0.04);
       if (bgmEnabled) startBgmLoop();
     } else {
       stopBgmLoop();
@@ -4209,13 +4593,64 @@ window.CC_STORY = {
 
   function setMood(mood) {
     currentMood = mood || "calm";
+    updateBgmMoodGain();
   }
 
   /* ------------------------------------------------------------------------
-     SFX: Crisp Tactile Bamboo & Bronze Palette
+     SFX: Crisp Tactile Bamboo-Slip, Quill Pop & Bronze Drum
      ------------------------------------------------------------------------ */
 
+  // Ultra-subtle mechanical-quill / bamboo-slip micro-tick during typewriter pop-in
+  function playCharPop(isEmph) {
+    if (!enabled || !ensureContext()) return;
+    const nowMs = Date.now();
+    if (!isEmph && nowMs - lastCharTickAt < 38) return;
+    lastCharTickAt = nowMs;
+
+    const now = ctx.currentTime;
+
+    // 1. Short organic woody transient
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "triangle";
+    const baseFreq = isEmph ? 310 : (620 + Math.random() * 140);
+    osc.frequency.setValueAtTime(baseFreq, now);
+    osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.48, now + 0.018);
+
+    const peak = isEmph ? 0.14 : 0.055;
+    gain.gain.setValueAtTime(0.0005, now);
+    gain.gain.linearRampToValueAtTime(peak, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0005, now + (isEmph ? 0.032 : 0.02));
+
+    osc.connect(gain);
+    gain.connect(sfxGain);
+    osc.start(now);
+    osc.stop(now + 0.036);
+
+    // 2. Tiny brushed-paper noise click
+    if (noiseBuffer) {
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuffer;
+      const bp = ctx.createBiquadFilter();
+      bp.type = "bandpass";
+      bp.frequency.setValueAtTime(isEmph ? 1400 : 2400 + Math.random() * 500, now);
+      bp.Q.value = 2.2;
+
+      const nGain = ctx.createGain();
+      nGain.gain.setValueAtTime(0.0005, now);
+      nGain.gain.linearRampToValueAtTime(isEmph ? 0.09 : 0.04, now + 0.0015);
+      nGain.gain.exponentialRampToValueAtTime(0.0005, now + 0.014);
+
+      src.connect(bp);
+      bp.connect(nGain);
+      nGain.connect(sfxGain);
+      src.start(now);
+      src.stop(now + 0.018);
+    }
+  }
+
   function playTick() {
+    vibrate(6);
     if (!enabled || !ensureContext()) return;
     const now = ctx.currentTime;
 
@@ -4224,38 +4659,39 @@ window.CC_STORY = {
     const filter = ctx.createBiquadFilter();
 
     osc.type = "triangle";
-    osc.frequency.setValueAtTime(520 + Math.random() * 60, now);
-    osc.frequency.exponentialRampToValueAtTime(210, now + 0.032);
+    osc.frequency.setValueAtTime(480 + Math.random() * 55, now);
+    osc.frequency.exponentialRampToValueAtTime(195, now + 0.03);
 
     filter.type = "bandpass";
-    filter.frequency.setValueAtTime(1100, now);
-    filter.Q.value = 1.6;
+    filter.frequency.setValueAtTime(1050, now);
+    filter.Q.value = 1.5;
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.16, now + 0.004);
-    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.038);
+    gain.gain.linearRampToValueAtTime(0.14, now + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.036);
 
     osc.connect(filter);
     filter.connect(gain);
     gain.connect(sfxGain);
 
     osc.start(now);
-    osc.stop(now + 0.042);
+    osc.stop(now + 0.04);
   }
 
   function playChoice() {
+    vibrate(14);
     if (!enabled || !ensureContext()) return;
     const now = ctx.currentTime;
 
-    // Low wooden clack
+    // Crisp wooden seal stamp clack
     const clack = ctx.createOscillator();
     const clackGain = ctx.createGain();
     clack.type = "triangle";
-    clack.frequency.setValueAtTime(260, now);
-    clack.frequency.exponentialRampToValueAtTime(98, now + 0.065);
+    clack.frequency.setValueAtTime(240, now);
+    clack.frequency.exponentialRampToValueAtTime(88, now + 0.065);
 
     clackGain.gain.setValueAtTime(0.001, now);
-    clackGain.gain.linearRampToValueAtTime(0.28, now + 0.006);
+    clackGain.gain.linearRampToValueAtTime(0.28, now + 0.005);
     clackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.085);
 
     clack.connect(clackGain);
@@ -4263,32 +4699,33 @@ window.CC_STORY = {
     clack.start(now);
     clack.stop(now + 0.09);
 
-    // Subtle resonant D3/A3 tail
+    // Warm resonant D3 tail
     const chime = ctx.createOscillator();
     const chimeGain = ctx.createGain();
     const filter = ctx.createBiquadFilter();
     chime.type = "sine";
-    chime.frequency.setValueAtTime(220, now + 0.01);
+    chime.frequency.setValueAtTime(293.66, now + 0.012);
 
     filter.type = "lowpass";
-    filter.frequency.setValueAtTime(900, now);
+    filter.frequency.setValueAtTime(860, now);
 
-    chimeGain.gain.setValueAtTime(0.001, now + 0.01);
-    chimeGain.gain.linearRampToValueAtTime(0.12, now + 0.024);
-    chimeGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.32);
+    chimeGain.gain.setValueAtTime(0.001, now + 0.012);
+    chimeGain.gain.linearRampToValueAtTime(0.11, now + 0.028);
+    chimeGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.3);
 
     chime.connect(filter);
     filter.connect(chimeGain);
     chimeGain.connect(sfxGain);
-    chime.start(now + 0.01);
-    chime.stop(now + 0.34);
+    chime.start(now + 0.012);
+    chime.stop(now + 0.32);
   }
 
   function playGloss() {
+    vibrate(8);
     if (!enabled || !ensureContext()) return;
     const now = ctx.currentTime;
 
-    const freqs = [440, 587.33]; // A4, D5
+    const freqs = [587.33, 739.99]; // D5, F#5 warm shimmer
     const freq = freqs[Math.floor(Math.random() * freqs.length)];
 
     const osc = ctx.createOscillator();
@@ -4297,16 +4734,17 @@ window.CC_STORY = {
     osc.frequency.setValueAtTime(freq, now);
 
     gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(0.14, now + 0.008);
-    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.24);
+    gain.gain.linearRampToValueAtTime(0.12, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.22);
 
     osc.connect(gain);
     gain.connect(sfxGain);
     osc.start(now);
-    osc.stop(now + 0.26);
+    osc.stop(now + 0.24);
   }
 
   function playAlert() {
+    vibrate([18, 28, 22]);
     if (!enabled || !ensureContext()) return;
     const now = ctx.currentTime;
 
@@ -4314,17 +4752,17 @@ window.CC_STORY = {
     const body = ctx.createOscillator();
     const bodyGain = ctx.createGain();
     body.type = "sine";
-    body.frequency.setValueAtTime(118, now);
-    body.frequency.exponentialRampToValueAtTime(46, now + 0.36);
+    body.frequency.setValueAtTime(115, now);
+    body.frequency.exponentialRampToValueAtTime(44, now + 0.36);
 
     bodyGain.gain.setValueAtTime(0.001, now);
-    bodyGain.gain.linearRampToValueAtTime(0.42, now + 0.012);
-    bodyGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.48);
+    bodyGain.gain.linearRampToValueAtTime(0.42, now + 0.01);
+    bodyGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.46);
 
     body.connect(bodyGain);
     bodyGain.connect(sfxGain);
     body.start(now);
-    body.stop(now + 0.5);
+    body.stop(now + 0.48);
 
     // Warm metallic overtone
     const rim = ctx.createOscillator();
@@ -4348,130 +4786,31 @@ window.CC_STORY = {
     rim.stop(now + 0.38);
   }
 
-  /* ------------------------------------------------------------------------
-     Procedural Guqin Pentatonic Ambient BGM
-     ------------------------------------------------------------------------ */
-
-  function pluckGuqin(freq, duration) {
-    if (!ctx || !bgmGain || !enabled || !bgmEnabled) return;
-    const now = ctx.currentTime;
-
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const filter = ctx.createBiquadFilter();
-    const env = ctx.createGain();
-
-    osc1.type = "triangle";
-    osc2.type = "sine";
-
-    // Subtle guqin slide-in on ~30% of notes
-    if (Math.random() < 0.3) {
-      osc1.frequency.setValueAtTime(freq * 0.96, now);
-      osc1.frequency.exponentialRampToValueAtTime(freq, now + 0.14);
-      osc2.frequency.setValueAtTime(freq * 1.92, now);
-      osc2.frequency.exponentialRampToValueAtTime(freq * 2, now + 0.14);
-    } else {
-      osc1.frequency.setValueAtTime(freq, now);
-      osc2.frequency.setValueAtTime(freq * 2, now);
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      stopBgmLoop();
+    } else if (enabled && bgmEnabled) {
+      startBgmLoop();
     }
-
-    const osc2Gain = ctx.createGain();
-    osc2Gain.gain.value = 0.16;
-
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(1350, now);
-    filter.frequency.exponentialRampToValueAtTime(280, now + duration * 0.85);
-    filter.Q.value = 1.2;
-
-    env.gain.setValueAtTime(0.0008, now);
-    env.gain.linearRampToValueAtTime(0.28, now + 0.018);
-    env.gain.exponentialRampToValueAtTime(0.0008, now + duration);
-
-    osc1.connect(filter);
-    osc2.connect(osc2Gain);
-    osc2Gain.connect(filter);
-    filter.connect(env);
-    env.connect(bgmGain);
-
-    osc1.start(now);
-    osc2.start(now);
-    osc1.stop(now + duration + 0.05);
-    osc2.stop(now + duration + 0.05);
-  }
-
-  function pickNextNoteIndex() {
-    const maxIdx = (currentMood === "fire" || currentMood === "tense") ? 5 : PENTATONIC_D.length - 1;
-    const minIdx = 0;
-
-    // Gentle stepwise motion with occasional leap
-    const stepChoices = [-2, -1, 1, 2];
-    let candidate = lastNoteIdx + stepChoices[Math.floor(Math.random() * stepChoices.length)];
-    if (candidate < minIdx || candidate > maxIdx) {
-      candidate = minIdx + Math.floor(Math.random() * (maxIdx - minIdx + 1));
-    }
-    lastNoteIdx = candidate;
-    return candidate;
-  }
-
-  function scheduleNextPluck() {
-    if (!enabled || !bgmEnabled || document.hidden) {
-      bgmTimer = null;
-      return;
-    }
-
-    const idx = pickNextNoteIndex();
-    const freq = PENTATONIC_D[idx];
-    const dur = 2.1 + Math.random() * 1.1;
-    pluckGuqin(freq, dur);
-
-    // Occasional soft low D3/A3 drone harmonic
-    if (Math.random() < 0.22 && idx > 2) {
-      setTimeout(function () {
-        if (enabled && bgmEnabled && !document.hidden) {
-          pluckGuqin(PENTATONIC_D[0], 2.8);
-        }
-      }, 280);
-    }
-
-    const intervalMs = 1800 + Math.random() * 1700; // 1.8s - 3.5s
-    bgmTimer = setTimeout(scheduleNextPluck, intervalMs);
-  }
-
-  function startBgmLoop() {
-    if (bgmTimer || !enabled || !bgmEnabled) return;
-    bgmTimer = setTimeout(scheduleNextPluck, 650);
-  }
-
-  function stopBgmLoop() {
-    if (bgmTimer) {
-      clearTimeout(bgmTimer);
-      bgmTimer = null;
-    }
-  }
-
-  if (typeof document !== "undefined") {
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        stopBgmLoop();
-      } else if (enabled && bgmEnabled) {
-        startBgmLoop();
-      }
-    });
-  }
+  });
 
   global.CC_AUDIO = {
     isEnabled: function () { return enabled; },
     isBgmEnabled: function () { return bgmEnabled; },
+    isHapticsEnabled: isHapticsEnabled,
     setEnabled: setEnabled,
     toggle: toggle,
     setBgmEnabled: setBgmEnabled,
+    setHapticsEnabled: setHapticsEnabled,
     setMood: setMood,
+    vibrate: vibrate,
+    playCharPop: playCharPop,
     playTick: playTick,
     playChoice: playChoice,
     playGloss: playGloss,
     playAlert: playAlert
   };
-})(typeof window !== "undefined" ? window : globalThis);
+})(window);
 
   </script>
   <script>
@@ -4656,10 +4995,14 @@ window.CC_STORY = {
     const AUDIO = global.CC_AUDIO || {
       isEnabled: function () { return false; },
       isBgmEnabled: function () { return false; },
+      isHapticsEnabled: function () { return false; },
       setEnabled: function () { return false; },
       toggle: function () { return false; },
       setBgmEnabled: function () { return false; },
+      setHapticsEnabled: function () { return false; },
       setMood: function () {},
+      vibrate: function () {},
+      playCharPop: function () {},
       playTick: function () {},
       playChoice: function () {},
       playGloss: function () {},
@@ -4748,6 +5091,7 @@ window.CC_STORY = {
     let activeDrawerTab = "gloss";
     let autoTimer = null;
     let currentWarBody = null;
+    let activeTypewriter = null;
 
     function createFreshState() {
       return {
@@ -4763,7 +5107,9 @@ window.CC_STORY = {
         chapterSnapshots: {},
         settings: {
           showSourceTags: true,
-          autoPace: false
+          autoPace: false,
+          typewriter: true,
+          haptics: true
         },
         finished: false,
         endingId: null
@@ -5307,7 +5653,178 @@ window.CC_STORY = {
       return "left";
     }
 
-    function appendBubble(b, containerEl) {
+    function finishActiveTypewriter() {
+      if (activeTypewriter) {
+        const tw = activeTypewriter;
+        activeTypewriter = null;
+        tw.finishNow();
+        return true;
+      }
+      return false;
+    }
+
+    function cancelActiveTypewriter() {
+      if (activeTypewriter) {
+        activeTypewriter.cancel();
+        activeTypewriter = null;
+      }
+    }
+
+    function startTypewriter(bodyEl, finalHtml, isAlertLine, onDone) {
+      finishActiveTypewriter();
+
+      // Build ordered reveal steps from the rendered rich HTML
+      const tmp = document.createElement("div");
+      tmp.innerHTML = finalHtml;
+      const steps = [];
+
+      function collectNodes(node, parentSpec, isEmph) {
+        if (node.nodeType === 3) {
+          const text = node.nodeValue || "";
+          const chars = Array.from(text);
+          for (let i = 0; i < chars.length; i++) {
+            steps.push({ kind: "char", ch: chars[i], emph: isEmph, target: parentSpec });
+          }
+        } else if (node.nodeType === 1) {
+          if (node.tagName === "BUTTON") {
+            steps.push({ kind: "el", el: node.cloneNode(true), target: parentSpec });
+          } else if (node.tagName === "STRONG") {
+            const strongEl = document.createElement("strong");
+            strongEl.className = node.className || "inline-bold";
+            steps.push({ kind: "open", el: strongEl, target: parentSpec });
+            for (let c = 0; c < node.childNodes.length; c++) {
+              collectNodes(node.childNodes[c], strongEl, true);
+            }
+          } else {
+            const cloneEl = node.cloneNode(false);
+            steps.push({ kind: "open", el: cloneEl, target: parentSpec });
+            for (let c = 0; c < node.childNodes.length; c++) {
+              collectNodes(node.childNodes[c], cloneEl, isEmph);
+            }
+          }
+        }
+      }
+
+      for (let i = 0; i < tmp.childNodes.length; i++) {
+        collectNodes(tmp.childNodes[i], bodyEl, false);
+      }
+
+      if (steps.length === 0) {
+        bodyEl.innerHTML = finalHtml;
+        if (onDone) onDone();
+        return;
+      }
+
+      const caret = document.createElement("span");
+      caret.className = "typing-caret";
+      caret.setAttribute("aria-hidden", "true");
+      bodyEl.innerHTML = "";
+      bodyEl.appendChild(caret);
+
+      let idx = 0;
+      let timerId = null;
+      let finished = false;
+      let prevCh = "";
+      let charCounter = 0;
+
+      function complete(instant) {
+        if (finished) return;
+        finished = true;
+        if (timerId) {
+          clearTimeout(timerId);
+          timerId = null;
+        }
+        if (activeTypewriter && activeTypewriter.id === twId) {
+          activeTypewriter = null;
+        }
+        if (instant) {
+          bodyEl.innerHTML = finalHtml;
+        } else if (caret.parentNode) {
+          caret.parentNode.removeChild(caret);
+        }
+        scrollToBottom();
+        if (onDone) onDone();
+      }
+
+      function computeDelay(step) {
+        if (step.kind === "open") return 0;
+        if (step.kind === "el") return 95;
+        const ch = step.ch;
+        let d = step.emph ? 38 : 24;
+        if (ch === "，" || ch === "、" || ch === "；" || ch === "：") d += 105;
+        else if (ch === "。" || ch === "！" || ch === "？") d += 170;
+        else if ((ch === "—" && prevCh === "—") || (ch === "…" && prevCh === "…")) d += 220;
+        else if (ch === "」" || ch === "”" || ch === "』") d += 45;
+        return d;
+      }
+
+      function pump() {
+        if (finished) return;
+        if (idx >= steps.length) {
+          complete(false);
+          return;
+        }
+
+        const step = steps[idx++];
+        const mount = step.target || bodyEl;
+
+        if (step.kind === "open") {
+          if (mount === bodyEl) bodyEl.insertBefore(step.el, caret);
+          else mount.appendChild(step.el);
+          pump();
+          return;
+        }
+
+        if (step.kind === "el") {
+          step.el.classList.add("token-pop");
+          if (mount === bodyEl) bodyEl.insertBefore(step.el, caret);
+          else mount.appendChild(step.el);
+          AUDIO.playCharPop(true);
+          if (state.settings.haptics) AUDIO.vibrate(5);
+        } else {
+          const sp = document.createElement("span");
+          sp.className = step.emph ? "char-pop is-emph" : "char-pop";
+          sp.textContent = step.ch;
+          if (mount === bodyEl) bodyEl.insertBefore(sp, caret);
+          else mount.appendChild(sp);
+
+          charCounter++;
+          if (step.emph) {
+            AUDIO.playCharPop(true);
+            if (state.settings.haptics && charCounter % 2 === 1) AUDIO.vibrate(5);
+          } else if (charCounter % 2 === 0 && !/\s/.test(step.ch)) {
+            AUDIO.playCharPop(false);
+          }
+          if (state.settings.haptics && (step.ch === "！" || step.ch === "？" || (step.ch === "—" && prevCh === "—"))) {
+            AUDIO.vibrate(isAlertLine ? 12 : 6);
+          }
+          prevCh = step.ch;
+        }
+
+        if (charCounter % 8 === 0) scrollToBottom();
+        timerId = setTimeout(pump, computeDelay(step));
+      }
+
+      const twId = Date.now() + Math.random();
+      activeTypewriter = {
+        id: twId,
+        finishNow: function () {
+          complete(true);
+        },
+        cancel: function () {
+          finished = true;
+          if (timerId) {
+            clearTimeout(timerId);
+            timerId = null;
+          }
+          if (caret.parentNode) caret.parentNode.removeChild(caret);
+        }
+      };
+
+      pump();
+    }
+
+    function appendBubble(b, containerEl, onRevealComplete) {
       const parent = containerEl || elStream;
       const side = inferSide(b);
       const row = document.createElement("div");
@@ -5316,6 +5833,9 @@ window.CC_STORY = {
       const bubble = document.createElement("div");
       bubble.className = "bubble";
       if (b.tone) bubble.setAttribute("data-tone", b.tone);
+      if (b.speaker === "巡营所见" || b.type === "walk") {
+        bubble.classList.add("is-walk");
+      }
 
       const speaker = b.speaker || "";
       const role = b.roleTag || b.role || "";
@@ -5350,23 +5870,35 @@ window.CC_STORY = {
 
       const body = document.createElement("div");
       body.className = "bubble-body";
-      body.innerHTML = renderRichText(b.text || "");
+      const richHtml = renderRichText(b.text || "");
       bubble.appendChild(body);
 
       row.appendChild(bubble);
       parent.appendChild(row);
 
-      if (b.sfx === "alert" || b.tone === "danger" || b.tone === "fire") {
+      const isAlertLine = Boolean(b.sfx === "alert" || b.tone === "danger" || b.tone === "fire");
+      if (isAlertLine) {
         AUDIO.playAlert();
       } else {
         AUDIO.playTick();
       }
 
-      if (b.effects || b.vars || b.reason || b.settlement) {
-        applyEffects(b.effects, b.vars, b.reason || b.settlement, parent);
+      function afterTextShown() {
+        if (b.effects || b.vars || b.reason || b.settlement) {
+          applyEffects(b.effects, b.vars, b.reason || b.settlement, parent);
+        }
+        scrollToBottom();
+        if (onRevealComplete) onRevealComplete();
       }
 
-      scrollToBottom();
+      const reducedMotion = global.matchMedia && global.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (state.settings.typewriter !== false && !reducedMotion && !b.instant) {
+        scrollToBottom();
+        startTypewriter(body, richHtml, isAlertLine, afterTextShown);
+      } else {
+        body.innerHTML = richHtml;
+        afterTextShown();
+      }
     }
 
     function scrollToBottom() {
@@ -5395,6 +5927,13 @@ window.CC_STORY = {
         return;
       }
 
+      if (activeTypewriter) {
+        elChoiceDeck.classList.add("hidden");
+        elTapPrompt.classList.remove("hidden");
+        elTapRemaining.textContent = "轻触快显";
+        return;
+      }
+
       if (pendingQueue.length > 0) {
         elChoiceDeck.classList.add("hidden");
         elTapPrompt.classList.remove("hidden");
@@ -5417,6 +5956,11 @@ window.CC_STORY = {
       if (awaitingWidget || awaitingChoice || state.finished) return;
       clearAutoTimer();
 
+      // If a bubble is currently typing out, finish it immediately on tap
+      if (finishActiveTypewriter()) {
+        return;
+      }
+
       if (pendingQueue.length === 0) {
         updateBottomDock();
         return;
@@ -5424,7 +5968,17 @@ window.CC_STORY = {
 
       const item = pendingQueue.shift();
       if (item.kind === "bubble") {
-        appendBubble(item.data, item.container);
+        appendBubble(item.data, item.container, function () {
+          // Run trailing callback only after the bubble finishes typing out
+          if (pendingQueue.length > 0 && pendingQueue[0].kind === "callback") {
+            const cb = pendingQueue.shift();
+            cb.fn();
+            return;
+          }
+          updateBottomDock();
+        });
+        updateBottomDock();
+        return;
       } else if (item.kind === "war_section") {
         renderWarSection(item.data, item.container);
       } else if (item.kind === "callback") {
@@ -5850,12 +6404,12 @@ window.CC_STORY = {
           const reply = ch.replyText || ch.reply || ch.caoReply || ch.playerBubble;
           if (reply) {
             if (typeof reply === "string") {
-              appendBubble({ speaker: "曹操", side: "right", text: reply });
+              appendBubble({ speaker: "曹操", side: "right", instant: true, text: reply });
             } else {
-              appendBubble(Object.assign({ speaker: "曹操", side: "right" }, reply));
+              appendBubble(Object.assign({ speaker: "曹操", side: "right", instant: true }, reply));
             }
           } else {
-            appendBubble({ speaker: "曹操", side: "right", text: ch.label || "" });
+            appendBubble({ speaker: "曹操", side: "right", instant: true, text: ch.label || "" });
           }
 
           // Apply effects + settlement strip
@@ -6217,6 +6771,7 @@ window.CC_STORY = {
         state.fakeTroopBadge = Boolean(snap.fakeTroopBadge);
       }
 
+      cancelActiveTypewriter();
       elStream.innerHTML = "";
       pendingQueue = [];
       awaitingWidget = false;
@@ -6287,6 +6842,7 @@ window.CC_STORY = {
       });
 
       // Immediately pop first item so there's zero dead air
+      finishActiveTypewriter();
       advanceQueue();
     }
 
@@ -6344,10 +6900,38 @@ window.CC_STORY = {
             '<button type="button" class="toggle-pill' + (state.settings.autoPace ? " is-on" : "") + '" id="set-auto">' + (state.settings.autoPace ? "自动" : "手动") + "</button>" +
           "</div>" +
           '<div class="setting-row">' +
-            '<div class="setting-info"><strong>古琴氛围音</strong><span>开启声音时播放五声音阶低噪古琴</span></div>' +
+            '<div class="setting-info"><strong>逐字跳出节奏</strong><span>字符逐一弹跳显现，轻触屏幕可随时快显</span></div>' +
+            '<button type="button" class="toggle-pill' + (state.settings.typewriter !== false ? " is-on" : "") + '" id="set-typewriter">' + (state.settings.typewriter !== false ? "开启" : "关闭") + "</button>" +
+          "</div>" +
+          '<div class="setting-row">' +
+            '<div class="setting-info"><strong>触觉震动反馈</strong><span>重音、拍板与军报时触发手机微震</span></div>' +
+            '<button type="button" class="toggle-pill' + (state.settings.haptics !== false ? " is-on" : "") + '" id="set-haptics">' + (state.settings.haptics !== false ? "开启" : "关闭") + "</button>" +
+          "</div>" +
+          '<div class="setting-row">' +
+            '<div class="setting-info"><strong>麦田 8x 慢放氛围音</strong><span>开启声音时播放 8 倍慢放田园流行环境音</span></div>' +
             '<button type="button" class="toggle-pill' + (AUDIO.isBgmEnabled() ? " is-on" : "") + '" id="set-bgm">' + (AUDIO.isBgmEnabled() ? "开启" : "关闭") + "</button>" +
           "</div>" +
           '<button type="button" class="btn-danger" id="btn-drawer-restart">重开本局（清空当前进度）</button>';
+
+        const btnTypewriter = document.getElementById("set-typewriter");
+        if (btnTypewriter) {
+          btnTypewriter.addEventListener("click", function () {
+            state.settings.typewriter = state.settings.typewriter === false;
+            if (!state.settings.typewriter) finishActiveTypewriter();
+            saveState();
+            renderDrawerContent();
+          });
+        }
+        const btnHaptics = document.getElementById("set-haptics");
+        if (btnHaptics) {
+          btnHaptics.addEventListener("click", function () {
+            state.settings.haptics = state.settings.haptics === false;
+            AUDIO.setHapticsEnabled(state.settings.haptics);
+            if (state.settings.haptics) AUDIO.vibrate(10);
+            saveState();
+            renderDrawerContent();
+          });
+        }
 
         const btnTags = document.getElementById("set-tags");
         if (btnTags) {
@@ -6409,7 +6993,7 @@ window.CC_STORY = {
       }
       if (elSplashAudio) {
         elSplashAudio.classList.toggle("is-on", on);
-        elSplashAudio.textContent = on ? "声效/古琴：已开启" : "声效/古琴：静音";
+        elSplashAudio.textContent = on ? "麦田8x氛围音：已开启" : "麦田8x氛围音：静音";
       }
     }
 
@@ -6424,6 +7008,8 @@ window.CC_STORY = {
       state.discoveredEndings = preservedEndings;
       state.settings = preservedSettings;
 
+      cancelActiveTypewriter();
+      AUDIO.setHapticsEnabled(state.settings.haptics !== false);
       document.body.classList.toggle("hide-source-tags", !state.settings.showSourceTags);
       elSplash.classList.add("hidden");
       elStream.innerHTML = "";
@@ -6438,7 +7024,10 @@ window.CC_STORY = {
     }
 
     function resumeGame(saved) {
+      cancelActiveTypewriter();
       state = Object.assign(createFreshState(), saved);
+      state.settings = Object.assign({ showSourceTags: true, autoPace: false, typewriter: true, haptics: true }, state.settings || {});
+      AUDIO.setHapticsEnabled(state.settings.haptics !== false);
       document.body.classList.toggle("hide-source-tags", !state.settings.showSourceTags);
       elSplash.classList.add("hidden");
       elStream.innerHTML = "";
@@ -6541,7 +7130,7 @@ window.CC_STORY = {
         return;
       }
 
-      if (pendingQueue.length > 0 && !awaitingWidget && !awaitingChoice && !state.finished) {
+      if ((activeTypewriter || pendingQueue.length > 0) && !awaitingWidget && !awaitingChoice && !state.finished) {
         advanceQueue();
       }
     });
@@ -6566,7 +7155,7 @@ window.CC_STORY = {
         !awaitingWidget &&
         !awaitingChoice &&
         !state.finished &&
-        pendingQueue.length > 0
+        (activeTypewriter || pendingQueue.length > 0)
       ) {
         if (document.activeElement && document.activeElement.tagName === "BUTTON") return;
         e.preventDefault();
