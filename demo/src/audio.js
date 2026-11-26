@@ -19,8 +19,13 @@
   // BGM state: Primary = Web Audio AudioBufferSourceNode (true gapless infinite loop on mobile)
   // Fallback = plain HTML5 <audio> (for file:// where fetch is blocked) -> Warm synth pad
   let bgmSrc = "./bgm-red-cliffs.mp3";
+  let bgmOrigSrc = "./bgm-red-cliffs-orig.mp3";
   let bgmMoodRates = { calm: 1.0, tense: 0.94, fire: 0.88 };
   let bgmBuffer = null;
+  let bgmOrigBuffer = null;
+  let bgmOrigLoading = false;
+  let bgmEggSpeed = 1;
+  let bgmActiveTrack = "slow";
   let bgmBufferSrcUrl = null;
   let bgmBufferLoading = false;
   let bgmBufferNode = null;
@@ -169,23 +174,82 @@
     }
   }
 
-  function startBufferNode() {
-    if (!ctx || !bgmGain || !bgmBuffer || !enabled || !bgmEnabled) return;
+  function startBufferNode(which) {
+    const mode = which || (bgmEggSpeed >= 6 && bgmOrigBuffer ? "orig" : "slow");
+    const targetBuf = mode === "orig" ? bgmOrigBuffer : bgmBuffer;
+    if (!ctx || !bgmGain || !targetBuf || !enabled || !bgmEnabled) return;
     stopBufferNode();
     try {
       const node = ctx.createBufferSource();
-      node.buffer = bgmBuffer;
+      node.buffer = targetBuf;
       node.loop = true;
       node.loopStart = 0;
-      node.loopEnd = bgmBuffer.duration;
-      const rate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
+      node.loopEnd = targetBuf.duration;
+      const rate = mode === "orig"
+        ? Math.max(0.75, Math.min(1.05, bgmEggSpeed / 8))
+        : (bgmEggSpeed > 1 ? Math.min(2.8, 1 + (bgmEggSpeed - 1) * 0.42) : ((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0));
       node.playbackRate.setValueAtTime(rate, ctx.currentTime);
       node.connect(bgmGain);
       node.start(0);
       bgmBufferNode = node;
+      bgmActiveTrack = mode;
       updateBgmMoodGain();
     } catch (e) {
       startElFallback();
+    }
+  }
+
+  function setEggSpeed(mult) {
+    bgmEggSpeed = Math.max(1, Math.min(8, Number(mult) || 1));
+    if (!enabled) {
+      setEnabled(true);
+    }
+    if (!bgmEnabled) {
+      setBgmEnabled(true);
+    }
+    if (!ensureContext()) return;
+    if (bgmEggSpeed >= 6) {
+      if (bgmOrigBuffer) {
+        if (bgmActiveTrack === "orig" && bgmBufferNode) {
+          bgmBufferNode.playbackRate.setTargetAtTime(Math.max(0.75, bgmEggSpeed / 8), ctx.currentTime, 0.12);
+        } else {
+          startBufferNode("orig");
+        }
+      } else if (!bgmOrigLoading && typeof global.fetch === "function" && (!global.location || global.location.protocol !== "file:")) {
+        bgmOrigLoading = true;
+        global.fetch(bgmOrigSrc)
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+          .then(function (ab) {
+            return new Promise(function (resolve, reject) {
+              const p = ctx.decodeAudioData(ab, resolve, reject);
+              if (p && typeof p.then === "function") p.then(resolve, reject);
+            });
+          })
+          .then(function (decoded) {
+            bgmOrigLoading = false;
+            bgmOrigBuffer = decoded;
+            if (enabled && bgmEnabled && bgmEggSpeed >= 6) startBufferNode("orig");
+          })
+          .catch(function () { bgmOrigLoading = false; });
+      }
+    } else {
+      if (bgmActiveTrack === "slow" && bgmBufferNode) {
+        const rate = bgmEggSpeed > 1 ? Math.min(2.8, 1 + (bgmEggSpeed - 1) * 0.42) : ((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0);
+        bgmBufferNode.playbackRate.setTargetAtTime(rate, ctx.currentTime, 0.12);
+      } else if (bgmBuffer) {
+        startBufferNode("slow");
+      } else {
+        startBgmLoop();
+      }
+    }
+  }
+
+  function resetEggSpeed() {
+    bgmEggSpeed = 1;
+    if (enabled && bgmEnabled && bgmBuffer && bgmActiveTrack !== "slow") {
+      startBufferNode("slow");
+    } else if (ctx && bgmBufferNode && bgmActiveTrack === "slow") {
+      bgmBufferNode.playbackRate.setTargetAtTime((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0, ctx.currentTime, 0.25);
     }
   }
 
@@ -568,6 +632,8 @@
     setBgmEnabled: setBgmEnabled,
     setHapticsEnabled: setHapticsEnabled,
     setBgmConfig: setBgmConfig,
+    setEggSpeed: setEggSpeed,
+    resetEggSpeed: resetEggSpeed,
     setMood: setMood,
     vibrate: vibrate,
     playCharPop: playCharPop,

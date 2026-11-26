@@ -2183,6 +2183,23 @@
             "</div>"
           : "") +
         '<div class="ending-section">' +
+          '<div class="ending-sec-title">// 🎧 结局彩蛋 · 拨快时光听原曲</div>' +
+          '<div class="egg-box">' +
+            '<div class="egg-top">' +
+              '<span>赤壁背景音乐 · 变速滑杆</span>' +
+              '<span class="egg-val" id="egg-val">1x（8倍慢放氛围）</span>' +
+            "</div>" +
+            '<input type="range" class="egg-slider" id="egg-slider" min="1" max="8" step="1" value="1">' +
+            '<div class="egg-presets">' +
+              '<button type="button" class="egg-preset is-on" data-spd="1">1x 慢放</button>' +
+              '<button type="button" class="egg-preset" data-spd="2">2x 加速</button>' +
+              '<button type="button" class="egg-preset" data-spd="4">4x 疾驰</button>' +
+              '<button type="button" class="egg-preset" data-spd="8">8x 原曲</button>' +
+            "</div>" +
+            '<div class="egg-note" id="egg-note">拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。</div>' +
+          "</div>" +
+        "</div>" +
+        '<div class="ending-section">' +
           '<div class="ending-sec-title">// 再探赤壁</div>' +
           '<div class="ending-actions">' +
             '<button type="button" class="btn-primary" id="btn-end-restart">重开一局</button>' +
@@ -2201,9 +2218,48 @@
         });
       }
 
+      const eggSlider = card.querySelector("#egg-slider");
+      const eggVal = card.querySelector("#egg-val");
+      const eggNote = card.querySelector("#egg-note");
+      const eggBtns = card.querySelectorAll(".egg-preset");
+
+      function applyEgg(spd) {
+        const v = Math.max(1, Math.min(8, Number(spd) || 1));
+        if (eggSlider) eggSlider.value = String(v);
+        if (typeof AUDIO.setEggSpeed === "function") AUDIO.setEggSpeed(v);
+        syncAudioButtons();
+        eggBtns.forEach(function (b) {
+          b.classList.toggle("is-on", Number(b.getAttribute("data-spd")) === v);
+        });
+        if (v >= 8) {
+          if (eggVal) eggVal.textContent = "8x（已还原原速！）";
+          if (eggNote) eggNote.innerHTML = "<strong>彩蛋揭晓：</strong>刚才陪你在赤壁熬夜的玄墨氛围音，其实是把这段温暖的「麦田」田园流行旋律放慢 8 倍做的！";
+        } else if (v >= 6) {
+          if (eggVal) eggVal.textContent = v + "x（逼近原曲…）";
+          if (eggNote) eggNote.textContent = "再往右拉一点，江雾就彻底散开、露出原本的田园吉他与电钢旋律了！";
+        } else if (v > 1) {
+          if (eggVal) eggVal.textContent = v + "x（时光拨快中）";
+          if (eggNote) eggNote.textContent = "慢放的江雾正在加速苏醒……继续拉到 8x 听完整原曲！";
+        } else {
+          if (eggVal) eggVal.textContent = "1x（8倍慢放氛围）";
+          if (eggNote) eggNote.textContent = "拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。";
+        }
+      }
+
+      if (eggSlider) {
+        eggSlider.addEventListener("input", function () { applyEgg(eggSlider.value); });
+      }
+      eggBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          AUDIO.playGloss();
+          applyEgg(b.getAttribute("data-spd"));
+        });
+      });
+
       const restartBtn = card.querySelector("#btn-end-restart");
       if (restartBtn) {
         restartBtn.addEventListener("click", function () {
+          if (typeof AUDIO.resetEggSpeed === "function") AUDIO.resetEggSpeed();
           AUDIO.playChoice();
           startNewGame();
         });

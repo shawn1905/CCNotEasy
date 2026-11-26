@@ -420,6 +420,23 @@
     }
     .btn-copy.is-copied { border-color: var(--ok); color: var(--ok); background: rgba(127, 176, 105, 0.15); }
 
+    /* Easter Egg: BGM Speed-Up Reveal Slider */
+    .egg-box {
+      padding: 10px 12px; border: 1px dashed rgba(232, 111, 58, 0.6);
+      border-radius: var(--radius); background: rgba(232, 111, 58, 0.06);
+    }
+    .egg-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-ui); font-size: 11.5px; margin-bottom: 8px; }
+    .egg-val { color: var(--accent); font-weight: 700; }
+    .egg-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
+    .egg-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 8px; }
+    .egg-preset {
+      padding: 5px 4px; border: 1px solid var(--muted); border-radius: var(--radius);
+      background: var(--bg-darker); font-family: var(--font-ui); font-size: 11px; color: var(--fg-dim);
+    }
+    .egg-preset.is-on { border-color: var(--accent); color: var(--fg-bright); background: var(--accent-soft); }
+    .egg-note { margin-top: 8px; font-size: 12px; color: var(--fg); line-height: 1.5; }
+    .egg-note strong { color: var(--accent); }
+
     /* Bottom Tap Bar */
     .bottom-bar {
       flex: 0 0 auto; background: rgba(15, 12, 11, 0.96);
@@ -540,8 +557,8 @@
        ====================================================================== */
     const AudioEngine = (function () {
       let ctx = null, master = null, bgmGain = null, sfxGain = null;
-      let bgmBuf = null, bgmNode = null, bgmLoading = false, bgmEl = null;
-      let enabled = false, mood = "calm";
+      let bgmBuf = null, origBuf = null, bgmNode = null, bgmLoading = false, origLoading = false, bgmEl = null;
+      let enabled = false, mood = "calm", eggSpeed = 1, activeTrack = "slow";
 
       function vib(p) {
         try {
@@ -561,19 +578,65 @@
         return true;
       }
 
-      function startBuf() {
-        if (!ctx || !bgmBuf || !enabled) return;
+      function startBuf(which) {
+        if (!ctx || !enabled) return;
+        const targetBuf = which === "orig" ? origBuf : bgmBuf;
+        if (!targetBuf) return;
         stopBgm();
         const n = ctx.createBufferSource();
-        n.buffer = bgmBuf; n.loop = true;
-        n.playbackRate.setValueAtTime(mood === "fire" ? 0.9 : 1.0, ctx.currentTime);
+        n.buffer = targetBuf; n.loop = true;
+        const rate = which === "orig"
+          ? Math.max(0.75, Math.min(1.05, eggSpeed / 8))
+          : (eggSpeed > 1 ? Math.min(2.8, 1 + (eggSpeed - 1) * 0.42) : (mood === "fire" ? 0.9 : 1.0));
+        n.playbackRate.setValueAtTime(rate, ctx.currentTime);
         n.connect(bgmGain); n.start(0);
         bgmNode = n;
+        activeTrack = which;
+      }
+
+      function loadOrigAndPlay() {
+        if (!ensureCtx()) return;
+        if (origBuf) { startBuf("orig"); return; }
+        if (origLoading || location.protocol === "file:" || !window.fetch) {
+          startBuf("slow");
+          return;
+        }
+        origLoading = true;
+        fetch("./bgm-red-cliffs-orig.mp3")
+          .then(r => r.arrayBuffer())
+          .then(ab => ctx.decodeAudioData(ab))
+          .then(buf => { origLoading = false; origBuf = buf; if (enabled && eggSpeed >= 6) startBuf("orig"); })
+          .catch(() => { origLoading = false; });
+      }
+
+      function setEggSpeed(mult) {
+        eggSpeed = Math.max(1, Math.min(8, Number(mult) || 1));
+        if (!enabled) {
+          enabled = true;
+          ensureCtx();
+          master.gain.setTargetAtTime(0.9, ctx.currentTime, 0.04);
+        }
+        if (eggSpeed >= 6) {
+          if (activeTrack === "orig" && bgmNode && ctx) {
+            bgmNode.playbackRate.setTargetAtTime(Math.max(0.75, eggSpeed / 8), ctx.currentTime, 0.12);
+          } else {
+            loadOrigAndPlay();
+          }
+        } else {
+          if (activeTrack === "slow" && bgmNode && ctx) {
+            const rate = eggSpeed > 1 ? Math.min(2.8, 1 + (eggSpeed - 1) * 0.42) : (mood === "fire" ? 0.9 : 1.0);
+            bgmNode.playbackRate.setTargetAtTime(rate, ctx.currentTime, 0.12);
+          } else if (bgmBuf) {
+            startBuf("slow");
+          } else {
+            startBgm();
+          }
+        }
       }
 
       function startBgm() {
         if (!enabled || !ensureCtx()) return;
-        if (bgmBuf) { startBuf(); return; }
+        if (bgmBuf) { startBuf("slow"); return; }
         if (bgmLoading) return;
         if (location.protocol === "file:" || !window.fetch) {
           if (!bgmEl) {
@@ -588,7 +651,7 @@
         fetch("./bgm-red-cliffs.mp3")
           .then(r => r.arrayBuffer())
           .then(ab => ctx.decodeAudioData(ab))
-          .then(buf => { bgmLoading = false; bgmBuf = buf; if (enabled && !document.hidden) startBuf(); })
+          .then(buf => { bgmLoading = false; bgmBuf = buf; if (enabled && !document.hidden) startBuf(eggSpeed >= 6 && origBuf ? "orig" : "slow"); })
           .catch(() => { bgmLoading = false; });
       }
 
@@ -666,8 +729,12 @@
         isEnabled: () => enabled,
         setMood(m) {
           mood = m || "calm";
-          if (ctx && bgmNode) bgmNode.playbackRate.setTargetAtTime(mood === "fire" ? 0.9 : 1.0, ctx.currentTime, 0.4);
+          if (ctx && bgmNode && activeTrack === "slow" && eggSpeed === 1) {
+            bgmNode.playbackRate.setTargetAtTime(mood === "fire" ? 0.9 : 1.0, ctx.currentTime, 0.4);
+          }
         },
+        setEggSpeed,
+        resetEggSpeed() { eggSpeed = 1; if (enabled && bgmBuf && activeTrack !== "slow") startBuf("slow"); },
         vib, playTick, playExpose, playStamp, playAlert
       };
     })();
@@ -1388,10 +1455,60 @@
           <button type="button" class="btn-copy" id="btn-copy-llm">一键复制专属 LLM 点评提示词</button>
         </div>
         <div class="ending-sec">
+          <div class="sec-kicker">// 🎧 结局彩蛋 · 拨快时光听原曲</div>
+          <div class="egg-box">
+            <div class="egg-top">
+              <span>赤壁背景音乐 · 变速滑杆</span>
+              <span class="egg-val" id="egg-val">1x（8倍慢放氛围）</span>
+            </div>
+            <input type="range" class="egg-slider" id="egg-slider" min="1" max="8" step="1" value="1">
+            <div class="egg-presets">
+              <button type="button" class="egg-preset is-on" data-spd="1">1x 慢放</button>
+              <button type="button" class="egg-preset" data-spd="2">2x 加速</button>
+              <button type="button" class="egg-preset" data-spd="4">4x 疾驰</button>
+              <button type="button" class="egg-preset" data-spd="8">8x 原曲</button>
+            </div>
+            <div class="egg-note" id="egg-note">拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。</div>
+          </div>
+        </div>
+        <div class="ending-sec">
           <button type="button" class="btn-primary" id="btn-replay">再来一局（换套脏招试试）</button>
         </div>`;
 
       elStream.appendChild(card);
+
+      // Wire Easter Egg BGM speed-up slider
+      const eggSlider = card.querySelector("#egg-slider");
+      const eggVal = card.querySelector("#egg-val");
+      const eggNote = card.querySelector("#egg-note");
+      const eggBtns = card.querySelectorAll(".egg-preset");
+
+      function applyEgg(spd) {
+        const v = Math.max(1, Math.min(8, Number(spd) || 1));
+        eggSlider.value = String(v);
+        AudioEngine.setEggSpeed(v);
+        syncAudioUI();
+        eggBtns.forEach(b => b.classList.toggle("is-on", Number(b.getAttribute("data-spd")) === v));
+        if (v >= 8) {
+          eggVal.textContent = "8x（已还原原速！）";
+          eggNote.innerHTML = "<strong>彩蛋揭晓：</strong>刚才陪你在赤壁熬夜的玄墨氛围音，其实是把这段温暖的「麦田」田园流行旋律放慢 8 倍做的！";
+        } else if (v >= 6) {
+          eggVal.textContent = v + "x（逼近原曲…）";
+          eggNote.textContent = "再往右拉一点，江雾就彻底散开、露出原本的田园吉他与电钢旋律了！";
+        } else if (v > 1) {
+          eggVal.textContent = v + "x（时光拨快中）";
+          eggNote.textContent = "慢放的江雾正在加速苏醒……继续拉到 8x 听完整原曲！";
+        } else {
+          eggVal.textContent = "1x（8倍慢放氛围）";
+          eggNote.textContent = "拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。";
+        }
+      }
+
+      eggSlider.addEventListener("input", () => applyEgg(eggSlider.value));
+      eggBtns.forEach(b => b.addEventListener("click", () => {
+        AudioEngine.playExpose();
+        applyEgg(b.getAttribute("data-spd"));
+      }));
 
       card.querySelector("#btn-copy-llm").addEventListener("click", function () {
         const btn = this;
@@ -1407,6 +1524,7 @@
       });
 
       card.querySelector("#btn-replay").addEventListener("click", () => {
+        AudioEngine.resetEggSpeed();
         AudioEngine.playStamp(false);
         startGame();
       });

@@ -2235,6 +2235,68 @@ body.hide-source-tags .source-tag {
   color: var(--ok);
 }
 
+/* Ending Easter Egg: BGM Speed-Up Reveal */
+.egg-box {
+  padding: 10px 12px;
+  border: 1px dashed rgba(232, 111, 58, 0.6);
+  border-radius: var(--radius);
+  background: rgba(232, 111, 58, 0.06);
+}
+
+.egg-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  margin-bottom: 8px;
+}
+
+.egg-val {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.egg-slider {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.egg-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.egg-preset {
+  padding: 5px 4px;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--fg-dim);
+}
+
+.egg-preset.is-on {
+  border-color: var(--accent);
+  color: var(--fg-bright);
+  background: var(--accent-soft);
+}
+
+.egg-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--fg);
+  line-height: 1.5;
+}
+
+.egg-note strong {
+  color: var(--accent);
+}
+
 /* ==========================================================================
    Reduced Motion
    ========================================================================== */
@@ -4751,8 +4813,13 @@ window.CC_STORY = {
   // BGM state: Primary = Web Audio AudioBufferSourceNode (true gapless infinite loop on mobile)
   // Fallback = plain HTML5 <audio> (for file:// where fetch is blocked) -> Warm synth pad
   let bgmSrc = "./bgm-red-cliffs.mp3";
+  let bgmOrigSrc = "./bgm-red-cliffs-orig.mp3";
   let bgmMoodRates = { calm: 1.0, tense: 0.94, fire: 0.88 };
   let bgmBuffer = null;
+  let bgmOrigBuffer = null;
+  let bgmOrigLoading = false;
+  let bgmEggSpeed = 1;
+  let bgmActiveTrack = "slow";
   let bgmBufferSrcUrl = null;
   let bgmBufferLoading = false;
   let bgmBufferNode = null;
@@ -4901,23 +4968,82 @@ window.CC_STORY = {
     }
   }
 
-  function startBufferNode() {
-    if (!ctx || !bgmGain || !bgmBuffer || !enabled || !bgmEnabled) return;
+  function startBufferNode(which) {
+    const mode = which || (bgmEggSpeed >= 6 && bgmOrigBuffer ? "orig" : "slow");
+    const targetBuf = mode === "orig" ? bgmOrigBuffer : bgmBuffer;
+    if (!ctx || !bgmGain || !targetBuf || !enabled || !bgmEnabled) return;
     stopBufferNode();
     try {
       const node = ctx.createBufferSource();
-      node.buffer = bgmBuffer;
+      node.buffer = targetBuf;
       node.loop = true;
       node.loopStart = 0;
-      node.loopEnd = bgmBuffer.duration;
-      const rate = (bgmMoodRates && bgmMoodRates[currentMood]) || 1.0;
+      node.loopEnd = targetBuf.duration;
+      const rate = mode === "orig"
+        ? Math.max(0.75, Math.min(1.05, bgmEggSpeed / 8))
+        : (bgmEggSpeed > 1 ? Math.min(2.8, 1 + (bgmEggSpeed - 1) * 0.42) : ((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0));
       node.playbackRate.setValueAtTime(rate, ctx.currentTime);
       node.connect(bgmGain);
       node.start(0);
       bgmBufferNode = node;
+      bgmActiveTrack = mode;
       updateBgmMoodGain();
     } catch (e) {
       startElFallback();
+    }
+  }
+
+  function setEggSpeed(mult) {
+    bgmEggSpeed = Math.max(1, Math.min(8, Number(mult) || 1));
+    if (!enabled) {
+      setEnabled(true);
+    }
+    if (!bgmEnabled) {
+      setBgmEnabled(true);
+    }
+    if (!ensureContext()) return;
+    if (bgmEggSpeed >= 6) {
+      if (bgmOrigBuffer) {
+        if (bgmActiveTrack === "orig" && bgmBufferNode) {
+          bgmBufferNode.playbackRate.setTargetAtTime(Math.max(0.75, bgmEggSpeed / 8), ctx.currentTime, 0.12);
+        } else {
+          startBufferNode("orig");
+        }
+      } else if (!bgmOrigLoading && typeof global.fetch === "function" && (!global.location || global.location.protocol !== "file:")) {
+        bgmOrigLoading = true;
+        global.fetch(bgmOrigSrc)
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
+          .then(function (ab) {
+            return new Promise(function (resolve, reject) {
+              const p = ctx.decodeAudioData(ab, resolve, reject);
+              if (p && typeof p.then === "function") p.then(resolve, reject);
+            });
+          })
+          .then(function (decoded) {
+            bgmOrigLoading = false;
+            bgmOrigBuffer = decoded;
+            if (enabled && bgmEnabled && bgmEggSpeed >= 6) startBufferNode("orig");
+          })
+          .catch(function () { bgmOrigLoading = false; });
+      }
+    } else {
+      if (bgmActiveTrack === "slow" && bgmBufferNode) {
+        const rate = bgmEggSpeed > 1 ? Math.min(2.8, 1 + (bgmEggSpeed - 1) * 0.42) : ((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0);
+        bgmBufferNode.playbackRate.setTargetAtTime(rate, ctx.currentTime, 0.12);
+      } else if (bgmBuffer) {
+        startBufferNode("slow");
+      } else {
+        startBgmLoop();
+      }
+    }
+  }
+
+  function resetEggSpeed() {
+    bgmEggSpeed = 1;
+    if (enabled && bgmEnabled && bgmBuffer && bgmActiveTrack !== "slow") {
+      startBufferNode("slow");
+    } else if (ctx && bgmBufferNode && bgmActiveTrack === "slow") {
+      bgmBufferNode.playbackRate.setTargetAtTime((bgmMoodRates && bgmMoodRates[currentMood]) || 1.0, ctx.currentTime, 0.25);
     }
   }
 
@@ -5300,6 +5426,8 @@ window.CC_STORY = {
     setBgmEnabled: setBgmEnabled,
     setHapticsEnabled: setHapticsEnabled,
     setBgmConfig: setBgmConfig,
+    setEggSpeed: setEggSpeed,
+    resetEggSpeed: resetEggSpeed,
     setMood: setMood,
     vibrate: vibrate,
     playCharPop: playCharPop,
@@ -7497,6 +7625,23 @@ window.CC_STORY = {
             "</div>"
           : "") +
         '<div class="ending-section">' +
+          '<div class="ending-sec-title">// 🎧 结局彩蛋 · 拨快时光听原曲</div>' +
+          '<div class="egg-box">' +
+            '<div class="egg-top">' +
+              '<span>赤壁背景音乐 · 变速滑杆</span>' +
+              '<span class="egg-val" id="egg-val">1x（8倍慢放氛围）</span>' +
+            "</div>" +
+            '<input type="range" class="egg-slider" id="egg-slider" min="1" max="8" step="1" value="1">' +
+            '<div class="egg-presets">' +
+              '<button type="button" class="egg-preset is-on" data-spd="1">1x 慢放</button>' +
+              '<button type="button" class="egg-preset" data-spd="2">2x 加速</button>' +
+              '<button type="button" class="egg-preset" data-spd="4">4x 疾驰</button>' +
+              '<button type="button" class="egg-preset" data-spd="8">8x 原曲</button>' +
+            "</div>" +
+            '<div class="egg-note" id="egg-note">拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。</div>' +
+          "</div>" +
+        "</div>" +
+        '<div class="ending-section">' +
           '<div class="ending-sec-title">// 再探赤壁</div>' +
           '<div class="ending-actions">' +
             '<button type="button" class="btn-primary" id="btn-end-restart">重开一局</button>' +
@@ -7515,9 +7660,48 @@ window.CC_STORY = {
         });
       }
 
+      const eggSlider = card.querySelector("#egg-slider");
+      const eggVal = card.querySelector("#egg-val");
+      const eggNote = card.querySelector("#egg-note");
+      const eggBtns = card.querySelectorAll(".egg-preset");
+
+      function applyEgg(spd) {
+        const v = Math.max(1, Math.min(8, Number(spd) || 1));
+        if (eggSlider) eggSlider.value = String(v);
+        if (typeof AUDIO.setEggSpeed === "function") AUDIO.setEggSpeed(v);
+        syncAudioButtons();
+        eggBtns.forEach(function (b) {
+          b.classList.toggle("is-on", Number(b.getAttribute("data-spd")) === v);
+        });
+        if (v >= 8) {
+          if (eggVal) eggVal.textContent = "8x（已还原原速！）";
+          if (eggNote) eggNote.innerHTML = "<strong>彩蛋揭晓：</strong>刚才陪你在赤壁熬夜的玄墨氛围音，其实是把这段温暖的「麦田」田园流行旋律放慢 8 倍做的！";
+        } else if (v >= 6) {
+          if (eggVal) eggVal.textContent = v + "x（逼近原曲…）";
+          if (eggNote) eggNote.textContent = "再往右拉一点，江雾就彻底散开、露出原本的田园吉他与电钢旋律了！";
+        } else if (v > 1) {
+          if (eggVal) eggVal.textContent = v + "x（时光拨快中）";
+          if (eggNote) eggNote.textContent = "慢放的江雾正在加速苏醒……继续拉到 8x 听完整原曲！";
+        } else {
+          if (eggVal) eggVal.textContent = "1x（8倍慢放氛围）";
+          if (eggNote) eggNote.textContent = "拖动滑杆或点「8x 原曲」，听听刚才伴你熬过赤壁寒夜的背景音原本是什么旋律。";
+        }
+      }
+
+      if (eggSlider) {
+        eggSlider.addEventListener("input", function () { applyEgg(eggSlider.value); });
+      }
+      eggBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          AUDIO.playGloss();
+          applyEgg(b.getAttribute("data-spd"));
+        });
+      });
+
       const restartBtn = card.querySelector("#btn-end-restart");
       if (restartBtn) {
         restartBtn.addEventListener("click", function () {
+          if (typeof AUDIO.resetEggSpeed === "function") AUDIO.resetEggSpeed();
           AUDIO.playChoice();
           startNewGame();
         });
