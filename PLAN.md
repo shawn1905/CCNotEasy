@@ -118,8 +118,8 @@
    Vite + TS + React + Tailwind；自研 JSON 事件机；`localStorage`；LLM 后置可降级。  
    详见 [`docs/design/architecture.md`](./docs/design/architecture.md)。  
    **不上** Ink / Twine / Monogatari / Rust（第一版）。
-4. **美术规范（Art Bible）初稿** → **已出，待你拍板 3 问**  
-   默认 Omarchy Tokyo Night 原色；章节可换肤（同变量契约）。  
+4. **美术规范（Art Bible）初稿** → **已确认复用 Quattro 默认**  
+   Tokyo Night 色表；火烧云感来自 Liftoff/Quattro 氛围底（可选）；章节换肤后置。  
    详见 [`docs/design/visual-bible.md`](./docs/design/visual-bible.md)。
 5. **可玩原型 / Vertical Slice**  
    赤壁前夜一节；验收见 GDD 大纲。
@@ -154,9 +154,8 @@
 
 **下一步：**
 
-1. 你过目 [`docs/design/visual-bible.md`](./docs/design/visual-bible.md)，回 3 个小问题（章内是否换肤 / 字体 / 备几个主题）。  
-2. 你签 [`docs/GDD-outline.md`](./docs/GDD-outline.md)。  
-3. 脚手架 + 「赤壁前夜」第一条可玩对话链。
+1. 你签 [`docs/GDD-outline.md`](./docs/GDD-outline.md)（或说「按大纲开干」）。  
+2. 脚手架（Vite+React+Tokyo Night）+ 「赤壁前夜」第一条可玩对话链。
 
 ---
 
@@ -188,4 +187,4 @@
 | 2026-11-26 | 落入竞品参考笔记；增加资料库工具选型待确认 |
 | 2026-11-26 | 入库朋友「易品三国」解构；确认权重：公开史料 > 朋友看法/调性 |
 | 2026-11-26 | 确认技术架构：Vite+TS+React+自研 JSON 事件机（现代/丝滑/轻量） |
-| 2026-11-26 | 视觉规范初稿：Omarchy Tokyo Night 原色；章节换肤契约 |
+| 2026-11-26 | 视觉规范：锁定复用 Omarchy Quattro 默认（Tokyo Night + Liftoff 氛围） |

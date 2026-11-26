@@ -1,88 +1,82 @@
 # 视觉规范初稿（Art Bible）
 
 ```
-确认意向：2026-11-26 Asia/Shanghai（修订中）
-默认皮肤：待定 — 火烧云向（非 Tokyo Night）
-气质：暗色终端桌面 · 方正锐利 · 聊天气泡 · 手机优先
-章节换肤：同一套 CSS 变量契约，整页换主题（结构不变）
+确认：2026-11-26 Asia/Shanghai
+默认：Omarchy Quattro 出厂套 — Tokyo Night 色表（先复用）
+氛围：Quattro / Liftoff 暮色壁纸层（火烧云感来自背景，不是另换主题）
+气质：暗色终端 · 方正锐利 · 聊天气泡 · 手机优先
+章节换肤：同 CSS 变量契约；初版可只做东京夜
 ```
 
-## 0. 纠偏：不是 Tokyo Night
+## 0. 已对齐
 
-用户反馈要的气质更接近**火烧云**（暖橙/余烬），不是 Tokyo Night 的冷蓝。
+- 「奥迪四驱」= **Omarchy Quattro**；出厂默认主题是 **Tokyo Night**。  
+- 火烧云观感主要来自默认壁纸（Liftoff 暮色 / Quattro 拉力车图），**UI chrome 仍是东京夜色表**。  
+- 初版**先复用**这套：色用 Tokyo Night；可选加一层低对比度氛围底（暮色图或渐变近似），不另造 Ristretto/Retro82。
 
-| 主题 | 底 | 强调 | 观感 | 链接 |
-|------|----|------|------|------|
-| Tokyo Night | `#1a1b26` 蓝黑 | `#7aa2f7` 冷蓝 | 夜江、终端蓝 | [gallery](https://omarchy.gallery/themes/tokyo-night) |
-| **Ristretto** | `#2c2525` 可可褐 | `#f38d70` 珊瑚橙 | **余烬、焦岸、暖炉** | [gallery](https://omarchy.gallery/themes/ristretto) |
-| **Retro 82** | `#05182e` 深海蓝 | `#faa968` 暮橙 | **火烧云压江面** | [gallery](https://omarchy.gallery/themes/retro-82) |
-
-**默认候选（二选一，待你点）：**
-
-- **A · Ristretto** — 整页暖褐，更「烧过之后的岸」  
-- **B · Retro 82** — 深蓝底 + 琥珀字/橙强调，更「天上火烧云、水上倒影」
-
-Tokyo Night 可留作后期「北征/官渡」等冷色章节，**不当赤壁默认**。
+来源：[omarchy.gallery/tokyo-night](https://omarchy.gallery/themes/tokyo-night) · [Omarchy 4.5：Liftoff 为东京夜默认背景](https://omarchy.org/news/2026/11/omarchy-4-5/)
 
 ## 1. 设计原则
 
 | 原则 | 做法 |
 |------|------|
-| 跟 Omarchy 走 | 原样采用官方主题 `colors.toml`，不另造渐变皮 |
-| 火烧赤壁感 | **暖强调（橙/珊瑚）压在深底上**；焰色是主角，不是冷蓝点缀 |
+| 跟 Quattro 默认走 | 原样用 `themes/tokyo-night/colors.toml` |
+| 火烧赤壁感 | 冷蓝 UI + 可选暮色氛围底；焰色用官方 `orange/yellow/red` 做战报/告急 |
 | 方正 | 圆角 ≤ 4px；忌胶囊大圆角 |
-| 轻 | 无立绘、无大地图；氛围靠色表 + 细线 |
-| 可换肤 | 组件只吃语义变量；换章 = 换 `[data-theme]` |
+| 轻 | 无立绘大地图；壁纸只作淡底或开场，不挡字 |
+| 可换肤 | 组件只吃语义变量；换章 = 换 `[data-theme]`（后置） |
 
-## 2. 默认主题（待锁定 A 或 B）
+## 2. 默认主题 · Tokyo Night（锁定复用）
 
-### 2.1A 候选 · Ristretto（余烬岸）
+### 2.1 核心色（官方）
 
-| Token | Hex | 语义 |
+| Token | Hex | 游戏语义 |
+|-------|-----|----------|
+| `--bg` | `#1a1b26` | 主背景 |
+| `--bg-dark` | `#13141c` | 顶栏 |
+| `--bg-darker` | `#0e0e14` | 最深 |
+| `--bg-light` | `#24283b` | 气泡/面板 |
+| `--fg` | `#a9b1d6` | 正文 |
+| `--fg-dim` | `#565f89` | 次要、时间戳 |
+| `--fg-bright` | `#c0caf5` | 标题、选项强调 |
+| `--accent` | `#7aa2f7` | 主 CTA、史实诱向 |
+| `--selection` | `#292e42` | 悬停/己方气泡 |
+| `--muted` | `#414868` | 边框 |
+
+### 2.2 语义强调
+
+| Token | Hex | 用途 |
 |-------|-----|------|
-| `--bg` | `#2c2525` | 主背景 |
-| `--bg-dark` | `#211b1b` | 顶栏 |
-| `--bg-darker` | `#181414` | 最深 |
-| `--bg-light` | `#3d2f2a` | 气泡底 |
-| `--fg` | `#e6d9db` | 正文 |
-| `--fg-dim` | `#72696a` | 次要 |
-| `--fg-bright` | `#e6d9db` | 强调字 |
-| `--accent` | `#f38d70` | 主 CTA / 诱向 |
-| `--selection` | `#403e41` | 悬停 |
-| `--muted` | `#72696a` | 边框 |
-| `--danger` | `#fd6883` | 败报 |
-| `--warn` / `--fire` | `#fb9a77` / `#f9cc6c` | 火攻、告警 |
-| `--ok` | `#adda78` | 暂稳 |
-| `--info` | `#85dacc` | 密信 |
-| `--earth` | `#7d4d3b` | 钱帛 |
+| `--danger` | `#f7768e` | 败报、兵力告急 |
+| `--warn` | `#e0af68` | 粮草紧张 |
+| `--fire` | `#ff9e64` | 火攻、战报高光 |
+| `--ok` | `#9ece6a` | 暂稳、回升 |
+| `--info` | `#449dab` | 密信、情报 |
+| `--special` | `#ad8ee6` | 拟写/演义标签（慎用） |
+| `--earth` | `#75493d` | 钱帛 |
 
-### 2.1B 候选 · Retro 82（火烧云）
-
-| Token | Hex | 语义 |
-|-------|-----|------|
-| `--bg` | `#05182e` | 主背景（暮江） |
-| `--bg-dark` | `#031222` | 顶栏 |
-| `--bg-darker` | `#020c17` | 最深 |
-| `--bg-light` | `#0a2540` | 气泡底 |
-| `--fg` | `#f6dcac` | 正文（琥珀） |
-| `--fg-dim` | `#3f8f8a` | 次要 |
-| `--fg-bright` | `#f6dcac` | 强调字 |
-| `--accent` | `#faa968` | 主 CTA / 火烧云 |
-| `--selection` | `#134e5a` | 悬停 |
-| `--muted` | `#2a6b78` | 边框 |
-| `--danger` | `#f85525` | 败报 / 烈焰 |
-| `--warn` / `--fire` | `#e97b3c` / `#faa968` | 火攻 |
-| `--ok` | `#028391` | 暂稳（青） |
-| `--info` | `#8cbfb8` | 密信 |
-| `--earth` | `#743d1e` | 钱帛 |
-
-### 2.2 CSS 契约（两套共用变量名）
+### 2.3 CSS 模板
 
 ```css
 :root,
-[data-theme="ristretto"],
-[data-theme="retro-82"] {
-  /* 具体 hex 见上表；只换数值，不换变量名 */
+[data-theme="tokyo-night"] {
+  --bg: #1a1b26;
+  --bg-dark: #13141c;
+  --bg-darker: #0e0e14;
+  --bg-light: #24283b;
+  --fg: #a9b1d6;
+  --fg-dim: #565f89;
+  --fg-bright: #c0caf5;
+  --accent: #7aa2f7;
+  --selection: #292e42;
+  --muted: #414868;
+  --danger: #f7768e;
+  --warn: #e0af68;
+  --fire: #ff9e64;
+  --ok: #9ece6a;
+  --info: #449dab;
+  --special: #ad8ee6;
+  --earth: #75493d;
   --radius: 2px;
   --border: 1px solid var(--muted);
   --font-ui: "JetBrains Mono", "Sarasa Mono SC", "Noto Sans Mono CJK SC", ui-monospace, monospace;
@@ -90,88 +84,61 @@ Tokyo Night 可留作后期「北征/官渡」等冷色章节，**不当赤壁�
 }
 ```
 
-字体意向：顶栏等宽；气泡可无衬线。最终字体包体积待脚手架时裁。
+氛围底（可选）：全屏极淡 `Liftoff` 类暮色图，上叠 `bg` 约 85–92% 不透明，保证正文对比度；无授权图时用 `bg → fire` 极淡径向近似。
 
 ## 3. 布局与组件（手机优先）
 
 ```text
 ┌─────────────────────────┐
-│ 钱帛  粮草  兵力   节名  │  ← 顶栏：bg-dark + 细底边
+│ 钱帛  粮草  兵力   节名  │
 ├─────────────────────────┤
-│                         │
-│  [军报] 气泡…           │  ← 对话流：可滚动
+│  [军报] 气泡…           │
 │  [谋士] 气泡…           │
-│                         │
 ├─────────────────────────┤
-│  [ A 选项 ] [ B 选项 ]  │  ← 底栏二选一：方钮，accent 描边
+│  [ A 选项 ] [ B 选项 ]  │
 └─────────────────────────┘
 ```
 
 | 组件 | 规范 |
 |------|------|
-| 顶栏 | 高 44–52px；三资源等宽数字；告急时对应色闪一下（非 glow） |
-| 对方气泡 | 左对齐；`bg-light`；左边 2px `accent` 竖条（军报可用 `info`/`fire`） |
-| 己方回执 | 右对齐；`selection` 底；字色 `fg-bright` |
-| 选项钮 | 等高、全宽或对半；直角；默认 `border: muted`，主诱向项 `border/accent` |
-| 战报 | 全宽等宽块；标题用 `fire`；正文 `fg` |
-| 史实/拟写标签 | 极小字 `fg-dim`，不盖在图上（本来也无图） |
+| 顶栏 | 44–52px；`bg-dark`；三资源等宽 |
+| 对方气泡 | 左；`bg-light`；左 2px `accent`/`fire`/`info` 竖条 |
+| 己方回执 | 右；`selection`；`fg-bright` |
+| 选项 | 方钮；诱向项 `accent` 边 |
+| 战报 | 等宽块；标题 `fire` |
 
-**禁止（初版）：** 大圆角卡片墙、毛玻璃、多层阴影、浮动徽章贴在主视觉上、紫粉渐变 hero。
+**禁止：** 大圆角卡片墙、毛玻璃、多层阴影、紫粉渐变 hero。
 
-## 4. 动效（少而准）
+## 4. 动效
 
-至少保留 2–3 个有意动作：
+1. 气泡入场 120–180ms  
+2. 选项底栏 slide-up 150ms  
+3. 换章主题色 250–300ms（有第二主题时）  
 
-1. **气泡入场**：自下 8px + fade，120–180ms，错落入列  
-2. **选项弹出**：底栏 slide-up 150ms  
-3. **换章主题**：`background-color` / 边框色 250–300ms ease（整页变量过渡）  
+尊重 `prefers-reduced-motion`。
 
-可连点推进时缩短入场；尊重 `prefers-reduced-motion`。
+## 5. 章节换肤（后置管道）
 
-## 5. 章节换肤（研究结论 → 方案）
+初版只实现 `tokyo-night`。变量名固定，以后可挂：
 
-### 5.1 做法
+| ID | 用途 | 源 |
+|----|------|-----|
+| `tokyo-night` | **默认 / 赤壁** | Quattro 默认 |
+| `ristretto` 等 | 其他章新鲜感 | Omarchy 官方盘 |
 
-- 场景 JSON 可带 `"theme": "tokyo-night"`（或章级默认）  
-- 根节点 `data-theme="…"`；只替换色表，**不换布局组件**  
-- 变量名固定（上一节契约）；新主题 = 新一份同名字段  
-- 切换时机：进入新「节/章」时一次；不在单次二选一里狂闪
+场景 JSON 可带 `"theme": "tokyo-night"`。
 
-### 5.2 初版主题库（借 Omarchy 官方盘，游戏内用中文代号）
+## 6. 文案三色
 
-| 游戏内 ID | 观感 | 建议挂载章节 | Omarchy 源 |
-|-----------|------|--------------|------------|
-| `ristretto` / `retro-82` | 余烬岸 / 火烧云（**赤壁默认，二选一**） | **赤壁前夜** | ristretto 或 retro-82 |
-| `tokyo-night` | 夜蓝·冷江 | 官渡、北征等冷色章 | tokyo-night |
-| `ash-camp` | 灰绿·疫雾 | 军中大疫、屯粮焦灼 | miasma |
-| `grain-field` | 土黄·田亩 | 屯田、钱粮内政节 | gruvbox |
-| `river-mist` | 雾青·墨色 | 江东密使、邦交 | kanagawa |
+史载 / 拟写 / 演义：小字 `fg-dim`；拟写可选 `info` 左边线；演义 `special` 默认可关。
 
-第一版**只实现锁定的默认那一套**；另备 1 个对照主题证明换肤管道即可。
+## 7. 仍可后补（不挡脚手架）
 
-### 5.3 换肤验收
-
-- 换主题后气泡/顶栏/按钮仍可读（正文对比度目标 ≥ 4.5:1）  
-- 资源告急色仍能从语义 token 映射出来  
-- 不出现「半套旧色」闪烁
-
-## 6. 与文案三色分离
-
-| 标签 | 色 |
-|------|-----|
-| 史载 | `fg-dim` 前缀「史载」；不强行染色 |
-| 拟写 | 可选 `info` 左边线 |
-| 演义 | `special` 极淡标记，默认隐藏开关 |
-
-## 7. 待你拍板
-
-1. **赤壁默认：A Ristretto（余烬岸）还是 B Retro 82（火烧云）？**（可先打开 gallery 对比）  
-2. 正文字体：偏等宽终稿，还是「顶栏等宽 + 气泡无衬线」？  
-3. 章内火攻段要不要再换一档更烈的色，还是整节一色？
+1. 正文字体：等宽到底，还是顶栏等宽 + 气泡无衬线？  
+2. 赤壁节要不要淡暮色氛围底？  
+3. 第二套换肤主题何时加？
 
 ## 8. 参考
 
-- Omarchy Tokyo Night 色表与截图：https://omarchy.gallery/themes/tokyo-night  
-- 主题机制说明：https://omarchy.org/manual/themes/  
 - 交互：`docs/design/interaction-lifeline.md`  
 - 架构：`docs/design/architecture.md`
