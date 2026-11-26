@@ -145,7 +145,8 @@
 |------|------|
 | [`docs/research/comparable-games.md`](./docs/research/comparable-games.md) | 竞品/参考作品笔记；资料库工具选型待确认 |
 
-资料库是否改用 Google NotebookLM 等：**待用户确认**（见上述文件 D 节）。确认前以仓库 `docs/` 为唯一权威源，避免双份漂移。
+**公开仓库：** https://github.com/shawn1905/CCNotEasy（Public，MIT）  
+资料库以仓库 `docs/` 为权威源。Google NotebookLM：**未启用**（用户暂用仓库）。
 
 ---
 
