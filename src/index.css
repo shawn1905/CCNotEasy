@@ -46,6 +46,60 @@
   --selection: #292e42;
 }
 
+[data-theme="guandu-frost"] {
+  --bg: #0e1217;
+  --bg-dark: #090c10;
+  --bg-darker: #06080b;
+  --bg-light: #161d26;
+  --fg: #cbd6e2;
+  --fg-dim: #7b8c9e;
+  --fg-bright: #ecf2f8;
+  --accent: #88b8d8;
+  --accent-soft: rgba(136, 184, 216, 0.16);
+  --danger: #e05a68;
+  --warn: #d99b52;
+  --ok: #7fb896;
+  --teal: #6fc2b8;
+  --muted: #2a3644;
+  --selection: #1c2633;
+}
+
+.cc-ch-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.cc-ch-tab {
+  padding: 7px 8px;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  text-align: left;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.cc-ch-tab.is-active {
+  border-color: var(--accent);
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+}
+
+.cc-ch-tab strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--fg-bright);
+}
+
+.cc-ch-tab span {
+  display: block;
+  font-size: 10.5px;
+  color: var(--fg-dim);
+  margin-top: 2px;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;

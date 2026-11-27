@@ -41,6 +41,7 @@ function makeId(prefix: string): string {
 }
 
 export default function App() {
+  const [selectedChapterId, setSelectedChapterId] = useState(CHAPTER_REGISTRY[0]?.id ?? 'ch01-red-cliffs')
   const [bundle, setBundle] = useState<ChapterBundle | null>(null)
   const [save, setSave] = useState<SaveState | null>(null)
   const [hasSavedRun, setHasSavedRun] = useState(false)
@@ -54,12 +55,12 @@ export default function App() {
 
   const streamRef = useRef<HTMLElement | null>(null)
 
-  // 1. Lazy-load default chapter once
+  // 1. Lazy-load selected chapter whenever selectedChapterId changes
   useEffect(() => {
     let active = true
-    const first = CHAPTER_REGISTRY[0]
-    if (!first) return
-    void first.load().then((loaded) => {
+    const entry = CHAPTER_REGISTRY.find((c) => c.id === selectedChapterId) ?? CHAPTER_REGISTRY[0]
+    if (!entry) return
+    void entry.load().then((loaded) => {
       if (!active) return
       audioEngine.configureTheme(loaded.theme)
       const existing = loadChapterState(loaded)
@@ -75,7 +76,7 @@ export default function App() {
     return () => {
       active = false
     }
-  }, [])
+  }, [selectedChapterId])
 
   // 2. Persist versioned save cleanly outside reducers
   useEffect(() => {
@@ -307,8 +308,30 @@ export default function App() {
         <section className="cc-splash" aria-label="开场界面">
           <div className="cc-splash-card">
             <div className="cc-splash-kicker">
-              <span>CCNOTEASY // CORE v1</span>
+              <span>CCNOTEASY // 章节选择</span>
               <span>{bundle.theme.name}</span>
+            </div>
+            <div className="cc-ch-tabs" role="tablist" aria-label="选择章节" style={{ marginTop: 10 }}>
+              {CHAPTER_REGISTRY.map((ch) => (
+                <button
+                  key={ch.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selectedChapterId === ch.id}
+                  className={`cc-ch-tab${selectedChapterId === ch.id ? ' is-active' : ''}`}
+                  onClick={() => {
+                    if (selectedChapterId !== ch.id) {
+                      audioEngine.playExpose()
+                      setSelectedChapterId(ch.id)
+                    }
+                  }}
+                >
+                  <strong>
+                    {ch.num} · {ch.title}
+                  </strong>
+                  <span>{ch.themeName}</span>
+                </button>
+              ))}
             </div>
             <h1 className="cc-splash-title">{bundle.title}</h1>
             <div className="cc-splash-sub">{bundle.subtitle}</div>
