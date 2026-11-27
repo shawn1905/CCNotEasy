@@ -95,7 +95,7 @@ export default function App() {
 
   useEffect(() => {
     if (bundle) {
-      document.title = `${bundle.title} · ${bundle.subtitle}`
+      document.title = bundle.title
     }
   }, [bundle])
 
