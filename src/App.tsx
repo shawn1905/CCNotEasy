@@ -87,11 +87,17 @@ export default function App() {
     }
   }, [started, save])
 
-  // 3. Sync audio mood
+  // 3. Sync audio mood & browser document.title
   const currentMood = save?.mood
   useEffect(() => {
     if (currentMood) audioEngine.setMood(currentMood)
   }, [currentMood])
+
+  useEffect(() => {
+    if (bundle) {
+      document.title = `${bundle.title} · ${bundle.subtitle}`
+    }
+  }, [bundle])
 
   // 4. Auto-scroll stream on new feed items or node transitions
   useEffect(() => {
