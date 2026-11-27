@@ -739,14 +739,20 @@ button {
   background: var(--bg-darker);
 }
 
+.cc-stamp-btn.is-bait {
+  border-color: rgba(232, 111, 58, 0.55);
+  border-left: 3px solid var(--accent);
+  background: rgba(232, 111, 58, 0.08);
+}
+
 .cc-stamp-btn.kind-reject {
   border-left-color: var(--teal);
 }
 
 .cc-stamp-btn.kind-dirty {
-  border-color: rgba(232, 111, 58, 0.65);
-  border-left: 3px solid var(--accent);
-  background: rgba(232, 111, 58, 0.09);
+  border-color: var(--muted);
+  border-left: 3px solid var(--warn);
+  background: var(--bg-darker);
 }
 
 .cc-stamp-top {
@@ -762,8 +768,12 @@ button {
   color: var(--fg-bright);
 }
 
-.cc-stamp-btn.kind-dirty .cc-stamp-name {
+.cc-stamp-btn.is-bait .cc-stamp-name {
   color: var(--accent);
+}
+
+.cc-stamp-btn.kind-dirty .cc-stamp-name {
+  color: var(--fg);
 }
 
 .cc-stamp-cost {

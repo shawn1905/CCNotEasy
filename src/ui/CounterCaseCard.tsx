@@ -116,7 +116,7 @@ export function CounterCaseCard({
             <button
               key={ch.id}
               type="button"
-              className={`cc-stamp-btn kind-${ch.stampKind ?? 'approve'}`}
+              className={`cc-stamp-btn kind-${ch.stampKind ?? 'approve'}${ch.isBait ? ' is-bait' : ''}`}
               disabled={!unlocked || Boolean(stampedChoice)}
               onClick={() => handleStamp(ch)}
             >
