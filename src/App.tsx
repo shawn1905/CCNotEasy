@@ -49,6 +49,8 @@ export default function App() {
   const [feed, setFeed] = useState<FeedItem[]>([])
   const [audioOn, setAudioOn] = useState(false)
   const [modal, setModal] = useState<ModalState>(null)
+  const [isTyping, setIsTyping] = useState(false)
+  const [skipSignal, setSkipSignal] = useState(0)
   const [archiveTab, setArchiveTab] = useState<'notes' | 'import'>('notes')
   const [packText, setPackText] = useState('')
   const [packStatus, setPackStatus] = useState<string | null>(null)
@@ -123,11 +125,13 @@ export default function App() {
   const allLinesShown = visibleLines.length === 0 || save.lineIndex >= visibleLines.length - 1
   const showCounterCase =
     !save.finished &&
+    !isTyping &&
     allLinesShown &&
     currentNode.interaction?.type === 'counter_case' &&
     visibleChoices.length > 0
   const showPlainChoices =
     !save.finished &&
+    !isTyping &&
     allLinesShown &&
     currentNode.interaction?.type !== 'counter_case' &&
     visibleChoices.length > 0
@@ -201,7 +205,12 @@ export default function App() {
   }
 
   function handleAdvance() {
-    if (!bundle || !save || save.finished || showCounterCase || showPlainChoices) return
+    if (!bundle || !save || save.finished) return
+    if (isTyping) {
+      setSkipSignal((s) => s + 1)
+      return
+    }
+    if (showCounterCase || showPlainChoices) return
     audioEngine.playCharPop(false)
     const prevNodeId = save.nodeId
     const { save: nextSave, events } = reduceGame(bundle, save, { type: 'ADVANCE_LINE' })
@@ -397,7 +406,15 @@ export default function App() {
           handleAdvance()
         }}
       >
-        {feed.map((item) => {
+        {(() => {
+          let lastLineIdx = -1
+          for (let i = feed.length - 1; i >= 0; i--) {
+            if (feed[i]?.kind === 'line') {
+              lastLineIdx = i
+              break
+            }
+          }
+          return feed.map((item, idx) => {
           if (item.kind === 'divider') {
             return (
               <div key={item.id} className="cc-act-divider">
@@ -437,6 +454,7 @@ export default function App() {
           const { line } = item
           const cast = bundle.cast[line.speaker]
           const side = line.sideOverride ?? cast?.side ?? 'left'
+          const isNewest = idx === lastLineIdx && !save.finished
 
           if (line.isWalk || side === 'center') {
             return (
@@ -448,9 +466,12 @@ export default function App() {
                     bundle={bundle}
                     onOpenGloss={handleOpenGloss}
                     onOpenSubtext={handleOpenSubtext}
+                    animate={isNewest}
+                    skipSignal={skipSignal}
+                    onTypingChange={isNewest ? setIsTyping : undefined}
                   />
                 </div>
-                {line.clues && line.clues.length > 0 && (
+                {line.clues && line.clues.length > 0 && (!isNewest || !isTyping) && (
                   <div className="cc-clues">
                     {line.clues.map((c) => (
                       <span key={c.id} className="cc-clue-chip">
@@ -479,12 +500,16 @@ export default function App() {
                     bundle={bundle}
                     onOpenGloss={handleOpenGloss}
                     onOpenSubtext={handleOpenSubtext}
+                    animate={isNewest}
+                    skipSignal={skipSignal}
+                    onTypingChange={isNewest ? setIsTyping : undefined}
                   />
                 </div>
               </div>
             </div>
           )
-        })}
+        })
+        })()}
 
         {showCounterCase && currentNode.interaction?.type === 'counter_case' && (
           <CounterCaseCard
@@ -539,9 +564,9 @@ export default function App() {
       {!save.finished && !showCounterCase && !showPlainChoices && (
         <footer className="cc-bottom">
           <button type="button" className="cc-tap-btn" onClick={handleAdvance}>
-            <span>点击继续</span>
+            <span>{isTyping ? '轻触快显本句' : '点击继续'}</span>
             <span style={{ color: 'var(--accent)', fontSize: 11.5 }}>
-              {remainingLines > 0 ? `剩余 ${remainingLines} 条` : '进入案卷'}
+              {isTyping ? '蹦字中…' : remainingLines > 0 ? `剩余 ${remainingLines} 条` : '进入案卷'}
             </span>
           </button>
         </footer>
