@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { GUANDU_7D_PACK } from './content/desk/guandu7d.ts'
+import { JIANGLING_10D_PACK } from './content/desk/jiangling10d.ts'
 import { CHAPTER_REGISTRY } from './content/registry.ts'
 import {
   createInitialSave,
@@ -17,6 +19,7 @@ import type {
 import { clearChapterState, loadChapterState, saveChapterState } from './core/storage.ts'
 import { validateChapterBundle } from './core/validator.ts'
 import { CounterCaseCard } from './ui/CounterCaseCard.tsx'
+import { DeskMode } from './ui/DeskMode.tsx'
 import { DualHud } from './ui/DualHud.tsx'
 import { EndingCard } from './ui/EndingCard.tsx'
 import { RichText } from './ui/RichText.tsx'
@@ -41,6 +44,7 @@ function makeId(prefix: string): string {
 }
 
 export default function App() {
+  const [deskMode, setDeskMode] = useState(false)
   const [selectedChapterId, setSelectedChapterId] = useState(CHAPTER_REGISTRY[0]?.id ?? 'ch01-red-cliffs')
   const [bundle, setBundle] = useState<ChapterBundle | null>(null)
   const [save, setSave] = useState<SaveState | null>(null)
@@ -116,6 +120,23 @@ export default function App() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
+
+  if (deskMode) {
+    return (
+      <DeskMode
+        packs={[JIANGLING_10D_PACK, GUANDU_7D_PACK]}
+        audioOn={audioOn}
+        onToggleAudio={() => setAudioOn(audioEngine.toggle())}
+        onExit={() => {
+          setDeskMode(false)
+          if (bundle) {
+            audioEngine.configureTheme(bundle.theme)
+            document.title = bundle.title
+          }
+        }}
+      />
+    )
+  }
 
   if (!bundle || !save) {
     return (
@@ -367,6 +388,17 @@ export default function App() {
             </div>
             <button type="button" className="cc-btn-primary" onClick={() => startFresh()}>
               坐上帅案，开始批文
+            </button>
+            <button
+              type="button"
+              className="cc-btn-secondary"
+              style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+              onClick={() => {
+                audioEngine.playStamp(false)
+                setDeskMode(true)
+              }}
+            >
+              大帐值班 · 江陵十日 / 官渡七日（生存玩法）
             </button>
             {hasSavedRun && (
               <button type="button" className="cc-btn-secondary" onClick={resumeSaved}>

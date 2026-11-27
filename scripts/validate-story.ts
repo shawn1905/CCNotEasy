@@ -5,6 +5,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { GUANDU_7D_PACK } from '../src/content/desk/guandu7d.ts'
+import { JIANGLING_10D_PACK } from '../src/content/desk/jiangling10d.ts'
+import { validateDeskPack } from '../src/core/deskEngine.ts'
 import type { ChapterBundle } from '../src/core/schema.ts'
 import { validateChapterBundle } from '../src/core/validator.ts'
 
@@ -42,6 +45,17 @@ function main(): void {
     }
     for (const e of report.errors) {
       console.error(`  ERROR [${e.code}] ${e.path}: ${e.message}`)
+      hasErrors = true
+    }
+  }
+
+  for (const deskPack of [JIANGLING_10D_PACK, GUANDU_7D_PACK]) {
+    const deskReport = validateDeskPack(deskPack)
+    console.log(
+      `[validate:story] ${deskReport.ok ? 'PASS' : 'FAIL'} ${deskPack.id} (cases: ${deskPack.cases.length}, advisors: ${deskPack.advisors.length}, orders: ${deskPack.orders.length}, combos: ${deskPack.combos.length})`,
+    )
+    for (const e of deskReport.errors) {
+      console.error(`  ERROR ${e}`)
       hasErrors = true
     }
   }
