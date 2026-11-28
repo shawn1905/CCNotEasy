@@ -3,6 +3,13 @@
 > 本仓（`shawn1905/CCNotEasy`）采用源自 `generation-ship` 与 `generation-ship-foundry` 的**多 Agent 协作范式**：
 > **正史为骨架，规则即一切，产物是规则下的纯数据插件，门禁脚本与一手史料库裁决合法性。**
 
+## ⚡ 默认自驱开工协议（当用户只说「领一格开干 / 贡献一章」时直接照做）
+
+1. **自动读图领单**：读 `docs/collab/GRID_MATRIX.md` 挑一个 `ready` 编年格，读 `docs/collab/THREADS.md` 认领 1~2 条跨章伏笔，读 `src/core/schema.ts` 与 `src/content/packs/ch03-wancheng/bundle.json` 对齐格式。
+2. **独立 worktree 隔离写作**：建独立 git worktree 与分支，**只写该格 `allowed_paths`**（绝不修改 `src/core/` 与 `registry.ts`）。
+3. **严守正史与文体红线**：仅采《三国志》裴注与《资治通鉴》，禁演义伪史、禁回望叙述、禁日式词与技术词，所有资源/死线变动必附非空中文 `reason`。
+4. **本地门禁全绿交付**：跑通 `npm run typecheck && npm run validate:story && npm run build`（本机有 NotebookLM 时加跑 `npm run review:nlm -- <chapterId>`），提交 PR 并简短回报。
+
 ---
 
 ## 0. 新 Agent 上手必读顺序

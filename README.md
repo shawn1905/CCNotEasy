@@ -1,41 +1,31 @@
 # 曹操不容易（CCNotEasy）
 
-手机优先的双害选择对话游戏。你是曹操，在赤壁前夜做一道道「两个坏选项」——快或等、真或假、密或疏、信或疑。
+手机竖屏优先的建安历史策略决策游戏。你是曹操，坐上大帐帅案——巡营取证、戳穿假账、盖朱砂大印，在军粮 / 兵力 / 人心与不断上涨的敌军死线之间硬扛。
 
-当前可玩章节：**赤壁前夜**（史料库加厚 Demo）。
+- **线上试玩**：`https://shawn1905.github.io/CCNotEasy/`
+- **当前进度**：建安十二格编年史已完成 **5 章（67 结局）**：宛城一夜 → 下邳白门楼 → 官渡断粮 → 赤壁前夜 → 汉中鸡肋；另含 **「大帐值班」** 无剧本生存模式与 **「另辟史册」** 平行推演。
 
-## 本地运行
+## 给 AI Agent / 协作者的一句话入口
+
+> **直接告诉你的 AI Agent（Claude Code / Codex / Cursor / Antigravity 等）：**
+> 「打开 `https://github.com/shawn1905/CCNotEasy`，认领一格开干」
+
+仓库根目录已内置 [`AGENTS.md`](./AGENTS.md) 与 [`CLAUDE.md`](./CLAUDE.md)，Agent 打开仓库即会自动读取完整规则、十二格工单矩阵（[`docs/collab/GRID_MATRIX.md`](./docs/collab/GRID_MATRIX.md)）、跨章穿线谱（[`docs/collab/THREADS.md`](./docs/collab/THREADS.md)）与纯 JSON 校验门禁，无需粘贴复杂提示词。
+
+## 本地运行与校验
 
 ```bash
 npm install
-npm run dev
+npm run dev              # http://localhost:3847
+npm run typecheck        # 严格 TypeScript 检查
+npm run validate:story   # 全图可达性 / 死胡同 / 违禁词 / 理由校验
+npm run sim:desk         # 大帐值班双图 100 局平衡性压测
+npm run build            # 生产构建
 ```
 
-默认开发地址：`http://localhost:3847`
+## 核心目录
 
-线上：`https://shawn1905.github.io/CCNotEasy/`
-
-## 怎么玩
-
-- 轻触对话区推进气泡
-- 点蓝色虚线词打开词条（gloss）
-- 标题栏「史料库」随时翻阅全档；抉择时「本议史料」只看本段相关原文
-- A / B 二选一；选项改旗帜并写入代价；战报按四难拼装
-- 进度存在 `localStorage`（v5）；boot 可重开
-
-## 内容结构
-
-| 路径 | 内容 |
-|------|------|
-| `src/game/content/redCliffsEve.ts` | 章节对话与抉择 |
-| `src/game/content/gloss.ts` | 蓝词词条 |
-| `src/game/content/dossiers/all.ts` | 史料卡（白话 + 原文 + 出处） |
-| `docs/research/red-cliffs/timeline-sourced.md` | 考据时间线 |
-
-## 技术栈
-
-Vite + React + TypeScript + Tailwind CSS v4。视觉：Tokyo Night / Omarchy glass。
-
-## 文档
-
-策划与编剧材料在 `docs/`、`PLAN.md`。剧本源稿：`docs/content/red-cliffs-eve/script.md`。
+- `src/core/`：纯数据协议、状态机、校验器、大帐值班引擎与别史推演框架（零 React/DOM 依赖）
+- `src/content/packs/`：各章节纯 JSON 数据包（按需懒加载）
+- `src/content/desk/`：大帐值班生存地图与动态案卷池
+- `docs/collab/`：建安十二格编年矩阵、跨章穿线谱与 CI 模板
