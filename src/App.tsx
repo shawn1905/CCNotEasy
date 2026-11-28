@@ -375,13 +375,13 @@ export default function App() {
                 }}
               >
                 <div className="cc-mode-head">
-                  <strong>史实主线 · 演义分支</strong>
-                  <span className="cc-mode-badge">两章 · 22 结局</span>
+                  <strong>What-If 平行三国 · 多线剧情</strong>
+                  <span className="cc-mode-badge">两章 · 34 结局</span>
                 </div>
                 <div className="cc-mode-desc">
-                  巡营取证、柜台戳假账、朱砂盖印，在赤壁前夜与官渡断粮的史实骨架里走出你的结局。
+                  在赤壁与官渡的史实骨架上，每幕都能撕开改写历史的架空世界线——联孙分荆、乌林反杀、千里袭邺，重玩每局都有新走向。
                 </div>
-                <div className="cc-mode-meta">第一章 赤壁前夜 · 第二章 官渡断粮 · 支持共创章节包</div>
+                <div className="cc-mode-meta">第一章 赤壁前夜 · 第二章 官渡断粮 · 含 16 条架空结局</div>
               </button>
 
               <button
@@ -468,8 +468,11 @@ export default function App() {
                 <span>满格抢先破局</span>
               </div>
               <div className="cc-rule-pill">
-                <strong>柜台大印</strong>
-                <span>取证 · 打脸 · 脏招</span>
+                <strong>世界线结局</strong>
+                <span>
+                  已收 {save.discoveredEndings.length} /{' '}
+                  {Object.values(bundle.nodes).filter((n) => n.kind === 'ending').length}
+                </span>
               </div>
             </div>
             <button type="button" className="cc-btn-primary" onClick={() => startFresh()}>
@@ -735,7 +738,7 @@ export default function App() {
               <button
                 key={ch.id}
                 type="button"
-                className={`cc-stamp-btn kind-${ch.stampKind ?? 'approve'}`}
+                className={`cc-stamp-btn kind-${ch.stampKind ?? 'approve'}${ch.label.startsWith('【架空】') ? ' is-whatif' : ''}`}
                 onClick={() => {
                   audioEngine.playStamp(ch.stampKind === 'dirty')
                   handleChoose(ch)

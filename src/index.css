@@ -858,6 +858,16 @@ button {
   background: var(--bg-darker);
 }
 
+.cc-stamp-btn.is-whatif {
+  border-color: rgba(90, 166, 160, 0.72);
+  border-left: 3px solid var(--teal);
+  background: rgba(90, 166, 160, 0.12);
+}
+
+.cc-stamp-btn.is-whatif .cc-stamp-name {
+  color: var(--teal);
+}
+
 .cc-stamp-top {
   display: flex;
   justify-content: space-between;

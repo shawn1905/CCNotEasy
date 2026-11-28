@@ -938,6 +938,23 @@
             }
           ],
           "next": "N02_case2"
+        },
+        {
+          "id": "whatif_sun_split",
+          "label": "【架空】封文聘为荆州水军大都督，遣使江东议「划江分荆」",
+          "hint": "平行世界线 · 改打外交牌",
+          "stampKind": "approve",
+          "stampText": "分荆",
+          "replyText": "谁说非要把孙权和刘备逼成一家？封文聘统荆州水师，孤先给孙权写封信——问他愿不愿一起把刘备吃掉！",
+          "effects": [
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "突然抛出的瓜分方案令江东主战派一阵错愕"
+            }
+          ],
+          "next": "N_WI_sun_split"
         }
       ]
     },
@@ -1700,6 +1717,23 @@
             }
           ],
           "next": "N04_branch_scatter"
+        },
+        {
+          "id": "whatif_reverse_fire",
+          "label": "【架空】故意连舟做诱饵：全装活销铁链，坐等周瑜火船进笼",
+          "hint": "平行世界线 · 将计就计反杀赤壁",
+          "stampKind": "dirty",
+          "stampText": "反饵",
+          "replyText": "周瑜一定以为我北军不懂水战！把外围旧空船用铁链锁成大靶子摆给他看，主战楼船全砸活销退在十里后——请君入瓮！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "连夜改装活销铁链与空船假阵"
+            }
+          ],
+          "next": "N_WI_reverse_fire"
         }
       ]
     },
@@ -1976,6 +2010,23 @@
             }
           ],
           "next": "N06_climax"
+        },
+        {
+          "id": "whatif_title_sun",
+          "label": "【架空】趁夜遣快舟送去「天子封吴王密诏」，阵前瓦解江东",
+          "hint": "平行世界线 · 挟天子终极杀招",
+          "stampKind": "dirty",
+          "stampText": "封王",
+          "replyText": "黄盖的诈降书丢进炭盆！天子印玺还在孤手里——连夜草诏封孙权为吴王、领扬交二州，孤看周瑜怎么拦得住孙仲谋！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "动用天子名器与重金遣使直奔柴桑"
+            }
+          ],
+          "next": "N_WI_title_sun"
         }
       ]
     },
@@ -2396,6 +2447,328 @@
         "verdict": "历史上曹操急于毕其功于一役，结果把最强陆军送进了最陌生的水上火场。而你选择了最反直觉也最耗耐心的路——在江陵把烂账一本本理平，把短板补成铁板。",
         "buildName": "荆州慢火熬汤派",
         "buildQuote": "急着过江的人烧成灰，肯在码头练三年船的人拿下了江南。"
+      }
+    },
+    "N_WI_sun_split": {
+      "id": "N_WI_sun_split",
+      "act": "架空世界线 · 江夏分荆密约",
+      "title": "没有孙刘联盟的冬天",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬 · 柴桑密使回营",
+          "text": "你的密信送进柴桑那夜，张昭在东吴朝堂拍案称善，周瑜却铁青着脸按住了剑柄。孙权派密使连夜过江试探：若曹操肯让出江南四郡与柴桑以西百里，江东愿坐视曹军吞并江夏。"
+        },
+        {
+          "speaker": "xunyou",
+          "sourceTag": "推演",
+          "text": "孙权贪图江东安稳与江南四郡，刘备此时不过两万残兵寄居夏口。若真与孙权签下盟约，刘备顷刻无立足之地；但江东坐收渔利，日后必成大患。"
+        },
+        {
+          "speaker": "wenping",
+          "sourceTag": "拟写",
+          "text": "丞相既信重末将，荆州水师愿为前驱！若不愿割地给江东，不如借和谈拖住孙权，先将刘备逼入益州深山！"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_divide_jingzhou",
+          "label": "与孙权密约瓜分荆州：江北归曹、江南归吴，合力合围夏口",
+          "hint": "钱帛 -1 · 彻底抹杀孙刘联盟",
+          "stampKind": "approve",
+          "stampText": "瓜分",
+          "replyText": "好！写盟书，江南四郡暂借孙仲谋，夏口刘玄德今日便由曹孙两家共擒之！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "厚赠江东使者并调拨合围军资"
+            }
+          ],
+          "next": "E_WI_divide_jingzhou"
+        },
+        {
+          "id": "wi_push_liu_west",
+          "label": "虚与江东委蛇，命文聘水陆齐逼将刘备赶入西川",
+          "hint": "兵力 -1 · 江汉全入曹手",
+          "stampKind": "reject",
+          "stampText": "驱虎",
+          "replyText": "地一寸不割给孙权！趁东吴还在争论盟约，文聘全军压上夏口，把刘备撵进益州和刘璋咬去！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "强攻夏口外围迫使刘备仓皇西走"
+            }
+          ],
+          "next": "E_WI_push_liu_west"
+        }
+      ]
+    },
+    "E_WI_divide_jingzhou": {
+      "id": "E_WI_divide_jingzhou",
+      "act": "架空结局 · 曹孙分荆",
+      "title": "三分未成，天下先归南北",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十四年春 · 夏口残营",
+          "text": "孙刘联盟在诞生前夜便被你一纸密约拆得粉碎。周瑜怒极辞督，刘备在曹孙两面夹击下溃走交州。大江南北提前进入曹吴直接对峙的南北朝格局，历史上那个三分天下的故事，从这一冬彻底改写。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "曹孙瓜分荆州，刘备无立足之地",
+        "subtitle": "外交破局 · 三国变南北",
+        "tone": "ok",
+        "verdict": "你没有用八十万空话去吓孙权，而是用实打实的利益切开了孙刘之间的裂痕。没有了刘备牵制，江北荆襄稳如泰山，天下大势彻底改道。",
+        "buildName": "拆盟纵横家",
+        "buildQuote": "打什么赤壁？给孙权画半张荆州饼，刘备自己就散了。"
+      }
+    },
+    "E_WI_push_liu_west": {
+      "id": "E_WI_push_liu_west",
+      "act": "架空结局 · 驱虎入蜀",
+      "title": "江汉尽归曹，刘备远遁西川",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十四年 · 襄樊江汉",
+          "text": "趁着江东在和战之间犹豫的十天，文聘率荆州水师闪电拿下夏口。刘备被迫提前六年仓皇入蜀，与益州牧刘璋陷入漫长内耗；而你稳稳握住整个江汉水网，顺流东下已是时间问题。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "驱虎入蜀，江汉全归曹氏",
+        "subtitle": "假和谈真闪击 · 完吞荆州",
+        "tone": "ok",
+        "verdict": "你用一封假议和书买到了十天战略窗口，既没割地给孙权，又把最难缠的刘备提前撵进了巴蜀深山。",
+        "buildName": "江汉闪击手",
+        "buildQuote": "孙权还在看地图分地盘，我已经把夏口旗号换成了曹字。"
+      }
+    },
+    "N_WI_reverse_fire": {
+      "id": "N_WI_reverse_fire",
+      "act": "架空世界线 · 乌林反杀之夜",
+      "title": "扑空的火船",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬至夜 · 乌林江面",
+          "text": "东南风果然如约而起。黄盖率二十艘满载薪草膏油的蒙冲斗舰顺风直冲乌林，火光映红半边江天——可冲到近前才骇然发现，锁在江心的竟全是插满草人的旧平底船！"
+        },
+        {
+          "speaker": "chengyu",
+          "sourceTag": "推演",
+          "text": "丞相妙计！吴军火船已烧成一团，后队周瑜主力船阵正在浓烟里乱作一团。此时水陆两路皆有大隙可乘！"
+        },
+        {
+          "speaker": "cao",
+          "sourceTag": "拟写",
+          "text": "风是东南风，可火烧的是他自己的前锋！选吧——今夜是顺手把江心周瑜吃掉，还是借浓烟偷渡去端刘备的老营？"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_counter_fire",
+          "label": "左右两翼水寨合拢，把江心乱阵的吴军主力反锁火海",
+          "hint": "兵力 -1 · 江面正面对决反杀周瑜",
+          "stampKind": "approve",
+          "stampText": "反锁",
+          "replyText": "左右水寨解开活销包抄上去！让周瑜尝尝自己放的这把大火！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "浓烟夜战强行包抄吴军水阵"
+            }
+          ],
+          "next": "E_WI_counter_fire"
+        },
+        {
+          "id": "wi_xiakou_raid",
+          "label": "不管江心火船，亲率虎豹骑沿陆路突袭夏口刘备大营",
+          "hint": "粮草 -1 · 陆军王牌直掏后心",
+          "stampKind": "reject",
+          "stampText": "陆袭",
+          "replyText": "水上让文聘缠住周瑜！虎豹骑随孤踏平夏口，今夜我要活捉刘备！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "精骑星夜轻装奔袭夏口"
+            }
+          ],
+          "next": "E_WI_xiakou_raid"
+        }
+      ]
+    },
+    "E_WI_counter_fire": {
+      "id": "E_WI_counter_fire",
+      "act": "架空结局 · 乌林反杀",
+      "title": "火烧赤壁，烧的却是东吴",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬 · 乌林黎明",
+          "text": "天亮时，乌林江面漂满焦黑的吴军战船残骸。黄盖堕江重伤，周瑜在浓烟中痛失半数精锐斗舰，被迫退守柴桑。这场逆转天命的「反赤壁之战」，让江东从此再无北伐之力。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "乌林反杀，黄盖火船自焚",
+        "subtitle": "空船铁索诱敌 · 逆转赤壁天命",
+        "tone": "ok",
+        "verdict": "你把历史上最致命的「铁索连舟」做成了请君入瓮的诱饵。周瑜算准了东南风，却没算到对岸那排连船全是空的。",
+        "buildName": "反赤壁导演",
+        "buildQuote": "谢谢公瑾送来的二十船火油，烧得我这批报废旧船真暖和。"
+      }
+    },
+    "E_WI_xiakou_raid": {
+      "id": "E_WI_xiakou_raid",
+      "act": "架空结局 · 陆袭夏口",
+      "title": "江面虚火，陆路生擒刘备",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬 · 夏口营门",
+          "text": "当所有人的目光都被乌林江面的冲天大火吸引时，五千虎豹骑如黑潮般踏破了防备空虚的夏口陆营。刘备与诸葛亮措手不及，连夜乘小舟遁逃失散，孙刘联军一夜折断半臂。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "陆袭夏口，踏破刘备大营",
+        "subtitle": "声东击西 · 虎豹骑定江汉",
+        "tone": "ok",
+        "verdict": "你不拿北军短板跟东吴拼水战，而是用空船阵吸住周瑜，拿天下第一骑兵去打刘备最薄弱的陆营——这才是真正的曹操用兵。",
+        "buildName": "暗度陈仓奇袭派",
+        "buildQuote": "江面上烧的是木头，陆地上断的是刘玄德的根。"
+      }
+    },
+    "N_WI_title_sun": {
+      "id": "N_WI_title_sun",
+      "act": "架空世界线 · 柴桑密诏风波",
+      "title": "一纸吴王印，震裂柴桑帐",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬 · 柴桑城内",
+          "text": "天子密诏连夜递到孙权案头：只要江东息兵并献出刘备，即刻册封孙权为吴王、世镇江东。柴桑连夜炸了锅——张昭力主受封，周瑜怒斥此乃毒计，连黄盖的火船出征令都被临时叫停。"
+        },
+        {
+          "speaker": "jiaxu",
+          "sourceTag": "推演",
+          "text": "丞相这一招直戳孙权心窝。江东君臣此刻已生嫌隙：要么真守约封王，不流一滴血换来刘备首级与江东称臣；要么趁他阵脚大乱，直接全军压上渡江！"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_king_wu",
+          "label": "真封孙权为吴王，换江东称臣献刘备、不战定江南",
+          "hint": "钱帛 -1 · 以名器换天下归心",
+          "stampKind": "approve",
+          "stampText": "册封",
+          "replyText": "一个王爵换十万北军性命和江东名义归附，天底下没有比这更划算的买卖！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "备齐王印旌节隆重册封江东"
+            }
+          ],
+          "next": "E_WI_king_wu"
+        },
+        {
+          "id": "wi_wu_civil_war",
+          "label": "密诏本就是离间计！趁孙周争执火船停摆，全军强渡大江",
+          "hint": "兵力 -1 · 趁敌内乱一举渡江",
+          "stampKind": "dirty",
+          "stampText": "强渡",
+          "replyText": "谁真要封他做吴王？趁他君臣吵得不可开交、火船还没点火，全军给我杀过长江去！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "抢渡大江强攻失去统一指挥的吴军防线"
+            }
+          ],
+          "next": "E_WI_wu_civil_war"
+        }
+      ]
+    },
+    "E_WI_king_wu": {
+      "id": "E_WI_king_wu",
+      "act": "架空结局 · 不战封吴",
+      "title": "一纸王诏，江东称臣",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十四年春 · 许都大朝",
+          "text": "孙权终究没抵住世袭吴王的诱惑。江东罢兵称臣、纳质许都，刘备连夜孤身南逃交趾。你兵不血刃完成了名义上的海内一统，史书称这一冬为「建安不战之胜」。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "封吴王换刘备，不战而屈江南",
+        "subtitle": "挟天子以令江东 · 政治大捷",
+        "tone": "ok",
+        "verdict": "你终于用出了手中最重却最容易被忽略的筹码——汉室名器。当别人在算风向和船数时，你算的是孙权想要的名分。",
+        "buildName": "天子名器大师",
+        "buildQuote": "打下来还要派兵守，封他个吴王让他自己替我守江南。"
+      }
+    },
+    "E_WI_wu_civil_war": {
+      "id": "E_WI_wu_civil_war",
+      "act": "架空结局 · 孙周反目",
+      "title": "离间江东，趁乱渡江",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年腊月 · 柴桑城破",
+          "text": "东吴君臣为那封假密诏吵了一整夜，前线水寨却在黎明前被曹军铁蹄踏破。周瑜含恨战死江口，孙权仓皇退往会稽，长江天险一夜易主。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "离间江东，孙周反目破天险",
+        "subtitle": "假诏乱敌 · 闪电渡江",
+        "tone": "ok",
+        "verdict": "赤壁之战东吴唯一的生机就是上下一心。你用一封假密诏在开战前两小时撕开了他们的信任，剩下的就是单方面的碾压。",
+        "buildName": "心理战祖师爷",
+        "buildQuote": "我连真印都没盖，东吴自己先把火船熄了。"
       }
     }
   },

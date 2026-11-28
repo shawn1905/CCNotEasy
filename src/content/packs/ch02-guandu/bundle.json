@@ -899,6 +899,23 @@
             }
           ],
           "next": "N02_case2"
+        },
+        {
+          "id": "whatif_fake_defect",
+          "label": "【架空】密信不烧也不杀：逼通袁将校发出假约降书，诱袁军夜袭入伏",
+          "hint": "平行世界线 · 借内鬼反钓袁绍",
+          "stampKind": "dirty",
+          "stampText": "钓袁",
+          "replyText": "想活命吗？按孤念的字给袁本初写封回信——就说三更开西门献首，孤在营里摆好火坑等他！",
+          "effects": [
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": -1,
+              "reason": "借假内应主动打乱袁军围城节奏"
+            }
+          ],
+          "next": "N_WI_fake_defect"
         }
       ]
     },
@@ -1569,6 +1586,23 @@
             }
           ],
           "next": "N04_branch_suspect"
+        },
+        {
+          "id": "whatif_frame_zhanghe",
+          "label": "【架空】疑许攸有诈，反手把「张郃高览通曹」的假密报送给袁绍",
+          "hint": "平行世界线 · 主动引爆袁营将帅内讧",
+          "stampKind": "dirty",
+          "stampText": "离间",
+          "replyText": "许子远嘴里真假难辨，但袁本初耳根软、郭图善妒却是千真万确！与其赌乌巢，不如直接把张郃、高览逼到我这边来！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "重金买通袁营降卒投递伪造书信"
+            }
+          ],
+          "next": "N_WI_frame_zhanghe"
         }
       ]
     },
@@ -1925,6 +1959,23 @@
             }
           ],
           "next": "N06_climax"
+        },
+        {
+          "id": "whatif_raid_ye",
+          "label": "【架空】不烧乌巢！五千精骑打袁军旗号，绕过黄河直捣空虚邺城",
+          "hint": "平行世界线 · 疯狂千里奔袭老巢",
+          "stampKind": "dirty",
+          "stampText": "袭邺",
+          "replyText": "烧了乌巢袁绍还能逃回河北东山再起！既然要赌，就赌把大的——五千虎豹骑随孤偷渡黄河，直插袁绍的老巢邺城！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "轻骑携三日干粮奔袭河北腹地"
+            }
+          ],
+          "next": "N_WI_raid_ye"
         }
       ]
     },
@@ -2345,6 +2396,318 @@
         "verdict": "正如荀彧当初所警：官渡退一步是许都，许都再退一步便是万劫不复。你避开了覆灭的惨局，却也亲手把北方霸权推到了袁氏手中。",
         "buildName": "保全实力西迁派",
         "buildQuote": "人还活着，天子还在手，只是中原从此改姓了袁。"
+      }
+    },
+    "N_WI_fake_defect": {
+      "id": "N_WI_fake_defect",
+      "act": "架空世界线 · 西门假降夜伏",
+      "title": "三更燃起的西门火把",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年秋 · 官渡西门三更",
+          "text": "袁绍果然中计，遣大将淳于琼与河北万余精锐衔枚夜袭西门。三声梆子响过，西门如约洞开，袁军先锋蜂拥涌入——等待他们的不是内应，而是四面合围的火油沟与连弩阵！"
+        },
+        {
+          "speaker": "yuejin",
+          "sourceTag": "推演",
+          "text": "丞相！袁军先锋已被困死在西门瓮城，外面袁绍中军见火光冲天，正乱成一团不知真假！此时既可全歼瓮城精锐，也可换穿袁军衣甲顺势反冲袁绍大本营！"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_trap_vanguard",
+          "label": "关门打狗，全歼入瓮的万余河北精锐再顺势缴粮",
+          "hint": "粮草 +1 · 稳吃袁军半壁主力",
+          "stampKind": "approve",
+          "stampText": "关门",
+          "replyText": "先把嘴里这口肥肉咬死！全歼西门袁军，把他们带的干粮兵甲统统扒下来！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "缴获夜袭袁军大批随身干粮与马匹"
+            }
+          ],
+          "next": "E_WI_trap_vanguard"
+        },
+        {
+          "id": "wi_assassinate_yuan",
+          "label": "留曹洪收尾，亲率乐进换袁军旗号夜闯袁绍中军斩旗",
+          "hint": "兵力 -1 · 孤胆夜袭直取中军",
+          "stampKind": "dirty",
+          "stampText": "斩旗",
+          "replyText": "袁本初好谋无断，今夜混乱正是天赐良机！换上袁军号衣，随孤直冲中军大纛！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "敢死队强闯袁营中军血战折损"
+            }
+          ],
+          "next": "E_WI_assassinate_yuan"
+        }
+      ]
+    },
+    "E_WI_trap_vanguard": {
+      "id": "E_WI_trap_vanguard",
+      "act": "架空结局 · 西门瓮城",
+      "title": "一战折尽河北先锋",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年秋 · 官渡黎明",
+          "text": "天明时，官渡西门外尸横遍野，袁军最精锐的夜袭万余人几乎全军覆没。袁绍惊怒交加，再也不敢轻信营中密报，士气一落千丈，官渡之战提前两个月分出了胜负。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "官渡夜伏，一战折袁军半壁",
+        "subtitle": "借通敌密信反杀 · 未等乌巢先破敌",
+        "tone": "ok",
+        "verdict": "历史上曹操烧掉密信安抚了人心，而你更狠一步——把差点要你命的内鬼做成了钓杀袁绍精锐的鱼饵。",
+        "buildName": "借鬼钓敌大师",
+        "buildQuote": "写降信？写得好！再帮孤多写两句约个时间地点。"
+      }
+    },
+    "E_WI_assassinate_yuan": {
+      "id": "E_WI_assassinate_yuan",
+      "act": "架空结局 · 混营斩旗",
+      "title": "夜斩袁绍中军大纛",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年秋 · 河北大营残火",
+          "text": "乐进一刀砍倒袁绍帅旗时，十万袁军彻底陷入无主自相践踏的噩梦。袁绍只带八百亲骑仓皇渡河逃回邺城，当夜惊悸卧病，河北霸业就此崩塌。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "混营斩旗，袁绍惊病北逃",
+        "subtitle": "奇兵直捣中军 · 一夜定官渡",
+        "tone": "ok",
+        "verdict": "趁敌军以为内应得手的刹那反插心脏，你把一场漫长的消耗战打成了三国最狂野的斩首夜袭。",
+        "buildName": "中军斩首狂徒",
+        "buildQuote": "不用等许攸来报信，我自己去袁本初帐里拿粮。"
+      }
+    },
+    "N_WI_frame_zhanghe": {
+      "id": "N_WI_frame_zhanghe",
+      "act": "架空世界线 · 河北将帅反目",
+      "title": "郭图进谗，张郃寒心",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年冬 · 袁军前锋营",
+          "text": "你的假密报送到郭图手里不到半日，袁绍便暴怒传令召张郃、高览回中军对质。二将闻讯自知回去必死，连夜派心腹翻墙来官渡叩营求见！"
+        },
+        {
+          "speaker": "xunyou",
+          "sourceTag": "推演",
+          "text": "张郃、高览手握河北最能打的两万精兵！此刻袁军前锋阵脚大乱：是立刻迎降二将直反袁绍中军，还是趁袁军换将群龙无首直接全军压上正面击溃？"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_zhanghe_coup",
+          "label": "厚礼迎降张郃高览，令其作为前驱反杀袁绍大营",
+          "hint": "兵力 +1 · 河北名将提前归心",
+          "stampKind": "approve",
+          "stampText": "迎降",
+          "replyText": "张儁乂乃河北柱石！孤亲出营门执手迎降，今夜便由你领兵踏平郭图营寨！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "张郃高览率河北精锐整建制归降"
+            }
+          ],
+          "next": "E_WI_zhanghe_coup"
+        },
+        {
+          "id": "wi_frontal_crush",
+          "label": "趁袁军阵前换将混乱，全军鼓噪出垒正面碾压",
+          "hint": "粮草 -1 · 一鼓作气正面破袁",
+          "stampKind": "reject",
+          "stampText": "决战",
+          "replyText": "敌军阵前易帅乃兵家大忌！敲响全部战鼓，官渡诸营随孤正面杀出去！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "尽倾仓底余粮饱餐三军全线出击"
+            }
+          ],
+          "next": "E_WI_frontal_crush"
+        }
+      ]
+    },
+    "E_WI_zhanghe_coup": {
+      "id": "E_WI_zhanghe_coup",
+      "act": "架空结局 · 河北倒戈",
+      "title": "张郃反戈，袁营土崩",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年冬 · 官渡北原",
+          "text": "张郃、高览倒戈的旗帜在夜色中升起时，原本压在官渡头顶的十万大军瞬间崩溃。你没烧一粒乌巢的粮食，反而完整接手了河北大仓与最精锐的降将。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "张郃倒戈，反噬袁绍中军",
+        "subtitle": "不烧粮仓烧信任 · 完整接手河北精锐",
+        "tone": "ok",
+        "verdict": "攻心为上，攻城为下。你精准踩中了袁绍多疑、郭图善妒的死穴，一封假信直接帮自己换来了两万精兵与未来五子良将。",
+        "buildName": "反间挖角大师",
+        "buildQuote": "袁本初最值钱的不是乌巢的米，是张儁乂这把刀。"
+      }
+    },
+    "E_WI_frontal_crush": {
+      "id": "E_WI_frontal_crush",
+      "act": "架空结局 · 正面击溃",
+      "title": "阵前易帅，一鼓破十万",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年冬 · 官渡旷野",
+          "text": "趁着袁军前线换将交接的混乱时刻，饱餐最后一顿干粮的曹军如猛虎出笼，从正面撕穿了袁绍的连营。以两万正面击溃十万的奇迹，从此载入兵家史册。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "临阵换将大乱，官渡正面击溃",
+        "subtitle": "抓准敌营一瞬空档 · 正面决胜",
+        "tone": "ok",
+        "verdict": "没有偷袭、没有火攻，你在敌军指挥体系短暂瘫痪的那个时辰押上了全部家底，打出了最硬核的正面翻盘。",
+        "buildName": "硬刚正面破局派",
+        "buildQuote": "谁说以弱胜强只能偷粮？他换将那一刻就是死期。"
+      }
+    },
+    "N_WI_raid_ye": {
+      "id": "N_WI_raid_ye",
+      "act": "架空世界线 · 千里奇袭邺城",
+      "title": "孤军突至邺城下",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年冬 · 邺城南门",
+          "text": "五千曹军精骑一路打着袁军催粮旗号，昼伏夜出竟真摸到了防备空虚的邺城城下！城头守卒仓皇敲响警钟，袁氏宗族与河北百官一夜之间乱作一团。"
+        },
+        {
+          "speaker": "caohong",
+          "sourceTag": "推演",
+          "text": "丞相！我军孤悬敌后，久留必遭河北各郡合围！是立刻放火烧光邺城总仓逼袁绍官渡大军回师自乱，还是趁乱抢占内城挟袁氏宗族逼袁绍阵前投降？"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_burn_ye",
+          "label": "火烧邺城总库后迅速撤回，逼官渡十万袁军不战自溃",
+          "hint": "粮草 +1 · 稳赚不赔的战略大撤退",
+          "stampKind": "approve",
+          "stampText": "焚库",
+          "replyText": "抢满马袋干粮，一把火把袁绍的老家总仓点着！咱们拍拍屁股渡河回去看袁本初吐血！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "抢掠邺城外仓补满轻骑给养"
+            }
+          ],
+          "next": "E_WI_burn_ye"
+        },
+        {
+          "id": "wi_hostage_yuan",
+          "label": "强攻夺下邺城内城，挟袁氏宗族与四州印绶逼袁绍投降",
+          "hint": "兵力 -1 · 一战提前七年平河北",
+          "stampKind": "dirty",
+          "stampText": "夺城",
+          "replyText": "都杀到袁绍家门口了还走什么？夺下邺城铜雀台旧址，写信叫袁本初回来领全家老小！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "孤军强攻邺城内城巷战折损"
+            }
+          ],
+          "next": "E_WI_hostage_yuan"
+        }
+      ]
+    },
+    "E_WI_burn_ye": {
+      "id": "E_WI_burn_ye",
+      "act": "架空结局 · 火烧邺城",
+      "title": "后院起火，官渡袁军自溃",
+      "kind": "ending",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年腊月 · 官渡南岸",
+          "text": "邺城冲天火光的消息传回官渡那日，十万袁军军心瞬间崩盘——家在河北的士卒纷纷丢盔弃甲往北奔逃。你兵不血刃解了官渡之围，连审配都叹服这手千里袭营简直神鬼莫测。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "奇袭邺城，袁绍后院起火",
+        "subtitle": "比乌巢更狂的千里奇袭",
+        "tone": "ok",
+        "verdict": "乌巢只是袁军的钱袋子，邺城才是袁军的命根子。你一把火烧掉了河北十万大军的归心，堪称古今第一奇兵。",
+        "buildName": "千里偷家之王",
+        "buildQuote": "烧乌巢格局小了，要烧就烧袁本初的老家。"
+      }
+    },
+    "E_WI_hostage_yuan": {
+      "id": "E_WI_hostage_yuan",
+      "act": "架空结局 · 挟邺定河北",
+      "title": "一战提前七年平定河北",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安六年春 · 邺城大堂",
+          "text": "邺城陷落的消息击垮了袁绍最后的意志。河北四州群龙无首，袁谭、袁尚尚未开争便已归降。历史上打了整整七年的平河北之战，被你一场疯癫而精准的豪赌一夜终结。"
+        }
+      ],
+      "ending": {
+        "badge": "架空世界线 · WHAT-IF",
+        "title": "挟邺逼降，提前七年定河北",
+        "subtitle": "史上最狂豪赌 · 改写北方十年格局",
+        "tone": "ok",
+        "verdict": "这把赌注大到连郭嘉都不敢轻易点头，但你赌赢了——直接省去七年苦战，建安六年便已坐拥冀青幽并四州。",
+        "buildName": "天命豪赌曹操",
+        "buildQuote": "兵法说孤军深入必死？可我直接坐在了袁绍的太师椅上。"
       }
     }
   },
