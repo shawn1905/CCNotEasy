@@ -404,13 +404,13 @@ export default function App() {
             </div>
 
             <div className="cc-splash-foot">
-              <span>纯本地引擎 · 单手竖屏</span>
+              <span>单手竖屏</span>
               <button
                 type="button"
                 className={`cc-audio-pill${audioOn ? ' is-on' : ''}`}
                 onClick={() => setAudioOn(audioEngine.toggle())}
               >
-                {activeTheme.bgmLabel}：{audioOn ? '已开启' : '静音'}
+                音效：{audioOn ? '开' : '关'}
               </button>
             </div>
           </div>
@@ -481,13 +481,13 @@ export default function App() {
               </button>
             )}
             <div className="cc-splash-foot">
-              <span>共创友好 · 纯 JSON 引擎</span>
+              <span>史实分支</span>
               <button
                 type="button"
                 className={`cc-audio-pill${audioOn ? ' is-on' : ''}`}
                 onClick={() => setAudioOn(audioEngine.toggle())}
               >
-                {bundle.theme.bgmLabel}：{audioOn ? '已开启' : '静音'}
+                音效：{audioOn ? '开' : '关'}
               </button>
             </div>
           </div>
@@ -565,13 +565,13 @@ export default function App() {
               辰时升帐，开始值班
             </button>
             <div className="cc-splash-foot">
-              <span>动态案卷 · 暗雷真咬人</span>
+              <span>动态案卷</span>
               <button
                 type="button"
                 className={`cc-audio-pill${audioOn ? ' is-on' : ''}`}
                 onClick={() => setAudioOn(audioEngine.toggle())}
               >
-                {selectedDeskPack.theme.bgmLabel}：{audioOn ? '已开启' : '静音'}
+                音效：{audioOn ? '开' : '关'}
               </button>
             </div>
           </div>
