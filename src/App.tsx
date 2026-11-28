@@ -22,12 +22,15 @@ import { validateChapterBundle } from './core/validator.ts'
 import {
   clearWhatIfPrefetch,
   consumePrefetchedNode,
+  deleteCuratedBranch,
   exportWhatIfPatch,
   generateWhatIfNode,
+  loadCuratedBranches,
   loadLlmConfig,
   prefetchNextChoices,
+  saveCuratedBranch,
 } from './core/whatIfGen.ts'
-import type { LlmConfig, WhatIfStepMeta, WhatIfStyle } from './core/whatIfGen.ts'
+import type { CuratedBranch, LlmConfig, WhatIfStepMeta, WhatIfStyle } from './core/whatIfGen.ts'
 import { CounterCaseCard } from './ui/CounterCaseCard.tsx'
 import { DeskMode } from './ui/DeskMode.tsx'
 import { DualHud } from './ui/DualHud.tsx'
@@ -70,13 +73,15 @@ export default function App() {
   const [modal, setModal] = useState<ModalState>(null)
   const [isTyping, setIsTyping] = useState(false)
   const [skipSignal, setSkipSignal] = useState(0)
-  const [archiveTab, setArchiveTab] = useState<'notes' | 'import'>('notes')
+  const [archiveTab, setArchiveTab] = useState<'notes' | 'curated' | 'import'>('notes')
+  const [curatedList, setCuratedList] = useState<CuratedBranch[]>(() => loadCuratedBranches())
   const [packText, setPackText] = useState('')
   const [packStatus, setPackStatus] = useState<string | null>(null)
   const [whatIfOpen, setWhatIfOpen] = useState(false)
   const [whatIfMeta, setWhatIfMeta] = useState<WhatIfStepMeta | null>(null)
   const [whatIfBusy, setWhatIfBusy] = useState(false)
   const [whatIfErr, setWhatIfErr] = useState<string | null>(null)
+  const [whatIfSaved, setWhatIfSaved] = useState(false)
   const [whatIfExported, setWhatIfExported] = useState(false)
 
   const streamRef = useRef<HTMLElement | null>(null)
@@ -342,18 +347,19 @@ export default function App() {
       generatedNodeIds: [],
     }
     try {
-      const { node, usedLiveLlm } = await generateWhatIfNode(bundle, save, meta, cfg)
+      const { node } = await generateWhatIfNode(bundle, save, meta, cfg)
       const nextMeta: WhatIfStepMeta = { ...meta, generatedNodeIds: [node.id] }
       setWhatIfMeta(nextMeta)
       setWhatIfOpen(false)
+      setWhatIfSaved(false)
       setWhatIfExported(false)
       audioEngine.playStamp(true)
       enterDynamicNode(bundle, save, node, [
         {
           type: 'settlement',
           settlement: {
-            badges: [usedLiveLlm ? 'LLM 实时推演' : '离线五防线演示'],
-            reasons: ['已从当前历史节点撕开一条全新的 3 幕平行世界线'],
+            badges: ['别史启卷'],
+            reasons: ['已从当前变局另辟一条五幕平行世界线'],
             deltas: {},
           },
         },
@@ -905,33 +911,47 @@ export default function App() {
               setWhatIfOpen(true)
             }}
           >
-            ✨ AI 推演新世界线（五防线 5 幕完整分支）
+            ✦ 另辟史册（推演五幕平行世界线）
           </button>
         )}
 
         {whatIfBusy && (
           <div className="cc-strip is-combo">
-            <span className="cc-strip-badge">推演中</span>
-            <span>正在按五道防线注入建安器物与谋士冲突，生成下一幕…</span>
+            <span className="cc-strip-badge">快马急报</span>
+            <span>前线暗哨正传回后续军情变局…</span>
           </div>
         )}
 
         {save.finished && whatIfMeta && (
           <div className="cc-wi-export-bar">
-            <span>已走完 5 幕动态 What-If 世界线（可沉淀入库）</span>
-            <button
-              type="button"
-              className="cc-audio-pill is-on"
-              onClick={() => {
-                const patch = exportWhatIfPatch(bundle, whatIfMeta)
-                void navigator.clipboard?.writeText(patch).then(() => {
-                  setWhatIfExported(true)
-                  setTimeout(() => setWhatIfExported(false), 2500)
-                })
-              }}
-            >
-              {whatIfExported ? '已复制支线 JSON ✓' : '★ 导出支线 JSON'}
-            </button>
+            <span>觉得这段别史精彩？可收入别史馆</span>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <button
+                type="button"
+                className="cc-audio-pill is-on"
+                onClick={() => {
+                  saveCuratedBranch(bundle, whatIfMeta)
+                  setCuratedList(loadCuratedBranches())
+                  setWhatIfSaved(true)
+                  audioEngine.playStamp(false)
+                }}
+              >
+                {whatIfSaved ? '已入别史馆 ✓' : '★ 收入别史馆'}
+              </button>
+              <button
+                type="button"
+                className="cc-audio-pill"
+                onClick={() => {
+                  const patch = exportWhatIfPatch(bundle, whatIfMeta)
+                  void navigator.clipboard?.writeText(patch).then(() => {
+                    setWhatIfExported(true)
+                    setTimeout(() => setWhatIfExported(false), 2500)
+                  })
+                }}
+              >
+                {whatIfExported ? '已复制 ✓' : '复制案卷'}
+              </button>
+            </div>
           </div>
         )}
 
@@ -1040,7 +1060,7 @@ export default function App() {
 
             {modal.kind === 'archive' && (
               <>
-                <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+                <div style={{ display: 'flex', gap: 6, marginBottom: 10, flexWrap: 'wrap' }}>
                   <button
                     type="button"
                     className={`cc-audio-pill${archiveTab === 'notes' ? ' is-on' : ''}`}
@@ -1050,14 +1070,108 @@ export default function App() {
                   </button>
                   <button
                     type="button"
+                    className={`cc-audio-pill${archiveTab === 'curated' ? ' is-on' : ''}`}
+                    onClick={() => {
+                      setCuratedList(loadCuratedBranches())
+                      setArchiveTab('curated')
+                    }}
+                  >
+                    别史馆 ({curatedList.length})
+                  </button>
+                  <button
+                    type="button"
                     className={`cc-audio-pill${archiveTab === 'import' ? ' is-on' : ''}`}
                     onClick={() => setArchiveTab('import')}
                   >
-                    导入共创章节包 JSON
+                    导入共创包
                   </button>
                 </div>
 
-                {archiveTab === 'notes' ? (
+                {archiveTab === 'curated' ? (
+                  <div style={{ fontSize: 12.5, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {curatedList.length === 0 ? (
+                      <div style={{ color: 'var(--fg-dim)', lineHeight: 1.6 }}>
+                        尚未收录别史。在「另辟史册」推演结束后点击「★ 收入别史馆」，即可将精彩世界线永久珍藏于此，随时重读或复制发给作者沉淀进正式版。
+                      </div>
+                    ) : (
+                      curatedList.map((item) => (
+                        <div
+                          key={item.id}
+                          style={{
+                            padding: 9,
+                            border: '1px solid var(--muted)',
+                            borderLeft: '3px solid var(--teal)',
+                            background: 'var(--bg)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 5,
+                          }}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 6 }}>
+                            <strong style={{ color: 'var(--fg-bright)' }}>{item.title}</strong>
+                            <span style={{ fontSize: 10.5, color: 'var(--teal)' }}>{item.buildName}</span>
+                          </div>
+                          <div style={{ fontSize: 11, color: 'var(--fg-dim)' }}>
+                            {item.chapterSubtitle}
+                            {item.userIdea ? ` · 念头：「${item.userIdea}」` : ''}
+                          </div>
+                          <div style={{ display: 'flex', gap: 6, marginTop: 2 }}>
+                            {item.chapterId === bundle.id && item.nodes[item.startNodeId] && (
+                              <button
+                                type="button"
+                                className="cc-audio-pill is-on"
+                                onClick={() => {
+                                  const nextBundle: ChapterBundle = {
+                                    ...bundle,
+                                    nodes: { ...bundle.nodes, ...item.nodes },
+                                  }
+                                  const replayNode = item.nodes[item.startNodeId]!
+                                  setWhatIfMeta({
+                                    sessionId: item.id,
+                                    originNodeId: item.originNodeId,
+                                    style: item.style,
+                                    userIdea: item.userIdea,
+                                    step: 1,
+                                    generatedNodeIds: Object.keys(item.nodes),
+                                  })
+                                  setModal(null)
+                                  enterDynamicNode(nextBundle, save, replayNode, [
+                                    {
+                                      type: 'settlement',
+                                      settlement: {
+                                        badges: ['别史重读'],
+                                        reasons: [`已展开珍藏别史《${item.title}》`],
+                                        deltas: {},
+                                      },
+                                    },
+                                  ])
+                                }}
+                              >
+                                重读此卷
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              className="cc-audio-pill"
+                              onClick={() => {
+                                void navigator.clipboard?.writeText(JSON.stringify(item, null, 2))
+                              }}
+                            >
+                              复制案卷
+                            </button>
+                            <button
+                              type="button"
+                              className="cc-audio-pill"
+                              onClick={() => setCuratedList(deleteCuratedBranch(item.id))}
+                            >
+                              删
+                            </button>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                ) : archiveTab === 'notes' ? (
                   <div style={{ fontSize: 12.5, display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {save.unlockedGloss.length === 0 && save.decodedSubtexts.length === 0 && (
                       <div style={{ color: 'var(--fg-dim)' }}>点击对话中的虚线词条或官场潜台词即可收录于此。</div>

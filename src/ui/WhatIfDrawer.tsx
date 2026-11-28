@@ -47,14 +47,14 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
             marginBottom: 8,
           }}
         >
-          <span>// WHAT-IF 动态推演引擎 · 5 防线框架</span>
+          <span>// 别史推演 · 另辟新局</span>
           <button type="button" disabled={busy} onClick={onClose}>
             关闭
           </button>
         </div>
 
         <p style={{ margin: '0 0 10px', fontSize: 12.5, lineHeight: 1.55, color: 'var(--fg-dim)' }}>
-          从当前历史节点撕开一条全新的 <strong style={{ color: 'var(--fg-bright)' }}>5 幕完整平行世界线</strong>（首波假账 → 谋士交锋 → 二次核账 → 决战前夜 → 专属结局），后台预生成秒切，终局可导出 JSON 沉淀入库。
+          从当前变局另起一行史书，择一谋略走向，展开 <strong style={{ color: 'var(--fg-bright)' }}>五幕全新平行世界线</strong>；若遇神展开，终局可一键收入「别史馆」永久珍藏。
         </p>
 
         <div className="cc-wi-styles">
@@ -77,7 +77,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
             htmlFor="cc-wi-idea"
             style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 11, color: 'var(--fg-dim)', marginBottom: 4 }}
           >
-            可选脑洞指令（留空则由引擎按当前账本自由发挥）
+            你的念头（可留空，由大帐顺势推演）
           </label>
           <input
             id="cc-wi-idea"
@@ -97,16 +97,14 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
             style={{ width: '100%', textAlign: 'left', padding: '6px 8px', display: 'flex', justifyContent: 'space-between' }}
             onClick={() => setShowCfg((v) => !v)}
           >
-            <span>
-              引擎模式：{hasKey ? `真 LLM 直连 (${cfg.model})` : '离线演示模式（免 Key 即玩）'}
-            </span>
-            <span style={{ color: 'var(--teal)' }}>{showCfg ? '收起设置 ▲' : '配置 API Key ▼'}</span>
+            <span>{hasKey ? '云端别史已就绪' : '离线演示模式'}</span>
+            <span style={{ color: 'var(--teal)' }}>{showCfg ? '收起 ▲' : '高级设置 ▼'}</span>
           </button>
 
           {showCfg && (
             <div className="cc-wi-cfg">
               <div style={{ fontSize: 11, color: 'var(--fg-dim)', marginBottom: 6 }}>
-                默认预设 OpenDesign AMR（deepseek-v4.1-flash）；本机开发可填 /api/opendesign 走免 Key 代理，Key 仅存浏览器本地。
+                默认已接好免配置通道；如需切换自备接口或模型可在此修改（仅存本地）。
               </div>
               <input
                 type="text"
@@ -128,7 +126,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
                 type="password"
                 value={cfg.apiKey}
                 onChange={(e) => handleSaveCfg({ ...cfg, apiKey: e.target.value })}
-                placeholder="sk-...（留空使用离线演示）"
+                placeholder="自备 Key（默认通道无需填写）"
                 className="cc-wi-input"
               />
             </div>
@@ -148,11 +146,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
           style={{ marginTop: 12, background: 'var(--teal)', color: 'var(--bg-darker)' }}
           onClick={() => onStart(style, userIdea, cfg)}
         >
-          {busy
-            ? '正在按五道防线推演第 1 幕…'
-            : hasKey
-              ? '✨ 调用 LLM 撕开 5 幕新世界线'
-              : '✨ 启动 5 幕动态推演（离线演示）'}
+          {busy ? '正在研墨起草新局…' : '✦ 执笔另辟新局'}
         </button>
       </div>
     </div>

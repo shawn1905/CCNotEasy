@@ -338,15 +338,15 @@ export function sanitizeGeneratedNode(
     const endRaw = (raw.ending && typeof raw.ending === 'object' ? raw.ending : {}) as Record<string, unknown>
     return {
       id: nodeId,
-      act: cleanText(raw.act, 'AI 推演结局 · WHAT-IF'),
+      act: cleanText(raw.act, '别史终局 · 平行世界'),
       title: cleanText(raw.title, '改写历史的终局'),
       kind: 'ending',
       mood,
       lines,
       ending: {
-        badge: 'AI 推演 · WHAT-IF',
+        badge: '别史终局 · WHAT-IF',
         title: cleanText(endRaw.title, '平行世界线落幕'),
-        subtitle: cleanText(endRaw.subtitle, `${STYLE_LABELS[meta.style].name} · 动态推演结局`),
+        subtitle: cleanText(endRaw.subtitle, `${STYLE_LABELS[meta.style].name} · 别史新局`),
         tone: endRaw.tone === 'warn' ? 'warn' : 'ok',
         verdict: cleanText(
           endRaw.verdict,
@@ -434,7 +434,7 @@ export function sanitizeGeneratedNode(
 
   return {
     id: nodeId,
-    act: cleanText(raw.act, meta.step === 1 ? 'AI 推演·承 · 突发变局' : 'AI 推演·转 · 终局对质'),
+    act: cleanText(raw.act, meta.step === 1 ? '别史·起 · 突发变局' : '别史·转 · 大帐对质'),
     title: cleanText(raw.title, '平行世界线分叉'),
     kind: 'scene',
     mood,
@@ -703,7 +703,75 @@ export function consumePrefetchedNode(
   return hit
 }
 
-/* ---------- Hybrid Curation: Export Generated Branch Patch JSON ---------- */
+/* ---------- Hybrid Curation: Local "别史馆" Storage + Export ---------- */
+export interface CuratedBranch {
+  id: string
+  chapterId: string
+  chapterSubtitle: string
+  originNodeId: string
+  style: WhatIfStyle
+  userIdea: string
+  title: string
+  buildName: string
+  savedAt: number
+  startNodeId: string
+  nodes: Record<string, SceneNode>
+}
+
+const CURATED_KEY = 'ccnoteasy:curated_branches_v1'
+
+export function loadCuratedBranches(): CuratedBranch[] {
+  try {
+    const raw = localStorage.getItem(CURATED_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw) as unknown
+    return Array.isArray(parsed) ? (parsed as CuratedBranch[]) : []
+  } catch {
+    return []
+  }
+}
+
+export function saveCuratedBranch(bundle: ChapterBundle, meta: WhatIfStepMeta): CuratedBranch {
+  const nodes: Record<string, SceneNode> = {}
+  for (const id of meta.generatedNodeIds) {
+    const n = bundle.nodes[id]
+    if (n) nodes[id] = n
+  }
+  const lastId = meta.generatedNodeIds[meta.generatedNodeIds.length - 1]
+  const endNode = lastId ? nodes[lastId] : undefined
+  const entry: CuratedBranch = {
+    id: meta.sessionId,
+    chapterId: bundle.id,
+    chapterSubtitle: bundle.subtitle,
+    originNodeId: meta.originNodeId,
+    style: meta.style,
+    userIdea: meta.userIdea,
+    title: endNode?.ending?.title ?? endNode?.title ?? '别史残卷',
+    buildName: endNode?.ending?.buildName ?? STYLE_LABELS[meta.style].name,
+    savedAt: Date.now(),
+    startNodeId: meta.generatedNodeIds[0] ?? '',
+    nodes,
+  }
+  const prev = loadCuratedBranches().filter((b) => b.id !== entry.id)
+  const next = [entry, ...prev].slice(0, 30)
+  try {
+    localStorage.setItem(CURATED_KEY, JSON.stringify(next))
+  } catch {
+    // ignore quota errors
+  }
+  return entry
+}
+
+export function deleteCuratedBranch(id: string): CuratedBranch[] {
+  const next = loadCuratedBranches().filter((b) => b.id !== id)
+  try {
+    localStorage.setItem(CURATED_KEY, JSON.stringify(next))
+  } catch {
+    // ignore
+  }
+  return next
+}
+
 export function exportWhatIfPatch(bundle: ChapterBundle, meta: WhatIfStepMeta): string {
   const nodes: Record<string, SceneNode> = {}
   for (const id of meta.generatedNodeIds) {
