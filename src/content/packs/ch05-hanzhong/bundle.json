@@ -23,18 +23,73 @@
     }
   },
   "cast": {
-    "narrator": { "id": "narrator", "name": "巡营所见", "side": "center", "tone": "neutral" },
-    "cao": { "id": "cao", "name": "曹操", "role": "魏王", "side": "right", "tone": "neutral" },
-    "yangxiu": { "id": "yangxiu", "name": "杨修", "role": "主簿", "side": "left", "tone": "warn" },
-    "simayi": { "id": "simayi", "name": "司马懿", "role": "军司马", "side": "left", "tone": "info" },
-    "caopi": { "id": "caopi", "name": "曹丕", "role": "魏王世子", "side": "left", "tone": "neutral" },
-    "caozhi": { "id": "caozhi", "name": "曹植", "role": "临淄侯", "side": "left", "tone": "info" },
-    "xuhuang": { "id": "xuhuang", "name": "徐晃", "role": "右将军", "side": "left", "tone": "ok" },
-    "scout": { "id": "scout", "name": "襄樊急使", "role": "荆北驿站", "side": "left", "tone": "fire" }
+    "narrator": {
+      "id": "narrator",
+      "name": "巡营所见",
+      "side": "center",
+      "tone": "neutral"
+    },
+    "cao": {
+      "id": "cao",
+      "name": "曹操",
+      "role": "魏王",
+      "side": "right",
+      "tone": "neutral"
+    },
+    "yangxiu": {
+      "id": "yangxiu",
+      "name": "杨修",
+      "role": "主簿",
+      "side": "left",
+      "tone": "warn"
+    },
+    "simayi": {
+      "id": "simayi",
+      "name": "司马懿",
+      "role": "军司马",
+      "side": "left",
+      "tone": "info"
+    },
+    "caopi": {
+      "id": "caopi",
+      "name": "曹丕",
+      "role": "魏王世子",
+      "side": "left",
+      "tone": "neutral"
+    },
+    "caozhi": {
+      "id": "caozhi",
+      "name": "曹植",
+      "role": "临淄侯",
+      "side": "left",
+      "tone": "info"
+    },
+    "xuhuang": {
+      "id": "xuhuang",
+      "name": "徐晃",
+      "role": "右将军",
+      "side": "left",
+      "tone": "ok"
+    },
+    "scout": {
+      "id": "scout",
+      "name": "襄樊急使",
+      "role": "荆北驿站",
+      "side": "left",
+      "tone": "fire"
+    }
   },
   "varsSchema": {
-    "spared_yangxiu": { "type": "boolean", "initial": false, "description": "是否饶过杨修" },
-    "held_hanzhong": { "type": "boolean", "initial": false, "description": "是否死磕汉中不退" }
+    "spared_yangxiu": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否饶过杨修"
+    },
+    "held_hanzhong": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否死磕汉中不退"
+    }
   },
   "resources": [
     {
@@ -85,10 +140,30 @@
   ],
   "startNode": "N00_intro",
   "acts": [
-    { "id": "act0", "num": "序", "title": "暮年出斜谷", "startNode": "N00_intro" },
-    { "id": "act1", "num": "案壹", "title": "汉水死磕还是退守", "startNode": "N01_hanshui" },
-    { "id": "act2", "num": "案贰", "title": "鸡肋口令与杨修", "startNode": "N02_jilei" },
-    { "id": "act3", "num": "案叁", "title": "襄樊水淹七军急报", "startNode": "N03_xiangfan" }
+    {
+      "id": "act0",
+      "num": "序",
+      "title": "暮年出斜谷",
+      "startNode": "N00_intro"
+    },
+    {
+      "id": "act1",
+      "num": "案壹",
+      "title": "汉水死磕还是退守",
+      "startNode": "N01_hanshui"
+    },
+    {
+      "id": "act2",
+      "num": "案贰",
+      "title": "鸡肋口令与杨修",
+      "startNode": "N02_jilei"
+    },
+    {
+      "id": "act3",
+      "num": "案叁",
+      "title": "襄樊水淹七军急报",
+      "startNode": "N03_xiangfan"
+    }
   ],
   "gloss": {
     "jilei": {
@@ -116,7 +191,11 @@
   "historyDossier": [
     {
       "title": "鸡肋之夜与魏王抉择",
-      "when": { "var": "spared_yangxiu", "op": "==", "value": true },
+      "when": {
+        "var": "spared_yangxiu",
+        "op": "==",
+        "value": true
+      },
       "canonNote": "史载曹操于汉中斩杨修、撤军长安，并于次年病逝洛阳。",
       "playerHit": "你饶过了杨修，甚至动摇了魏国继承人格局，走出了完全不同的晚年路线。",
       "playerMiss": "你按正史斩杨修、撤汉中，把江山稳稳交到了曹丕手里。",
@@ -192,8 +271,18 @@
           "stampText": "缓图",
           "replyText": "孤老了，不能拿十万关中子弟陪刘备耗在山沟里。先迁民，待机再定退路。",
           "effects": [
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "对峙迁民继续消耗斜谷存粮" },
-            { "kind": "deadline", "deadline": "guan_north", "delta": 2, "reason": "汉中久持不下，荆州关羽蠢蠢欲动" }
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "对峙迁民继续消耗斜谷存粮"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "guan_north",
+              "delta": 2,
+              "reason": "汉中久持不下，荆州关羽蠢蠢欲动"
+            }
           ],
           "next": "N02_jilei"
         },
@@ -205,10 +294,19 @@
           "stampText": "死磕",
           "replyText": "他益州男女齐运粮都在硬撑，孤坐拥中原十州怕他个大耳儿？把关中存粮全压上来，今番不拿下汉中，孤不回长安！",
           "effects": [
-            { "kind": "var_set", "var": "held_hanzhong", "value": true },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "孤注一掷征调关中全部屯田存粮" }
+            {
+              "kind": "var_set",
+              "var": "held_hanzhong",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "孤注一掷征调关中全部屯田存粮"
+            }
           ],
-          "next": "N_WI_hanzhong_allin"
+          "next": "N_WI_zhaoyun_empty"
         }
       ]
     },
@@ -240,7 +338,12 @@
           "stampText": "死战",
           "replyText": "拼着折损三成主力也要踏平阳平关！孤要让刘玄德这辈子都戴不上汉中王的冠冕！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "强攻阳平关险隘血战折损" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "强攻阳平关险隘血战折损"
+            }
           ],
           "next": "E_WI_win_hanzhong"
         },
@@ -252,7 +355,12 @@
           "stampText": "断粮",
           "replyText": "烧了他米仓山的粮队，刘备自己就得滚回成都！守住汉中，巴蜀便成了孤的囊中之物！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "巧破蜀军补给链，魏王暮年再立奇功" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "巧破蜀军补给链，魏王暮年再立奇功"
+            }
           ],
           "next": "E_WI_gate_shu"
         }
@@ -340,8 +448,18 @@
           "stampText": "斩修",
           "replyText": "竖子屡败吾事！拖出去斩首示众，谁敢再妄议退兵者同罪！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "铁腕肃军，彻底扫清世子曹丕继位障碍" },
-            { "kind": "deadline", "deadline": "guan_north", "delta": 1, "reason": "撤军整理期间荆州水势渐涨" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "铁腕肃军，彻底扫清世子曹丕继位障碍"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "guan_north",
+              "delta": 1,
+              "reason": "撤军整理期间荆州水势渐涨"
+            }
           ],
           "next": "N03_xiangfan"
         },
@@ -353,10 +471,19 @@
           "stampText": "易储",
           "replyText": "哈哈，全营只有你杨德祖听懂了孤的鸡肋！杀你作甚？今夜陪孤喝一杯，孤倒要问问——若真把江山交给子建，会是什么光景？",
           "effects": [
-            { "kind": "var_set", "var": "spared_yangxiu", "value": true },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "动摇既定储位，朝堂百官暗潮涌动" }
+            {
+              "kind": "var_set",
+              "var": "spared_yangxiu",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "动摇既定储位，朝堂百官暗潮涌动"
+            }
           ],
-          "next": "N_WI_caozhi_heir"
+          "next": "N_WI_impeach_storm"
         }
       ]
     },
@@ -393,7 +520,12 @@
           "stampText": "立植",
           "replyText": "子建虽狂却无阴鸷之气，孤留杨修管文、曹仁掌兵、削去司马氏兵权，看你们能把这大魏写成什么诗篇！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "以宗室名将配文士制衡，稳住朝堂" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "以宗室名将配文士制衡，稳住朝堂"
+            }
           ],
           "next": "E_WI_caozhi_empire"
         },
@@ -405,7 +537,12 @@
           "stampText": "贬丕",
           "replyText": "既要易储就要彻底！把曹丕调离邺城，政事全交子建与杨德祖处置！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "强削曹丕旧部引发军中动荡" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "强削曹丕旧部引发军中动荡"
+            }
           ],
           "next": "E_WI_ye_coup"
         }
@@ -493,7 +630,12 @@
           "stampText": "联吴",
           "replyText": "决不迁都！遣徐晃星夜赴樊城解围，立刻写信给孙权，请他去抄关羽的后路！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "镇定自若稳住朝堂，联吴破关羽" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "镇定自若稳住朝堂，联吴破关羽"
+            }
           ],
           "next": "E_canon_hanzhong"
         },
@@ -505,9 +647,14 @@
           "stampText": "亲征",
           "replyText": "让孙权捡荆州的便宜？做梦！孤虽年过六旬，还能上马提刀——汉中撤回的精锐全随孤直扑樊城，先擒关羽、再吞江东！",
           "effects": [
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "大军跨秦岭急转南下奔袭荆北" }
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "大军跨秦岭急转南下奔袭荆北"
+            }
           ],
-          "next": "N_WI_final_crusade"
+          "next": "N_WI_wumeng_secret"
         }
       ]
     },
@@ -539,7 +686,12 @@
           "stampText": "擒关",
           "replyText": "云长当年在许都别我而去，今日由孤亲自来接他！绝不让孙权染指关羽首级！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 2, "reason": "亲擒关羽免除吴蜀借口，威震天下" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 2,
+              "reason": "亲擒关羽免除吴蜀借口，威震天下"
+            }
           ],
           "next": "E_WI_capture_guan"
         },
@@ -551,7 +703,12 @@
           "stampText": "吞吴",
           "replyText": "谁跟孙权讲什么盟约？趁吕蒙刚进江陵脚跟未稳，十万魏军直接跨汉水南下，替赤壁报仇！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "连续急行军强攻江陵防线" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "连续急行军强攻江陵防线"
+            }
           ],
           "next": "E_WI_swallow_south"
         }
@@ -635,8 +792,23 @@
       "title": "朝堂动摇，后方生变",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "魏王威望跌破红线，许都与邺城暗流爆发，汉中前线被迫溃退。" }],
-      "ending": { "badge": "红线崩盘 · 威望归零", "title": "后方震荡，汉中失守", "subtitle": "威望触及红线", "tone": "danger", "isCollapse": true, "verdict": "暮年威望一旦动摇，满朝文武便各怀鬼胎。", "buildName": "暮年失威者", "buildQuote": "老骥伏枥，最怕后院先乱。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "魏王威望跌破红线，许都与邺城暗流爆发，汉中前线被迫溃退。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 威望归零",
+        "title": "后方震荡，汉中失守",
+        "subtitle": "威望触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "暮年威望一旦动摇，满朝文武便各怀鬼胎。",
+        "buildName": "暮年失威者",
+        "buildQuote": "老骥伏枥，最怕后院先乱。"
+      }
     },
     "E_collapse_grain": {
       "id": "E_collapse_grain",
@@ -644,8 +816,23 @@
       "title": "斜谷断粮，大军困死秦岭",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "秦岭粮道彻底断绝，斜谷大营断炊哗变，蜀军趁势掩杀出关。" }],
-      "ending": { "badge": "红线崩盘 · 粮道归零", "title": "斜谷断炊，惨败汉中", "subtitle": "粮道触及红线", "tone": "danger", "isCollapse": true, "verdict": "五百里秦岭险道吞没了最后一口军粮。", "buildName": "困死山谷者", "buildQuote": "蜀道之难，难于运粮。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "秦岭粮道彻底断绝，斜谷大营断炊哗变，蜀军趁势掩杀出关。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 粮道归零",
+        "title": "斜谷断炊，惨败汉中",
+        "subtitle": "粮道触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "五百里秦岭险道吞没了最后一口军粮。",
+        "buildName": "困死山谷者",
+        "buildQuote": "蜀道之难，难于运粮。"
+      }
     },
     "E_collapse_troops": {
       "id": "E_collapse_troops",
@@ -653,8 +840,23 @@
       "title": "主力耗尽，关中震动",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "汉中主力折损殆尽，刘备顺势北出散关，长安门户大开。" }],
-      "ending": { "badge": "红线崩盘 · 主力归零", "title": "主力尽丧，关中危殆", "subtitle": "主力触及红线", "tone": "danger", "isCollapse": true, "verdict": "倾尽家底却未能破局，反把关中门户让了出来。", "buildName": "孤注折戟者", "buildQuote": "夏侯渊刚去，主力也填进了汉水。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "汉中主力折损殆尽，刘备顺势北出散关，长安门户大开。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 主力归零",
+        "title": "主力尽丧，关中危殆",
+        "subtitle": "主力触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "倾尽家底却未能破局，反把关中门户让了出来。",
+        "buildName": "孤注折戟者",
+        "buildQuote": "夏侯渊刚去，主力也填进了汉水。"
+      }
     },
     "E_overflow_guan": {
       "id": "E_overflow_guan",
@@ -662,8 +864,248 @@
       "title": "水淹七军，许都仓皇迁都",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "你在汉中久拖不决，关羽趁势水淹七军、攻破樊城直逼许都，中原震动。" }],
-      "ending": { "badge": "死线溢出 · 关羽北伐", "title": "樊城失守，华夏震动", "subtitle": "关羽北伐达到满格", "tone": "danger", "isDeadlineOverflow": true, "verdict": "在汉中耽搁太久，终究没挡住关云长威震华夏的一击。", "buildName": "顾西失南者", "buildQuote": "盯着秦岭的刘备，背后却被关羽掀了桌子。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "你在汉中久拖不决，关羽趁势水淹七军、攻破樊城直逼许都，中原震动。"
+        }
+      ],
+      "ending": {
+        "badge": "死线溢出 · 关羽北伐",
+        "title": "樊城失守，华夏震动",
+        "subtitle": "关羽北伐达到满格",
+        "tone": "danger",
+        "isDeadlineOverflow": true,
+        "verdict": "在汉中耽搁太久，终究没挡住关云长威震华夏的一击。",
+        "buildName": "顾西失南者",
+        "buildQuote": "盯着秦岭的刘备，背后却被关羽掀了桌子。"
+      }
+    },
+    "N_WI_zhaoyun_empty": {
+      "id": "N_WI_zhaoyun_empty",
+      "act": "架空·承 · 汉水空营计",
+      "title": "赵云大开营门，真虚还是实伏？",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二十四年夏 · 汉水北岸",
+          "text": "你把关中存粮全压了上来，大军如潮水般扑向汉水！偏偏在追击黄忠抢粮队时，赵云竟只带数十骑大开营门、偃旗息鼓，一人一枪立在门外冷冷望着你的数万大军。"
+        },
+        {
+          "speaker": "xuhuang",
+          "sourceTag": "拟写",
+          "text": "大王！赵子龙偃旗息鼓大开营门，诸将皆疑营后树林藏有数万蜀军伏兵，请大王速断进退！"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 赵云空营虚实簿",
+        "docTitle": "《汉水北岸前哨急报》",
+        "prompt": "戳穿空营计里的两处破绽，决定是否直接踏平汉水营：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "hz_wi1_c1",
+            "surface": "前哨慌报：营后山林鸟雀四散、烟尘隐现，必有刘备主力埋伏！",
+            "proof": "巡营实查：山林里连马嘶声都没有，烟尘不过是几十名蜀卒拖着树枝来回跑动扬起的虚土！"
+          },
+          {
+            "id": "hz_wi1_c2",
+            "surface": "副将建言：我军强渡疲惫，不如暂退十里防其夜袭。",
+            "proof": "巡营实查：刘备主力远在二十里外的阳平关，赵云这营里满打满算不到五百人，此刻不冲更待何时！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "hz_wi1_charge",
+          "label": "看穿空营计！派弓弩齐射压制营门，全军压上逼赵云退走",
+          "hint": "威望 +1 · 识破空营，直逼阳平关",
+          "stampKind": "approve",
+          "stampText": "破计",
+          "replyText": "赵子龙浑身是胆，可孤也不是被吓大的！万箭齐发压上去，把这空壳子给孤踏平！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "当场识破空营计，曹军士气大振"
+            }
+          ],
+          "next": "N_WI_hanzhong_allin"
+        },
+        {
+          "id": "hz_wi1_flank",
+          "label": "不跟赵云正面拼命，分兵绕过空营直接烧抢汉水北岸蜀军粮囤",
+          "hint": "粮道 +1 · 反抢蜀军军粮补给",
+          "stampKind": "dirty",
+          "stampText": "抄粮",
+          "replyText": "让他自己守着空门喝西北风！骑兵绕过去，把黄忠刚抢走的粮袋全抢回来！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "绕营反抄蜀军前哨粮囤补足斜谷缺口"
+            }
+          ],
+          "next": "N_WI_hanzhong_allin"
+        }
+      ]
+    },
+    "N_WI_impeach_storm": {
+      "id": "N_WI_impeach_storm",
+      "act": "架空·承 · 邺城弹劾风暴",
+      "title": "世子党的连夜反扑",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二十四年冬 · 邺城魏王书房",
+          "text": "你饶了杨修并透出易储之意，一夜之间邺城暗流翻涌。次日早朝，曹丕党羽与司马懿一系竟联名递上三大卷弹劾奏疏，直指曹植「私开司马门驰道、纵酒误国」、杨修「结党窥伺王权」！"
+        },
+        {
+          "speaker": "yangxiu",
+          "sourceTag": "拟写",
+          "text": "大王明鉴！这些陈年旧账早年早已结案，今日突然一齐翻出来，分明有人在背后串通世家大族逼宫！"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 邺城弹劾奏疏核验",
+        "docTitle": "《百官联名弹劾录》",
+        "prompt": "核对奏疏背后暗藏的两处权谋猫腻：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "hz_wi2_c1",
+            "surface": "奏疏称：满朝公卿与北方世家一致反对易储，若立曹植则天下大乱。",
+            "proof": "巡营实查：联名折子里三成印章是陈群、司马懿门生连夜凑数，宗室曹仁、曹彰与寒门将领并未附署！"
+          },
+          {
+            "id": "hz_wi2_c2",
+            "surface": "奏疏称：曹植此前醉酒误事，绝无治国之能。",
+            "proof": "巡营实查：当年曹植赴援襄樊前醉酒，实乃曹丕党羽故意派人灌酒设局！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "hz_wi2_expose",
+          "label": "当朝摔出设局实证，敲打司马懿与世家大族不得干政",
+          "hint": "威望 +1 · 压住世家反扑，进入易储终局",
+          "stampKind": "approve",
+          "stampText": "压朝",
+          "replyText": "孤还没死呢，就有人想拿世家联名逼孤的宫？把司马懿的兵权先收回来！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "暮年雷霆震慑朝堂，世家不敢妄动"
+            }
+          ],
+          "next": "N_WI_caozhi_heir"
+        },
+        {
+          "id": "hz_wi2_balance",
+          "label": "各打五十大板：禁曹植饮酒、削司马懿职，逼两兄弟当堂对质",
+          "hint": "主力 +1 · 稳住军方宗室支持",
+          "stampKind": "reject",
+          "stampText": "制衡",
+          "replyText": "子建戒酒三月，仲达回家养病！今天孤把话说在明处，魏国江山由孤亲自定夺！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "宗室与军方力挺魏王决断"
+            }
+          ],
+          "next": "N_WI_caozhi_heir"
+        }
+      ]
+    },
+    "N_WI_wumeng_secret": {
+      "id": "N_WI_wumeng_secret",
+      "act": "架空·承 · 樊城北岸截密约",
+      "title": "孙权与吕蒙的盘算",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二十四年冬 · 襄樊大营",
+          "text": "你率汉中主力星夜南下抵达襄樊前线。刚解樊城之围，斥候便截获了江东使者送来的密信——孙权口口声声愿替魏王偷袭荆州，实则打算趁关羽与你两败俱伤时一口吞掉整个江陵！"
+        },
+        {
+          "speaker": "simayi",
+          "sourceTag": "拟写",
+          "text": "大王，孙权一边向大王称臣，一边却令吕蒙悄悄沿江北上封锁江陵渡口，绝非真心助战。"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 江东盟约底细查验",
+        "docTitle": "《孙权乞盟密信与荆州哨报》",
+        "prompt": "戳穿江东盟书里的两处算计，定下最后的荆州大局：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "hz_wi3_c1",
+            "surface": "孙权密信称：江东愿无偿替魏王收复荆州，绝不私占寸土。",
+            "proof": "巡营实查：吕蒙白衣渡江早已带足了江东郡守官印与粮草，分明是准备占领江陵永不归还！"
+          },
+          {
+            "id": "hz_wi3_c2",
+            "surface": "前哨报称：关羽大军尚有数万精锐，仍可反扑樊城。",
+            "proof": "巡营实查：江陵家眷落入吴手后，关羽军心已溃，身边仅余数百死士正往麦城突围！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "hz_wi3_leak",
+          "label": "把孙权偷袭密信故意射进关羽营中，逼关羽与吕蒙先拼个两败俱伤",
+          "hint": "粮道 +1 · 坐山观虎斗，进入麦城终局",
+          "stampKind": "dirty",
+          "stampText": "借刀",
+          "replyText": "孙权想当黄雀？孤把他的密信抄十份射进关羽营里，让吴蜀先替孤流干血！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "借吴蜀互耗省下大批攻城粮草"
+            }
+          ],
+          "next": "N_WI_final_crusade"
+        },
+        {
+          "id": "hz_wi3_speed",
+          "label": "不再跟孙权废话，令徐晃张辽急行军抢在吴军前头封锁麦城",
+          "hint": "主力 +1 · 抢占先机主动控局",
+          "stampKind": "approve",
+          "stampText": "抢先",
+          "replyText": "全军轻装急进！荆州这块肉，孤宁可自己咽下去也不给孙仲谋留骨头！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "魏王亲征士气如虹，前锋抢占战略要地"
+            }
+          ],
+          "next": "N_WI_final_crusade"
+        }
+      ]
     }
   }
 }

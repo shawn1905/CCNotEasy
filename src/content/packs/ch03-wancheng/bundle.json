@@ -23,19 +23,79 @@
     }
   },
   "cast": {
-    "narrator": { "id": "narrator", "name": "巡营所见", "side": "center", "tone": "neutral" },
-    "cao": { "id": "cao", "name": "曹操", "role": "司空", "side": "right", "tone": "neutral" },
-    "dianwei": { "id": "dianwei", "name": "典韦", "role": "校尉 · 帐前亲卫", "side": "left", "tone": "ok" },
-    "caoang": { "id": "caoang", "name": "曹昂", "role": "长子 · 孝廉", "side": "left", "tone": "info" },
-    "zhangxiu": { "id": "zhangxiu", "name": "张绣", "role": "北地枪王 · 降将", "side": "left", "tone": "warn" },
-    "jiaxu": { "id": "jiaxu", "name": "贾诩", "role": "张绣谋士", "side": "left", "tone": "info" },
-    "caoanmin": { "id": "caoanmin", "name": "曹安民", "role": "侄儿", "side": "left", "tone": "neutral" },
-    "scout": { "id": "scout", "name": "夜巡校尉", "role": "中军暗哨", "side": "left", "tone": "warn" }
+    "narrator": {
+      "id": "narrator",
+      "name": "巡营所见",
+      "side": "center",
+      "tone": "neutral"
+    },
+    "cao": {
+      "id": "cao",
+      "name": "曹操",
+      "role": "司空",
+      "side": "right",
+      "tone": "neutral"
+    },
+    "dianwei": {
+      "id": "dianwei",
+      "name": "典韦",
+      "role": "校尉 · 帐前亲卫",
+      "side": "left",
+      "tone": "ok"
+    },
+    "caoang": {
+      "id": "caoang",
+      "name": "曹昂",
+      "role": "长子 · 孝廉",
+      "side": "left",
+      "tone": "info"
+    },
+    "zhangxiu": {
+      "id": "zhangxiu",
+      "name": "张绣",
+      "role": "北地枪王 · 降将",
+      "side": "left",
+      "tone": "warn"
+    },
+    "jiaxu": {
+      "id": "jiaxu",
+      "name": "贾诩",
+      "role": "张绣谋士",
+      "side": "left",
+      "tone": "info"
+    },
+    "caoanmin": {
+      "id": "caoanmin",
+      "name": "曹安民",
+      "role": "侄儿",
+      "side": "left",
+      "tone": "neutral"
+    },
+    "scout": {
+      "id": "scout",
+      "name": "夜巡校尉",
+      "role": "中军暗哨",
+      "side": "left",
+      "tone": "warn"
+    }
   },
   "varsSchema": {
-    "zou_refused": { "type": "boolean", "initial": false, "description": "是否克己拒纳邹氏" },
-    "hucheer_exposed": { "type": "boolean", "initial": false, "description": "是否识破胡车儿盗戟" },
-    "dirty_count": { "type": "number", "initial": 0, "min": 0, "max": 10 }
+    "zou_refused": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否克己拒纳邹氏"
+    },
+    "hucheer_exposed": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否识破胡车儿盗戟"
+    },
+    "dirty_count": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10
+    }
   },
   "resources": [
     {
@@ -86,10 +146,30 @@
   ],
   "startNode": "N00_intro",
   "acts": [
-    { "id": "act0", "num": "序", "title": "宛城受降", "startNode": "N00_intro" },
-    { "id": "act1", "num": "案壹", "title": "邹氏与贾诩", "startNode": "N01_zou" },
-    { "id": "act2", "num": "案贰", "title": "胡车儿盗戟", "startNode": "N02_hucheer" },
-    { "id": "act3", "num": "案叁", "title": "宛城火夜", "startNode": "N03_fire" }
+    {
+      "id": "act0",
+      "num": "序",
+      "title": "宛城受降",
+      "startNode": "N00_intro"
+    },
+    {
+      "id": "act1",
+      "num": "案壹",
+      "title": "邹氏与贾诩",
+      "startNode": "N01_zou"
+    },
+    {
+      "id": "act2",
+      "num": "案贰",
+      "title": "胡车儿盗戟",
+      "startNode": "N02_hucheer"
+    },
+    {
+      "id": "act3",
+      "num": "案叁",
+      "title": "宛城火夜",
+      "startNode": "N03_fire"
+    }
   ],
   "gloss": {
     "wancheng": {
@@ -129,7 +209,11 @@
   "historyDossier": [
     {
       "title": "宛城纳邹氏之祸",
-      "when": { "var": "zou_refused", "op": "==", "value": true },
+      "when": {
+        "var": "zou_refused",
+        "op": "==",
+        "value": true
+      },
       "canonNote": "史载建安二年曹操征张绣，绣降后操纳张济妻，绣恨之，遂用贾诩计夜袭。",
       "playerHit": "你克制住了这一夜的冲动，直接改写了典韦与曹昂的命运。",
       "playerMiss": "你还是重演了历史上的那一夜荒唐，让宛城陷入火海。",
@@ -210,8 +294,18 @@
           "stampText": "纳之",
           "replyText": "张绣既降便是我手下偏将，纳一遗孀何足挂齿？多赏他麾下勇将胡车儿些黄金便是！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "纳降将婶母且重赏其部将，引起张绣极度猜忌" },
-            { "kind": "deadline", "deadline": "zhangxiu_plot", "delta": 2, "reason": "张绣羞愤交加，当夜决定反叛" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "纳降将婶母且重赏其部将，引起张绣极度猜忌"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "zhangxiu_plot",
+              "delta": 2,
+              "reason": "张绣羞愤交加，当夜决定反叛"
+            }
           ],
           "next": "N02_hucheer"
         },
@@ -223,11 +317,25 @@
           "stampText": "克己",
           "replyText": "糊涂东西！孤平天下岂能毁于一妇人？把曹安民轰出去！备厚礼，孤亲自去拜访张绣与贾文和！",
           "effects": [
-            { "kind": "var_set", "var": "zou_refused", "value": true },
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "严明军纪、礼敬降将，南阳士民大悦" },
-            { "kind": "deadline", "deadline": "zhangxiu_plot", "delta": -1, "reason": "彻底掐灭张绣反叛动机" }
+            {
+              "kind": "var_set",
+              "var": "zou_refused",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "严明军纪、礼敬降将，南阳士民大悦"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "zhangxiu_plot",
+              "delta": -1,
+              "reason": "彻底掐灭张绣反叛动机"
+            }
           ],
-          "next": "N_WI_jiaxu_join"
+          "next": "N_WI_jiaxu_test"
         }
       ]
     },
@@ -264,7 +372,12 @@
           "stampText": "定荆",
           "replyText": "刘表庸弱！趁张绣西凉骑兵锐气正盛，一鼓作气拿下襄樊，子脩你来替父镇守荆北！",
           "effects": [
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "趁势南征荆北消耗随军粮草" }
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "趁势南征荆北消耗随军粮草"
+            }
           ],
           "next": "E_WI_caoang_heir"
         },
@@ -276,7 +389,12 @@
           "stampText": "北征",
           "replyText": "荆州缓图，先带文和与西凉铁骑回师徐州！孤倒要看看典韦加张绣，吕布能撑几个回合！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": 1, "reason": "张绣西凉铁骑完整编入中军" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "张绣西凉铁骑完整编入中军"
+            }
           ],
           "next": "E_WI_dianwei_vs_lubu"
         }
@@ -377,8 +495,17 @@
           "stampText": "准移",
           "replyText": "降军刚归顺难免多疑，准他们带甲过营，显我大度便是！",
           "effects": [
-            { "kind": "var_set", "var": "hucheer_exposed", "value": true },
-            { "kind": "deadline", "deadline": "zhangxiu_plot", "delta": 2, "reason": "放任西凉兵全副武装逼近中军帅帐" }
+            {
+              "kind": "var_set",
+              "var": "hucheer_exposed",
+              "value": true
+            },
+            {
+              "kind": "deadline",
+              "deadline": "zhangxiu_plot",
+              "delta": 2,
+              "reason": "放任西凉兵全副武装逼近中军帅帐"
+            }
           ],
           "next": "N03_fire"
         },
@@ -390,10 +517,19 @@
           "stampText": "反伏",
           "replyText": "好个贾文和，想在孤眼皮底下演带甲穿营？典韦，今晚你装醉，孤在帅帐四周埋满强弩手等张绣钻进来！",
           "effects": [
-            { "kind": "var_set", "var": "hucheer_exposed", "value": true },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "秘密调动中军精锐连夜布设反伏击阵" }
+            {
+              "kind": "var_set",
+              "var": "hucheer_exposed",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "秘密调动中军精锐连夜布设反伏击阵"
+            }
           ],
-          "next": "N_WI_counter_ambush"
+          "next": "N_WI_interrogate_jiaxu"
         }
       ]
     },
@@ -430,7 +566,12 @@
           "stampText": "生擒",
           "replyText": "放箭吓住西凉兵，活捉张绣和贾诩！敢反孤的，孤今天就教他服服帖帖！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": 1, "reason": "缴械收编西凉精锐骑兵" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "缴械收编西凉精锐骑兵"
+            }
           ],
           "next": "E_WI_wan_counter"
         },
@@ -442,7 +583,12 @@
           "stampText": "诱荆",
           "replyText": "把空帐点把火，放张绣几个败兵南逃报喜——等刘表援军笑呵呵赶来捡便宜，孤再一网打尽！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "连环计重创荆州援军，威震南阳" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "连环计重创荆州援军，威震南阳"
+            }
           ],
           "next": "E_WI_trap_liubiao"
         }
@@ -530,7 +676,12 @@
           "stampText": "突围",
           "replyText": "子脩！典韦！孤若活着回去，必为你们血洗宛城！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "火夜仓皇突围，亲卫精锐损失惨重" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "火夜仓皇突围，亲卫精锐损失惨重"
+            }
           ],
           "next": "E_canon_wuyin"
         },
@@ -542,9 +693,14 @@
           "stampText": "杀回",
           "replyText": "孤连自己儿子和典韦都扔下，还当什么天下英雄！于禁何在，随孤杀回营门救人！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "逆流反冲火海强救营门亲卫" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "逆流反冲火海强救营门亲卫"
+            }
           ],
-          "next": "N_WI_bloody_rescue"
+          "next": "N_WI_yujin_rally"
         }
       ]
     },
@@ -576,7 +732,12 @@
           "stampText": "抢人",
           "replyText": "辎重粮草全不要了！把典韦抬上马背，护着子脩杀出一条血路！",
           "effects": [
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "弃置全部辎重粮车换取抢人突围" }
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "弃置全部辎重粮车换取抢人突围"
+            }
           ],
           "next": "E_WI_dianwei_lives"
         },
@@ -588,7 +749,12 @@
           "stampText": "反烧",
           "replyText": "他们抢我的粮，我就烧他们的马！父子同战，今夜让张绣知道谁才是主宰！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "绝境反冲打服诸将，曹军威望暴涨" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "绝境反冲打服诸将，曹军威望暴涨"
+            }
           ],
           "next": "E_WI_father_son_win"
         }
@@ -672,8 +838,23 @@
       "title": "威望扫地，南阳群叛",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "军纪败坏、威望归零，南阳各县纷纷倒戈响应张绣，大军陷入四面楚歌。" }],
-      "ending": { "badge": "红线崩盘 · 威望归零", "title": "南阳群叛，远征惨败", "subtitle": "威望触及红线", "tone": "danger", "isCollapse": true, "verdict": "未战先失人心，宛城成了吞噬曹军的泥潭。", "buildName": "失民心者", "buildQuote": "打下城池容易，守住规矩难。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "军纪败坏、威望归零，南阳各县纷纷倒戈响应张绣，大军陷入四面楚歌。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 威望归零",
+        "title": "南阳群叛，远征惨败",
+        "subtitle": "威望触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "未战先失人心，宛城成了吞噬曹军的泥潭。",
+        "buildName": "失民心者",
+        "buildQuote": "打下城池容易，守住规矩难。"
+      }
     },
     "E_collapse_grain": {
       "id": "E_collapse_grain",
@@ -681,8 +862,23 @@
       "title": "南阳断炊，孤军溃散",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "远征南阳粮道断绝，行军仓见底，全军未见敌影先自溃散。" }],
-      "ending": { "badge": "红线崩盘 · 军粮归零", "title": "孤军断炊，仓皇北逃", "subtitle": "军粮触及红线", "tone": "danger", "isCollapse": true, "verdict": "客军远征最忌断粮，账本没算清便已满盘皆输。", "buildName": "断粮远征军", "buildQuote": "兵马未动，粮草先断。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "远征南阳粮道断绝，行军仓见底，全军未见敌影先自溃散。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 军粮归零",
+        "title": "孤军断炊，仓皇北逃",
+        "subtitle": "军粮触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "客军远征最忌断粮，账本没算清便已满盘皆输。",
+        "buildName": "断粮远征军",
+        "buildQuote": "兵马未动，粮草先断。"
+      }
     },
     "E_collapse_troops": {
       "id": "E_collapse_troops",
@@ -690,8 +886,23 @@
       "title": "亲卫覆没，帅帐陷落",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "中军亲卫耗尽，西凉铁骑冲破最后一道营栅，宛城夜火吞没了帅旗。" }],
-      "ending": { "badge": "红线崩盘 · 亲卫归零", "title": "宛城覆没，中军陷落", "subtitle": "亲卫触及红线", "tone": "danger", "isCollapse": true, "verdict": "帅帐失去屏障，司空未能走出宛城这一夜。", "buildName": "孤身陷阵者", "buildQuote": "中军无卫，再高明的计策也来不及出手。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "中军亲卫耗尽，西凉铁骑冲破最后一道营栅，宛城夜火吞没了帅旗。"
+        }
+      ],
+      "ending": {
+        "badge": "红线崩盘 · 亲卫归零",
+        "title": "宛城覆没，中军陷落",
+        "subtitle": "亲卫触及红线",
+        "tone": "danger",
+        "isCollapse": true,
+        "verdict": "帅帐失去屏障，司空未能走出宛城这一夜。",
+        "buildName": "孤身陷阵者",
+        "buildQuote": "中军无卫，再高明的计策也来不及出手。"
+      }
     },
     "E_overflow_plot": {
       "id": "E_overflow_plot",
@@ -699,8 +910,248 @@
       "title": "贾诩奇袭发难，措手不及",
       "kind": "ending",
       "mood": "fire",
-      "lines": [{ "speaker": "narrator", "isWalk": true, "text": "张绣夜变死线拉满，贾诩抢在你反应之前发动总攻，大营一夜倾覆。" }],
-      "ending": { "badge": "死线溢出 · 夜变爆发", "title": "毒士先发，宛城倾覆", "subtitle": "张绣夜变达到满格", "tone": "danger", "isDeadlineOverflow": true, "verdict": "一再纵容隐患发酵，终于等来了贾诩致命一击。", "buildName": "慢半拍的帅帐", "buildQuote": "在贾文和面前，慢一步就是生死之别。" }
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "text": "张绣夜变死线拉满，贾诩抢在你反应之前发动总攻，大营一夜倾覆。"
+        }
+      ],
+      "ending": {
+        "badge": "死线溢出 · 夜变爆发",
+        "title": "毒士先发，宛城倾覆",
+        "subtitle": "张绣夜变达到满格",
+        "tone": "danger",
+        "isDeadlineOverflow": true,
+        "verdict": "一再纵容隐患发酵，终于等来了贾诩致命一击。",
+        "buildName": "慢半拍的帅帐",
+        "buildQuote": "在贾文和面前，慢一步就是生死之别。"
+      }
+    },
+    "N_WI_jiaxu_test": {
+      "id": "N_WI_jiaxu_test",
+      "act": "架空·承 · 荆州暗使搅局",
+      "title": "刘表的连夜离间",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二年春 · 宛城西街",
+          "text": "你斥退曹安民、保住张济遗孀清誉的消息刚传开，襄阳刘表的密使竟连夜摸进宛城，企图用假军情挑唆张绣趁夜翻脸。你带着典韦与曹昂直接堵在了驿馆门外。"
+        },
+        {
+          "speaker": "jiaxu",
+          "sourceTag": "拟写",
+          "text": "司空既然亲自来访，不妨先替张将军验一验荆州刚送来的这封「许都急报」——看看刘景升究竟在玩什么把戏。"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 荆州离间密信",
+        "docTitle": "《襄阳密使急札》",
+        "prompt": "当着张绣与贾诩的面戳穿刘表密使的两处假情报：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "wi1_c1",
+            "surface": "密信称：曹操此番收降只是缓兵之计，已命许都押送囚车准备诛杀张绣全族。",
+            "proof": "当堂翻出许都调令底簿：随军运来的全是封赏西凉将士的锦帛与冬粮，根本没有一辆囚车！"
+          },
+          {
+            "id": "wi1_c2",
+            "surface": "密信称：刘表已遣五万荆州水陆大军北上，只要张绣夜袭成功便封其为南阳太守。",
+            "proof": "巡营实查：襄阳城门紧闭、刘表连两千援兵都没派出，只想拿张绣当替死鬼消耗曹军！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "wi1_expose_ok",
+          "label": "当众斩杀荆州密使，把调令与封赏文书亲手递给张绣",
+          "hint": "威望 +1 · 张绣彻底归心，进入大帐密议",
+          "stampKind": "approve",
+          "stampText": "立信",
+          "replyText": "张将军睁眼看看！刘表拿你当弃子，孤拿你当心腹！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "当堂拆穿离间计，西凉降军彻底服气"
+            }
+          ],
+          "next": "N_WI_jiaxu_join"
+        },
+        {
+          "id": "wi1_expose_dirty",
+          "label": "留密使活口，逼他带假消息回襄阳骗刘表开仓送粮",
+          "hint": "军粮 +1 · 顺手薅一把荆州羊毛",
+          "stampKind": "dirty",
+          "stampText": "反薅",
+          "replyText": "别急着杀！让他回襄阳报信说张绣已同意反水、先借五千斛急粮当军资！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "反手从刘表手里骗来一批前线急粮"
+            }
+          ],
+          "next": "N_WI_jiaxu_join"
+        }
+      ]
+    },
+    "N_WI_interrogate_jiaxu": {
+      "id": "N_WI_interrogate_jiaxu",
+      "act": "架空·承 · 暗布空城杀局",
+      "title": "典韦装醉，胡车儿入瓮",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二年春 · 宛城中军二更",
+          "text": "你假意批了移营文书，暗中却把亲卫全换成强弩手藏进马厩与屋檐。二更刚过，胡车儿果然提着两坛掺了蒙汗药的烈酒摇摇晃晃进了典韦营帐，而城外西凉骑兵也开始悄悄裹马蹄。"
+        },
+        {
+          "speaker": "dianwei",
+          "sourceTag": "拟写",
+          "text": "主公，俺已经把双铁戟换成了两根刷黑漆的木棍摆在明处，真铁戟藏在草席底下——就等您一声令下！"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 反伏击布阵核验",
+        "docTitle": "《宛城三更杀局布防图》",
+        "prompt": "核对反伏击布防里的两处关键死穴，确保万无一失：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "wi2_c1",
+            "surface": "副将报称：只需守住帅帐正门，张绣中计后自然束手就擒。",
+            "proof": "巡营实查：贾诩素来留后手，必定在东墙角留了百名精骑接应，必须派曹昂提前封死东门！"
+          },
+          {
+            "id": "wi2_c2",
+            "surface": "粮吏报称：中军粮草车不必转移，就近当掩体即可。",
+            "proof": "巡营实查：西凉兵最善夜战纵火，必须先把真粮车撤到北门，留空草车在营心诱敌放火！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "wi2_setup_clean",
+          "label": "命曹昂封东门、空车替真粮，静候三更梆子响",
+          "hint": "亲卫 +1 · 完美布阵进入收网时刻",
+          "stampKind": "approve",
+          "stampText": "布阵",
+          "replyText": "滴水不漏！今夜让贾文和见识一下，谁才是真正玩兵法的祖宗！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "提前封死退路并保住粮草，伏兵士气大涨"
+            }
+          ],
+          "next": "N_WI_counter_ambush"
+        },
+        {
+          "id": "wi2_setup_bait",
+          "label": "亲坐帅帐灯下读书当活饵，把张绣主力全吸进火油圈",
+          "hint": "威望 +1 · 孤身作饵震慑全军",
+          "stampKind": "dirty",
+          "stampText": "亲饵",
+          "replyText": "灯挑亮些！孤亲自坐在帐里翻《孙子兵法》，张绣见了我影子绝不会停步！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "司空以身作饵，全军佩服胆魄"
+            }
+          ],
+          "next": "N_WI_counter_ambush"
+        }
+      ]
+    },
+    "N_WI_yujin_rally": {
+      "id": "N_WI_yujin_rally",
+      "act": "架空·承 · 乱军收拢于禁营",
+      "title": "绝境中的最后一张牌",
+      "kind": "scene",
+      "mood": "fire",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安二年春 · 宛城北郊火光",
+          "text": "你没有独自策马北逃，而是冲进外围尚未溃散的青州兵大营。黑暗中溃兵互相踩踏，谣言四起，唯有于禁带着两千本营精兵列阵如山，冷眼斩了几个趁乱劫掠的青州兵。"
+        },
+        {
+          "speaker": "scout",
+          "sourceTag": "拟写",
+          "text": "司空！乱军里有人高喊「于禁已投降张绣、正在杀自己人」，青州兵快要哗变了！"
+        }
+      ],
+      "interaction": {
+        "type": "counter_case",
+        "title": "架空柜台 · 乱军谣言速断",
+        "docTitle": "《北郊溃兵口供》",
+        "prompt": "在半柱香内戳穿乱军中的两处致命误判，集结兵力杀回营门：",
+        "minExpose": 2,
+        "claims": [
+          {
+            "id": "wi3_c1",
+            "surface": "青州逃兵哭诉：于禁阵前斩杀自家弟兄，分明是准备倒戈张绣！",
+            "proof": "巡营实查：被于禁斩杀的全是趁夜抢掠百姓辎重的逃卒，于禁正一面掘壕一面等司空反攻！"
+          },
+          {
+            "id": "wi3_c2",
+            "surface": "副将慌报：中军营门早已失守，典韦与曹昂必已战死，不必白白送命。",
+            "proof": "巡营实查：营门方向仍在响起典韦标志性的暴喝与喊杀声，西凉兵根本还没冲透中军！"
+          }
+        ]
+      },
+      "choices": [
+        {
+          "id": "wi3_trust_yujin",
+          "label": "当众嘉奖于禁严明军纪，亲领其两千铁军反冲营门",
+          "hint": "威望 +1 · 整军杀回火海",
+          "stampKind": "approve",
+          "stampText": "反冲",
+          "replyText": "于文则有古名将风！青州兵听令，随孤与于将军杀回营门，救典韦、救子脩！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "临危辨忠奸，溃散各营瞬间重归帅旗"
+            }
+          ],
+          "next": "N_WI_bloody_rescue"
+        },
+        {
+          "id": "wi3_burn_supply",
+          "label": "先令青州兵在西侧虚张火把声势，自己带精骑直插营门后背",
+          "hint": "亲卫 +1 · 声东击西破围",
+          "stampKind": "dirty",
+          "stampText": "虚火",
+          "replyText": "把所有火把绑在树枝上满山摇！张绣以为援军到了，咱们正好从背后捅穿他的包围圈！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "疑兵分散西凉追兵，成功保住反攻战力"
+            }
+          ],
+          "next": "N_WI_bloody_rescue"
+        }
+      ]
     }
   }
 }
