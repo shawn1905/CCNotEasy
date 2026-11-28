@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { GUANDU_7D_PACK } from './content/desk/guandu7d.ts'
 import { JIANGLING_10D_PACK } from './content/desk/jiangling10d.ts'
 import { CHAPTER_REGISTRY } from './content/registry.ts'
+import { loadDeskBest } from './core/deskEngine.ts'
 import {
   createInitialSave,
   getVisibleChoices,
@@ -43,13 +44,17 @@ function makeId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
 }
 
+const DESK_PACKS = [JIANGLING_10D_PACK, GUANDU_7D_PACK]
+
+type AppScreen = 'home' | 'story_select' | 'story_play' | 'desk_select' | 'desk_play'
+
 export default function App() {
-  const [deskMode, setDeskMode] = useState(false)
+  const [screen, setScreen] = useState<AppScreen>('home')
   const [selectedChapterId, setSelectedChapterId] = useState(CHAPTER_REGISTRY[0]?.id ?? 'ch01-red-cliffs')
+  const [selectedDeskId, setSelectedDeskId] = useState(DESK_PACKS[0]!.id)
   const [bundle, setBundle] = useState<ChapterBundle | null>(null)
   const [save, setSave] = useState<SaveState | null>(null)
   const [hasSavedRun, setHasSavedRun] = useState(false)
-  const [started, setStarted] = useState(false)
   const [feed, setFeed] = useState<FeedItem[]>([])
   const [audioOn, setAudioOn] = useState(false)
   const [modal, setModal] = useState<ModalState>(null)
@@ -86,10 +91,10 @@ export default function App() {
 
   // 2. Persist versioned save cleanly outside reducers
   useEffect(() => {
-    if (started && save) {
+    if (screen === 'story_play' && save) {
       saveChapterState(save)
     }
-  }, [started, save])
+  }, [screen, save])
 
   // 3. Sync audio mood & browser document.title
   const currentMood = save?.mood
@@ -97,11 +102,19 @@ export default function App() {
     if (currentMood) audioEngine.setMood(currentMood)
   }, [currentMood])
 
+  const selectedDeskPack = DESK_PACKS.find((p) => p.id === selectedDeskId) ?? DESK_PACKS[0]!
+
   useEffect(() => {
-    if (bundle) {
+    if (screen === 'desk_select') {
+      audioEngine.configureTheme(selectedDeskPack.theme)
+      document.title = '曹操不容易'
+    } else if (screen === 'home') {
+      document.title = '曹操不容易'
+    } else if (bundle) {
+      audioEngine.configureTheme(bundle.theme)
       document.title = bundle.title
     }
-  }, [bundle])
+  }, [screen, bundle, selectedDeskPack])
 
   // 4. Auto-scroll stream on new feed items or node transitions
   useEffect(() => {
@@ -121,18 +134,15 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  if (deskMode) {
+  if (screen === 'desk_play') {
     return (
       <DeskMode
-        packs={[JIANGLING_10D_PACK, GUANDU_7D_PACK]}
+        key={selectedDeskPack.id}
+        pack={selectedDeskPack}
         audioOn={audioOn}
         onToggleAudio={() => setAudioOn(audioEngine.toggle())}
         onExit={() => {
-          setDeskMode(false)
-          if (bundle) {
-            audioEngine.configureTheme(bundle.theme)
-            document.title = bundle.title
-          }
+          setScreen('desk_select')
         }}
       />
     )
@@ -221,14 +231,14 @@ export default function App() {
     })
     setSave(fresh)
     setFeed(seedFeedForNode(targetBundle, fresh))
-    setStarted(true)
+    setScreen('story_play')
   }
 
   function resumeSaved() {
     if (!bundle || !save) return
     audioEngine.playStamp(false)
     setFeed(seedFeedForNode(bundle, save))
-    setStarted(true)
+    setScreen('story_play')
   }
 
   function handleAdvance() {
@@ -338,14 +348,90 @@ export default function App() {
 
   const remainingLines = Math.max(0, visibleLines.length - 1 - save.lineIndex)
 
+  const activeTheme = screen === 'desk_select' ? selectedDeskPack.theme : bundle.theme
+  const deskBest = screen === 'desk_select' ? loadDeskBest(selectedDeskPack.id) : null
+
   return (
-    <ThemeShell theme={bundle.theme} mood={save.mood}>
-      {!started && (
-        <section className="cc-splash" aria-label="开场界面">
+    <ThemeShell theme={activeTheme} mood={save.mood}>
+      {screen === 'home' && (
+        <section className="cc-splash" aria-label="主菜单">
           <div className="cc-splash-card">
             <div className="cc-splash-kicker">
-              <span>CCNOTEASY // 章节选择</span>
-              <span>{bundle.theme.name}</span>
+              <span>CCNOTEASY // 主菜单</span>
+              <span>建安军政案牍</span>
+            </div>
+            <h1 className="cc-splash-title" style={{ marginTop: 10 }}>
+              曹操不容易
+            </h1>
+            <div className="cc-splash-sub">坐上大帐帅案，先选你要玩的模式</div>
+
+            <div className="cc-mode-list">
+              <button
+                type="button"
+                className="cc-mode-card"
+                onClick={() => {
+                  audioEngine.playStamp(false)
+                  setScreen('story_select')
+                }}
+              >
+                <div className="cc-mode-head">
+                  <strong>史实主线 · 演义分支</strong>
+                  <span className="cc-mode-badge">两章 · 18 结局</span>
+                </div>
+                <div className="cc-mode-desc">
+                  巡营取证、柜台戳假账、朱砂盖印，在赤壁前夜与官渡断粮的史实骨架里走出你的结局。
+                </div>
+                <div className="cc-mode-meta">第一章 赤壁前夜 · 第二章 官渡断粮 · 支持共创章节包</div>
+              </button>
+
+              <button
+                type="button"
+                className="cc-mode-card is-desk"
+                onClick={() => {
+                  audioEngine.playStamp(false)
+                  setScreen('desk_select')
+                }}
+              >
+                <div className="cc-mode-head">
+                  <strong>大帐值班 · 无剧本生存</strong>
+                  <span className="cc-mode-badge">双图 · 涌现配方</span>
+                </div>
+                <div className="cc-mode-desc">
+                  脱离固定剧情：每日挑幕僚轮值、审动态案卷池、拍主动手令打组合拳，在房租死线与高利贷暗雷间硬撑。
+                </div>
+                <div className="cc-mode-meta">江陵十日（标准） · 官渡七日（高压） · 支持无尽镇守</div>
+              </button>
+            </div>
+
+            <div className="cc-splash-foot">
+              <span>纯本地引擎 · 单手竖屏</span>
+              <button
+                type="button"
+                className={`cc-audio-pill${audioOn ? ' is-on' : ''}`}
+                onClick={() => setAudioOn(audioEngine.toggle())}
+              >
+                {activeTheme.bgmLabel}：{audioOn ? '已开启' : '静音'}
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {screen === 'story_select' && (
+        <section className="cc-splash" aria-label="史实主线选章">
+          <div className="cc-splash-card">
+            <div className="cc-splash-kicker">
+              <button
+                type="button"
+                className="cc-back-link"
+                onClick={() => {
+                  audioEngine.playExpose()
+                  setScreen('home')
+                }}
+              >
+                ← 主菜单
+              </button>
+              <span>史实主线 · {bundle.theme.name}</span>
             </div>
             <div className="cc-ch-tabs" role="tablist" aria-label="选择章节" style={{ marginTop: 10 }}>
               {CHAPTER_REGISTRY.map((ch) => (
@@ -389,17 +475,6 @@ export default function App() {
             <button type="button" className="cc-btn-primary" onClick={() => startFresh()}>
               坐上帅案，开始批文
             </button>
-            <button
-              type="button"
-              className="cc-btn-secondary"
-              style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-              onClick={() => {
-                audioEngine.playStamp(false)
-                setDeskMode(true)
-              }}
-            >
-              大帐值班 · 江陵十日 / 官渡七日（生存玩法）
-            </button>
             {hasSavedRun && (
               <button type="button" className="cc-btn-secondary" onClick={resumeSaved}>
                 继续上次存档
@@ -419,12 +494,100 @@ export default function App() {
         </section>
       )}
 
+      {screen === 'desk_select' && (
+        <section className="cc-splash" aria-label="大帐值班选图">
+          <div className="cc-splash-card">
+            <div className="cc-splash-kicker">
+              <button
+                type="button"
+                className="cc-back-link"
+                onClick={() => {
+                  audioEngine.playExpose()
+                  setScreen('home')
+                }}
+              >
+                ← 主菜单
+              </button>
+              <span>大帐值班 · {selectedDeskPack.theme.name}</span>
+            </div>
+            <div className="cc-ch-tabs" role="tablist" aria-label="选择值班地图" style={{ marginTop: 10 }}>
+              {DESK_PACKS.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selectedDeskId === p.id}
+                  className={`cc-ch-tab${selectedDeskId === p.id ? ' is-active' : ''}`}
+                  onClick={() => {
+                    if (selectedDeskId !== p.id) {
+                      audioEngine.playExpose()
+                      setSelectedDeskId(p.id)
+                    }
+                  }}
+                >
+                  <strong>{p.title}</strong>
+                  <span>{p.difficultyLabel}</span>
+                </button>
+              ))}
+            </div>
+            <h1 className="cc-splash-title">{selectedDeskPack.title}</h1>
+            <div className="cc-splash-sub">{selectedDeskPack.subtitle}</div>
+            <p className="cc-splash-desc">{selectedDeskPack.tagline}</p>
+            <div className="cc-rules-grid">
+              <div className="cc-rule-pill">
+                <strong>目标天数</strong>
+                <span>满 {selectedDeskPack.targetDays} 日可续无尽</span>
+              </div>
+              <div className="cc-rule-pill">
+                <strong>案卷 / 配方</strong>
+                <span>
+                  {selectedDeskPack.cases.length} 卷 · {deskBest?.discoveredCombos.length ?? 0}/
+                  {selectedDeskPack.combos.length} 配方
+                </span>
+              </div>
+              <div className="cc-rule-pill">
+                <strong>历史最佳</strong>
+                <span>
+                  {deskBest && deskBest.bestDay > 0
+                    ? `${deskBest.bestDay} 日 · ${deskBest.victories} 胜`
+                    : '尚未开局'}
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="cc-btn-primary"
+              onClick={() => {
+                audioEngine.playStamp(false)
+                setScreen('desk_play')
+              }}
+            >
+              辰时升帐，开始值班
+            </button>
+            <div className="cc-splash-foot">
+              <span>动态案卷 · 暗雷真咬人</span>
+              <button
+                type="button"
+                className={`cc-audio-pill${audioOn ? ' is-on' : ''}`}
+                onClick={() => setAudioOn(audioEngine.toggle())}
+              >
+                {selectedDeskPack.theme.bgmLabel}：{audioOn ? '已开启' : '静音'}
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
       <DualHud
         bundle={bundle}
         save={save}
         audioOn={audioOn}
         onToggleAudio={() => setAudioOn(audioEngine.toggle())}
         onReset={() => startFresh()}
+        onExit={() => {
+          audioEngine.playExpose()
+          setScreen('story_select')
+        }}
         onInspectResource={(id) => {
           audioEngine.playExpose()
           setModal({ kind: 'resource', id })

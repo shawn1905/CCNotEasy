@@ -11,7 +11,7 @@ import { ThemeShell } from './ThemeShell.tsx'
 import { audioEngine } from './audioEngine.ts'
 
 interface DeskModeProps {
-  packs: DeskPack[]
+  pack: DeskPack
   audioOn: boolean
   onToggleAudio: () => void
   onExit: () => void
@@ -24,26 +24,12 @@ const CAT_LABELS: Record<DeskCaseCategory, { text: string; tone: string }> = {
   opportunity: { text: '奇遇破局', tone: 'var(--accent)' },
 }
 
-export function DeskMode({ packs, audioOn, onToggleAudio, onExit }: DeskModeProps) {
-  const [packIdx, setPackIdx] = useState(0)
-  const pack = packs[packIdx] ?? packs[0]!
+export function DeskMode({ pack, audioOn, onToggleAudio, onExit }: DeskModeProps) {
   const [state, setState] = useState<DeskState>(() => createInitialDeskState(pack))
   const [best, setBest] = useState<DeskBestRecord>(() => loadDeskBest(pack.id))
   const [copied, setCopied] = useState(false)
   const recordedRef = useRef(false)
   const streamRef = useRef<HTMLElement | null>(null)
-
-  function handleSwitchPack(nextIdx: number) {
-    if (nextIdx === packIdx) return
-    const nextPack = packs[nextIdx]
-    if (!nextPack) return
-    audioEngine.playExpose()
-    recordedRef.current = false
-    setCopied(false)
-    setPackIdx(nextIdx)
-    setState(createInitialDeskState(nextPack))
-    setBest(loadDeskBest(nextPack.id))
-  }
 
   useEffect(() => {
     audioEngine.configureTheme(pack.theme)
@@ -171,10 +157,10 @@ export function DeskMode({ packs, audioOn, onToggleAudio, onExit }: DeskModeProp
               audioEngine.playExpose()
               onExit()
             }}
-            aria-label="返回选章"
-            title="返回选章"
+            aria-label="返回主菜单"
+            title="返回主菜单"
           >
-            章
+            主
           </button>
         </div>
 
@@ -195,24 +181,6 @@ export function DeskMode({ packs, audioOn, onToggleAudio, onExit }: DeskModeProp
             {state.deadline}/{pack.deadline.max}
           </span>
         </div>
-
-        {packs.length > 1 && state.day === 1 && state.phase === 'pick_advisor' && (
-          <div className="cc-ch-tabs" role="tablist" aria-label="切换值班地图" style={{ marginTop: 6 }}>
-            {packs.map((p, idx) => (
-              <button
-                key={p.id}
-                type="button"
-                role="tab"
-                aria-selected={idx === packIdx}
-                className={`cc-ch-tab${idx === packIdx ? ' is-active' : ''}`}
-                onClick={() => handleSwitchPack(idx)}
-              >
-                <strong>{p.title}</strong>
-                <span>{p.difficultyLabel}</span>
-              </button>
-            ))}
-          </div>
-        )}
 
         {sortedDebts.length > 0 && (
           <div className="cc-desk-debts" aria-label="未结高利贷暗雷">

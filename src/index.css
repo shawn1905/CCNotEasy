@@ -1225,3 +1225,76 @@ button {
   border-color: var(--teal);
   color: var(--teal);
 }
+
+/* Top-Level Main Menu Mode Cards */
+.cc-mode-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.cc-mode-card {
+  width: 100%;
+  text-align: left;
+  padding: 13px 13px;
+  border: 1px solid var(--muted);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cc-mode-card.is-desk {
+  border-left-color: var(--teal);
+}
+
+.cc-mode-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cc-mode-head strong {
+  font-size: 16px;
+  color: var(--fg-bright);
+  letter-spacing: 0.04em;
+}
+
+.cc-mode-badge {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  padding: 1px 6px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.cc-mode-card.is-desk .cc-mode-badge {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.cc-mode-desc {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--fg);
+}
+
+.cc-mode-meta {
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  color: var(--fg-dim);
+}
+
+.cc-back-link {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--fg-dim);
+  padding: 2px 6px;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+}

@@ -6,6 +6,7 @@ interface DualHudProps {
   audioOn: boolean
   onToggleAudio: () => void
   onReset: () => void
+  onExit: () => void
   onInspectResource: (resId: string) => void
   onOpenArchive: () => void
 }
@@ -16,6 +17,7 @@ export function DualHud({
   audioOn,
   onToggleAudio,
   onReset,
+  onExit,
   onInspectResource,
   onOpenArchive,
 }: DualHudProps) {
@@ -84,6 +86,15 @@ export function DualHud({
           title="重开"
         >
           重
+        </button>
+        <button
+          type="button"
+          className="cc-hud-btn"
+          onClick={onExit}
+          aria-label="返回主菜单"
+          title="主菜单"
+        >
+          主
         </button>
       </div>
 
