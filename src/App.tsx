@@ -19,12 +19,19 @@ import type {
 } from './core/schema.ts'
 import { clearChapterState, loadChapterState, saveChapterState } from './core/storage.ts'
 import { validateChapterBundle } from './core/validator.ts'
+import {
+  exportWhatIfPatch,
+  generateWhatIfNode,
+  loadLlmConfig,
+} from './core/whatIfGen.ts'
+import type { LlmConfig, WhatIfStepMeta, WhatIfStyle } from './core/whatIfGen.ts'
 import { CounterCaseCard } from './ui/CounterCaseCard.tsx'
 import { DeskMode } from './ui/DeskMode.tsx'
 import { DualHud } from './ui/DualHud.tsx'
 import { EndingCard } from './ui/EndingCard.tsx'
 import { RichText } from './ui/RichText.tsx'
 import { ThemeShell } from './ui/ThemeShell.tsx'
+import { WhatIfDrawer } from './ui/WhatIfDrawer.tsx'
 import { audioEngine } from './ui/audioEngine.ts'
 
 type FeedItem =
@@ -63,6 +70,11 @@ export default function App() {
   const [archiveTab, setArchiveTab] = useState<'notes' | 'import'>('notes')
   const [packText, setPackText] = useState('')
   const [packStatus, setPackStatus] = useState<string | null>(null)
+  const [whatIfOpen, setWhatIfOpen] = useState(false)
+  const [whatIfMeta, setWhatIfMeta] = useState<WhatIfStepMeta | null>(null)
+  const [whatIfBusy, setWhatIfBusy] = useState(false)
+  const [whatIfErr, setWhatIfErr] = useState<string | null>(null)
+  const [whatIfExported, setWhatIfExported] = useState(false)
 
   const streamRef = useRef<HTMLElement | null>(null)
 
@@ -231,6 +243,9 @@ export default function App() {
     })
     setSave(fresh)
     setFeed(seedFeedForNode(targetBundle, fresh))
+    setWhatIfMeta(null)
+    setWhatIfErr(null)
+    setWhatIfExported(false)
     setScreen('story_play')
   }
 
@@ -278,9 +293,122 @@ export default function App() {
     if (events.length > 0) setFeed((prev) => appendEventsToFeed(events, prev))
   }
 
+  function enterDynamicNode(targetBundle: ChapterBundle, baseSave: SaveState, node: ChapterBundle['nodes'][string], extraEvents: GameEvent[] = [], replyText?: string) {
+    const nextBundle: ChapterBundle = {
+      ...targetBundle,
+      nodes: { ...targetBundle.nodes, [node.id]: node },
+    }
+    const isEnd = node.kind === 'ending'
+    const nextSave: SaveState = {
+      ...baseSave,
+      nodeId: node.id,
+      lineIndex: 0,
+      mood: node.mood ?? baseSave.mood,
+      visitedNodes: baseSave.visitedNodes.includes(node.id)
+        ? baseSave.visitedNodes
+        : [...baseSave.visitedNodes, node.id],
+      finished: isEnd,
+      endingNodeId: isEnd ? node.id : null,
+      savedAt: Date.now(),
+    }
+    setBundle(nextBundle)
+    setSave(nextSave)
+    setFeed((prev) => {
+      let next = [...prev]
+      if (replyText) next.push({ kind: 'reply', id: makeId('rep'), text: replyText })
+      next = appendEventsToFeed(extraEvents, next)
+      if (node.act) next.push({ kind: 'divider', id: makeId('div'), text: node.act })
+      const firstLine = getVisibleLines(node, nextSave)[0]
+      if (firstLine) next.push({ kind: 'line', id: makeId('ln'), line: firstLine })
+      return next
+    })
+  }
+
+  async function handleStartWhatIf(style: WhatIfStyle, userIdea: string, cfg: LlmConfig) {
+    if (!bundle || !save) return
+    setWhatIfBusy(true)
+    setWhatIfErr(null)
+    const sessionId = `N_AI_${Date.now().toString(36)}`
+    const meta: WhatIfStepMeta = {
+      sessionId,
+      originNodeId: save.nodeId,
+      style,
+      userIdea,
+      step: 1,
+      generatedNodeIds: [],
+    }
+    try {
+      const { node, usedLiveLlm } = await generateWhatIfNode(bundle, save, meta, cfg)
+      const nextMeta: WhatIfStepMeta = { ...meta, generatedNodeIds: [node.id] }
+      setWhatIfMeta(nextMeta)
+      setWhatIfOpen(false)
+      setWhatIfExported(false)
+      audioEngine.playStamp(true)
+      enterDynamicNode(bundle, save, node, [
+        {
+          type: 'settlement',
+          settlement: {
+            badges: [usedLiveLlm ? 'LLM 实时推演' : '离线五防线演示'],
+            reasons: ['已从当前历史节点撕开一条全新的 3 幕平行世界线'],
+            deltas: {},
+          },
+        },
+      ])
+    } catch (e) {
+      setWhatIfErr(e instanceof Error ? e.message : String(e))
+    } finally {
+      setWhatIfBusy(false)
+    }
+  }
+
   function handleChoose(choice: Choice) {
     if (!bundle || !save) return
     const prevNodeId = save.nodeId
+
+    // Dynamic 3-act What-If continuation
+    if (typeof choice.next === 'string' && choice.next.startsWith('__AI_STEP_') && whatIfMeta) {
+      const stepNum = choice.next.endsWith('2__') ? 2 : 3
+      const { save: settledSave, events } = reduceGame(bundle, save, {
+        type: 'APPLY_WIDGET_EFFECTS',
+        effects: choice.effects ?? [],
+      })
+      if (settledSave.finished) {
+        setSave(settledSave)
+        setFeed((prev) => {
+          let next = [...prev]
+          if (choice.replyText) next.push({ kind: 'reply', id: makeId('rep'), text: choice.replyText })
+          return appendEventsToFeed(events, next)
+        })
+        return
+      }
+      setWhatIfBusy(true)
+      const nextMeta: WhatIfStepMeta = { ...whatIfMeta, step: stepNum as 2 | 3 }
+      void generateWhatIfNode(bundle, settledSave, nextMeta, loadLlmConfig(), choice.label)
+        .then(({ node }) => {
+          setWhatIfMeta({
+            ...nextMeta,
+            generatedNodeIds: [...nextMeta.generatedNodeIds, node.id],
+          })
+          enterDynamicNode(bundle, settledSave, node, events, choice.replyText)
+        })
+        .catch((e) => {
+          setFeed((prev) => [
+            ...prev,
+            {
+              kind: 'strip',
+              id: makeId('err'),
+              badge: '推演中断',
+              text: e instanceof Error ? e.message : String(e),
+              warn: true,
+            },
+          ])
+        })
+        .finally(() => {
+          setWhatIfBusy(false)
+        })
+      return
+    }
+
     const { save: nextSave, events } = reduceGame(bundle, save, {
       type: 'CHOOSE',
       choiceId: choice.id,
@@ -753,6 +881,46 @@ export default function App() {
           </div>
         )}
 
+        {(showCounterCase || showPlainChoices) && !whatIfMeta && !whatIfBusy && (
+          <button
+            type="button"
+            className="cc-wi-trigger"
+            onClick={() => {
+              audioEngine.playExpose()
+              setWhatIfErr(null)
+              setWhatIfOpen(true)
+            }}
+          >
+            ✨ AI 推演新世界线（五防线 3 幕动态分支）
+          </button>
+        )}
+
+        {whatIfBusy && (
+          <div className="cc-strip is-combo">
+            <span className="cc-strip-badge">推演中</span>
+            <span>正在按五道防线注入建安器物与谋士冲突，生成下一幕…</span>
+          </div>
+        )}
+
+        {save.finished && whatIfMeta && (
+          <div className="cc-wi-export-bar">
+            <span>已走完 3 幕动态 What-If 世界线（可沉淀入库）</span>
+            <button
+              type="button"
+              className="cc-audio-pill is-on"
+              onClick={() => {
+                const patch = exportWhatIfPatch(bundle, whatIfMeta)
+                void navigator.clipboard?.writeText(patch).then(() => {
+                  setWhatIfExported(true)
+                  setTimeout(() => setWhatIfExported(false), 2500)
+                })
+              }}
+            >
+              {whatIfExported ? '已复制支线 JSON ✓' : '★ 导出支线 JSON'}
+            </button>
+          </div>
+        )}
+
         {save.finished && (
           <EndingCard
             bundle={bundle}
@@ -774,6 +942,15 @@ export default function App() {
             </span>
           </button>
         </footer>
+      )}
+
+      {whatIfOpen && (
+        <WhatIfDrawer
+          busy={whatIfBusy}
+          error={whatIfErr}
+          onClose={() => setWhatIfOpen(false)}
+          onStart={(style, idea, cfg) => void handleStartWhatIf(style, idea, cfg)}
+        />
       )}
 
       {modal && (
