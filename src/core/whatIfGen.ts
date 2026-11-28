@@ -30,9 +30,9 @@ const BANNED_JP_RE = /[\u3040-\u30ff]|幕府|大名|武士|忍者|天守|城下�
 const LLM_CFG_KEY = 'ccnoteasy:whatif_llm_cfg'
 
 export const DEFAULT_LLM_CONFIG: LlmConfig = {
-  baseUrl: 'https://api.deepseek.com/v1',
+  baseUrl: 'https://amr-link.open-design.ai/v1',
   apiKey: '',
-  model: 'deepseek-chat',
+  model: 'deepseek-v4.1-flash',
 }
 
 export function loadLlmConfig(): LlmConfig {
@@ -583,8 +583,9 @@ export async function generateWhatIfNode(
   lastChoiceLabel?: string,
 ): Promise<{ node: SceneNode; usedLiveLlm: boolean }> {
   const nodeId = `${meta.sessionId}_s${meta.step}`
+  const isLocalProxy = cfg.baseUrl.startsWith('/')
 
-  if (!cfg.apiKey.trim()) {
+  if (!cfg.apiKey.trim() && !isLocalProxy) {
     return {
       node: generateOfflineDemoNode(bundle, meta, nodeId, lastChoiceLabel),
       usedLiveLlm: false,
@@ -593,13 +594,14 @@ export async function generateWhatIfNode(
 
   const { system, user } = buildWhatIfPrompt(bundle, save, meta, lastChoiceLabel)
   const endpoint = `${cfg.baseUrl.replace(/\/+$/, '')}/chat/completions`
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (cfg.apiKey.trim()) {
+    headers.Authorization = `Bearer ${cfg.apiKey.trim()}`
+  }
 
   const resp = await fetch(endpoint, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cfg.apiKey.trim()}`,
-    },
+    headers,
     body: JSON.stringify({
       model: cfg.model.trim() || DEFAULT_LLM_CONFIG.model,
       temperature: 0.82,

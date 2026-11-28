@@ -20,7 +20,8 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
   const [cfg, setCfg] = useState<LlmConfig>(() => loadLlmConfig())
   const [showCfg, setShowCfg] = useState(false)
 
-  const hasKey = Boolean(cfg.apiKey.trim())
+  const isProxy = cfg.baseUrl.startsWith('/')
+  const hasKey = Boolean(cfg.apiKey.trim()) || isProxy
 
   function handleSaveCfg(next: LlmConfig) {
     setCfg(next)
@@ -104,7 +105,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
           {showCfg && (
             <div className="cc-wi-cfg">
               <div style={{ fontSize: 11, color: 'var(--fg-dim)', marginBottom: 6 }}>
-                兼容 OpenAI / DeepSeek / Gemini 接口，Key 仅保存在你的浏览器本地。留空即自动走离线演示通路。
+                默认预设 OpenDesign AMR（deepseek-v4.1-flash）；本机开发可填 /api/opendesign 走免 Key 代理，Key 仅存浏览器本地。
               </div>
               <input
                 type="text"
