@@ -20,9 +20,12 @@ import type {
 import { clearChapterState, loadChapterState, saveChapterState } from './core/storage.ts'
 import { validateChapterBundle } from './core/validator.ts'
 import {
+  clearWhatIfPrefetch,
+  consumePrefetchedNode,
   exportWhatIfPatch,
   generateWhatIfNode,
   loadLlmConfig,
+  prefetchNextChoices,
 } from './core/whatIfGen.ts'
 import type { LlmConfig, WhatIfStepMeta, WhatIfStyle } from './core/whatIfGen.ts'
 import { CounterCaseCard } from './ui/CounterCaseCard.tsx'
@@ -246,6 +249,7 @@ export default function App() {
     setWhatIfMeta(null)
     setWhatIfErr(null)
     setWhatIfExported(false)
+    clearWhatIfPrefetch()
     setScreen('story_play')
   }
 
@@ -354,6 +358,8 @@ export default function App() {
           },
         },
       ])
+      // Speculatively prefetch both Act 2 branches while player reads Act 1
+      prefetchNextChoices(bundle, save, nextMeta, node, cfg)
     } catch (e) {
       setWhatIfErr(e instanceof Error ? e.message : String(e))
     } finally {
@@ -383,13 +389,20 @@ export default function App() {
       }
       setWhatIfBusy(true)
       const nextMeta: WhatIfStepMeta = { ...whatIfMeta, step: stepNum as 2 | 3 }
-      void generateWhatIfNode(bundle, settledSave, nextMeta, loadLlmConfig(), choice.label)
+      const cfg = loadLlmConfig()
+      const prefetched = consumePrefetchedNode(whatIfMeta.sessionId, stepNum, choice.id)
+      const req = prefetched ?? generateWhatIfNode(bundle, settledSave, nextMeta, cfg, choice.label)
+      void req
         .then(({ node }) => {
-          setWhatIfMeta({
+          const updatedMeta: WhatIfStepMeta = {
             ...nextMeta,
             generatedNodeIds: [...nextMeta.generatedNodeIds, node.id],
-          })
+          }
+          setWhatIfMeta(updatedMeta)
           enterDynamicNode(bundle, settledSave, node, events, choice.replyText)
+          if (stepNum === 2) {
+            prefetchNextChoices(bundle, settledSave, updatedMeta, node, cfg)
+          }
         })
         .catch((e) => {
           setFeed((prev) => [

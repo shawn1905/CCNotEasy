@@ -34,7 +34,7 @@ export const BUILTIN_PROXY_URL = 'https://eleven-experiment-sphere-yang.trycloud
 export const DEFAULT_LLM_CONFIG: LlmConfig = {
   baseUrl: BUILTIN_PROXY_URL,
   apiKey: '',
-  model: 'deepseek-v4.1-flash',
+  model: 'glm-5.3-flash',
 }
 
 export function isKeylessProxyUrl(url: string): boolean {
@@ -48,7 +48,7 @@ export function loadLlmConfig(): LlmConfig {
     if (!raw) return { ...DEFAULT_LLM_CONFIG }
     const parsed = JSON.parse(raw) as Partial<LlmConfig>
     const key = parsed.apiKey?.trim() || ''
-    // Auto-upgrade old unconfigured defaults to the built-in keyless proxy
+    // Auto-upgrade old unconfigured defaults to the built-in keyless proxy + fastest model
     const savedUrl = parsed.baseUrl?.trim() || ''
     const upgradedUrl =
       !key &&
@@ -57,10 +57,15 @@ export function loadLlmConfig(): LlmConfig {
         savedUrl.includes('amr-link.open-design.ai'))
         ? BUILTIN_PROXY_URL
         : savedUrl || BUILTIN_PROXY_URL
+    const savedModel = parsed.model?.trim() || ''
+    const upgradedModel =
+      !key && (!savedModel || savedModel === 'deepseek-chat' || savedModel === 'deepseek-v4.1-flash')
+        ? DEFAULT_LLM_CONFIG.model
+        : savedModel || DEFAULT_LLM_CONFIG.model
     return {
       baseUrl: upgradedUrl,
       apiKey: key,
-      model: parsed.model?.trim() || DEFAULT_LLM_CONFIG.model,
+      model: upgradedModel,
     }
   } catch {
     return { ...DEFAULT_LLM_CONFIG }
@@ -622,6 +627,7 @@ export async function generateWhatIfNode(
     body: JSON.stringify({
       model: cfg.model.trim() || DEFAULT_LLM_CONFIG.model,
       temperature: 0.82,
+      max_tokens: 950,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: system },
@@ -645,6 +651,48 @@ export async function generateWhatIfNode(
     node: sanitizeGeneratedNode(bundle, parsed, nodeId, meta),
     usedLiveLlm: true,
   }
+}
+
+/* ---------- Speculative Prefetch Cache (0ms Act 2 & Act 3 Transitions) ---------- */
+const prefetchMap = new Map<string, Promise<{ node: SceneNode; usedLiveLlm: boolean }>>()
+
+export function clearWhatIfPrefetch(): void {
+  prefetchMap.clear()
+}
+
+export function getPrefetchKey(sessionId: string, step: number, choiceId: string): string {
+  return `${sessionId}:s${step}:${choiceId}`
+}
+
+export function prefetchNextChoices(
+  bundle: ChapterBundle,
+  save: SaveState,
+  meta: WhatIfStepMeta,
+  currentNode: SceneNode,
+  cfg: LlmConfig,
+): void {
+  if (meta.step >= 3 || !currentNode.choices || currentNode.choices.length === 0) return
+  const nextStep = (meta.step + 1) as 2 | 3
+  for (const ch of currentNode.choices.slice(0, 2)) {
+    const key = getPrefetchKey(meta.sessionId, nextStep, ch.id)
+    if (prefetchMap.has(key)) continue
+    const nextMeta: WhatIfStepMeta = { ...meta, step: nextStep }
+    const promise = generateWhatIfNode(bundle, save, nextMeta, cfg, ch.label)
+    // Suppress unhandled rejection if player picks the other branch
+    promise.catch(() => {})
+    prefetchMap.set(key, promise)
+  }
+}
+
+export function consumePrefetchedNode(
+  sessionId: string,
+  step: number,
+  choiceId: string,
+): Promise<{ node: SceneNode; usedLiveLlm: boolean }> | null {
+  const key = getPrefetchKey(sessionId, step, choiceId)
+  const hit = prefetchMap.get(key) ?? null
+  if (hit) prefetchMap.delete(key)
+  return hit
 }
 
 /* ---------- Hybrid Curation: Export Generated Branch Patch JSON ---------- */
