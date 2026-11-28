@@ -574,9 +574,9 @@ export default function App() {
                   <span className="cc-mode-badge">五章 · 67 结局</span>
                 </div>
                 <div className="cc-mode-desc">
-                  在赤壁、官渡、宛城、白门楼与汉中的史实骨架上，每幕都能撕开改写历史的架空世界线，重玩每局都有新走向。
+                  按建安编年从壮年司空走到暮年魏王——宛城、白门楼、官渡、赤壁、汉中，每幕皆可正史推演或撕开平行世界线。
                 </div>
-                <div className="cc-mode-meta">赤壁 · 官渡 · 宛城 · 白门楼 · 汉中 · 含 34 条架空结局</div>
+                <div className="cc-mode-meta">建安二年 宛城 → 白门楼 → 官渡 → 赤壁 → 建安二十四年 汉中</div>
               </button>
 
               <button
