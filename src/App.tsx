@@ -376,12 +376,12 @@ export default function App() {
               >
                 <div className="cc-mode-head">
                   <strong>What-If 平行三国 · 多线剧情</strong>
-                  <span className="cc-mode-badge">两章 · 34 结局</span>
+                  <span className="cc-mode-badge">五章 · 67 结局</span>
                 </div>
                 <div className="cc-mode-desc">
-                  在赤壁与官渡的史实骨架上，每幕都能撕开改写历史的架空世界线——联孙分荆、乌林反杀、千里袭邺，重玩每局都有新走向。
+                  在赤壁、官渡、宛城、白门楼与汉中的史实骨架上，每幕都能撕开改写历史的架空世界线，重玩每局都有新走向。
                 </div>
-                <div className="cc-mode-meta">第一章 赤壁前夜 · 第二章 官渡断粮 · 含 16 条架空结局</div>
+                <div className="cc-mode-meta">赤壁 · 官渡 · 宛城 · 白门楼 · 汉中 · 含 34 条架空结局</div>
               </button>
 
               <button
