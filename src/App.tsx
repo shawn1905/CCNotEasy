@@ -20,6 +20,7 @@ import type {
 import { clearChapterState, loadChapterState, saveChapterState } from './core/storage.ts'
 import { validateChapterBundle } from './core/validator.ts'
 import {
+  WHATIF_TOTAL_STEPS,
   clearWhatIfPrefetch,
   consumePrefetchedNode,
   deleteCuratedBranch,
@@ -83,6 +84,7 @@ export default function App() {
   const [whatIfErr, setWhatIfErr] = useState<string | null>(null)
   const [whatIfSaved, setWhatIfSaved] = useState(false)
   const [whatIfExported, setWhatIfExported] = useState(false)
+  const [usedTactics, setUsedTactics] = useState<string[]>([])
 
   const streamRef = useRef<HTMLElement | null>(null)
 
@@ -253,7 +255,9 @@ export default function App() {
     setFeed(seedFeedForNode(targetBundle, fresh))
     setWhatIfMeta(null)
     setWhatIfErr(null)
+    setWhatIfSaved(false)
     setWhatIfExported(false)
+    setUsedTactics([])
     clearWhatIfPrefetch()
     setScreen('story_play')
   }
@@ -344,6 +348,7 @@ export default function App() {
       style,
       userIdea,
       step: 1,
+      targetSteps: WHATIF_TOTAL_STEPS,
       generatedNodeIds: [],
     }
     try {
@@ -359,7 +364,7 @@ export default function App() {
           type: 'settlement',
           settlement: {
             badges: ['别史启卷'],
-            reasons: ['已从当前变局另辟一条五幕平行世界线'],
+            reasons: ['已从当前变局另辟一条七幕平行世界线'],
             deltas: {},
           },
         },
@@ -373,14 +378,107 @@ export default function App() {
     }
   }
 
+  async function handleExtendWhatIf() {
+    if (!bundle || !save || !whatIfMeta || whatIfBusy) return
+    setWhatIfBusy(true)
+    const cfg = loadLlmConfig()
+    const nextMeta: WhatIfStepMeta = {
+      ...whatIfMeta,
+      step: whatIfMeta.step + 1,
+      targetSteps: whatIfMeta.targetSteps + 3,
+    }
+    try {
+      const { node } = await generateWhatIfNode(
+        bundle,
+        { ...save, finished: false, endingNodeId: null },
+        nextMeta,
+        cfg,
+        '余波未平，沿着方才终局继续展开下一阶段建安变局',
+      )
+      const updatedMeta: WhatIfStepMeta = {
+        ...nextMeta,
+        generatedNodeIds: [...nextMeta.generatedNodeIds, node.id],
+      }
+      setWhatIfMeta(updatedMeta)
+      setWhatIfSaved(false)
+      audioEngine.playStamp(true)
+      enterDynamicNode(bundle, { ...save, finished: false, endingNodeId: null }, node, [
+        {
+          type: 'settlement',
+          settlement: {
+            badges: ['别史续篇'],
+            reasons: ['战火未熄，已续写后三幕平行变局'],
+            deltas: {},
+          },
+        },
+      ])
+      prefetchNextChoices(bundle, { ...save, finished: false, endingNodeId: null }, updatedMeta, node, cfg)
+    } catch (e) {
+      setFeed((prev) => [
+        ...prev,
+        {
+          kind: 'strip',
+          id: makeId('err'),
+          badge: '续写受阻',
+          text: e instanceof Error ? e.message : String(e),
+          warn: true,
+        },
+      ])
+    } finally {
+      setWhatIfBusy(false)
+    }
+  }
+
+  function handleUseTactic(tacticId: 'grain' | 'troops' | 'delay') {
+    if (!bundle || !save || save.finished || usedTactics.includes(tacticId)) return
+    const r0 = bundle.resources[0]
+    const r1 = bundle.resources[1]
+    const r2 = bundle.resources[2]
+    const d0 = bundle.deadlines[0]
+    let effects: Effect[] = []
+    let reply = ''
+    if (tacticId === 'grain' && r1 && r0) {
+      effects = [
+        { kind: 'resource', resource: r1.id, delta: 2, reason: '大帐锦囊《急调仓粮》：连夜征调后方存粮入营' },
+        { kind: 'resource', resource: r0.id, delta: -1, reason: '急征仓粮损及地方清望与军资' },
+      ]
+      reply = '传令后营开急仓！不惜代价先把这批军粮调到前线来！'
+    } else if (tacticId === 'troops' && r2 && r1) {
+      effects = [
+        { kind: 'resource', resource: r2.id, delta: 2, reason: '大帐锦囊《整军募卒》：重赏抽调精锐补入前营' },
+        { kind: 'resource', resource: r1.id, delta: -1, reason: '重赏扩军消耗一批随军粮草' },
+      ]
+      reply = '加倍发饷，把后营精壮全数补进前线营伍！'
+    } else if (tacticId === 'delay' && d0 && r0) {
+      effects = [
+        { kind: 'deadline', deadline: d0.id, delta: -2, reason: '大帐锦囊《缓兵之计》：遣疑兵与假信拖慢敌军节奏' },
+        { kind: 'resource', resource: r0.id, delta: -1, reason: '施展缓兵疑阵消耗一笔机密军资' },
+      ]
+      reply = '派轻骑沿路多插疑旗、遣使虚言议和，先替孤拖出两天喘息！'
+    }
+    if (effects.length === 0) return
+    audioEngine.playStamp(false)
+    setUsedTactics((prev) => [...prev, tacticId])
+    const { save: nextSave, events } = reduceGame(bundle, save, {
+      type: 'APPLY_WIDGET_EFFECTS',
+      effects,
+    })
+    setSave(nextSave)
+    setFeed((prev) => {
+      const next: FeedItem[] = [...prev, { kind: 'reply', id: makeId('rep'), text: reply }]
+      return appendEventsToFeed(events, next)
+    })
+  }
+
   function handleChoose(choice: Choice) {
     if (!bundle || !save) return
     const prevNodeId = save.nodeId
 
-    // Dynamic 5-act What-If continuation
+    // Dynamic multi-act What-If continuation
     if (typeof choice.next === 'string' && choice.next.startsWith('__AI_STEP_') && whatIfMeta) {
       const m = choice.next.match(/__AI_STEP_(\d+)__/)
-      const stepNum = Math.min(5, Math.max(2, Number(m?.[1] ?? 5))) as 2 | 3 | 4 | 5
+      const total = whatIfMeta.targetSteps || WHATIF_TOTAL_STEPS
+      const stepNum = Math.min(total, Math.max(2, Number(m?.[1] ?? total)))
       const { save: settledSave, events } = reduceGame(bundle, save, {
         type: 'APPLY_WIDGET_EFFECTS',
         effects: choice.effects ?? [],
@@ -407,7 +505,7 @@ export default function App() {
           }
           setWhatIfMeta(updatedMeta)
           enterDynamicNode(bundle, settledSave, node, events, choice.replyText)
-          if (stepNum < 5) {
+          if (stepNum < total) {
             prefetchNextChoices(bundle, settledSave, updatedMeta, node, cfg)
           }
         })
@@ -749,6 +847,39 @@ export default function App() {
         }}
       />
 
+      {screen === 'story_play' && !save.finished && (
+        <div className="cc-tactics-bar" aria-label="大帐锦囊底牌">
+          <span className="cc-tactics-label">锦囊</span>
+          <button
+            type="button"
+            className="cc-tactic-btn"
+            disabled={usedTactics.includes('grain')}
+            onClick={() => handleUseTactic('grain')}
+            title="每局限1次：军粮+2，威望/钱帛-1"
+          >
+            急调仓粮
+          </button>
+          <button
+            type="button"
+            className="cc-tactic-btn"
+            disabled={usedTactics.includes('troops')}
+            onClick={() => handleUseTactic('troops')}
+            title="每局限1次：兵力+2，军粮-1"
+          >
+            整军募卒
+          </button>
+          <button
+            type="button"
+            className="cc-tactic-btn"
+            disabled={usedTactics.includes('delay')}
+            onClick={() => handleUseTactic('delay')}
+            title="每局限1次：死线-2，威望/钱帛-1"
+          >
+            缓兵之计
+          </button>
+        </div>
+      )}
+
       <section
         className="cc-stream"
         ref={streamRef}
@@ -911,7 +1042,7 @@ export default function App() {
               setWhatIfOpen(true)
             }}
           >
-            ✦ 另辟史册（推演五幕平行世界线）
+            ✦ 另辟史册（推演七幕平行世界线）
           </button>
         )}
 
@@ -923,12 +1054,20 @@ export default function App() {
         )}
 
         {save.finished && whatIfMeta && (
-          <div className="cc-wi-export-bar">
-            <span>觉得这段别史精彩？可收入别史馆</span>
-            <div style={{ display: 'flex', gap: 6 }}>
+          <div className="cc-wi-export-bar" style={{ flexWrap: 'wrap' }}>
+            <span>意犹未尽？可续写后三幕或收入别史馆</span>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               <button
                 type="button"
                 className="cc-audio-pill is-on"
+                disabled={whatIfBusy}
+                onClick={() => void handleExtendWhatIf()}
+              >
+                {whatIfBusy ? '起草中…' : '✦ 再续三幕'}
+              </button>
+              <button
+                type="button"
+                className="cc-audio-pill"
                 onClick={() => {
                   saveCuratedBranch(bundle, whatIfMeta)
                   setCuratedList(loadCuratedBranches())
@@ -1132,6 +1271,7 @@ export default function App() {
                                     style: item.style,
                                     userIdea: item.userIdea,
                                     step: 1,
+                                    targetSteps: Object.keys(item.nodes).length || WHATIF_TOTAL_STEPS,
                                     generatedNodeIds: Object.keys(item.nodes),
                                   })
                                   setModal(null)

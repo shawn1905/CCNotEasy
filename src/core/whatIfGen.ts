@@ -17,14 +17,15 @@ export interface LlmConfig {
   model: string
 }
 
-export const WHATIF_TOTAL_STEPS = 5 as const
+export const WHATIF_TOTAL_STEPS = 7 as const
 
 export interface WhatIfStepMeta {
   sessionId: string
   originNodeId: string
   style: WhatIfStyle
   userIdea: string
-  step: 1 | 2 | 3 | 4 | 5
+  step: number
+  targetSteps: number
   generatedNodeIds: string[]
 }
 
@@ -204,21 +205,22 @@ export function buildWhatIfPrompt(
   const resIds = bundle.resources.map((r) => r.id).join(', ')
   const dlIds = bundle.deadlines.map((d) => d.id).join(', ')
 
-  const stepInstruction =
-    meta.step === 1
-      ? `【当前是第 1/5 幕（起 · 撕裂正史与首波假账）】
-必须输出 kind="scene"，lines 必须写足 4 条（1段 50~70 字巡营场景描写 + 3句角色争执对白），必须包含 interaction.type="counter_case"（2 条 claims：表面官话 surface vs 巡营实查 proof）和 2 个 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
-      : meta.step === 2
-        ? `【当前是第 2/5 幕（承 · 敌营反扑与谋士交锋）】
-必须输出 kind="scene"（不带 interaction），lines 必须写足 5 条（1段巡营战报场景 + 4句两位立场相反的谋士激烈拆台与曹操冷峻回应），给出 2 个推进战局的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
-        : meta.step === 3
-          ? `【当前是第 3/5 幕（转 · 突发暗雷与二次核账）】
-必须输出 kind="scene"，lines 必须写足 4 条（1段突发危机现场 + 3句角色对质），必须再次包含 interaction.type="counter_case"（2 条全新阴谋/假账破绽，最好呼应前两幕选择）和 2 个高张力 choices。choices 的 next 填 "__NEXT__"`
-          : meta.step === 4
-            ? `【当前是第 4/5 幕（危 · 终极决战前夜两难）】
-必须输出 kind="scene"（不带 interaction），mood="fire"，lines 必须写足 5 条（把整条平行世界线的矛盾推向最高潮，双谋士与主将各执一词），给出 2 个一锤定音的终极 choices。choices 的 next 填 "__NEXT__"`
-            : `【当前是第 5/5 幕（合 · 平行历史终局）】
-必须输出 kind="ending"，lines 必须写足 2 段极具历史厚重感的结语（第1段写本战落幕与关键人物宿命，第2段写此战引发的十年三国格局蝴蝶效应，均设 isWalk: true），并给完整 ending 对象（badge="AI 推演 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
+  const total = meta.targetSteps || WHATIF_TOTAL_STEPS
+  const isFinal = meta.step >= total
+  const isCounterStep = !isFinal && meta.step % 2 === 1 && meta.step < total - 1
+  const isPenultimate = meta.step === total - 1
+
+  const stepInstruction = isFinal
+    ? `【当前是第 ${meta.step}/${total} 幕（合 · 平行历史大终局）】
+必须输出 kind="ending"，lines 必须写足 3 段极具历史厚重感的结语（第1段写决战落幕与战场细节，第2段写关键人物宿命转折，第3段写此战引发的十年三国格局蝴蝶效应，均设 isWalk: true），并给完整 ending 对象（badge="别史终局 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
+    : isPenultimate
+      ? `【当前是第 ${meta.step}/${total} 幕（决 · 终极摊牌前夜）】
+必须输出 kind="scene"（不带 interaction），mood="fire"，lines 必须写足 5 条（把整条平行世界线的全部伏笔推向最高潮，双谋士与主将激烈争锋），给出 2 个一锤定音的终极 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+      : isCounterStep
+        ? `【当前是第 ${meta.step}/${total} 幕（核账 · 变局与柜台打脸）】
+必须输出 kind="scene"，lines 必须写足 4 条（1段 55~75 字巡营现场描写 + 3句角色争执对白），必须包含 interaction.type="counter_case"（2 条 claims：表面官话 surface vs 巡营实查 proof，其中第 1 条 claim 可附带 1 条小额奖励 effects，如追回军粮+1 或压缓死线-1）和 2 个 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+        : `【当前是第 ${meta.step}/${total} 幕（变 · 敌营反扑与谋士激辩）】
+必须输出 kind="scene"（不带 interaction），lines 必须写足 5 条（1段急报现场场景 + 4句两位立场相反的谋士激烈拆台与曹操冷峻回应），给出 2 个推进战局的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
 
   const system = `你是《曹操不容易》建安历史策略游戏的资深主笔。严格输出合法 JSON（不要 markdown 代码块、不要多余解释）。
 
@@ -327,14 +329,18 @@ export function sanitizeGeneratedNode(
     })
   }
 
+  const total = meta.targetSteps || WHATIF_TOTAL_STEPS
+  const isFinal = meta.step >= total
+  const isCounterStep = !isFinal && meta.step % 2 === 1 && meta.step < total - 1
+
   const mood =
     raw.mood === 'calm' || raw.mood === 'tense' || raw.mood === 'cold' || raw.mood === 'fire'
       ? raw.mood
-      : meta.step === 4
+      : meta.step === total - 1
         ? 'fire'
         : 'tense'
 
-  if (meta.step === WHATIF_TOTAL_STEPS) {
+  if (isFinal) {
     const endRaw = (raw.ending && typeof raw.ending === 'object' ? raw.ending : {}) as Record<string, unknown>
     return {
       id: nodeId,
@@ -358,19 +364,23 @@ export function sanitizeGeneratedNode(
     }
   }
 
-  // Build sanitized interaction if step 1 or step 3
+  // Build sanitized interaction on counter steps (odd steps before climax)
   let interaction: SceneNode['interaction']
-  if ((meta.step === 1 || meta.step === 3) && raw.interaction && typeof raw.interaction === 'object') {
+  if (isCounterStep && raw.interaction && typeof raw.interaction === 'object') {
     const ir = raw.interaction as Record<string, unknown>
     const rawClaims = Array.isArray(ir.claims) ? ir.claims : []
     const claims = rawClaims
       .filter((c): c is Record<string, unknown> => Boolean(c && typeof c === 'object'))
       .slice(0, 2)
-      .map((c, idx) => ({
-        id: `${nodeId}_cl_${idx + 1}`,
-        surface: cleanText(c.surface, '账面呈报一切如常，请司空照例签批。'),
-        proof: cleanText(c.proof, '巡营实查发现账实不符，背后暗藏猫腻。'),
-      }))
+      .map((c, idx) => {
+        const effs = sanitizeEffects(bundle, c.effects)
+        return {
+          id: `${nodeId}_cl_${idx + 1}`,
+          surface: cleanText(c.surface, '账面呈报一切如常，请司空照例签批。'),
+          proof: cleanText(c.proof, '巡营实查发现账实不符，背后暗藏猫腻。'),
+          ...(effs.length > 0 ? { effects: effs } : {}),
+        }
+      })
     if (claims.length >= 1) {
       interaction = {
         type: 'counter_case',
@@ -460,7 +470,8 @@ function generateOfflineDemoNode(
   const dl0 = bundle.deadlines[0]
   const ideaTag = meta.userIdea.trim() ? `（围绕「${meta.userIdea.trim().slice(0, 18)}」）` : ''
 
-  if (meta.step === 1 || meta.step === 3) {
+  const total = meta.targetSteps || WHATIF_TOTAL_STEPS
+  if (meta.step < total && meta.step % 2 === 1 && meta.step < total - 1) {
     return sanitizeGeneratedNode(
       bundle,
       {
@@ -524,7 +535,7 @@ function generateOfflineDemoNode(
     )
   }
 
-  if (meta.step === 2 || meta.step === 4) {
+  if (meta.step < total) {
     return sanitizeGeneratedNode(
       bundle,
       {
@@ -679,8 +690,9 @@ export function prefetchNextChoices(
   currentNode: SceneNode,
   cfg: LlmConfig,
 ): void {
-  if (meta.step >= WHATIF_TOTAL_STEPS || !currentNode.choices || currentNode.choices.length === 0) return
-  const nextStep = (meta.step + 1) as 2 | 3 | 4 | 5
+  const total = meta.targetSteps || WHATIF_TOTAL_STEPS
+  if (meta.step >= total || !currentNode.choices || currentNode.choices.length === 0) return
+  const nextStep = meta.step + 1
   for (const ch of currentNode.choices.slice(0, 2)) {
     const key = getPrefetchKey(meta.sessionId, nextStep, ch.id)
     if (prefetchMap.has(key)) continue
