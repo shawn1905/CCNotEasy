@@ -9,6 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "validate:story": "node --experimental-strip-types scripts/validate-story.ts",
+    "sim:desk": "node --experimental-strip-types scripts/desk-sim.ts",
     "preview": "vite preview"
   },
   "dependencies": {

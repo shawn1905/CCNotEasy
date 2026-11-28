@@ -16,41 +16,174 @@
     "bgmOrigFile": "bgm-orig.mp3",
     "bgmLabel": "赤壁 · 麦田烬风 8x",
     "moodRates": {
-      "calm": 1.0,
+      "calm": 1,
       "tense": 0.94,
       "cold": 0.9,
       "fire": 0.88
     }
   },
   "cast": {
-    "narrator": { "id": "narrator", "name": "巡营所见", "side": "center", "tone": "neutral" },
-    "cao": { "id": "cao", "name": "曹操", "role": "丞相", "side": "right", "tone": "neutral" },
-    "chengyu": { "id": "chengyu", "name": "程昱", "role": "奋武将军", "side": "left", "tone": "warn" },
-    "jiaxu": { "id": "jiaxu", "name": "贾诩", "role": "太中大夫", "side": "left", "tone": "info" },
-    "xunyou": { "id": "xunyou", "name": "荀攸", "role": "中军师", "side": "left", "tone": "info" },
-    "wenping": { "id": "wenping", "name": "文聘", "role": "江夏太守", "side": "left", "tone": "neutral" },
-    "kuai_clerk": { "id": "kuai_clerk", "name": "荆州降吏", "role": "蒯越门客", "side": "left", "tone": "neutral" },
-    "med_clerk": { "id": "med_clerk", "name": "医曹与仓曹", "role": "联名呈报", "side": "left", "tone": "warn" },
-    "courier": { "id": "courier", "name": "淮南驿使", "role": "八百里急报", "side": "left", "tone": "fire" },
-    "ship_officer": { "id": "ship_officer", "name": "水军校尉", "role": "北方水营", "side": "left", "tone": "warn" },
-    "scout": { "id": "scout", "name": "望江斥候", "role": "乌林前哨", "side": "left", "tone": "fire" }
+    "narrator": {
+      "id": "narrator",
+      "name": "巡营所见",
+      "side": "center",
+      "tone": "neutral"
+    },
+    "cao": {
+      "id": "cao",
+      "name": "曹操",
+      "role": "丞相",
+      "side": "right",
+      "tone": "neutral"
+    },
+    "chengyu": {
+      "id": "chengyu",
+      "name": "程昱",
+      "role": "奋武将军",
+      "side": "left",
+      "tone": "warn"
+    },
+    "jiaxu": {
+      "id": "jiaxu",
+      "name": "贾诩",
+      "role": "太中大夫",
+      "side": "left",
+      "tone": "info"
+    },
+    "xunyou": {
+      "id": "xunyou",
+      "name": "荀攸",
+      "role": "中军师",
+      "side": "left",
+      "tone": "info"
+    },
+    "wenping": {
+      "id": "wenping",
+      "name": "文聘",
+      "role": "江夏太守",
+      "side": "left",
+      "tone": "neutral"
+    },
+    "kuai_clerk": {
+      "id": "kuai_clerk",
+      "name": "荆州降吏",
+      "role": "蒯越门客",
+      "side": "left",
+      "tone": "neutral"
+    },
+    "med_clerk": {
+      "id": "med_clerk",
+      "name": "医曹与仓曹",
+      "role": "联名呈报",
+      "side": "left",
+      "tone": "warn"
+    },
+    "courier": {
+      "id": "courier",
+      "name": "淮南驿使",
+      "role": "八百里急报",
+      "side": "left",
+      "tone": "fire"
+    },
+    "ship_officer": {
+      "id": "ship_officer",
+      "name": "水军校尉",
+      "role": "北方水营",
+      "side": "left",
+      "tone": "warn"
+    },
+    "scout": {
+      "id": "scout",
+      "name": "望江斥候",
+      "role": "乌林前哨",
+      "side": "left",
+      "tone": "fire"
+    }
   },
   "varsSchema": {
-    "opening_focus": { "type": "string", "initial": "none", "description": "开场定调" },
-    "c1_mode": { "type": "string", "initial": "none", "description": "案壹处置方式" },
-    "c1_wenping": { "type": "string", "initial": "none", "description": "文聘旧部处置" },
-    "c2_mode": { "type": "string", "initial": "none", "description": "案贰处置方式" },
-    "c3_mode": { "type": "string", "initial": "none", "description": "案叁合肥处置方式" },
-    "c4_mode": { "type": "string", "initial": "none", "description": "案肆连舟处置方式" },
-    "c5_mode": { "type": "string", "initial": "none", "description": "案伍受降处置方式" },
-    "haste": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "顺势东下倾向" },
-    "audit_score": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "慎战查账次数" },
-    "dirty_count": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "曹氏权谋次数" },
-    "clues_found": { "type": "number", "initial": 0, "min": 0, "max": 20, "description": "戳穿假账次数" },
-    "plague_honesty": { "type": "boolean", "initial": false, "description": "是否开仓隔离疫营" },
-    "hefei_crisis": { "type": "boolean", "initial": false, "description": "淮南合肥是否陷入险局" },
-    "loose_ships": { "type": "boolean", "initial": false, "description": "是否拒绝铁索连舟" },
-    "suspect_defection": { "type": "boolean", "initial": false, "description": "是否识破并防备诈降" }
+    "opening_focus": {
+      "type": "string",
+      "initial": "none",
+      "description": "开场定调"
+    },
+    "c1_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案壹处置方式"
+    },
+    "c1_wenping": {
+      "type": "string",
+      "initial": "none",
+      "description": "文聘旧部处置"
+    },
+    "c2_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案贰处置方式"
+    },
+    "c3_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案叁合肥处置方式"
+    },
+    "c4_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案肆连舟处置方式"
+    },
+    "c5_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案伍受降处置方式"
+    },
+    "haste": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "顺势东下倾向"
+    },
+    "audit_score": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "慎战查账次数"
+    },
+    "dirty_count": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "曹氏权谋次数"
+    },
+    "clues_found": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 20,
+      "description": "戳穿假账次数"
+    },
+    "plague_honesty": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否开仓隔离疫营"
+    },
+    "hefei_crisis": {
+      "type": "boolean",
+      "initial": false,
+      "description": "淮南合肥是否陷入险局"
+    },
+    "loose_ships": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否拒绝铁索连舟"
+    },
+    "suspect_defection": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否识破并防备诈降"
+    }
   },
   "resources": [
     {
@@ -101,12 +234,42 @@
   ],
   "startNode": "N00_intro",
   "acts": [
-    { "id": "act0", "num": "序", "title": "江陵入城", "startNode": "N00_intro" },
-    { "id": "act1", "num": "案壹", "title": "船籍会猎", "startNode": "N01_case1" },
-    { "id": "act2", "num": "案贰", "title": "东仓医棚", "startNode": "N02_case2" },
-    { "id": "act3", "num": "案叁", "title": "合肥急报", "startNode": "N03_hefei" },
-    { "id": "act4", "num": "案肆", "title": "铁索连舟", "startNode": "N04_case4" },
-    { "id": "act5", "num": "案伍", "title": "东南风夜", "startNode": "N05_case5" }
+    {
+      "id": "act0",
+      "num": "序",
+      "title": "江陵入城",
+      "startNode": "N00_intro"
+    },
+    {
+      "id": "act1",
+      "num": "案壹",
+      "title": "船籍会猎",
+      "startNode": "N01_case1"
+    },
+    {
+      "id": "act2",
+      "num": "案贰",
+      "title": "东仓医棚",
+      "startNode": "N02_case2"
+    },
+    {
+      "id": "act3",
+      "num": "案叁",
+      "title": "合肥急报",
+      "startNode": "N03_hefei"
+    },
+    {
+      "id": "act4",
+      "num": "案肆",
+      "title": "铁索连舟",
+      "startNode": "N04_case4"
+    },
+    {
+      "id": "act5",
+      "num": "案伍",
+      "title": "东南风夜",
+      "startNode": "N05_case5"
+    }
   ],
   "gloss": {
     "xuanwuchi": {
@@ -319,7 +482,9 @@
       "title": "长坂余尘与江陵灯火",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_xuanwu"],
+      "refs": [
+        "ref_xuanwu"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -341,14 +506,16 @@
       ],
       "next": "N00_court"
     },
-
     "N00_court": {
       "id": "N00_court",
       "act": "序 · 丞相府军议",
       "title": "八十万声势与四患账本",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_xuanwu", "ref_four_woes"],
+      "refs": [
+        "ref_xuanwu",
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "chengyu",
@@ -378,8 +545,16 @@
           "hint": "江东定战死线暂时稳定 · 进入案壹",
           "replyText": "孤用兵三十载，最重「势」字。刘备新败、孙权未定，这口气泄不得——传令诸曹，即刻呈报江陵船籍与封赏名册！",
           "effects": [
-            { "kind": "var_set", "var": "opening_focus", "value": "momentum" },
-            { "kind": "var_add", "var": "haste", "delta": 1 }
+            {
+              "kind": "var_set",
+              "var": "opening_focus",
+              "value": "momentum"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            }
           ],
           "next": "N01_case1"
         },
@@ -389,21 +564,30 @@
           "hint": "准备直面军中清流核账 · 进入案壹",
           "replyText": "吓唬孙权的文书可以写大，摆在孤案头上的名册敢写假一个字，先问过孤的军法。把荆州水营的底账呈上来！",
           "effects": [
-            { "kind": "var_set", "var": "opening_focus", "value": "verify" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 }
+            {
+              "kind": "var_set",
+              "var": "opening_focus",
+              "value": "verify"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            }
           ],
           "next": "N01_case1"
         }
       ]
     },
-
     "N01_case1": {
       "id": "N01_case1",
       "act": "案壹 · 船籍与会猎书",
       "title": "荆州降将请赏与《会猎书》",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_hou_15"],
+      "refs": [
+        "ref_hou_15"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -411,8 +595,14 @@
           "walkKicker": "巡营所见 · 寅时 · 江陵南码头",
           "text": "天还没亮，你披着黑氅走过南码头湿滑的石阶。江雾沉沉，你借着火把顺手点船：**真正刷了新桐油、架好拍竿的斗舰只有十二艘**，后排三十来条全是连桨架都没钉牢的平底运粮船。拐角巷口，几名新封侯府的亲兵正把两箱官造弩箭往自家骡车上搬。",
           "clues": [
-            { "id": "clue_12_ships", "label": "实有可战斗舰仅12艘，余30余艘为平底粮船" },
-            { "id": "clue_stolen_arrows", "label": "新贵亲兵夜搬官库弩箭装车" }
+            {
+              "id": "clue_12_ships",
+              "label": "实有可战斗舰仅12艘，余30余艘为平底粮船"
+            },
+            {
+              "id": "clue_stolen_arrows",
+              "label": "新贵亲兵夜搬官库弩箭装车"
+            }
           ]
         },
         {
@@ -443,14 +633,26 @@
             "surface": "「点验江陵现役{{gloss:mengchong}}五十余艘，帆樯完固，即日可顺江{{gloss:huiliie}}。」",
             "proof": "你刚在南码头摸黑数过：真能冲阵打仗的斗舰只有十二艘，后头三十多条全是连桨架都没钉牢的平底运粮船。",
             "requiredClueId": "clue_12_ships",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c1_arrows",
             "surface": "「十五位新附列侯皆约束部曲{{subtext:qiuhuao_wufan}}，恳请先发安家钱帛以定军心。」",
             "proof": "码头拐角的骡车上正塞着两箱官造弩箭，箭羽上的荆州库印都没刮掉，就伸手管孤要安家钱。",
             "requiredClueId": "clue_stolen_arrows",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -464,11 +666,34 @@
           "stampText": "封侯会猎",
           "replyText": "名位与声势，本就是一张纸的两面。十五列侯印绶即日颁下，安家钱帛照单支发！再替孤将《会猎书》连夜发往柴桑——我要孙仲谋连夜睡不着觉！",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "approve" },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "照单颁行十五列侯及降营安家钱帛" },
-            { "kind": "resource", "resource": "troops", "delta": 1, "reason": "迅速收编荆州水军建制入列" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "《会猎书》大兵压境，迫使柴桑朝堂陷入投降争论" }
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "approve"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "照单颁行十五列侯及降营安家钱帛"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "迅速收编荆州水军建制入列"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "《会猎书》大兵压境，迫使柴桑朝堂陷入投降争论"
+            }
           ],
           "next": "N01_branch_haste"
         },
@@ -481,9 +706,22 @@
           "interestNote": "代价：荆州新贵怨望、北将嫌拖延，江东定战死线急涨 +2",
           "replyText": "十二条斗舰报成五十条，拿孤当账房学徒吗？列侯印绶先锁进铁柜！限两日内把码头每一条船的吃水、水手名籍给孤重新丈量造册！",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "reject" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": 2, "reason": "停船核查船籍延宕时日，柴桑主战派趁机串联孙刘" }
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "reject"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": 2,
+              "reason": "停船核查船籍延宕时日，柴桑主战派趁机串联孙刘"
+            }
           ],
           "next": "N01_branch_audit"
         },
@@ -496,12 +734,38 @@
           "interestNote": "⚠ 代价：战书欺敌亦虚己，扣发安家费将在乌林前触发降营动摇",
           "replyText": "五十艘太小气，替孤直接写『今治水军八十万众』递去江东。至于私搬弩箭的几家——罚金充公，安家赏钱等砍了周瑜船上的首级再回来兑！",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "dirty" },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "「八十万」虚数文书先行震慑柴桑主和派" },
-            { "kind": "dirty_trick", "id": "dt_fake_ships", "label": "虚报八十万＋战后兑赏", "interest": "平底粮船难堪水战，降卒怨望导致乌林前兵员钱帛双重失血" },
-            { "kind": "fake_badge", "show": true, "label": "号八十万" },
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "dirty"
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "「八十万」虚数文书先行震慑柴桑主和派"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_fake_ships",
+              "label": "虚报八十万＋战后兑赏",
+              "interest": "平底粮船难堪水战，降卒怨望导致乌林前兵员钱帛双重失血"
+            },
+            {
+              "kind": "fake_badge",
+              "show": true,
+              "label": "号八十万"
+            },
             {
               "kind": "debt",
               "debt": {
@@ -510,9 +774,24 @@
                 "label": "江陵克扣赏钱反噬",
                 "text": "乌林水寨前夜，被延发安家费的荆州水手趁寒夜偷偷弃船逃亡，管事将校伸手急讨弹压赏银。",
                 "effects": [
-                  { "kind": "resource", "resource": "troops", "delta": -1, "reason": "克扣安家费致荆州降卒夜逃减员" },
-                  { "kind": "resource", "resource": "coin", "delta": -1, "reason": "临时增发赏银弹压浮动的荆州水营" },
-                  { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "营伍不稳令南岸从容布防" }
+                  {
+                    "kind": "resource",
+                    "resource": "troops",
+                    "delta": -1,
+                    "reason": "克扣安家费致荆州降卒夜逃减员"
+                  },
+                  {
+                    "kind": "resource",
+                    "resource": "coin",
+                    "delta": -1,
+                    "reason": "临时增发赏银弹压浮动的荆州水营"
+                  },
+                  {
+                    "kind": "deadline",
+                    "deadline": "jiangdong_war",
+                    "delta": 1,
+                    "reason": "营伍不稳令南岸从容布防"
+                  }
                 ]
               }
             }
@@ -521,14 +800,15 @@
         }
       ]
     },
-
     "N01_branch_haste": {
       "id": "N01_branch_haste",
       "act": "案壹支线 · 《会猎书》顺江而出",
       "title": "满帐喝彩与柴桑暗流",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_hou_15"],
+      "refs": [
+        "ref_hou_15"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -538,13 +818,21 @@
         },
         {
           "speaker": "chengyu",
-          "when": { "var": "c1_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "sourceTag": "史载",
           "text": "文聘已在江夏领印，明公令其{{gloss:tongbenbing}}，荆州旧部果然安堵。方才益州刘璋也遣使送来兵马粮秣，真是四海望风而降！"
         },
         {
           "speaker": "kuai_clerk",
-          "when": { "var": "c1_mode", "op": "==", "value": "dirty" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "dirty"
+          },
           "sourceTag": "推演",
           "text": "（笑容僵了半寸，退至柱旁低声）丞相雷霆之威，下吏这就去传令……只是各营水卒原指望领钱安顿妻小，如今听闻战后兑赏，码头上夜里怕有些怨言。"
         },
@@ -561,14 +849,15 @@
       ],
       "next": "N02_case2"
     },
-
     "N01_branch_audit": {
       "id": "N01_branch_audit",
       "act": "案壹支线 · 码头点船与文聘迟诣",
       "title": "「卿真忠臣也」",
       "kind": "scene",
       "mood": "cold",
-      "refs": ["ref_hou_15"],
+      "refs": [
+        "ref_hou_15"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -601,9 +890,23 @@
           "stampText": "统本兵",
           "replyText": "仲业真忠臣也！孤便用你为江夏太守，原部水军一卒不拆，仍归你统领——把欠发的船修与军饷补齐，替孤守好前锋！",
           "effects": [
-            { "kind": "var_set", "var": "c1_wenping", "value": "trust" },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "补发文聘水军旧部整修与军饷" },
-            { "kind": "resource", "resource": "troops", "delta": 1, "reason": "文聘归心，精锐水营整编归位" }
+            {
+              "kind": "var_set",
+              "var": "c1_wenping",
+              "value": "trust"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "补发文聘水军旧部整修与军饷"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "文聘归心，精锐水营整编归位"
+            }
           ],
           "next": "N02_case2"
         },
@@ -616,22 +919,37 @@
           "interestNote": "代价：荆州水兵失主将离心减员，改派北将另耗赏银",
           "replyText": "忠于旧主，便未必忠于新主。文聘改授闲职厚养，原部水手拆散分隶北方诸将——多花些赏钱不要紧，船桨必须握在自己人手里。",
           "effects": [
-            { "kind": "var_set", "var": "c1_wenping", "value": "split" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "强行拆散荆州旧部致水卒夜间流亡" },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "加发赏银安抚新派监军北将" }
+            {
+              "kind": "var_set",
+              "var": "c1_wenping",
+              "value": "split"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "强行拆散荆州旧部致水卒夜间流亡"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "加发赏银安抚新派监军北将"
+            }
           ],
           "next": "N02_case2"
         }
       ]
     },
-
     "N02_case2": {
       "id": "N02_case2",
       "act": "案贰 · 东仓与袖中疫报",
       "title": "江陵东仓盘点与医棚药籍",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_four_woes"],
+      "refs": [
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -639,8 +957,14 @@
           "walkKicker": "巡营所见 · 酉时 · 医棚后墙与东仓",
           "text": "黄昏刮起刺骨湿风。你独自绕过医棚后墙，苦艾烟混着熏醋酸气呛得人眼眶发红。墙根下整整齐齐码着**七卷刚捆好的新草席**，两名杂役正悄悄把高热说胡话的冀州步卒往北门破庙抬。再往东走三十步，仓曹小吏听见脚步声，飞快把新麻布盖在最里排**发霉生芽的陈谷**上。",
           "clues": [
-            { "id": "clue_7_mats", "label": "医棚墙后预备七卷草席，高热兵卒绝非三人" },
-            { "id": "clue_mold_grain", "label": "东仓里排陈谷已受潮发霉生芽" }
+            {
+              "id": "clue_7_mats",
+              "label": "医棚墙后预备七卷草席，高热兵卒绝非三人"
+            },
+            {
+              "id": "clue_mold_grain",
+              "label": "东仓里排陈谷已受潮发霉生芽"
+            }
           ]
         },
         {
@@ -671,14 +995,26 @@
             "surface": "「全营入冬以来仅偶感风寒三人，绝无{{gloss:shuitu|水土}}疾疫，无碍大军开拔。」",
             "proof": "医棚墙根码着七卷刚捆好的敛尸草席，杂役正连夜往破庙抬高热胡言的冀州兵——真只有三人，要七卷席子盖什么？",
             "requiredClueId": "clue_7_mats",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c2_grain",
             "surface": "「江陵东仓所存陈谷粒粒干燥饱满，尽可装船直抵巴丘。」",
             "proof": "东仓最里排的陈谷早已受潮生芽，拿霉米煮成稀粥喂给本就水土不服的北兵，只怕未战先瘫一大半。",
             "requiredClueId": "clue_mold_grain",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -692,10 +1028,28 @@
           "stampText": "压报东进",
           "replyText": "冬寒行军哪有不病几人的？重病者密留江陵别院，药曹加熬艾汤随军；军粮从前排净仓支发——即刻拔营东进巴丘！谁敢再言营中有疫，以扰乱军心论处！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "approve" },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "紧急拔营预支沿江漕运净粮" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "抢在江东联军站稳前兵临巴丘" }
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "approve"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "紧急拔营预支沿江漕运净粮"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "抢在江东联军站稳前兵临巴丘"
+            }
           ],
           "next": "N02_branch_suppress"
         },
@@ -708,12 +1062,39 @@
           "interestNote": "代价：兵粮同时缩水，且全军顿兵清营让江东再得一日（死线 +1）",
           "replyText": "掩住耳朵就能不死人吗？把发芽的陈谷拖出去烧掉，不许一粒上船！所有高热兵卒即刻移上北岸单独生灶隔离——名册缩水就缩水，孤不带瘟神上战场！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "reject" },
-            { "kind": "var_set", "var": "plague_honesty", "value": true },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "销毁霉谷并另拨净粮供隔离药灶" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "高热病卒移岸除名减员" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "就地清点疫营延缓东进日程" }
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "reject"
+            },
+            {
+              "kind": "var_set",
+              "var": "plague_honesty",
+              "value": true
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "销毁霉谷并另拨净粮供隔离药灶"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "高热病卒移岸除名减员"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": 1,
+              "reason": "就地清点疫营延缓东进日程"
+            }
           ],
           "next": "N02_branch_quarantine"
         },
@@ -726,11 +1107,33 @@
           "interestNote": "⚠ 代价：强换民粮逼反荆襄士族，带病疑兵将在大战夜前溃散",
           "replyText": "东仓的陈谷全数下派给荆襄几家大族坞堡抵冬赋，限三日内换等重干新米入船！至于咳嗽还没倒下的轻症卒——照旧披甲登前锋船擂鼓做疑兵！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "dirty" },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": 1, "reason": "强迫荆襄大族以新米置换江陵霉谷" },
-            { "kind": "dirty_trick", "id": "dt_mold_grain", "label": "霉谷强换豪族新米＋病卒充疑兵", "interest": "荆襄大族断供冬炭，前锋疑兵因疫加重连夜溃散" },
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "dirty"
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "强迫荆襄大族以新米置换江陵霉谷"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_mold_grain",
+              "label": "霉谷强换豪族新米＋病卒充疑兵",
+              "interest": "荆襄大族断供冬炭，前锋疑兵因疫加重连夜溃散"
+            },
             {
               "kind": "debt",
               "debt": {
@@ -739,9 +1142,24 @@
                 "label": "霉粮与病兵疑阵反噬",
                 "text": "隆冬江北夜寒彻骨，怀恨的荆襄大族暗中截停薪炭补给，前锋带病疑兵船队高热哗溃。",
                 "effects": [
-                  { "kind": "resource", "resource": "grain", "delta": -1, "reason": "荆襄大族报复性断供前线冬炭粮秣" },
-                  { "kind": "resource", "resource": "troops", "delta": -1, "reason": "强编入伍的轻症疑兵营疫亡溃散" },
-                  { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "前锋乱局令周瑜水师得以从容逼近" }
+                  {
+                    "kind": "resource",
+                    "resource": "grain",
+                    "delta": -1,
+                    "reason": "荆襄大族报复性断供前线冬炭粮秣"
+                  },
+                  {
+                    "kind": "resource",
+                    "resource": "troops",
+                    "delta": -1,
+                    "reason": "强编入伍的轻症疑兵营疫亡溃散"
+                  },
+                  {
+                    "kind": "deadline",
+                    "deadline": "jiangdong_war",
+                    "delta": 1,
+                    "reason": "前锋乱局令周瑜水师得以从容逼近"
+                  }
                 ]
               }
             }
@@ -750,14 +1168,15 @@
         }
       ]
     },
-
     "N02_branch_suppress": {
       "id": "N02_branch_suppress",
       "act": "案贰支线 · 巴丘寒江",
       "title": "咳声里的顺流大军",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_four_woes"],
+      "refs": [
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -767,13 +1186,21 @@
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "c2_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "sourceTag": "史载",
           "text": "明公虽压住疫报进了巴丘，各营医官私呈的药单却厚了一倍——还没正式与周瑜交手，军中其实「已有疾病」。"
         },
         {
           "speaker": "kuai_clerk",
-          "when": { "var": "c2_mode", "op": "==", "value": "dirty" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "dirty"
+          },
           "sourceTag": "推演",
           "text": "（惶恐）方才细作回报，被派了陈霉粮的几家江陵大族连夜把私船往南岸挪，似与夏口刘备那边通了声气……"
         },
@@ -785,14 +1212,15 @@
       ],
       "next": "N03_hefei"
     },
-
     "N02_branch_quarantine": {
       "id": "N02_branch_quarantine",
       "act": "案贰支线 · 孤岸药烟",
       "title": "药灶保住了筋骨，帐里却冷了半截",
       "kind": "scene",
       "mood": "cold",
-      "refs": ["ref_four_woes"],
+      "refs": [
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -813,14 +1241,15 @@
       ],
       "next": "N03_hefei"
     },
-
     "N03_hefei": {
       "id": "N03_hefei",
       "act": "案叁 · 合肥八百里急报",
       "title": "建安十三年十二月 · 淮南警讯",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_hefei"],
+      "refs": [
+        "ref_hefei"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -854,9 +1283,23 @@
           "stampText": "张熹驰援",
           "replyText": "淮南乃中原东门，绝不可失！即令张熹领千余精锐星夜驰援合肥，沿途多竖旌旗、密遣间人传散「曹公四万大军已在道」之言——稳住东线，长江正面孤亲自去破！",
           "effects": [
-            { "kind": "var_set", "var": "c3_mode", "value": "aid" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "抽调张熹偏师星夜东援合肥" },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "划拨淮南驰援行军干粮与战马草料" }
+            {
+              "kind": "var_set",
+              "var": "c3_mode",
+              "value": "aid"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "抽调张熹偏师星夜东援合肥"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "划拨淮南驰援行军干粮与战马草料"
+            }
           ],
           "next": "N03_branch_aid"
         },
@@ -869,23 +1312,60 @@
           "interestNote": "代价：淮南孤悬血战，随时可能拖垮全军后路",
           "replyText": "孙仲谋攻合肥不过是声东击西！只要孤在长江砸碎周瑜水寨，合肥之围不攻自解！急拨一笔赏帛去淮南慰劳将士，前线一兵一卒不许抽调！",
           "effects": [
-            { "kind": "var_set", "var": "c3_mode", "value": "no_aid" },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "加急调拨巨额赏帛抚慰合肥守军死战" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "主力一兵未分，全速推进至赤壁前沿" }
+            {
+              "kind": "var_set",
+              "var": "c3_mode",
+              "value": "no_aid"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "加急调拨巨额赏帛抚慰合肥守军死战"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "主力一兵未分，全速推进至赤壁前沿"
+            }
           ],
           "next": "N03_branch_no_aid"
+        },
+        {
+          "id": "whatif_west_pivot",
+          "label": "【架空】听贾诩旧策：停兵江陵，先定关中与荆州",
+          "hint": "切入平行历史线 · 弃赤壁赌局",
+          "stampKind": "reject",
+          "stampText": "转进",
+          "replyText": "周瑜想拉我在大江上赌命，偏不如他的意！全军停泊江陵，今日改议西进与守荆之策！",
+          "effects": [
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "突然收兵转守，江东连夜备好的火攻阵一时扑空"
+            }
+          ],
+          "next": "N_WI_west_council"
         }
       ]
     },
-
     "N03_branch_aid": {
       "id": "N03_branch_aid",
       "act": "案叁支线 · 张熹退吴与初战不利",
       "title": "东门稳住，江心却折了一阵",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_hefei", "ref_four_woes"],
+      "refs": [
+        "ref_hefei",
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -900,27 +1380,36 @@
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "plague_honesty", "op": "==", "value": true },
+          "when": {
+            "var": "plague_honesty",
+            "op": "==",
+            "value": true
+          },
           "sourceTag": "推演",
           "text": "幸而明公在江陵先清了疫营，此番虽初战小挫退守乌林，主力军魂未散，还能从容再整水寨。"
         },
         {
           "speaker": "jiaxu",
-          "when": { "var": "plague_honesty", "op": "==", "value": false },
+          "when": {
+            "var": "plague_honesty",
+            "op": "==",
+            "value": false
+          },
           "sourceTag": "推演",
           "text": "（望向对岸南军旗号）初战败退引次江北，眼下隔江对峙，北营将校的眼神已经有点急了——今夜水营里定有大议。"
         }
       ],
       "next": "N04_case4"
     },
-
     "N03_branch_no_aid": {
       "id": "N03_branch_no_aid",
       "act": "案叁支线 · 淮南血书急告",
       "title": "外城已燃，退路悬丝",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_hefei"],
+      "refs": [
+        "ref_hefei"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -948,8 +1437,17 @@
           "stampText": "截粮救肥",
           "replyText": "从巴丘、乌林后队匀出两成水寨存粮，连夜经汉水转道运往淮南！告诉蒋济，只要再撑半月，孤必拿周瑜的首级替合肥解围！",
           "effects": [
-            { "kind": "var_set", "var": "hefei_crisis", "value": true },
-            { "kind": "resource", "resource": "grain", "delta": -2, "reason": "紧急截拨长江前线军粮救济合肥孤城" }
+            {
+              "kind": "var_set",
+              "var": "hefei_crisis",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -2,
+              "reason": "紧急截拨长江前线军粮救济合肥孤城"
+            }
           ],
           "next": "N04_case4"
         },
@@ -962,22 +1460,37 @@
           "interestNote": "代价：淮南军心震动波及全营，东线门户岌岌可危",
           "replyText": "远水救不了近火！令合肥拆屋备木死守内城，至于前线——谁再敢提分粮退兵，斩旗示众！",
           "effects": [
-            { "kind": "var_set", "var": "hefei_crisis", "value": true },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "淮南告急流言动摇军心致前锋散失" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "后方警讯逼使水寨布防顾此失彼" }
+            {
+              "kind": "var_set",
+              "var": "hefei_crisis",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "淮南告急流言动摇军心致前锋散失"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": 1,
+              "reason": "后方警讯逼使水寨布防顾此失彼"
+            }
           ],
           "next": "N04_case4"
         }
       ]
     },
-
     "N04_case4": {
       "id": "N04_case4",
       "act": "案肆 · 乌林铁索连舟",
       "title": "乌林水寨《水营连舟奏议》",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_chains"],
+      "refs": [
+        "ref_chains"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -985,8 +1498,14 @@
           "walkKicker": "巡营所见 · 子夜 · 乌林北岸水栈",
           "text": "冻雨砸在船篷上哗哗作响。你踩着湿滑跳板走过前排战船，**十几个幽冀老骑卒正趴在船舷边吐得胆汁都出来了**。再往主寨走，几十名铁匠支着火炉叮当锤铁——**船帮之间已经被碗口粗的大铁链锁得首尾相接**，紧贴着岸边堆成小山的芦苇干柴。",
           "clues": [
-            { "id": "clue_seasick_vomit", "label": "北军骑卒随浪呕吐难立，水战战力大折" },
-            { "id": "clue_iron_chains", "label": "铁链锁死首尾相接，且紧贴岸上柴草堆" }
+            {
+              "id": "clue_seasick_vomit",
+              "label": "北军骑卒随浪呕吐难立，水战战力大折"
+            },
+            {
+              "id": "clue_iron_chains",
+              "label": "铁链锁死首尾相接，且紧贴岸上柴草堆"
+            }
           ]
         },
         {
@@ -1017,14 +1536,26 @@
             "surface": "「北军将士经玄武池操练及江陵整编，早已耐受风浪，士气如虹。」",
             "proof": "你刚路过前排甲板：幽冀老骑兵抓着船帮吐得昏天黑地，连长矛都攥不稳——连舟根本是为了压住他们不散架。",
             "requiredClueId": "clue_seasick_vomit",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c4_chains",
             "surface": "「首尾铁锁相连之后，水寨稳若磐石，进可顺流压岸，退可互相救援。」",
             "proof": "铁链锁死了进退，旁边几丈就是岸上堆成山的干燥苇柴；万一江面起火，一条船烧起来，整片水营连解绳子砍链子的时间都没有！",
             "requiredClueId": "clue_iron_chains",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -1038,11 +1569,34 @@
           "stampText": "铁索连舟",
           "replyText": "北人不习舟楫，阵脚先乱则必败。拨钱帛征调工匠连夜打制铁环，把大船首尾连锁稳固！让北营弟兄今夜踩着平地睡个好觉，明日再重整鼓角！",
           "effects": [
-            { "kind": "var_set", "var": "c4_mode", "value": "approve" },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "支拨乌林水寨铁匠工料与连舟赏钱" },
-            { "kind": "resource", "resource": "troops", "delta": 1, "reason": "大船平稳止晕，北方士卒战力大复" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "乌林水寨壁垒森严，暂压南岸突袭念头" }
+            {
+              "kind": "var_set",
+              "var": "c4_mode",
+              "value": "approve"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "支拨乌林水寨铁匠工料与连舟赏钱"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "大船平稳止晕，北方士卒战力大复"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "乌林水寨壁垒森严，暂压南岸突袭念头"
+            }
           ],
           "next": "N04_branch_chains"
         },
@@ -1055,11 +1609,33 @@
           "interestNote": "代价：北将摔盔怒骂、军士晕浪减员（兵力 -1），夜泊混乱（死线 +1）",
           "replyText": "把千条木船焊在一块儿，好教周瑜省一半火药吗？已锁的铁链全部敲断！大小战舰一律散泊，各自留出十丈防火水道，谁敢偷锁一环，立斩！",
           "effects": [
-            { "kind": "var_set", "var": "c4_mode", "value": "reject" },
-            { "kind": "var_set", "var": "loose_ships", "value": true },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "严禁连舟致北军呕吐疲惫加剧减员" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "分屯散泊调动迟滞，江东水师逼近窥探" }
+            {
+              "kind": "var_set",
+              "var": "c4_mode",
+              "value": "reject"
+            },
+            {
+              "kind": "var_set",
+              "var": "loose_ships",
+              "value": true
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "严禁连舟致北军呕吐疲惫加剧减员"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": 1,
+              "reason": "分屯散泊调动迟滞，江东水师逼近窥探"
+            }
           ],
           "next": "N04_branch_scatter"
         },
@@ -1072,11 +1648,33 @@
           "interestNote": "⚠ 代价：将荆州水营推作水上挡箭牌，降卒连夜暗通江东泄密",
           "replyText": "铁锁要打，却不用在北船上！把前排四十条荆州降船首尾锁成水上木栅挡住南岸，北军精锐全部松开铁索退泊后方深水——进能压阵，退不连坐！",
           "effects": [
-            { "kind": "var_set", "var": "c4_mode", "value": "dirty" },
-            { "kind": "var_set", "var": "loose_ships", "value": true },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "拨付铁料封锁前排荆州降船防逃" },
-            { "kind": "dirty_trick", "id": "dt_shield_ships", "label": "锁死荆州降船充当水上盾牌", "interest": "降卒暗通夏口泄露水寨深浅，被迫彻夜重调哨位" },
+            {
+              "kind": "var_set",
+              "var": "c4_mode",
+              "value": "dirty"
+            },
+            {
+              "kind": "var_set",
+              "var": "loose_ships",
+              "value": true
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "拨付铁料封锁前排荆州降船防逃"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_shield_ships",
+              "label": "锁死荆州降船充当水上盾牌",
+              "interest": "降卒暗通夏口泄露水寨深浅，被迫彻夜重调哨位"
+            },
             {
               "kind": "debt",
               "debt": {
@@ -1085,8 +1683,18 @@
                 "label": "前排降营密泄水情",
                 "text": "被锁在前排当肉盾的荆州水卒趁夜划小舟投奔夏口，把乌林水寨深浅虚实全盘报给了周瑜。",
                 "effects": [
-                  { "kind": "resource", "resource": "coin", "delta": -1, "reason": "水寨泄密后连夜重赏换防加固哨卡" },
-                  { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "情报外泄加速江东连夜放船" }
+                  {
+                    "kind": "resource",
+                    "resource": "coin",
+                    "delta": -1,
+                    "reason": "水寨泄密后连夜重赏换防加固哨卡"
+                  },
+                  {
+                    "kind": "deadline",
+                    "deadline": "jiangdong_war",
+                    "delta": 1,
+                    "reason": "情报外泄加速江东连夜放船"
+                  }
                 ]
               }
             }
@@ -1095,14 +1703,15 @@
         }
       ]
     },
-
     "N04_branch_chains": {
       "id": "N04_branch_chains",
       "act": "案肆支线 · 横江水寨与北风之问",
       "title": "「方今隆冬，安得东南风耶？」",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_chains"],
+      "refs": [
+        "ref_chains"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1128,14 +1737,15 @@
       ],
       "next": "N05_case5"
     },
-
     "N04_branch_scatter": {
       "id": "N04_branch_scatter",
       "act": "案肆支线 · 寒浪散泊",
       "title": "满营抱怨里的清冷水寨",
       "kind": "scene",
       "mood": "cold",
-      "refs": ["ref_chains"],
+      "refs": [
+        "ref_chains"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1145,13 +1755,21 @@
         },
         {
           "speaker": "wenping",
-          "when": { "var": "c4_mode", "op": "==", "value": "dirty" },
+          "when": {
+            "var": "c4_mode",
+            "op": "==",
+            "value": "dirty"
+          },
           "sourceTag": "推演",
           "text": "（立于船头，语气硬得像冻铁）明公既以荆州四十条船连作外栅，聘自当领部死守最前——只是夜黑水急，将士心里凉了，船缆便未必拴得住人心。"
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "c4_mode", "op": "==", "value": "reject" },
+          "when": {
+            "var": "c4_mode",
+            "op": "==",
+            "value": "reject"
+          },
           "sourceTag": "推演",
           "text": "挨骂总好过烧成焦炭。战船既留出十丈水巷，纵使黄盖真要借风放火，最多烧掉前锋一两艘哨船，绝不至于牵连岸营。"
         },
@@ -1163,14 +1781,15 @@
       ],
       "next": "N05_case5"
     },
-
     "N05_case5": {
       "id": "N05_case5",
       "act": "案伍 · 东南风与黄盖夜信",
       "title": "《黄盖携粮来降呈文》",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_huanggai"],
+      "refs": [
+        "ref_huanggai"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1178,8 +1797,14 @@
           "walkKicker": "巡营所见 · 建安十三年冬夜 · 乌林望江哨台",
           "text": "三更刚过，你独自登上望江高台。刮了半个月的刺骨西北风不知何时停了，扑到脸上的，竟是一阵反常的暖湿**东南急风**！雾气深处，十余艘{{gloss:mengchong}}正扯满帆顺风疾驰而来——**船身吃水浅得像空壳**，后面还各系一艘轻快{{gloss:zouge}}，顺风飘来一股辛辣的松脂与鱼油腥气。",
           "clues": [
-            { "id": "clue_se_wind", "label": "夜半突转急东南风，直扑北岸乌林水寨" },
-            { "id": "clue_shallow_oil", "label": "来船吃水极浅且飘鱼油松脂腥气，尾系走舸" }
+            {
+              "id": "clue_se_wind",
+              "label": "夜半突转急东南风，直扑北岸乌林水寨"
+            },
+            {
+              "id": "clue_shallow_oil",
+              "label": "来船吃水极浅且飘鱼油松脂腥气，尾系走舸"
+            }
           ]
         },
         {
@@ -1210,14 +1835,26 @@
             "surface": "「黄盖亲率十艘蒙冲斗舰，满载江南新粳米投诚，愿解北军冬寒之急。」",
             "proof": "满载千石粳米的船吃水必深，怎会轻飘飘浮在水皮上？船尾还拖着逃命用的走舸，满船飘着松脂与鱼油臭味——分明是十条灌满油柴的火船！",
             "requiredClueId": "clue_shallow_oil",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c5_wind",
             "surface": "「今夜江面{{subtext:tianyou_shunfeng}}，请撤除沿江强弩夜哨、列队出营迎降。」",
             "proof": "西北风早就变成直吹乌林水寨的东南急风了！这时候撤掉强弩、让兵卒挤出营门看热闹，等于替黄盖把火道和靶子全部清干净！",
             "requiredClueId": "clue_se_wind",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -1231,9 +1868,22 @@
           "stampText": "高台受降",
           "replyText": "黄公覆若真归命，当授爵赏超于前后！传孤将令：把前哨水栅让开一线，众将士随孤立于岸前观降——今夜受了这十船归命，明日便可写表班师！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "approve" },
-            { "kind": "var_add", "var": "haste", "delta": 1 },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "幻想不战而降松懈水寨全部戒备" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "approve"
+            },
+            {
+              "kind": "var_add",
+              "var": "haste",
+              "delta": 1
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "幻想不战而降松懈水寨全部戒备"
+            }
           ],
           "next": "N06_climax"
         },
@@ -1246,12 +1896,39 @@
           "interestNote": "代价：耗尽夜巡赏帛与持久备粮，背负多疑错失奇功骂名",
           "replyText": "哪有降将带走舸、载鱼油、趁顺风直扑中军的道理？传令：全营严守水栅不得出营半步！二里之外敢越界半尺，万弩火箭一齐射沉！备好持久军粮，熬死周瑜！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "reject" },
-            { "kind": "var_set", "var": "suspect_defection", "value": true },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "急支强弩夜防重赏与火箭火油封江" },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "全营增灶固守备齐江北持久军粮" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": 1, "reason": "隔江僵持转入黄盖最担心的持久拉锯" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "reject"
+            },
+            {
+              "kind": "var_set",
+              "var": "suspect_defection",
+              "value": true
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "急支强弩夜防重赏与火箭火油封江"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "全营增灶固守备齐江北持久军粮"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": 1,
+              "reason": "隔江僵持转入黄盖最担心的持久拉锯"
+            }
           ],
           "next": "N06_climax"
         },
@@ -1264,25 +1941,54 @@
           "interestNote": "⚠ 极高政治代价：以荆州降卒替北军吃火，从此背负卖降求存之千古恶名",
           "replyText": "他黄盖想放火，孤偏给他腾出一块地烧个够。传令北军步骑连夜悄无声息退上北岸高坡；前排那几营首鼠两端的荆州降船，就留在原位『迎接黄老将军』吧。",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "dirty" },
-            { "kind": "var_set", "var": "suspect_defection", "value": true },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "故意放弃前排荆州降营承受第一波火船冲击" },
-            { "kind": "deadline", "deadline": "jiangdong_war", "delta": -1, "reason": "北军避开锋芒反令周瑜轻锐扑空受挫" },
-            { "kind": "dirty_trick", "id": "dt_borrow_fire", "label": "借黄盖火船烧清荆州降营", "interest": "北军主力得以保全，但彻底失信于荆襄与天下士族" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "dirty"
+            },
+            {
+              "kind": "var_set",
+              "var": "suspect_defection",
+              "value": true
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "故意放弃前排荆州降营承受第一波火船冲击"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "jiangdong_war",
+              "delta": -1,
+              "reason": "北军避开锋芒反令周瑜轻锐扑空受挫"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_borrow_fire",
+              "label": "借黄盖火船烧清荆州降营",
+              "interest": "北军主力得以保全，但彻底失信于荆襄与天下士族"
+            }
           ],
           "next": "N06_climax"
         }
       ]
     },
-
     "N06_climax": {
       "id": "N06_climax",
       "act": "陆 · 建安十三年终局战报",
       "title": "乌林夜焰与账本总算",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_huanggai", "ref_four_woes"],
+      "refs": [
+        "ref_huanggai",
+        "ref_four_woes"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1292,37 +1998,79 @@
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c1_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "sourceTag": "结语",
           "text": "【案壹回执】你在江陵抢发《会猎书》与十五侯印，稳住了表面升平，却也将三十余条难堪水战的平底粮船带进了乌林水阵。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c2_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "sourceTag": "结语",
           "text": "【案贰回执】你把七卷草席锁进了袖底；到了巴丘与乌林寒夜，北方水土不服的疾疫终于在全营隐隐蔓延开来。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "hefei_crisis", "op": "==", "value": true },
+          "when": {
+            "var": "hefei_crisis",
+            "op": "==",
+            "value": true
+          },
           "sourceTag": "结语",
           "text": "【案叁回执】你赌全押长江而未遣张熹救合肥——此时淮南火光已映红东天，孙权前锋正在强攻合肥城门，中原东道岌岌可危。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c5_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "sourceTag": "史载",
           "text": "【火起乌林】去北军二里余，黄盖十舰同时发火！火烈风猛，船往如箭——烧尽北船，延及岸上营落。顷之烟炎张天，人马烧溺死者甚众，大军被迫经华容泥泞步归，兼以大疫，留曹仁、徐晃守江陵，乐进守襄阳，径自北还。"
         },
         {
           "speaker": "narrator",
-          "when": { "all": [{ "var": "c5_mode", "op": "==", "value": "reject" }, { "var": "hefei_crisis", "op": "==", "value": false }] },
+          "when": {
+            "all": [
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "reject"
+              },
+              {
+                "var": "hefei_crisis",
+                "op": "==",
+                "value": false
+              }
+            ]
+          },
           "sourceTag": "推演",
           "text": "【火未成势】强弩火箭在二里江心提前引爆了鱼油火船，风虽猛却烧不进北岸大营！周瑜轻锐扑空，双方隔江陷入苦熬持久——你挨了满营骂，却把北军主力整建制带回了江陵。"
         },
         {
           "speaker": "narrator",
-          "when": { "all": [{ "var": "c5_mode", "op": "==", "value": "dirty" }, { "var": "hefei_crisis", "op": "==", "value": false }] },
+          "when": {
+            "all": [
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "dirty"
+              },
+              {
+                "var": "hefei_crisis",
+                "op": "==",
+                "value": false
+              }
+            ]
+          },
           "sourceTag": "推演",
           "text": "【借火洗营】十艘火船撞进前排荆州降营，火光冲天而北军高坡稳坐如山。江东以为得手雷鼓追击，反撞进北军预先列好的重弩伏阵——你赢了战局，却把千古骂名写进了每一家士族的账本。"
         },
@@ -1336,33 +2084,58 @@
         {
           "when": {
             "all": [
-              { "var": "c5_mode", "op": "==", "value": "approve" },
-              { "var": "hefei_crisis", "op": "==", "value": true }
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "approve"
+              },
+              {
+                "var": "hefei_crisis",
+                "op": "==",
+                "value": true
+              }
             ]
           },
           "next": "E_two_front"
         },
         {
-          "when": { "var": "c5_mode", "op": "==", "value": "approve" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "approve"
+          },
           "next": "E_canon_ash"
         },
         {
-          "when": { "var": "hefei_crisis", "op": "==", "value": true },
+          "when": {
+            "var": "hefei_crisis",
+            "op": "==",
+            "value": true
+          },
           "next": "E_two_front"
         },
         {
           "when": {
             "any": [
-              { "var": "c5_mode", "op": "==", "value": "dirty" },
-              { "var": "dirty_count", "op": ">=", "value": 2 }
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "dirty"
+              },
+              {
+                "var": "dirty_count",
+                "op": ">=",
+                "value": 2
+              }
             ]
           },
           "next": "E_dirty_win"
         },
-        { "next": "E_iron_wall" }
+        {
+          "next": "E_iron_wall"
+        }
       ]
     },
-
     "E_canon_ash": {
       "id": "E_canon_ash",
       "kind": "ending",
@@ -1379,7 +2152,6 @@
         "buildQuote": "「每一步看起来都在攒节奏、省钱帛、稳军心——直到东南风把十条空壳船吹到台阶下。」"
       }
     },
-
     "E_iron_wall": {
       "id": "E_iron_wall",
       "kind": "ending",
@@ -1396,7 +2168,6 @@
         "buildQuote": "「当所有将领跪在门外催你写捷报的时候，敢喊『二里外放箭』才是最难的那张牌。」"
       }
     },
-
     "E_dirty_win": {
       "id": "E_dirty_win",
       "kind": "ending",
@@ -1413,7 +2184,6 @@
         "buildQuote": "「骂名史官去写，精锐我带回家——只是这笔人情债，下个十年全中原都会记着。」"
       }
     },
-
     "E_two_front": {
       "id": "E_two_front",
       "kind": "ending",
@@ -1430,7 +2200,6 @@
         "buildQuote": "「原来孙仲谋攻合肥不是虚晃一枪——他是真敢把你的老家门板撬下来。」"
       }
     },
-
     "E_collapse_coin": {
       "id": "E_collapse_coin",
       "kind": "ending",
@@ -1445,7 +2214,6 @@
         "verdict": "钱帛耗尽触发红线崩盘，随军府库停摆，降营从内部哗变瓦解。"
       }
     },
-
     "E_collapse_grain": {
       "id": "E_collapse_grain",
       "kind": "ending",
@@ -1460,7 +2228,6 @@
         "verdict": "粮草耗尽触发红线崩盘，三军未与南岸决战已因断炊自溃。"
       }
     },
-
     "E_collapse_troops": {
       "id": "E_collapse_troops",
       "kind": "ending",
@@ -1475,7 +2242,6 @@
         "verdict": "兵力耗尽触发红线崩盘，前线空虚被迫弃舟溃走。"
       }
     },
-
     "E_collapse_multi": {
       "id": "E_collapse_multi",
       "kind": "ending",
@@ -1490,7 +2256,6 @@
         "verdict": "多项关键资源同时耗竭，尚未接战大军已全面瓦解。"
       }
     },
-
     "E_deadline_overflow": {
       "id": "E_deadline_overflow",
       "kind": "ending",
@@ -1506,47 +2271,195 @@
         "buildName": "清官拖死流 · 账本干干净净但输给了日历",
         "buildQuote": "「每笔账我都查得铁板一块，就是忘了对岸的周瑜也在看日历。」"
       }
+    },
+    "N_WI_west_council": {
+      "id": "N_WI_west_council",
+      "act": "架空支线 · 荆州停兵密议",
+      "title": "不渡大江的曹操",
+      "kind": "scene",
+      "mood": "cold",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十三年冬 · 江陵帅府",
+          "text": "帅令一下，原本喧嚣拔锚的江陵码头骤然静了下来。北军士卒把已搬上船的粮袋重新扛回大仓，江面寒风卷着半截未烧完的战鼓旗，东吴探马在南岸等了一整夜，也没等来那支号称八十万的顺流大军。"
+        },
+        {
+          "speaker": "jiaxu",
+          "sourceTag": "史载",
+          "text": "丞相今日肯停这一步，胜过十万雄兵。当年破袁氏、收荆州，威名已震天下；若乘旧业抚安百姓，使江东自服，不劳一战而坐收全功——此乃上策。"
+        },
+        {
+          "speaker": "chengyu",
+          "sourceTag": "推演",
+          "text": "文和说得轻巧！刘备如今盘踞夏口，孙权虎视江汉，我军若缩在江陵不打，明年开春关中马腾、韩遂再动，届时东西受敌，岂非坐失统一良机？"
+        },
+        {
+          "speaker": "cao",
+          "sourceTag": "拟写",
+          "text": "不打赤壁，不代表坐着等死。荆州水军与关中诸将，今日只能先吃掉一个——孤要选一个稳赚不赔的买卖。"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_pivot_guanzhong",
+          "label": "留文聘重兵扼守襄樊江陵，亲率主力西平关中",
+          "hint": "钱帛 -1 · 粮草 +1 · 坐观吴蜀争荆州",
+          "stampKind": "approve",
+          "stampText": "西定",
+          "replyText": "江陵水寨交与文聘、曹仁死守，孤带北军精锐回马西向！关中平定之日，孙刘早为荆州打得头破血流。",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "调拨西进军资与关中抚赏"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "北军撤离湿热江岸，就近取用中原与关中漕粮"
+            }
+          ],
+          "next": "E_WI_guanzhong"
+        },
+        {
+          "id": "wi_hold_jingzhou",
+          "label": "就地留镇江陵三年，严治水师、屯田耗死江东",
+          "hint": "兵力 +1 · 钱帛 -1 · 以慢打快",
+          "stampKind": "reject",
+          "stampText": "屯田",
+          "replyText": "北军怕水，那就在江陵练足三年水师！开荆州屯田、治江汉疫病，孤看孙权和刘备谁先养不起十万大军！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": 1,
+              "reason": "免去赤壁火劫，北军与荆州水师得以从容整编"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "兴办荆州屯田与船坞大修"
+            }
+          ],
+          "next": "E_WI_jingzhou_hold"
+        }
+      ]
+    },
+    "E_WI_guanzhong": {
+      "id": "E_WI_guanzhong",
+      "act": "架空结局 · 西平关中",
+      "title": "未燃的赤壁与早平的关中",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十五年 · 长安城头",
+          "text": "赤壁那场大火终究没有烧起来。周瑜备下的蒙冲斗舰在冬风里白白朽烂，而没有曹军压境的孙权与刘备，不出一年便为南郡地盘翻了脸。与此同时，休整完备的曹军精锐横扫潼关，提前三年平定关凉。"
+        }
+      ],
+      "ending": {
+        "badge": "架空支线 · WHAT-IF",
+        "title": "西平关中，坐看吴蜀内耗",
+        "subtitle": "建安十三年未战赤壁 · 战略大转向",
+        "tone": "ok",
+        "verdict": "你跳出了「顺风必速胜」的思维陷阱，采纳了贾诩的稳健之策。虽然短期让出了江南锋芒，却保全了数万北军精锐与荆州水师底子，提前解决关中后患，把压力全甩给了貌合神离的孙刘联盟。",
+        "buildName": "战略转身大师",
+        "buildQuote": "周瑜借来了东南风，可江面上连我一条船的影子都没有。"
+      }
+    },
+    "E_WI_jingzhou_hold": {
+      "id": "E_WI_jingzhou_hold",
+      "act": "架空结局 · 十年水师",
+      "title": "江陵稳如磐石",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安十六年 · 汉水大坞",
+          "text": "你在江陵硬生生按住性子屯田练水三年。疫病被隔离在孤洲消退，北军不再晕船，荆州降将也在安稳俸禄中彻底归心。当三百艘真正熟谙水性的楼船缓缓驶出江陵时，柴桑城头第一次感到了窒息。"
+        }
+      ],
+      "ending": {
+        "badge": "架空支线 · WHAT-IF",
+        "title": "留镇江陵，以慢打快",
+        "subtitle": "不赌天时 · 硬练出北方第一水师",
+        "tone": "ok",
+        "verdict": "历史上曹操急于毕其功于一役，结果把最强陆军送进了最陌生的水上火场。而你选择了最反直觉也最耗耐心的路——在江陵把烂账一本本理平，把短板补成铁板。",
+        "buildName": "荆州慢火熬汤派",
+        "buildQuote": "急着过江的人烧成灰，肯在码头练三年船的人拿下了江南。"
+      }
     }
   },
   "historyDossier": [
     {
       "title": "一、江陵封赏十五侯与《会猎书》",
-      "when": { "var": "c1_mode", "op": "==", "value": "approve" },
+      "when": {
+        "var": "c1_mode",
+        "op": "==",
+        "value": "approve"
+      },
       "canonNote": "《武帝纪》载曹操入江陵「与之更始，论服从之功，侯者十五人」，并以《会猎书》号水军八十万震慑柴桑。",
       "playerHit": "你如正史般以爵赏速稳荆州并顺江施压，换来了最快的前期势头与喝彩。",
       "playerMiss": "你没有闭眼照单盖印，而是用核船查账或权谋手段改写了江陵起手式。"
     },
     {
       "title": "二、冬防疾疫与东仓军粮",
-      "when": { "var": "c2_mode", "op": "==", "value": "approve" },
+      "when": {
+        "var": "c2_mode",
+        "op": "==",
+        "value": "approve"
+      },
       "canonNote": "《周瑜传》载遇赤壁时曹军「已有疾病」；《武帝纪》载「战不利；于是大疫，吏士多死者」。",
       "playerHit": "你把七卷草席按进袖底抢兵巴丘，重演了正史带疫出征、入冬总爆的困局。",
       "playerMiss": "你在医棚与东仓前强行刹车隔离（或甩锅转嫁），避开了纯正史的带病哑亏。"
     },
     {
       "title": "三、建安十三年十二月合肥牵制",
-      "when": { "var": "c3_mode", "op": "==", "value": "aid" },
+      "when": {
+        "var": "c3_mode",
+        "op": "==",
+        "value": "aid"
+      },
       "canonNote": "《武帝纪》叙十二月「孙权为备攻合肥。公自江陵征备，至巴丘。遣张憙救合肥，权闻憙至，乃走」（裴注孙盛另有系年考异）。",
       "playerHit": "你遣张熹偏师东援淮南，如同正史般稳住了东线门户。",
       "playerMiss": "你赌一兵不抽全压长江，把合肥推入了险象环生的断后危机。"
     },
     {
       "title": "四、乌林水寨船舰首尾相接",
-      "when": { "var": "c4_mode", "op": "==", "value": "approve" },
+      "when": {
+        "var": "c4_mode",
+        "op": "==",
+        "value": "approve"
+      },
       "canonNote": "《周瑜传》载黄盖「观操军船舰首尾相接，可烧而走也」；《通鉴》作「方连船舰，首尾相接」。",
       "playerHit": "你为稳住北军阵脚批准铁索连舟，给黄盖创造了连片延烧的绝佳条件。",
       "playerMiss": "你拆断铁链或仅锁前排降船，顶着满营怨言拆除了联军火攻的最大前提。"
     },
     {
       "title": "五、东南风夜与黄盖诈降",
-      "when": { "var": "c5_mode", "op": "==", "value": "approve" },
+      "when": {
+        "var": "c5_mode",
+        "op": "==",
+        "value": "approve"
+      },
       "canonNote": "《周瑜传》与《江表传》载操虽密问行人「但恐汝诈耳」，却仍许重赏、众军皆「延颈观望 / 出营立观」，卒遭焚败。",
       "playerHit": "你没能抵挡「不战而降」的终极诱饵，高台立观把火船放进了门。",
       "playerMiss": "你从浅吃水与鱼油气味里识破了诈降，强行改写了赤壁之夜的命运。"
     },
     {
       "title": "六、终局对照：正史火海与《烧船自退》",
-      "when": { "visited": "E_canon_ash" },
+      "when": {
+        "visited": "E_canon_ash"
+      },
       "canonNote": "《武帝纪》载大疫还军，备遂有荆州江南诸郡；《江表传》载曹操自辩「值有疾病，孤烧船自退，横使周瑜虚获此名」。",
       "playerHit": "你的整盘操作几乎复刻了曹公当年的逻辑链：每步都算计精明，合起来却直奔烈火乌林。",
       "playerMiss": "你凭借硬扛死线、偏师权衡或铁腕手段，走出了不同于《三国志》正文的旁支结局。"

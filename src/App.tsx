@@ -376,7 +376,7 @@ export default function App() {
               >
                 <div className="cc-mode-head">
                   <strong>史实主线 · 演义分支</strong>
-                  <span className="cc-mode-badge">两章 · 18 结局</span>
+                  <span className="cc-mode-badge">两章 · 22 结局</span>
                 </div>
                 <div className="cc-mode-desc">
                   巡营取证、柜台戳假账、朱砂盖印，在赤壁前夜与官渡断粮的史实骨架里走出你的结局。

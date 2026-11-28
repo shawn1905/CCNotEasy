@@ -16,38 +16,163 @@
     "bgmOrigFile": "bgm-orig.mp3",
     "bgmLabel": "官渡 · 寒霜孤垒 8x",
     "moodRates": {
-      "calm": 1.0,
+      "calm": 1,
       "tense": 0.94,
       "fire": 0.88
     }
   },
   "cast": {
-    "narrator": { "id": "narrator", "name": "巡营所见", "side": "center", "tone": "neutral" },
-    "cao": { "id": "cao", "name": "曹操", "role": "司空", "side": "right", "tone": "neutral" },
-    "xunyu": { "id": "xunyu", "name": "荀彧", "role": "尚书令 · 留守许都", "side": "left", "tone": "info" },
-    "xunyou": { "id": "xunyou", "name": "荀攸", "role": "军师", "side": "left", "tone": "info" },
-    "jiaxu": { "id": "jiaxu", "name": "贾诩", "role": "执金吾 · 参谋军事", "side": "left", "tone": "info" },
-    "xuyou": { "id": "xuyou", "name": "许攸", "role": "袁营夜奔谋士", "side": "left", "tone": "warn" },
-    "caohong": { "id": "caohong", "name": "曹洪", "role": "护军都尉", "side": "left", "tone": "warn" },
-    "yuejin": { "id": "yuejin", "name": "乐进", "role": "讨寇校尉", "side": "left", "tone": "fire" },
-    "grain_clerk": { "id": "grain_clerk", "name": "军粮吏", "role": "管仓主簿", "side": "left", "tone": "warn" },
-    "courier": { "id": "courier", "name": "驿使", "role": "八百里急递", "side": "left", "tone": "fire" },
-    "camp_clerk": { "id": "camp_clerk", "name": "后营文吏", "role": "军正司录事", "side": "left", "tone": "neutral" }
+    "narrator": {
+      "id": "narrator",
+      "name": "巡营所见",
+      "side": "center",
+      "tone": "neutral"
+    },
+    "cao": {
+      "id": "cao",
+      "name": "曹操",
+      "role": "司空",
+      "side": "right",
+      "tone": "neutral"
+    },
+    "xunyu": {
+      "id": "xunyu",
+      "name": "荀彧",
+      "role": "尚书令 · 留守许都",
+      "side": "left",
+      "tone": "info"
+    },
+    "xunyou": {
+      "id": "xunyou",
+      "name": "荀攸",
+      "role": "军师",
+      "side": "left",
+      "tone": "info"
+    },
+    "jiaxu": {
+      "id": "jiaxu",
+      "name": "贾诩",
+      "role": "执金吾 · 参谋军事",
+      "side": "left",
+      "tone": "info"
+    },
+    "xuyou": {
+      "id": "xuyou",
+      "name": "许攸",
+      "role": "袁营夜奔谋士",
+      "side": "left",
+      "tone": "warn"
+    },
+    "caohong": {
+      "id": "caohong",
+      "name": "曹洪",
+      "role": "护军都尉",
+      "side": "left",
+      "tone": "warn"
+    },
+    "yuejin": {
+      "id": "yuejin",
+      "name": "乐进",
+      "role": "讨寇校尉",
+      "side": "left",
+      "tone": "fire"
+    },
+    "grain_clerk": {
+      "id": "grain_clerk",
+      "name": "军粮吏",
+      "role": "管仓主簿",
+      "side": "left",
+      "tone": "warn"
+    },
+    "courier": {
+      "id": "courier",
+      "name": "驿使",
+      "role": "八百里急递",
+      "side": "left",
+      "tone": "fire"
+    },
+    "camp_clerk": {
+      "id": "camp_clerk",
+      "name": "后营文吏",
+      "role": "军正司录事",
+      "side": "left",
+      "tone": "neutral"
+    }
   },
   "varsSchema": {
-    "opening_focus": { "type": "string", "initial": "none", "description": "开场定调" },
-    "c1_mode": { "type": "string", "initial": "none", "description": "案壹书信案处置" },
-    "c1_purge": { "type": "string", "initial": "none", "description": "案壹清查分支选择" },
-    "c2_mode": { "type": "string", "initial": "none", "description": "案贰分粮案处置" },
-    "c3_mode": { "type": "string", "initial": "none", "description": "案叁土山地道处置" },
-    "c4_mode": { "type": "string", "initial": "none", "description": "案肆许攸夜奔处置" },
-    "c5_mode": { "type": "string", "initial": "none", "description": "案伍乌巢军议处置" },
-    "canon_score": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "合史决断次数" },
-    "audit_score": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "谨慎稳守次数" },
-    "dirty_count": { "type": "number", "initial": 0, "min": 0, "max": 10, "description": "险计权谋次数" },
-    "clues_found": { "type": "number", "initial": 0, "min": 0, "max": 20, "description": "查实证物次数" },
-    "raid_delayed": { "type": "boolean", "initial": false, "description": "是否因疑审误了乌巢初夜先机" },
-    "raid_abandoned": { "type": "boolean", "initial": false, "description": "是否彻底放弃夜袭乌巢" }
+    "opening_focus": {
+      "type": "string",
+      "initial": "none",
+      "description": "开场定调"
+    },
+    "c1_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案壹书信案处置"
+    },
+    "c1_purge": {
+      "type": "string",
+      "initial": "none",
+      "description": "案壹清查分支选择"
+    },
+    "c2_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案贰分粮案处置"
+    },
+    "c3_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案叁土山地道处置"
+    },
+    "c4_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案肆许攸夜奔处置"
+    },
+    "c5_mode": {
+      "type": "string",
+      "initial": "none",
+      "description": "案伍乌巢军议处置"
+    },
+    "canon_score": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "合史决断次数"
+    },
+    "audit_score": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "谨慎稳守次数"
+    },
+    "dirty_count": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 10,
+      "description": "险计权谋次数"
+    },
+    "clues_found": {
+      "type": "number",
+      "initial": 0,
+      "min": 0,
+      "max": 20,
+      "description": "查实证物次数"
+    },
+    "raid_delayed": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否因疑审误了乌巢初夜先机"
+    },
+    "raid_abandoned": {
+      "type": "boolean",
+      "initial": false,
+      "description": "是否彻底放弃夜袭乌巢"
+    }
   },
   "resources": [
     {
@@ -98,12 +223,42 @@
   ],
   "startNode": "N00_intro",
   "acts": [
-    { "id": "act0", "num": "序", "title": "官渡寒夜", "startNode": "N00_intro" },
-    { "id": "act1", "num": "案壹", "title": "暗通书信", "startNode": "N01_case1" },
-    { "id": "act2", "num": "案贰", "title": "小斛分粮", "startNode": "N02_case2" },
-    { "id": "act3", "num": "案叁", "title": "土山地道", "startNode": "N03_tunnel" },
-    { "id": "act4", "num": "案肆", "title": "许攸夜奔", "startNode": "N04_case4" },
-    { "id": "act5", "num": "案伍", "title": "夜袭乌巢", "startNode": "N05_case5" }
+    {
+      "id": "act0",
+      "num": "序",
+      "title": "官渡寒夜",
+      "startNode": "N00_intro"
+    },
+    {
+      "id": "act1",
+      "num": "案壹",
+      "title": "暗通书信",
+      "startNode": "N01_case1"
+    },
+    {
+      "id": "act2",
+      "num": "案贰",
+      "title": "小斛分粮",
+      "startNode": "N02_case2"
+    },
+    {
+      "id": "act3",
+      "num": "案叁",
+      "title": "土山地道",
+      "startNode": "N03_tunnel"
+    },
+    {
+      "id": "act4",
+      "num": "案肆",
+      "title": "许攸夜奔",
+      "startNode": "N04_case4"
+    },
+    {
+      "id": "act5",
+      "num": "案伍",
+      "title": "夜袭乌巢",
+      "startNode": "N05_case5"
+    }
   ],
   "gloss": {
     "guandu": {
@@ -316,7 +471,10 @@
       "title": "秋霜壁垒与北岸连营",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_xunyu_letter", "ref_ration_convoy"],
+      "refs": [
+        "ref_xunyu_letter",
+        "ref_ration_convoy"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -338,14 +496,15 @@
       ],
       "next": "N00_xunyu_letter"
     },
-
     "N00_xunyu_letter": {
       "id": "N00_xunyu_letter",
       "act": "序 · 许都回信",
       "title": "「此用奇之时，不可失也」",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_xunyu_letter"],
+      "refs": [
+        "ref_xunyu_letter"
+      ],
       "lines": [
         {
           "speaker": "courier",
@@ -378,8 +537,16 @@
           "stampText": "画地死守",
           "replyText": "文若教孤「扼其喉而不得进」，孤便把这条命钉在官渡北垒上！传令诸营：自今日起，敢再言退保许都者，斩！先呈后营安靖与驿道巡查卷宗！",
           "effects": [
-            { "kind": "var_set", "var": "opening_focus", "value": "hold" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 }
+            {
+              "kind": "var_set",
+              "var": "opening_focus",
+              "value": "hold"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            }
           ],
           "next": "N01_case1"
         },
@@ -391,21 +558,30 @@
           "stampText": "慎守核实",
           "replyText": "文若坐镇许都自然看大势，官渡锅里有没有米却是孤每夜亲眼盯着。既要守，便先把营内营外每一本账核得滴水不漏——传军正司上堂！",
           "effects": [
-            { "kind": "var_set", "var": "opening_focus", "value": "conserve" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 }
+            {
+              "kind": "var_set",
+              "var": "opening_focus",
+              "value": "conserve"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            }
           ],
           "next": "N01_case1"
         }
       ]
     },
-
     "N01_case1": {
       "id": "N01_case1",
       "act": "案壹 · 暗通袁绍书信案",
       "title": "《后营安靖保结》与七封密信",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_burn_letters"],
+      "refs": [
+        "ref_burn_letters"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -413,8 +589,14 @@
           "walkKicker": "巡营所见 · 子夜 · 后营马厩与西哨驿道",
           "text": "你披着黑衣绕出中军，亲自沿马厩巡到西哨。寒霜把马粪冻成硬块，巡夜校尉早缩进帐里烤火。你在草料槽夹层与一名滞留驿卒的鞍袋底摸出**七封火漆未干的密信**——笔迹分明出自许都几位留守公卿与后营两名督粮校尉，信尾压着许都少府旧印余泥与袁军哨卡通行竹符。",
           "clues": [
-            { "id": "clue_secret_letters", "label": "鞍袋夹层搜出七封许都公卿与营官私通袁绍密信" },
-            { "id": "clue_stamp_wax", "label": "信封压有许都官印余泥及袁营哨卡通行竹符" }
+            {
+              "id": "clue_secret_letters",
+              "label": "鞍袋夹层搜出七封许都公卿与营官私通袁绍密信"
+            },
+            {
+              "id": "clue_stamp_wax",
+              "label": "信封压有许都官印余泥及袁营哨卡通行竹符"
+            }
           ]
         },
         {
@@ -445,14 +627,26 @@
             "surface": "「营中将校与许都留守官吏素怀忠义，无一人私通河北书信。」",
             "proof": "你袖中正攥着刚从马槽夹层截获的七封密信——上头有许都公卿的问安辞，也有后营督粮校尉自报营垒虚实的亲笔字迹。",
             "requiredClueId": "clue_secret_letters",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c1_patrol",
             "surface": "「西哨驿道盘查滴水不漏，昨夜子时绝无私带文书与敌符之人出入。」",
             "proof": "驿卒鞍袋里搜出的火漆印泥还没硬透，旁边明晃晃别着一枚袁营夜哨通行竹符——人若真盘查了，竹符怎会留在鞍袋里？",
             "requiredClueId": "clue_stamp_wax",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -466,10 +660,28 @@
           "stampText": "密封待焚",
           "replyText": "保结照准存档！至于这七封信——先封进孤的铁匣锁死，外头半个字不许泄！派心腹暗赐赏帛换防西哨把门盯紧，其余人等，等孤破了袁本初再论！",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "seal" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "密赐心腹校尉重赏换防西哨、外松内紧封锁驿道" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "秘而不宣稳住内营，袁军外围游骑趁夜略前逼近" }
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "seal"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "密赐心腹校尉重赏换防西哨、外松内紧封锁驿道"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "秘而不宣稳住内营，袁军外围游骑趁夜略前逼近"
+            }
           ],
           "next": "N01_branch_seal"
         },
@@ -482,10 +694,28 @@
           "interestNote": "代价：战前大索必致营内人人自危、关联部曲惊散减员，外垒警戒亦滞后",
           "replyText": "敌在墙外，虫已蛀在梁柱里了！传军正司与许褚虎卫连夜封锁后营，把这七封信上的名字一个个提出来审——今夜不把内鬼挖绝，明日谁替孤守辕门？",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "purge" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "连夜拿问涉信将校引发后营惊扰逃散减员" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "营内彻夜搜查顾此失彼，袁军趁隙前推鹿角" }
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "purge"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "连夜拿问涉信将校引发后营惊扰逃散减员"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "营内彻夜搜查顾此失彼，袁军趁隙前推鹿角"
+            }
           ],
           "next": "N01_branch_purge"
         },
@@ -498,9 +728,22 @@
           "interestNote": "代价：以伪书嫁祸虽乱敌耳目，然左右幕僚见司空亦敢仿书设阱，许攸奔营时将生重嫌",
           "replyText": "既然有竹符，何不替袁本初再添几封热闹信？仿照笔迹重封密函放那驿卒出营，字里顺便『问候』一下田丰与审配的旧怨——叫袁绍自己先在河北抓内鬼！",
           "effects": [
-            { "kind": "var_set", "var": "c1_mode", "value": "fake_letter" },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "dirty_trick", "id": "dt_fake_letters", "label": "仿写密信反钓袁营", "interest": "帐下亲信忌惮连自己笔迹亦可被仿造陷害，故人夜奔时护卫离心重赏难安" },
+            {
+              "kind": "var_set",
+              "var": "c1_mode",
+              "value": "fake_letter"
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_fake_letters",
+              "label": "仿写密信反钓袁营",
+              "interest": "帐下亲信忌惮连自己笔迹亦可被仿造陷害，故人夜奔时护卫离心重赏难安"
+            },
             {
               "kind": "debt",
               "debt": {
@@ -509,9 +752,24 @@
                 "label": "假信余波反噬",
                 "text": "此前仿书设阱的旧事在营中暗流发酵——亲信门吏皆畏罪自保、西门哨卒趁夜逃散，不得不急发重赏补齐内帐戒备。",
                 "effects": [
-                  { "kind": "resource", "resource": "coin", "delta": -1, "reason": "加发重赏安抚猜忌动摇的内帐心腹" },
-                  { "kind": "resource", "resource": "troops", "delta": -1, "reason": "寒夜疑惧致后营守卒暗中散失" },
-                  { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "内营疑心令外哨巡检松懈、袁军垒线前移" }
+                  {
+                    "kind": "resource",
+                    "resource": "coin",
+                    "delta": -1,
+                    "reason": "加发重赏安抚猜忌动摇的内帐心腹"
+                  },
+                  {
+                    "kind": "resource",
+                    "resource": "troops",
+                    "delta": -1,
+                    "reason": "寒夜疑惧致后营守卒暗中散失"
+                  },
+                  {
+                    "kind": "deadline",
+                    "deadline": "yuanshao_siege",
+                    "delta": 1,
+                    "reason": "内营疑心令外哨巡检松懈、袁军垒线前移"
+                  }
                 ]
               }
             }
@@ -520,14 +778,15 @@
         }
       ]
     },
-
     "N01_branch_seal": {
       "id": "N01_branch_seal",
       "act": "案壹支线 · 锁匣无声",
       "title": "风声压进铁匣底",
       "kind": "scene",
       "mood": "calm",
-      "refs": ["ref_burn_letters"],
+      "refs": [
+        "ref_burn_letters"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -537,13 +796,21 @@
         },
         {
           "speaker": "cao",
-          "when": { "var": "c1_mode", "op": "==", "value": "seal" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "seal"
+          },
           "sourceTag": "史载",
           "text": "（合上铜锁，轻叹）{{subtext:gu_zui_wei_zhi}}——眼下袁本初十万大军压境，连孤自己都夜夜睡不安稳，何况许都那些捧着朝服讨饭吃的文官？信锁在这里，人先给孤留着。"
         },
         {
           "speaker": "jiaxu",
-          "when": { "var": "c1_mode", "op": "==", "value": "fake_letter" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "fake_letter"
+          },
           "sourceTag": "推演",
           "text": "（盯着桌上剩余的印泥）假信确能搅浑袁营的水，只是司空以后写手谕时，底下人接纸的手怕都要比平时凉三分。这笔账，中盘自会找回来。"
         },
@@ -555,14 +822,15 @@
       ],
       "next": "N02_case2"
     },
-
     "N01_branch_purge": {
       "id": "N01_branch_purge",
       "act": "案壹支线 · 火把照营",
       "title": "半夜拿人，满营寒噤",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_burn_letters"],
+      "refs": [
+        "ref_burn_letters"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -590,8 +858,17 @@
           "stampText": "诛首焚余",
           "replyText": "祸起贪财通敌的驿卒，余者皆系一时糊涂！当众把那几封信丢进炭盆烧干净，再赐帛抚慰受惊诸营——从此谁敢旧事重提，以造谣论处！",
           "effects": [
-            { "kind": "var_set", "var": "c1_purge", "value": "mercy" },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "赐帛安抚受惊后营部曲平息风波" }
+            {
+              "kind": "var_set",
+              "var": "c1_purge",
+              "value": "mercy"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "赐帛安抚受惊后营部曲平息风波"
+            }
           ],
           "next": "N02_case2"
         },
@@ -603,22 +880,37 @@
           "stampText": "连坐抄产",
           "replyText": "慈不掌兵！把涉信校尉一并革职查办，抄出私蓄充入军库，连带亲随一律编入前哨掘壕赎罪——军法立在这里，看谁还敢心怀两端！",
           "effects": [
-            { "kind": "var_set", "var": "c1_purge", "value": "strict" },
-            { "kind": "resource", "resource": "coin", "delta": 1, "reason": "抄没涉案将吏私帛充入军库" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "株连严查逼使更多边缘士卒连夜弃营逃散" }
+            {
+              "kind": "var_set",
+              "var": "c1_purge",
+              "value": "strict"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": 1,
+              "reason": "抄没涉案将吏私帛充入军库"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "株连严查逼使更多边缘士卒连夜弃营逃散"
+            }
           ],
           "next": "N02_case2"
         }
       ]
     },
-
     "N02_case2": {
       "id": "N02_case2",
       "act": "案贰 · 官渡小斛分粮案",
       "title": "《秋粮实存与支发簿》",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_ration_convoy"],
+      "refs": [
+        "ref_ration_convoy"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -626,8 +918,14 @@
           "walkKicker": "巡营所见 · 卯时 · 后营军粮大廒",
           "text": "天光刚泛鱼肚白，你掀开官渡主粮廒的草帘，一股刺鼻的陈糠潮味扑面而来。墙角木架旁新添了几只**削矮二寸的木斛**，斛底黑墨印着「七折量」；再往里屋走，墙根堆着三百多只鼓囊囊的麻袋——你拔出佩剑划开最底下一只，流出来的不是粟米，而是**干燥麦秸混着黄沙**！实打实能入锅的精粟，掰着指头算也撑不过一个月。",
           "clues": [
-            { "id": "clue_small_measure", "label": "仓棚木架暗藏削矮二寸、底刻「七折量」的新制小斛" },
-            { "id": "clue_empty_sacks", "label": "里排三百麻袋全填麦秸黄沙，实粮不足一月" }
+            {
+              "id": "clue_small_measure",
+              "label": "仓棚木架暗藏削矮二寸、底刻「七折量」的新制小斛"
+            },
+            {
+              "id": "clue_empty_sacks",
+              "label": "里排三百麻袋全填麦秸黄沙，实粮不足一月"
+            }
           ]
         },
         {
@@ -658,14 +956,26 @@
             "surface": "「各营均依汉制足斗按日支发，升合无亏，士卒日食饱满。」",
             "proof": "仓棚木架边刚削好的「七折量」小斛墨迹还没干透——你早就在暗地里拿小斛给前营打折发粥了，还敢在账上写足斗？",
             "requiredClueId": "clue_small_measure",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c2_stock",
             "surface": "「后仓实存军粮充裕，纵相持至岁暮腊月亦万无断炊之虞。」",
             "proof": "里屋那三百只撑门面的大麻袋里全是麦秸和沙土！扒开假袋细数，全营真能下锅的军粮最多只够撑一个月！",
             "requiredClueId": "clue_empty_sacks",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -679,10 +989,28 @@
           "stampText": "小斛死守",
           "replyText": "那三百袋沙子连夜拖出去填壕！实粮只剩一月，按足额吃十日便要全军断炊——传令：明日起全营统一用七折小斛秘配，主将与士卒同食粗糠粥！谁敢私藏一升精米，军法斩首！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "small_hu" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "剔除虚数沙袋后按一月紧配实数入账" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "节衣缩食勉强拖延时日，袁军合围日渐勒紧" }
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "small_hu"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "剔除虚数沙袋后按一月紧配实数入账"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "节衣缩食勉强拖延时日，袁军合围日渐勒紧"
+            }
           ],
           "next": "N02_branch_small_hu"
         },
@@ -695,10 +1023,28 @@
           "interestNote": "代价：不肯短秤透支军心，军粮余量将急剧探底，且外围防务难借瞒报拖延",
           "replyText": "打仗哪有拿小斛哄自家弟兄的道理？把七折小斛当众劈了烧火！实数就剩一个月，孤亲自撤了案头肉食与三军同分真粮——吃光以前，大家凭本事杀出一条活路！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "honest" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -2, "reason": "废止缩斛按实额均摊日粮，余粮加速见底" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "粮尽实情传开后营盘稳重而节奏偏缓，袁军进逼" }
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "honest"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -2,
+              "reason": "废止缩斛按实额均摊日粮，余粮加速见底"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "粮尽实情传开后营盘稳重而节奏偏缓，袁军进逼"
+            }
           ],
           "next": "N02_branch_honest"
         },
@@ -711,11 +1057,34 @@
           "interestNote": "⚠ 代价：强抄许颍世族私仓虽得现粮，但后方豪强与留守官吏怨恨断供，乌巢前夜必报复截援",
           "replyText": "许颍大族窖里堆着陈年好米，官渡士卒却在啃草根？挑五百精骑驰回后方，凡私藏粟麦不献者以通袁抄没！先救眼前这一口锅再说！",
           "effects": [
-            { "kind": "var_set", "var": "c2_mode", "value": "levy_gentry" },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": 1, "reason": "强征许颍世族坞堡藏粮急运官渡" },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "遣骑兵押运及弹压后方庄园额外耗费" },
-            { "kind": "dirty_trick", "id": "dt_levy_gentry", "label": "强征许颍世族私粮", "interest": "许颍士族怀恨在心，乌巢夜袭前夜联手截留护军冬衣与补给车队" },
+            {
+              "kind": "var_set",
+              "var": "c2_mode",
+              "value": "levy_gentry"
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "强征许颍世族坞堡藏粮急运官渡"
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "遣骑兵押运及弹压后方庄园额外耗费"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_levy_gentry",
+              "label": "强征许颍世族私粮",
+              "interest": "许颍士族怀恨在心，乌巢夜袭前夜联手截留护军冬衣与补给车队"
+            },
             {
               "kind": "debt",
               "debt": {
@@ -724,9 +1093,24 @@
                 "label": "许颍世族断供报复",
                 "text": "被强抄私仓的许颍大族暗中延宕后方押运，冬衣、箭矢与续命粮队迟迟未到官渡，留营一时粮帛俱紧。",
                 "effects": [
-                  { "kind": "resource", "resource": "grain", "delta": -1, "reason": "世族暗中截留延误官渡后续粮队" },
-                  { "kind": "resource", "resource": "coin", "delta": -1, "reason": "高价向行商紧急采买箭羽冬炭补缺" },
-                  { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "后方补给吃紧致使袁军加紧前哨围困" }
+                  {
+                    "kind": "resource",
+                    "resource": "grain",
+                    "delta": -1,
+                    "reason": "世族暗中截留延误官渡后续粮队"
+                  },
+                  {
+                    "kind": "resource",
+                    "resource": "coin",
+                    "delta": -1,
+                    "reason": "高价向行商紧急采买箭羽冬炭补缺"
+                  },
+                  {
+                    "kind": "deadline",
+                    "deadline": "yuanshao_siege",
+                    "delta": 1,
+                    "reason": "后方补给吃紧致使袁军加紧前哨围困"
+                  }
                 ]
               }
             }
@@ -735,14 +1119,15 @@
         }
       ]
     },
-
     "N02_branch_small_hu": {
       "id": "N02_branch_small_hu",
       "act": "案贰支线 · 灶边薄粥",
       "title": "勒紧腰带熬霜夜",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_ration_convoy"],
+      "refs": [
+        "ref_ration_convoy"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -752,27 +1137,36 @@
         },
         {
           "speaker": "yuejin",
-          "when": { "var": "c2_mode", "op": "==", "value": "small_hu" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "small_hu"
+          },
           "sourceTag": "推演",
           "text": "粮虽只剩一月，照这么一勺一勺往嘴里抠，全营好歹把脊梁骨撑住了。只是弟兄们饿着肚子，袁军那边这几日却像起了大动静……"
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "c2_mode", "op": "==", "value": "levy_gentry" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "levy_gentry"
+          },
           "sourceTag": "推演",
           "text": "后方抢运来的粟车虽解了眼下饥渴，荀令君今晨却飞书急告：许颍几家大姓已联名上表叫苦，往后护军冬炭与箭羽怕不会再痛快过关了。"
         }
       ],
       "next": "N03_tunnel"
     },
-
     "N02_branch_honest": {
       "id": "N02_branch_honest",
       "act": "案贰支线 · 当众劈斛",
       "title": "碗里实米多三分，仓底见底快一倍",
       "kind": "scene",
       "mood": "cold",
-      "refs": ["ref_ration_convoy"],
+      "refs": [
+        "ref_ration_convoy"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -793,14 +1187,15 @@
       ],
       "next": "N03_tunnel"
     },
-
     "N03_tunnel": {
       "id": "N03_tunnel",
       "act": "案叁 · 土山箭楼与掘地道",
       "title": "建安五年秋末 · 天上飞矢，地下挖土",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_piliche"],
+      "refs": [
+        "ref_piliche"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -834,11 +1229,34 @@
           "stampText": "霹雳破楼",
           "replyText": "他堆土山，孤便砸碎他的土山！把后营破损辎重车的硬木车轴全拆了，连夜赶制发石车对准高橹狂轰！再挑精壮顶盾于外垒内侧深掘三丈长堑——看他袁军的地道往哪儿钻！",
           "effects": [
-            { "kind": "var_set", "var": "c3_mode", "value": "counter" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "拆车征料赶制发石车铁件及犒赏工匠" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "士卒顶盾冒矢昼夜抢掘长堑损伤减员" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "攻防胶着期间袁军仍借人数优势继续勒紧包抄" }
+            {
+              "kind": "var_set",
+              "var": "c3_mode",
+              "value": "counter"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "拆车征料赶制发石车铁件及犒赏工匠"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "士卒顶盾冒矢昼夜抢掘长堑损伤减员"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "攻防胶着期间袁军仍借人数优势继续勒紧包抄"
+            }
           ],
           "next": "N03_branch_counter"
         },
@@ -851,22 +1269,59 @@
           "interestNote": "代价：退让外垒将令袁军土山前推百步，合围死线剧增至危急边缘",
           "replyText": "粮少兵寡，哪经得起跟十万人在外墙硬拼消耗？全军连夜拆撤外围鹿角，退入中军内寨拉远射程——先保住钱帛和士卒筋骨再图后手！",
           "effects": [
-            { "kind": "var_set", "var": "c3_mode", "value": "shrink" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 2, "reason": "弃外垒后撤致使袁军土山高橹全线前推压死内寨" }
+            {
+              "kind": "var_set",
+              "var": "c3_mode",
+              "value": "shrink"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 2,
+              "reason": "弃外垒后撤致使袁军土山高橹全线前推压死内寨"
+            }
           ],
           "next": "N03_branch_shrink"
+        },
+        {
+          "id": "whatif_retreat_xudu",
+          "label": "【架空】真的弃垒退保许都，诱袁绍深入中原",
+          "hint": "切入平行历史线 · 放弃官渡孤垒",
+          "stampKind": "reject",
+          "stampText": "退许",
+          "replyText": "文若劝我莫退，可官渡再守下去只剩空壳！传令三更拔营，留空垒给袁本初，全军退保许都！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": 1,
+              "reason": "回靠许都大仓，暂解前线断炊死局"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": -1,
+              "reason": "主动跳出官渡合围圈，战线重新拉开"
+            }
+          ],
+          "next": "N_WI_xudu_march"
         }
       ]
     },
-
     "N03_branch_counter": {
       "id": "N03_branch_counter",
       "act": "案叁支线 · 雷霆破橹",
       "title": "一声霹雳震破敌胆，两军皆入灯枯时",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_piliche"],
+      "refs": [
+        "ref_piliche"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -887,14 +1342,15 @@
       ],
       "next": "N04_case4"
     },
-
     "N03_branch_shrink": {
       "id": "N03_branch_shrink",
       "act": "案叁支线 · 外垒失守危机",
       "title": "你退一步，土山就进百步",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_piliche"],
+      "refs": [
+        "ref_piliche"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -922,9 +1378,24 @@
           "stampText": "夜斫土山",
           "replyText": "绝不能任他把箭楼架在头顶！乐进领死士三百夜袭火烧最近两座土山，毁其高橹再退回！",
           "effects": [
-            { "kind": "resource", "resource": "troops", "delta": -2, "reason": "夜袭攀攻袁军土山死士血战折损" },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "火袭波及内寨前哨散失部分干粮" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": -1, "reason": "烧毁前推高橹暂时迟滞袁军合围" }
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -2,
+              "reason": "夜袭攀攻袁军土山死士血战折损"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "火袭波及内寨前哨散失部分干粮"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": -1,
+              "reason": "烧毁前推高橹暂时迟滞袁军合围"
+            }
           ],
           "next": "N04_case4"
         },
@@ -936,22 +1407,38 @@
           "stampText": "地窟硬扛",
           "replyText": "拆营门木板盖地窟！全营昼伏夜出躲避矢石，绝不再出垒平白送命——熬到袁绍自己缺粮撤兵！",
           "effects": [
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "征购木料生牛皮加固掩体顶棚" },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "困守地窟烧损潮湿口粮并耗尽备粮" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "缩入地窟彻底让出地面主动权，袁军合围更甚" }
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "征购木料生牛皮加固掩体顶棚"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "困守地窟烧损潮湿口粮并耗尽备粮"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "缩入地窟彻底让出地面主动权，袁军合围更甚"
+            }
           ],
           "next": "N04_case4"
         }
       ]
     },
-
     "N04_case4": {
       "id": "N04_case4",
       "act": "案肆 · 许攸赤足夜奔",
       "title": "《许子远献乌巢密报》",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_xuyou_barefoot"],
+      "refs": [
+        "ref_xuyou_barefoot"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -959,8 +1446,14 @@
           "walkKicker": "巡营所见 · 建安五年十月夜 · 北门哨卡",
           "text": "寒风卷着枯草敲打辕门。你刚走近北门栅栏，便见一名披散长发的中年文士牵着一匹汗气蒸腾的瘦马伏在吊桥外——他只穿单袍，连佩剑与印绶都没有带齐，鞋帮上糊着厚厚的河北黑泥霜。另一边，邺城暗探昨夜传回的一片绢条刚好折在你掌心：**审配在邺城以贪墨犯法之名收捕了袁营谋士许攸的妻子家眷。**",
           "clues": [
-            { "id": "clue_frost_mud", "label": "来人单衣无随从、马腹汗湿带霜，确系只身仓皇夜逃" },
-            { "id": "clue_family_arrest", "label": "邺城细作密报审配已收捕许攸妻子家眷，袁营内讧坐实" }
+            {
+              "id": "clue_frost_mud",
+              "label": "来人单衣无随从、马腹汗湿带霜，确系只身仓皇夜逃"
+            },
+            {
+              "id": "clue_family_arrest",
+              "label": "邺城细作密报审配已收捕许攸妻子家眷，袁营内讧坐实"
+            }
           ]
         },
         {
@@ -991,14 +1484,26 @@
             "surface": "「许子远素仰司空明德，故舍河北高爵厚禄，从容择主南来。」",
             "proof": "他哪是什么从容择主？邺城密报刚到——审配在邺城抓了他的妻子家眷，袁绍又斥他贪而不治！他是走投无路才逃命，正因与袁营结了死仇，反倒绝不会回头卖我！",
             "requiredClueId": "clue_family_arrest",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c4_bluff",
             "surface": "「今夜宜先摆出我军粮足可守之势，再缓缓议定河北虚实。」",
             "proof": "单衣无随从、瘦马满腹带霜，这分明是半夜只身死逃出来的急客！他早就把袁营的底摸透了——待会儿一问军粮，拿「{{subtext:yi_yu_sui}}」绝对糊弄不住这位老熟人。",
             "requiredClueId": "clue_frost_mud",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -1012,10 +1517,28 @@
           "stampText": "跣足迎攸",
           "replyText": "（连鞋袜都顾不上穿，大笑着赤足奔出营门握住许攸双臂）子远远来，吾事济矣！孤这官渡大营——别人不能进，唯独你许子远今夜直接坐进中军帅座！",
           "effects": [
-            { "kind": "var_set", "var": "c4_mode", "value": "trust" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "连夜筹备出奇突袭干粮并安顿降客，官渡存粮压至最后底线" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "战局行至决死一夜，袁军合围亦已合拢至极点" }
+            {
+              "kind": "var_set",
+              "var": "c4_mode",
+              "value": "trust"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "连夜筹备出奇突袭干粮并安顿降客，官渡存粮压至最后底线"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "战局行至决死一夜，袁军合围亦已合拢至极点"
+            }
           ],
           "next": "N04_branch_trust"
         },
@@ -1028,22 +1551,36 @@
           "interestNote": "代价：严审耽搁今夜最佳突袭时辰，袁军合围迫近（死线 +1），且先机已失",
           "replyText": "故交归故交，三万弟兄的性命不能赌在一个夜半敲门的人嘴上！先请许先生进偏帐歇息——传令外哨细作连夜潜往故市方向核实，未查明前，兵马一卒不动！",
           "effects": [
-            { "kind": "var_set", "var": "c4_mode", "value": "suspect" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": 1, "reason": "审讯核实拖过初更奇袭窗口，袁军合围逼至极限" }
+            {
+              "kind": "var_set",
+              "var": "c4_mode",
+              "value": "suspect"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": 1,
+              "reason": "审讯核实拖过初更奇袭窗口，袁军合围逼至极限"
+            }
           ],
           "next": "N04_branch_suspect"
         }
       ]
     },
-
     "N04_branch_trust": {
       "id": "N04_branch_trust",
       "act": "案肆支线 · 帐中问粮",
       "title": "「实支一月耳！」",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_xuyou_barefoot"],
+      "refs": [
+        "ref_xuyou_barefoot"
+      ],
       "lines": [
         {
           "speaker": "xuyou",
@@ -1068,14 +1605,15 @@
       ],
       "next": "N05_case5"
     },
-
     "N04_branch_suspect": {
       "id": "N04_branch_suspect",
       "act": "案肆支线 · 偏帐寒审",
       "title": "审出了真情报，也熬过了半宿霜",
       "kind": "scene",
       "mood": "tense",
-      "refs": ["ref_xuyou_barefoot"],
+      "refs": [
+        "ref_xuyou_barefoot"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1103,8 +1641,17 @@
           "stampText": "强行补袭",
           "replyText": "迟了半宿也比坐等断粮强！急点步骑五千披袁旗赶赴乌巢——就算天明强攻折损大些，也要把这把火点起来！",
           "effects": [
-            { "kind": "var_set", "var": "raid_delayed", "value": true },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "天明前仓促出营冲过袁军外哨遭遇截杀减员" }
+            {
+              "kind": "var_set",
+              "var": "raid_delayed",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "天明前仓促出营冲过袁军外哨遭遇截杀减员"
+            }
           ],
           "next": "N05_case5"
         },
@@ -1116,21 +1663,31 @@
           "stampText": "按兵固守",
           "replyText": "天色将明，五千主力离营百里若中伏，官渡瞬间即崩！赏赐将士严守深堑，只遣小股游骑沿河截烧袁军零散粮车——稳住营盘才是正道！",
           "effects": [
-            { "kind": "var_set", "var": "raid_abandoned", "value": true },
-            { "kind": "resource", "resource": "coin", "delta": -1, "reason": "加发死守重赏激励官渡全营固壁迎敌" }
+            {
+              "kind": "var_set",
+              "var": "raid_abandoned",
+              "value": true
+            },
+            {
+              "kind": "resource",
+              "resource": "coin",
+              "delta": -1,
+              "reason": "加发死守重赏激励官渡全营固壁迎敌"
+            }
           ],
           "next": "N05_case5"
         }
       ]
     },
-
     "N05_case5": {
       "id": "N05_case5",
       "act": "案伍 · 五千精骑夜袭乌巢",
       "title": "《夜袭乌巢军议》",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_wuchao_raid"],
+      "refs": [
+        "ref_wuchao_raid"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1138,8 +1695,14 @@
           "walkKicker": "巡营所见 · 决战前夜 · 前哨急报与乌巢舆图",
           "text": "两批死士斥候刚从寒雾里翻下马来，带回截然相反的两头消息：东北四十里外的{{gloss:wuchao}}粮屯外只有几堆快熄的冷灶，守将**淳于琼**正拉着部将在中帐猜拳饮酒，十里外全无游骑；可官渡正北的袁军大营却灯火通明——大将{{gloss:zhanghe_gaolan|张郃、高览}}已把云梯与攻城冲车推到外壕边，显是只要你抽兵出营，他们便要全力反扑官渡本垒！",
           "clues": [
-            { "id": "clue_wuchao_lax", "label": "乌巢仅余冷灶，淳于琼中帐酣饮毫无防备" },
-            { "id": "clue_zhanghe_camp", "label": "张郃高览云梯冲车已抵官渡外壕，只等曹军分兵空虚" }
+            {
+              "id": "clue_wuchao_lax",
+              "label": "乌巢仅余冷灶，淳于琼中帐酣饮毫无防备"
+            },
+            {
+              "id": "clue_zhanghe_camp",
+              "label": "张郃高览云梯冲车已抵官渡外壕，只等曹军分兵空虚"
+            }
           ]
         },
         {
@@ -1149,13 +1712,21 @@
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "raid_abandoned", "op": "==", "value": false },
+          "when": {
+            "var": "raid_abandoned",
+            "op": "==",
+            "value": false
+          },
           "sourceTag": "史载",
           "text": "（按住沙盘）正是{{subtext:dang_gong_benying}}！袁绍只肯派轻骑零散援琼，主力定压来官渡——只要洪与攸死扛半夜本营，明公在乌巢绝不可分兵回救！"
         },
         {
           "speaker": "xunyou",
-          "when": { "var": "raid_abandoned", "op": "==", "value": true },
+          "when": {
+            "var": "raid_abandoned",
+            "op": "==",
+            "value": true
+          },
           "sourceTag": "推演",
           "text": "（望向沙盘长叹）前番虽按住未袭，眼下张郃冲车已压近壕边，合围只在旦夕——是就地死扛游骑截粮、使非常焦土之策，还是趁大营未合围前全师退保许都，就在这一印之间！"
         },
@@ -1177,14 +1748,26 @@
             "surface": "「乌巢屯粮万余乘乃袁军命脉，淳于琼素为宿将，必设重伏以待。」",
             "proof": "斥候潜到木栅外十步看得真真切切：淳于琼正脱了甲在中帐灌酒，外围只有几堆冷灶，十里内连个游骑哨声都听不见！",
             "requiredClueId": "clue_wuchao_lax",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           },
           {
             "id": "c5_zhanghe",
             "surface": "「若前军遭袁军骑兵援救或张郃猛攻本营，主帅当即分兵回师接应。」",
             "proof": "张郃、高览把冲车排在外壕边正是想拖住主力不敢出击；一旦袭粮途中遇到援骑还想着分兵回头，乌巢烧不着、本营也必溃——唯有一往无前死战烧粮，张郃那边自然不攻自乱！",
             "requiredClueId": "clue_zhanghe_camp",
-            "effects": [{ "kind": "var_add", "var": "clues_found", "delta": 1 }]
+            "effects": [
+              {
+                "kind": "var_add",
+                "var": "clues_found",
+                "delta": 1
+              }
+            ]
           }
         ]
       },
@@ -1194,16 +1777,43 @@
           "label": "【五千夜袭 · 绝不回救】冒{{gloss:xianmei_yuanqi}}亲奔乌巢，留曹洪荀攸守营，遇援死战不回",
           "hint": "军粮 -1 · 兵力 -1 · 袁军合围 -2",
           "isBait": true,
-          "when": { "var": "raid_abandoned", "op": "!=", "value": true },
+          "when": {
+            "var": "raid_abandoned",
+            "op": "!=",
+            "value": true
+          },
           "stampKind": "approve",
           "stampText": "亲袭乌巢",
           "replyText": "留曹洪、荀攸死守官渡本营！乐进随孤亲率步骑五千，全换袁军旗帜、人衔枚马缚口，连夜从间道直扑乌巢！凡遇袁军盘问，便答袁公遣兵益备——到了乌巢，就是贼杀到背后也绝不许回头！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "raid_canon" },
-            { "kind": "var_add", "var": "canon_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "五千精骑轻装急行抛下后方輜重口粮" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "乌巢营外血战淳于琼及拒后援精锐伤亡" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": -2, "reason": "火烧乌巢万余乘粮车彻底击穿袁军合围" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "raid_canon"
+            },
+            {
+              "kind": "var_add",
+              "var": "canon_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "五千精骑轻装急行抛下后方輜重口粮"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "乌巢营外血战淳于琼及拒后援精锐伤亡"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": -2,
+              "reason": "火烧乌巢万余乘粮车彻底击穿袁军合围"
+            }
           ],
           "next": "N06_climax"
         },
@@ -1216,10 +1826,28 @@
           "interestNote": "代价：放过决胜一把火，全靠血肉和最后口粮拖入冬雪拉锯",
           "replyText": "孤不能拿官渡大营全军性命赌这一夜孤注！全军原地死扛张郃、高览攻势，另遣数百游骑潜去故市、乌巢外围焚掠零散运车——看是他的十万大军先饿散，还是孤先撑不住！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "grit_hold" },
-            { "kind": "var_add", "var": "audit_score", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "死守孤垒耗尽最后一批库底余粮" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "正面硬接张郃高览连日昼夜强攻折损" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "grit_hold"
+            },
+            {
+              "kind": "var_add",
+              "var": "audit_score",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "死守孤垒耗尽最后一批库底余粮"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "正面硬接张郃高览连日昼夜强攻折损"
+            }
           ],
           "next": "N06_climax"
         },
@@ -1232,12 +1860,40 @@
           "interestNote": "⚠ 极重代价：毒井焚屯连坐河南百姓，纵破袁绍亦将令士族与黎民彻骨寒心",
           "replyText": "既要绝袁氏粮草，便连方圆三十里的秋收村屯一并放火烧净、井水投秽！官渡外寨故作空营诱张郃半夜抢入火陷坑——活路是自己杀出来的，名声留给史官去写！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "dirty_scorch" },
-            { "kind": "var_add", "var": "dirty_count", "delta": 1 },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "实施焦土断绝周边补给亦自断官渡采买余地" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "诈营诱陷与越境焚屯死士十去六七" },
-            { "kind": "deadline", "deadline": "yuanshao_siege", "delta": -1, "reason": "烈焰毒烟与火坑重创逼退袁军围阵" },
-            { "kind": "dirty_trick", "id": "dt_scorch_earth", "label": "火焚村屯＋毒井焦土破袁", "interest": "彻底击垮袁军补给却烧尽河南民心，士林皆畏曹氏冷酷" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "dirty_scorch"
+            },
+            {
+              "kind": "var_add",
+              "var": "dirty_count",
+              "delta": 1
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "实施焦土断绝周边补给亦自断官渡采买余地"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "诈营诱陷与越境焚屯死士十去六七"
+            },
+            {
+              "kind": "deadline",
+              "deadline": "yuanshao_siege",
+              "delta": -1,
+              "reason": "烈焰毒烟与火坑重创逼退袁军围阵"
+            },
+            {
+              "kind": "dirty_trick",
+              "id": "dt_scorch_earth",
+              "label": "火焚村屯＋毒井焦土破袁",
+              "interest": "彻底击垮袁军补给却烧尽河南民心，士林皆畏曹氏冷酷"
+            }
           ],
           "next": "N06_climax"
         },
@@ -1250,22 +1906,38 @@
           "interestNote": "代价：主动放弃官渡咽喉退回许都，河北四州霸业将落入袁绍之手",
           "replyText": "打到今日，孤对得起荀文若，也对得起手里这不到两万弟兄！弃掉不可带走的笨重器物，全师趁夜有序撤保许都——只要中原根基还在，总有卷土重来之日！",
           "effects": [
-            { "kind": "var_set", "var": "c5_mode", "value": "retreat" },
-            { "kind": "resource", "resource": "grain", "delta": -1, "reason": "仓促撤营焚毁余粮轻装退保许都" },
-            { "kind": "resource", "resource": "troops", "delta": -1, "reason": "夜撤时留精锐断后掩护遭袁骑追击折损" }
+            {
+              "kind": "var_set",
+              "var": "c5_mode",
+              "value": "retreat"
+            },
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "仓促撤营焚毁余粮轻装退保许都"
+            },
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "夜撤时留精锐断后掩护遭袁骑追击折损"
+            }
           ],
           "next": "N06_climax"
         }
       ]
     },
-
     "N06_climax": {
       "id": "N06_climax",
       "act": "陆 · 官渡终局战报",
       "title": "乌巢天火与百年基业账",
       "kind": "scene",
       "mood": "fire",
-      "refs": ["ref_wuchao_raid", "ref_burn_letters"],
+      "refs": [
+        "ref_wuchao_raid",
+        "ref_burn_letters"
+      ],
       "lines": [
         {
           "speaker": "narrator",
@@ -1275,49 +1947,99 @@
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c1_mode", "op": "==", "value": "seal" },
+          "when": {
+            "var": "c1_mode",
+            "op": "==",
+            "value": "seal"
+          },
           "sourceTag": "结语",
           "text": "【案壹回执】你把七封暗通袁绍的密信锁进了铁匣底——破敌前未杀一人、未惊一营，让这孤垒里的人心安安稳稳熬过了最黑的半夜。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c2_mode", "op": "==", "value": "small_hu" },
+          "when": {
+            "var": "c2_mode",
+            "op": "==",
+            "value": "small_hu"
+          },
           "sourceTag": "结语",
           "text": "【案贰回执】你在只剩一个月的粮底上咬牙压下日配，把稀粥硬生生拉长熬过了许攸夜奔的那个子夜。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c3_mode", "op": "==", "value": "counter" },
+          "when": {
+            "var": "c3_mode",
+            "op": "==",
+            "value": "counter"
+          },
           "sourceTag": "结语",
           "text": "【案叁回执】霹雳车砸垮了土山高橹、内侧长堑吞掉了地道兵，你才得以保存完好的大营接下十月那场天赐内变。"
         },
         {
           "speaker": "narrator",
-          "when": { "all": [{ "var": "c5_mode", "op": "==", "value": "raid_canon" }, { "var": "raid_delayed", "op": "==", "value": false }] },
+          "when": {
+            "all": [
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "raid_canon"
+              },
+              {
+                "var": "raid_delayed",
+                "op": "==",
+                "value": false
+              }
+            ]
+          },
           "sourceTag": "史载",
           "text": "【乌巢烈焰】黎明前五千精骑团团围住乌巢，四面纵火！袁军轻骑急援至背后，部将喊着请分兵，你厉声喝出一句「{{gloss:zeizai_beihou}}**，乃白！**」士卒无不殊死拼命，生擒斩杀淳于琼、尽焚万余乘粮谷！官渡营外久攻不下的{{gloss:zhanghe_gaolan}}闻风恐遭郭图谗害，尽焚攻具率众归降；袁绍仓惶弃军，仅以八百骑渡河北逃！"
         },
         {
           "speaker": "narrator",
-          "when": { "all": [{ "var": "c5_mode", "op": "==", "value": "raid_canon" }, { "var": "raid_delayed", "op": "==", "value": true }] },
+          "when": {
+            "all": [
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "raid_canon"
+              },
+              {
+                "var": "raid_delayed",
+                "op": "==",
+                "value": true
+              }
+            ]
+          },
           "sourceTag": "推演",
           "text": "【迟来一火】因为审讯许攸误了初更天时，五千精骑赶到乌巢时已是天色大白。血战付出更重代价才烧毁半数粮屯，袁绍虽惊怒撤围却仍保有大半建制退回黎阳，未能一战全溃河北。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c5_mode", "op": "==", "value": "grit_hold" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "grit_hold"
+          },
           "sourceTag": "推演",
           "text": "【冬雪拖退】你固守官渡长堑死扛张郃强攻，又派游骑连日袭烧袁军后方零散粮队。入冬大雪封道后袁绍十万之众无食可继、内讧四起，不得不拔寨退保河北——你保住了许都与官渡，却没能一战吃掉袁氏精华。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c5_mode", "op": "==", "value": "dirty_scorch" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "dirty_scorch"
+          },
           "sourceTag": "推演",
           "text": "【焦土血胜】火陷坑吞了张郃前锋，三十里焦土与秽井逼得袁军饿溃北遁——官渡赢了，可河北与中原世族连夜传遍曹氏狠毒之名，往后十年的征召和安抚，都要替今夜买单。"
         },
         {
           "speaker": "narrator",
-          "when": { "var": "c5_mode", "op": "==", "value": "retreat" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "retreat"
+          },
           "sourceTag": "推演",
           "text": "【夜撤许都】大营篝火未熄，主力已沿着汴水夜道退回许都。官渡防线空留给袁绍，好在两万老底尚在，接下来只能在许昌城下重开一局更苦的保卫战。"
         },
@@ -1329,14 +2051,26 @@
       ],
       "next": [
         {
-          "when": { "var": "c5_mode", "op": "==", "value": "retreat" },
+          "when": {
+            "var": "c5_mode",
+            "op": "==",
+            "value": "retreat"
+          },
           "next": "E_guandu_retreat"
         },
         {
           "when": {
             "any": [
-              { "var": "c5_mode", "op": "==", "value": "dirty_scorch" },
-              { "var": "dirty_count", "op": ">=", "value": 2 }
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "dirty_scorch"
+              },
+              {
+                "var": "dirty_count",
+                "op": ">=",
+                "value": 2
+              }
             ]
           },
           "next": "E_guandu_dirty"
@@ -1344,16 +2078,25 @@
         {
           "when": {
             "all": [
-              { "var": "c5_mode", "op": "==", "value": "raid_canon" },
-              { "var": "raid_delayed", "op": "==", "value": false }
+              {
+                "var": "c5_mode",
+                "op": "==",
+                "value": "raid_canon"
+              },
+              {
+                "var": "raid_delayed",
+                "op": "==",
+                "value": false
+              }
             ]
           },
           "next": "E_guandu_canon"
         },
-        { "next": "E_guandu_grit" }
+        {
+          "next": "E_guandu_grit"
+        }
       ]
     },
-
     "E_guandu_canon": {
       "id": "E_guandu_canon",
       "kind": "ending",
@@ -1370,7 +2113,6 @@
         "buildQuote": "「前期每一刀都忍在袖子里不肯乱挥，只为了天亮前喊出那句『贼在背后，乃白！』」"
       }
     },
-
     "E_guandu_grit": {
       "id": "E_guandu_grit",
       "kind": "ending",
@@ -1387,7 +2129,6 @@
         "buildQuote": "「赢法不花哨，甚至有点憋屈——可对岸十万人熬不起的寒冬，我偏熬得起。」"
       }
     },
-
     "E_guandu_dirty": {
       "id": "E_guandu_dirty",
       "kind": "ending",
@@ -1404,7 +2145,6 @@
         "buildQuote": "「活着走出了官渡，只是从此铁匣子里的信不敢烧、背后递来的茶也不敢轻易喝了。」"
       }
     },
-
     "E_guandu_retreat": {
       "id": "E_guandu_retreat",
       "kind": "ending",
@@ -1421,7 +2161,6 @@
         "buildQuote": "「退回家门当然比葬在土垒里稳当——只是袁本初不会给你第二次修官渡的机会。」"
       }
     },
-
     "E_collapse_coin": {
       "id": "E_collapse_coin",
       "kind": "ending",
@@ -1436,7 +2175,6 @@
         "verdict": "随军钱帛耗竭归零触发红线崩盘，赏罚失灵、防务停摆，官渡大营从内部率先溃散。"
       }
     },
-
     "E_collapse_grain": {
       "id": "E_collapse_grain",
       "kind": "ending",
@@ -1451,7 +2189,6 @@
         "verdict": "军粮耗竭归零触发红线崩盘，三军断炊饥溃，不战而退散官渡。"
       }
     },
-
     "E_collapse_troops": {
       "id": "E_collapse_troops",
       "kind": "ending",
@@ -1466,7 +2203,6 @@
         "verdict": "可战兵力耗尽触发红线崩盘，守垒人数不足致官渡全线失守。"
       }
     },
-
     "E_collapse_multi": {
       "id": "E_collapse_multi",
       "kind": "ending",
@@ -1481,7 +2217,6 @@
         "verdict": "多项核心资源同时耗竭崩盘，官渡防线一夜全面瓦解。"
       }
     },
-
     "E_deadline_overflow": {
       "id": "E_deadline_overflow",
       "kind": "ending",
@@ -1497,47 +2232,183 @@
         "buildName": "畏战迟延流 · 账面滴水不漏却把门缝让给了合围",
         "buildQuote": "「十分居一最怕的不是拼命，而是你每让一步，十万人的包围圈就替你收紧一寸。」"
       }
+    },
+    "N_WI_xudu_march": {
+      "id": "N_WI_xudu_march",
+      "act": "架空支线 · 弃垒回师许都",
+      "title": "许都城下的豪赌",
+      "kind": "scene",
+      "mood": "tense",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安五年冬 · 许都北门",
+          "text": "官渡孤垒一夜人去楼空。袁绍大喜过望，不顾沮授劝阻挥十万大军渡过汴水长驱南下，一路直逼许都百里之内——却也在泥泞秋雨中把自己的河北粮道拉长到了三百里。"
+        },
+        {
+          "speaker": "xunyu",
+          "sourceTag": "推演",
+          "text": "丞相既已退回许都，中原郡县半数观望，此刻再退一步便真成流寇！唯今之计，只有依托许都坚城死守，趁袁军粮道拉长、兵骄将惰之际，遣精骑反插其背！"
+        },
+        {
+          "speaker": "xunyou",
+          "sourceTag": "推演",
+          "text": "许都尚有半年积粮，但城中汉室旧臣蠢蠢欲动。若袁军合围许都，内忧外患齐发，也有幕僚建言暂奉天子西迁洛阳以避锋芒。"
+        },
+        {
+          "speaker": "cao",
+          "sourceTag": "拟写",
+          "text": "退到许都是我主动卖的破绽，现在袁本初的脖子已经伸到我刀口底下了——守，还是迁？"
+        }
+      ],
+      "choices": [
+        {
+          "id": "wi_xudu_counter",
+          "label": "坚壁许都，遣乐进、曹洪轻骑绕后烧断河北三百里粮道",
+          "hint": "兵力 -1 · 反客为主一战定局",
+          "stampKind": "approve",
+          "stampText": "断粮",
+          "replyText": "天子一步不迁！许都城墙由孤亲自守，乐进、曹洪带三千轻骑给我绕到延津去烧袁绍的屁股！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "troops",
+              "delta": -1,
+              "reason": "抽调三千精骑远袭敌后粮道"
+            }
+          ],
+          "next": "E_WI_xudu_counter"
+        },
+        {
+          "id": "wi_luoyang_move",
+          "label": "奉天子西迁洛阳旧都，依托函谷关与袁绍打十年持久战",
+          "hint": "粮草 -1 · 中原易主换取生机",
+          "stampKind": "reject",
+          "stampText": "西迁",
+          "replyText": "许都四战之地难挡十万大军，连夜护驾西入洛阳，凭山河之险与袁本初慢慢耗！",
+          "effects": [
+            {
+              "kind": "resource",
+              "resource": "grain",
+              "delta": -1,
+              "reason": "仓促迁都丢弃许都半数存粮"
+            }
+          ],
+          "next": "E_WI_luoyang_split"
+        }
+      ]
+    },
+    "E_WI_xudu_counter": {
+      "id": "E_WI_xudu_counter",
+      "act": "架空结局 · 许都坚壁",
+      "title": "许都城下，反客为主",
+      "kind": "ending",
+      "mood": "calm",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安六年春 · 延津火光",
+          "text": "袁绍围攻许都四十日不下，反因三百里粮道被乐进轻骑连烧七处而全军断炊。冬雪降临前，十万河北大军在许都城外不战自溃——官渡未曾烧起的乌巢火，换成了延津沿岸连绵百里的焦土。"
+        }
+      ],
+      "ending": {
+        "badge": "架空支线 · WHAT-IF",
+        "title": "许都坚壁，反客为主",
+        "subtitle": "以空间换粮道 · 另一种官渡大胜",
+        "tone": "ok",
+        "verdict": "你冒着中原震动的巨大风险放弃官渡，却把「缺粮」的死穴原封不动转嫁给了拉长战线的袁绍。背靠许都积粮，反手以轻骑切碎三百里补给线，走出了一条史书未载的奇胜之路。",
+        "buildName": "诱敌深入反杀派",
+        "buildQuote": "谁说一定要在官渡等许攸？把袁本初请到许都城下饿三天也一样。"
+      }
+    },
+    "E_WI_luoyang_split": {
+      "id": "E_WI_luoyang_split",
+      "act": "架空结局 · 河洛再裂",
+      "title": "天子西迁，河洛崩析",
+      "kind": "ending",
+      "mood": "cold",
+      "lines": [
+        {
+          "speaker": "narrator",
+          "isWalk": true,
+          "walkKicker": "建安六年 · 洛阳残垣",
+          "text": "你保住了主力与天子，却把肥沃的兖豫中原拱手让给了袁绍。群雄见曹军西退，纷纷改换门庭。站在洛阳荒草丛生的宫城上，你虽未覆灭，却再也回不到逐鹿中原的牌桌中央。"
+        }
+      ],
+      "ending": {
+        "badge": "架空支线 · WHAT-IF",
+        "title": "天子西迁，北方再裂",
+        "subtitle": "保全性命却失中原 · 历史彻底改道",
+        "tone": "warn",
+        "verdict": "正如荀彧当初所警：官渡退一步是许都，许都再退一步便是万劫不复。你避开了覆灭的惨局，却也亲手把北方霸权推到了袁氏手中。",
+        "buildName": "保全实力西迁派",
+        "buildQuote": "人还活着，天子还在手，只是中原从此改姓了袁。"
+      }
     }
   },
   "historyDossier": [
     {
       "title": "一、七封通袁密信：战前暂压，破袁后尽焚",
-      "when": { "var": "c1_mode", "op": "==", "value": "seal" },
+      "when": {
+        "var": "c1_mode",
+        "op": "==",
+        "value": "seal"
+      },
       "canonNote": "《三国志·武帝纪》载「及破绍，得许下及军中人书，皆焚之。曰：『当绍之强，孤犹不能自保，而况众人乎！』」",
       "playerHit": "你没有在绝境前夜抓人清营，而是把信封进铁匣稳住军心，再现了曹公最顶级的御下定力。",
       "playerMiss": "你选择了连夜清查抓人或仿写假信反钓，虽解一时心气，却在战前掀动了军中暗流。"
     },
     {
       "title": "二、官渡断粮：只剩一月，咬牙缩配死守",
-      "when": { "var": "c2_mode", "op": "==", "value": "small_hu" },
+      "when": {
+        "var": "c2_mode",
+        "op": "==",
+        "value": "small_hu"
+      },
       "canonNote": "《武帝纪》载「公军粮方尽，与荀彧书，议欲还许」；《荀彧传》载「扼其喉而不得进，已半年矣」，正靠极限压配熬到生变。",
       "playerHit": "你在七折小斛与沙土假袋面前忍下苦果，用极限节衣缩食硬拖出了破局时间窗。",
       "playerMiss": "你改用常额公摊放任余粮剧减，或强征许颍世族藏粮，改写了官渡后勤的抗压线。"
     },
     {
       "title": "三、土山高橹与地道：霹雳车、长堑反制",
-      "when": { "var": "c3_mode", "op": "==", "value": "counter" },
+      "when": {
+        "var": "c3_mode",
+        "op": "==",
+        "value": "counter"
+      },
       "canonNote": "《武帝纪》载「太祖乃为发石车，击绍楼，皆破，绍众号曰霹雳车。绍为地道，欲袭太祖营。太祖辄于内为长堑以拒之」。",
       "playerHit": "你如正史般咬牙砸出霹雳车与内长堑，在钱粮捉襟见肘时依然寸土不让。",
       "playerMiss": "你舍不得工本而弃守外垒退缩中军，结果把土山高橹推到了自己粮棚头顶。"
     },
     {
       "title": "四、许攸夜奔：不及穿履，跣足出迎",
-      "when": { "var": "c4_mode", "op": "==", "value": "trust" },
+      "when": {
+        "var": "c4_mode",
+        "op": "==",
+        "value": "trust"
+      },
       "canonNote": "《武帝纪》裴注引《曹瞒传》载「公闻攸来，跣出迎之，抚掌笑曰：『子卿远来，吾事济矣！』」，并坦告「实支一月耳」。",
       "playerHit": "你从审配收捕家眷与满腹霜泥里看透了许攸的死仇，赤足出迎果断押上了整个官渡赌局。",
       "playerMiss": "你疑心许攸为袁营反间而将其扣押严审，错过了初更夜奔的第一重奇袭天时。"
     },
     {
       "title": "五、五千步骑夜袭乌巢：「贼在背后，乃白！」",
-      "when": { "var": "c5_mode", "op": "==", "value": "raid_canon" },
+      "when": {
+        "var": "c5_mode",
+        "op": "==",
+        "value": "raid_canon"
+      },
       "canonNote": "《武帝纪》载留曹洪荀攸守营、自将步骑五千夜攻淳于琼；援骑在后请分兵，操怒曰「贼在背后，乃白」，张郃高览遂降。",
       "playerHit": "你冒用袁旗衔枚夜驰、面对背后援骑绝不分兵，用五千死士彻底烧垮了袁氏十万根基。",
       "playerMiss": "你选择固垒硬熬、焦土毒计或退保许都，走出了与乌巢大火截然不同的北方走势。"
     },
     {
       "title": "六、终局对照：建安五年官渡定鼎",
-      "when": { "visited": "E_guandu_canon" },
+      "when": {
+        "visited": "E_guandu_canon"
+      },
       "canonNote": "建安五年十月乌巢火起，袁绍弃军北渡，曹操由此奠定统一北方之基。",
       "playerHit": "你的每一拍抉择都压准了《三国志》官渡绝境的脉搏：十不敌一不是靠兵法幻术赢的，而是一步一步把底线熬穿熬透。",
       "playerMiss": "你凭借保守固守、冷酷权谋或及时止损改写了建安五年秋夜的结局，走出属于另一种取舍的官渡旁支。"
