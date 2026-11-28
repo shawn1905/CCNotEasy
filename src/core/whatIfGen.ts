@@ -17,7 +17,7 @@ export interface LlmConfig {
   model: string
 }
 
-export const WHATIF_TOTAL_STEPS = 7 as const
+export const WHATIF_TOTAL_STEPS = 5 as const
 
 export interface WhatIfStepMeta {
   sessionId: string
@@ -211,24 +211,24 @@ export function buildWhatIfPrompt(
   const isPenultimate = meta.step === total - 1
 
   const stepInstruction = isFinal
-    ? `【当前是第 ${meta.step}/${total} 幕（合 · 平行历史大终局）】
-必须输出 kind="ending"，lines 必须写足 3 段极具历史厚重感的结语（第1段写决战落幕与战场细节，第2段写关键人物宿命转折，第3段写此战引发的十年三国格局蝴蝶效应，均设 isWalk: true），并给完整 ending 对象（badge="别史终局 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
+    ? `【当前是第 ${meta.step}/${total} 幕（终局收束）】
+必须输出 kind="ending"，lines 写 1~2 段冷峻克制的史书结语（每段 ≤ 75 字，紧扣前四幕因果逻辑交代结局与后续影响，设 isWalk: true），并给完整 ending 对象（badge="别史终局 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
     : isPenultimate
-      ? `【当前是第 ${meta.step}/${total} 幕（决 · 终极摊牌前夜）】
-必须输出 kind="scene"（不带 interaction），mood="fire"，lines 必须写足 5 条（把整条平行世界线的全部伏笔推向最高潮，双谋士与主将激烈争锋），给出 2 个一锤定音的终极 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+      ? `【当前是第 ${meta.step}/${total} 幕（终局前夜两难）】
+必须输出 kind="scene"（不带 interaction），mood="fire"，lines 写 3~4 条（凝练推进，双谋士基于真实利益与地理/粮道逻辑交锋），给出 2 个一锤定音的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
       : isCounterStep
-        ? `【当前是第 ${meta.step}/${total} 幕（核账 · 变局与柜台打脸）】
-必须输出 kind="scene"，lines 必须写足 4 条（1段 55~75 字巡营现场描写 + 3句角色争执对白），必须包含 interaction.type="counter_case"（2 条 claims：表面官话 surface vs 巡营实查 proof，其中第 1 条 claim 可附带 1 条小额奖励 effects，如追回军粮+1 或压缓死线-1）和 2 个 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
-        : `【当前是第 ${meta.step}/${total} 幕（变 · 敌营反扑与谋士激辩）】
-必须输出 kind="scene"（不带 interaction），lines 必须写足 5 条（1段急报现场场景 + 4句两位立场相反的谋士激烈拆台与曹操冷峻回应），给出 2 个推进战局的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+        ? `【当前是第 ${meta.step}/${total} 幕（因果核账）】
+必须输出 kind="scene"，lines 写 3 条（1段 ≤ 60 字现场细节 + 2句紧扣逻辑的对白），包含 interaction.type="counter_case"（2 条 claims：表面官话 surface vs 巡营实查 proof，第 1 条可附 1 条小额合理 effects）和 2 个 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+        : `【当前是第 ${meta.step}/${total} 幕（逻辑推演）】
+必须输出 kind="scene"（不带 interaction），lines 写 3~4 条（用正史地理、粮道与人物性格自然展开上一幕选择的因果后果，绝不注水），给出 2 个务实 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
 
-  const system = `你是《曹操不容易》建安历史策略游戏的资深主笔。严格输出合法 JSON（不要 markdown 代码块、不要多余解释）。
+  const system = `你是《曹操不容易》建安历史策略游戏的资深主笔。核心原则：正史为骨架，用严密逻辑展开因果与补充细节，绝不狗血注水。严格输出合法 JSON（不要 markdown 代码块、不要多余解释）。
 
-【五道硬性文风与机制防线】
-1. 严禁空洞抽象套话（如"运筹帷幄/大军压境/军心大振/不仅而且/总而言之"），必须把指定的【建安器物锚点】自然写进现场描写或假账破绽。
+【硬性纪律】
+1. 克制简练：巡营背景字 ≤ 65 字，单条对白 ≤ 48 字，严禁空洞套话与 AI 连接词（不仅/而且/总而言之），必须将指定【建安器物锚点】自然嵌入细节。
 2. 严禁任何日式词汇与假名（幕府/大名/武士/忍者/天守/城下町/浪人/切腹）。
-3. 幽默克制（≤1/10），全靠「表面官话 vs 巡营实查」的反差制造冷峻实感；单条对白不超过 55 字。
-4. 谋士立场必须对立冲突，严禁沦为报幕员；speaker 只能从以下可用角色 ID 中选：narrator, ${castEntries.map((c) => c.id).join(', ')}。
+3. 幽默克制（≤1/10），全靠「表面官话 vs 巡营实查」的反差立住真实感，不做戏说与现代梗。
+4. 谋士立场必须基于正史利益冲突；speaker 仅限：narrator, ${castEntries.map((c) => c.id).join(', ')}。
 5. 所有 effects 里的 resource 只能用 [${resIds}]，deadline 只能用 [${dlIds}]，delta 必须在 [-2, 2] 且必须附非空中文 reason。
 
 【可用角色人设】

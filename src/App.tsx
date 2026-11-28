@@ -364,7 +364,7 @@ export default function App() {
           type: 'settlement',
           settlement: {
             badges: ['别史启卷'],
-            reasons: ['已从当前变局另辟一条七幕平行世界线'],
+            reasons: ['以正史为骨，已从当前变局另辟五幕平行推演'],
             deltas: {},
           },
         },
@@ -373,57 +373,6 @@ export default function App() {
       prefetchNextChoices(bundle, save, nextMeta, node, cfg)
     } catch (e) {
       setWhatIfErr(e instanceof Error ? e.message : String(e))
-    } finally {
-      setWhatIfBusy(false)
-    }
-  }
-
-  async function handleExtendWhatIf() {
-    if (!bundle || !save || !whatIfMeta || whatIfBusy) return
-    setWhatIfBusy(true)
-    const cfg = loadLlmConfig()
-    const nextMeta: WhatIfStepMeta = {
-      ...whatIfMeta,
-      step: whatIfMeta.step + 1,
-      targetSteps: whatIfMeta.targetSteps + 3,
-    }
-    try {
-      const { node } = await generateWhatIfNode(
-        bundle,
-        { ...save, finished: false, endingNodeId: null },
-        nextMeta,
-        cfg,
-        '余波未平，沿着方才终局继续展开下一阶段建安变局',
-      )
-      const updatedMeta: WhatIfStepMeta = {
-        ...nextMeta,
-        generatedNodeIds: [...nextMeta.generatedNodeIds, node.id],
-      }
-      setWhatIfMeta(updatedMeta)
-      setWhatIfSaved(false)
-      audioEngine.playStamp(true)
-      enterDynamicNode(bundle, { ...save, finished: false, endingNodeId: null }, node, [
-        {
-          type: 'settlement',
-          settlement: {
-            badges: ['别史续篇'],
-            reasons: ['战火未熄，已续写后三幕平行变局'],
-            deltas: {},
-          },
-        },
-      ])
-      prefetchNextChoices(bundle, { ...save, finished: false, endingNodeId: null }, updatedMeta, node, cfg)
-    } catch (e) {
-      setFeed((prev) => [
-        ...prev,
-        {
-          kind: 'strip',
-          id: makeId('err'),
-          badge: '续写受阻',
-          text: e instanceof Error ? e.message : String(e),
-          warn: true,
-        },
-      ])
     } finally {
       setWhatIfBusy(false)
     }
@@ -1042,7 +991,7 @@ export default function App() {
               setWhatIfOpen(true)
             }}
           >
-            ✦ 另辟史册（推演七幕平行世界线）
+            ✦ 另辟史册（正史逻辑 · 五幕平行推演）
           </button>
         )}
 
@@ -1055,19 +1004,11 @@ export default function App() {
 
         {save.finished && whatIfMeta && (
           <div className="cc-wi-export-bar" style={{ flexWrap: 'wrap' }}>
-            <span>意犹未尽？可续写后三幕或收入别史馆</span>
+            <span>觉得这段别史逻辑扎实？可收入别史馆</span>
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               <button
                 type="button"
                 className="cc-audio-pill is-on"
-                disabled={whatIfBusy}
-                onClick={() => void handleExtendWhatIf()}
-              >
-                {whatIfBusy ? '起草中…' : '✦ 再续三幕'}
-              </button>
-              <button
-                type="button"
-                className="cc-audio-pill"
                 onClick={() => {
                   saveCuratedBranch(bundle, whatIfMeta)
                   setCuratedList(loadCuratedBranches())

@@ -54,7 +54,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
         </div>
 
         <p style={{ margin: '0 0 10px', fontSize: 12.5, lineHeight: 1.55, color: 'var(--fg-dim)' }}>
-          从当前变局另起一行史书，择一谋略走向，展开 <strong style={{ color: 'var(--fg-bright)' }}>七幕完整平行战役</strong>（终局还可无限再续三幕）；若遇神展开，可一键收入「别史馆」永久珍藏。
+          以正史为骨、逻辑推演细节：从当前变局另起一行史书，展开 <strong style={{ color: 'var(--fg-bright)' }}>五幕紧凑平行推演</strong>；若遇佳篇，终局可一键收入「别史馆」珍藏。
         </p>
 
         <div className="cc-wi-styles">
