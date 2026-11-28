@@ -54,7 +54,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
         </div>
 
         <p style={{ margin: '0 0 10px', fontSize: 12.5, lineHeight: 1.55, color: 'var(--fg-dim)' }}>
-          从当前历史节点撕开一条全新的 <strong style={{ color: 'var(--fg-bright)' }}>3 幕动态平行世界线</strong>（承·柜台假账 → 转·谋士对质 → 合·专属结局），终局可一键导出 JSON 沉淀入库。
+          从当前历史节点撕开一条全新的 <strong style={{ color: 'var(--fg-bright)' }}>5 幕完整平行世界线</strong>（首波假账 → 谋士交锋 → 二次核账 → 决战前夜 → 专属结局），后台预生成秒切，终局可导出 JSON 沉淀入库。
         </p>
 
         <div className="cc-wi-styles">
@@ -151,8 +151,8 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
           {busy
             ? '正在按五道防线推演第 1 幕…'
             : hasKey
-              ? '✨ 调用 LLM 撕开新世界线'
-              : '✨ 启动 3 幕动态推演（离线演示）'}
+              ? '✨ 调用 LLM 撕开 5 幕新世界线'
+              : '✨ 启动 5 幕动态推演（离线演示）'}
         </button>
       </div>
     </div>

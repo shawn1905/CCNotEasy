@@ -371,9 +371,10 @@ export default function App() {
     if (!bundle || !save) return
     const prevNodeId = save.nodeId
 
-    // Dynamic 3-act What-If continuation
+    // Dynamic 5-act What-If continuation
     if (typeof choice.next === 'string' && choice.next.startsWith('__AI_STEP_') && whatIfMeta) {
-      const stepNum = choice.next.endsWith('2__') ? 2 : 3
+      const m = choice.next.match(/__AI_STEP_(\d+)__/)
+      const stepNum = Math.min(5, Math.max(2, Number(m?.[1] ?? 5))) as 2 | 3 | 4 | 5
       const { save: settledSave, events } = reduceGame(bundle, save, {
         type: 'APPLY_WIDGET_EFFECTS',
         effects: choice.effects ?? [],
@@ -388,7 +389,7 @@ export default function App() {
         return
       }
       setWhatIfBusy(true)
-      const nextMeta: WhatIfStepMeta = { ...whatIfMeta, step: stepNum as 2 | 3 }
+      const nextMeta: WhatIfStepMeta = { ...whatIfMeta, step: stepNum }
       const cfg = loadLlmConfig()
       const prefetched = consumePrefetchedNode(whatIfMeta.sessionId, stepNum, choice.id)
       const req = prefetched ?? generateWhatIfNode(bundle, settledSave, nextMeta, cfg, choice.label)
@@ -400,7 +401,7 @@ export default function App() {
           }
           setWhatIfMeta(updatedMeta)
           enterDynamicNode(bundle, settledSave, node, events, choice.replyText)
-          if (stepNum === 2) {
+          if (stepNum < 5) {
             prefetchNextChoices(bundle, settledSave, updatedMeta, node, cfg)
           }
         })
@@ -904,7 +905,7 @@ export default function App() {
               setWhatIfOpen(true)
             }}
           >
-            ✨ AI 推演新世界线（五防线 3 幕动态分支）
+            ✨ AI 推演新世界线（五防线 5 幕完整分支）
           </button>
         )}
 
@@ -917,7 +918,7 @@ export default function App() {
 
         {save.finished && whatIfMeta && (
           <div className="cc-wi-export-bar">
-            <span>已走完 3 幕动态 What-If 世界线（可沉淀入库）</span>
+            <span>已走完 5 幕动态 What-If 世界线（可沉淀入库）</span>
             <button
               type="button"
               className="cc-audio-pill is-on"

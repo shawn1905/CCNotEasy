@@ -17,12 +17,14 @@ export interface LlmConfig {
   model: string
 }
 
+export const WHATIF_TOTAL_STEPS = 5 as const
+
 export interface WhatIfStepMeta {
   sessionId: string
   originNodeId: string
   style: WhatIfStyle
   userIdea: string
-  step: 1 | 2 | 3
+  step: 1 | 2 | 3 | 4 | 5
   generatedNodeIds: string[]
 }
 
@@ -204,13 +206,19 @@ export function buildWhatIfPrompt(
 
   const stepInstruction =
     meta.step === 1
-      ? `【当前是第 1/3 幕（承 · 意外反噬与柜台假账）】
-必须输出 kind="scene"，并且必须包含 interaction.type="counter_case"（含 2 条 claims：表面官话 surface vs 巡营实查 proof）和 2 个 choices（有得必有失，分别带 stampKind="approve" 和 "dirty" 或 "reject"）。choices 的 next 填 "__NEXT__"`
+      ? `【当前是第 1/5 幕（起 · 撕裂正史与首波假账）】
+必须输出 kind="scene"，lines 必须写足 4 条（1段 50~70 字巡营场景描写 + 3句角色争执对白），必须包含 interaction.type="counter_case"（2 条 claims：表面官话 surface vs 巡营实查 proof）和 2 个 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
       : meta.step === 2
-        ? `【当前是第 2/3 幕（转 · 终极对质与拍板）】
-必须输出 kind="scene"（不带 interaction），安排两位立场相反的谋士激烈交锋，然后给出 2 个决定终局走向的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
-        : `【当前是第 3/3 幕（合 · 平行世界线结局）】
-必须输出 kind="ending"，包含 1 段极具历史余味的巡营结语（isWalk: true）和完整 ending 对象（badge 必须为 "AI 推演 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
+        ? `【当前是第 2/5 幕（承 · 敌营反扑与谋士交锋）】
+必须输出 kind="scene"（不带 interaction），lines 必须写足 5 条（1段巡营战报场景 + 4句两位立场相反的谋士激烈拆台与曹操冷峻回应），给出 2 个推进战局的 choices（有得必有失）。choices 的 next 填 "__NEXT__"`
+        : meta.step === 3
+          ? `【当前是第 3/5 幕（转 · 突发暗雷与二次核账）】
+必须输出 kind="scene"，lines 必须写足 4 条（1段突发危机现场 + 3句角色对质），必须再次包含 interaction.type="counter_case"（2 条全新阴谋/假账破绽，最好呼应前两幕选择）和 2 个高张力 choices。choices 的 next 填 "__NEXT__"`
+          : meta.step === 4
+            ? `【当前是第 4/5 幕（危 · 终极决战前夜两难）】
+必须输出 kind="scene"（不带 interaction），mood="fire"，lines 必须写足 5 条（把整条平行世界线的矛盾推向最高潮，双谋士与主将各执一词），给出 2 个一锤定音的终极 choices。choices 的 next 填 "__NEXT__"`
+            : `【当前是第 5/5 幕（合 · 平行历史终局）】
+必须输出 kind="ending"，lines 必须写足 2 段极具历史厚重感的结语（第1段写本战落幕与关键人物宿命，第2段写此战引发的十年三国格局蝴蝶效应，均设 isWalk: true），并给完整 ending 对象（badge="AI 推演 · WHAT-IF"，含 title、subtitle、tone("ok"|"warn")、verdict、buildName、buildQuote）。不要输出 choices。`
 
   const system = `你是《曹操不容易》建安历史策略游戏的资深主笔。严格输出合法 JSON（不要 markdown 代码块、不要多余解释）。
 
@@ -322,11 +330,11 @@ export function sanitizeGeneratedNode(
   const mood =
     raw.mood === 'calm' || raw.mood === 'tense' || raw.mood === 'cold' || raw.mood === 'fire'
       ? raw.mood
-      : meta.step === 2
+      : meta.step === 4
         ? 'fire'
         : 'tense'
 
-  if (meta.step === 3) {
+  if (meta.step === WHATIF_TOTAL_STEPS) {
     const endRaw = (raw.ending && typeof raw.ending === 'object' ? raw.ending : {}) as Record<string, unknown>
     return {
       id: nodeId,
@@ -350,9 +358,9 @@ export function sanitizeGeneratedNode(
     }
   }
 
-  // Build sanitized interaction if step 1
+  // Build sanitized interaction if step 1 or step 3
   let interaction: SceneNode['interaction']
-  if (meta.step === 1 && raw.interaction && typeof raw.interaction === 'object') {
+  if ((meta.step === 1 || meta.step === 3) && raw.interaction && typeof raw.interaction === 'object') {
     const ir = raw.interaction as Record<string, unknown>
     const rawClaims = Array.isArray(ir.claims) ? ir.claims : []
     const claims = rawClaims
@@ -452,7 +460,7 @@ function generateOfflineDemoNode(
   const dl0 = bundle.deadlines[0]
   const ideaTag = meta.userIdea.trim() ? `（围绕「${meta.userIdea.trim().slice(0, 18)}」）` : ''
 
-  if (meta.step === 1) {
+  if (meta.step === 1 || meta.step === 3) {
     return sanitizeGeneratedNode(
       bundle,
       {
@@ -516,7 +524,7 @@ function generateOfflineDemoNode(
     )
   }
 
-  if (meta.step === 2) {
+  if (meta.step === 2 || meta.step === 4) {
     return sanitizeGeneratedNode(
       bundle,
       {
@@ -627,7 +635,7 @@ export async function generateWhatIfNode(
     body: JSON.stringify({
       model: cfg.model.trim() || DEFAULT_LLM_CONFIG.model,
       temperature: 0.82,
-      max_tokens: 950,
+      max_tokens: 1200,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: system },
@@ -671,8 +679,8 @@ export function prefetchNextChoices(
   currentNode: SceneNode,
   cfg: LlmConfig,
 ): void {
-  if (meta.step >= 3 || !currentNode.choices || currentNode.choices.length === 0) return
-  const nextStep = (meta.step + 1) as 2 | 3
+  if (meta.step >= WHATIF_TOTAL_STEPS || !currentNode.choices || currentNode.choices.length === 0) return
+  const nextStep = (meta.step + 1) as 2 | 3 | 4 | 5
   for (const ch of currentNode.choices.slice(0, 2)) {
     const key = getPrefetchKey(meta.sessionId, nextStep, ch.id)
     if (prefetchMap.has(key)) continue
