@@ -29,10 +29,17 @@ export interface WhatIfStepMeta {
 const BANNED_JP_RE = /[\u3040-\u30ff]|幕府|大名|武士|忍者|天守|城下町|浪人|切腹/g
 const LLM_CFG_KEY = 'ccnoteasy:whatif_llm_cfg'
 
+export const BUILTIN_PROXY_URL = 'https://eleven-experiment-sphere-yang.trycloudflare.com/v1'
+
 export const DEFAULT_LLM_CONFIG: LlmConfig = {
-  baseUrl: 'https://amr-link.open-design.ai/v1',
+  baseUrl: BUILTIN_PROXY_URL,
   apiKey: '',
   model: 'deepseek-v4.1-flash',
+}
+
+export function isKeylessProxyUrl(url: string): boolean {
+  const u = url.trim()
+  return u.startsWith('/') || u === BUILTIN_PROXY_URL || u.includes('.trycloudflare.com')
 }
 
 export function loadLlmConfig(): LlmConfig {
@@ -40,9 +47,19 @@ export function loadLlmConfig(): LlmConfig {
     const raw = localStorage.getItem(LLM_CFG_KEY)
     if (!raw) return { ...DEFAULT_LLM_CONFIG }
     const parsed = JSON.parse(raw) as Partial<LlmConfig>
+    const key = parsed.apiKey?.trim() || ''
+    // Auto-upgrade old unconfigured defaults to the built-in keyless proxy
+    const savedUrl = parsed.baseUrl?.trim() || ''
+    const upgradedUrl =
+      !key &&
+      (!savedUrl ||
+        savedUrl.includes('api.deepseek.com') ||
+        savedUrl.includes('amr-link.open-design.ai'))
+        ? BUILTIN_PROXY_URL
+        : savedUrl || BUILTIN_PROXY_URL
     return {
-      baseUrl: parsed.baseUrl?.trim() || DEFAULT_LLM_CONFIG.baseUrl,
-      apiKey: parsed.apiKey?.trim() || '',
+      baseUrl: upgradedUrl,
+      apiKey: key,
       model: parsed.model?.trim() || DEFAULT_LLM_CONFIG.model,
     }
   } catch {
@@ -583,9 +600,9 @@ export async function generateWhatIfNode(
   lastChoiceLabel?: string,
 ): Promise<{ node: SceneNode; usedLiveLlm: boolean }> {
   const nodeId = `${meta.sessionId}_s${meta.step}`
-  const isLocalProxy = cfg.baseUrl.startsWith('/')
+  const isProxy = isKeylessProxyUrl(cfg.baseUrl)
 
-  if (!cfg.apiKey.trim() && !isLocalProxy) {
+  if (!cfg.apiKey.trim() && !isProxy) {
     return {
       node: generateOfflineDemoNode(bundle, meta, nodeId, lastChoiceLabel),
       usedLiveLlm: false,

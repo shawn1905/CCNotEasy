@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   DEFAULT_LLM_CONFIG,
   WHATIF_STYLE_OPTIONS,
+  isKeylessProxyUrl,
   loadLlmConfig,
   saveLlmConfig,
 } from '../core/whatIfGen.ts'
@@ -20,7 +21,7 @@ export function WhatIfDrawer({ busy, error, onClose, onStart }: WhatIfDrawerProp
   const [cfg, setCfg] = useState<LlmConfig>(() => loadLlmConfig())
   const [showCfg, setShowCfg] = useState(false)
 
-  const isProxy = cfg.baseUrl.startsWith('/')
+  const isProxy = isKeylessProxyUrl(cfg.baseUrl)
   const hasKey = Boolean(cfg.apiKey.trim()) || isProxy
 
   function handleSaveCfg(next: LlmConfig) {
