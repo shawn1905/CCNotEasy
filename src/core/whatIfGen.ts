@@ -292,6 +292,7 @@ export function sanitizeGeneratedNode(
       speaker: 'narrator',
       isWalk: true,
       walkKicker: 'AI 平行推演',
+      sourceTag: undefined,
       text: '帅案烛火一晃，你亲手推开了正史之外的另一扇门。',
     })
   }
